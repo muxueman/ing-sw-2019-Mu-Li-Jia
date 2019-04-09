@@ -29,20 +29,16 @@ public class Controller implements Observer {
 
 
 
-    /**
-     * @return
-     */
+  
     public View getView() {
         // TODO implement here
-        return null;
+
     }
 
-    /**
-     * @return
-     */
+
     public void update() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -80,52 +76,32 @@ public class Controller implements Observer {
         return null;
     }
 
-    /**
-     * @param message 
-     * @return
-     */
+
     public void visitPlayBoardSelect(void message) {
         // TODO implement here
-        return null;
     }
 
-    /**
-     * @param message 
-     * @return
-     */
+
     public void visitActionSelect(void message) {
         // TODO implement here
-        return null;
     }
 
-    /**
-     * @return
-     */
+
     public void actFinalFrenzy() {
         // TODO implement here
-        return null;
     }
 
-    /**
-     * @return
-     */
+
     public void updateScores() {
         // TODO implement here
-        return null;
     }
 
-    /**
-     * @param message 
-     * @return
-     */
+
     public ArrayList<Playe> visitTargetSelect(void message) {
         // TODO implement here
-        return null;
     }
 
-    /**
-     * 
-     */
+
     public void Operation1() {
         // TODO implement here
     }
