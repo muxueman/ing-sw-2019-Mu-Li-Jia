@@ -1,4 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.View;
+
+
 import java.util.*;
 
 /**@author Xueman Mu
@@ -15,8 +17,7 @@ public class ViewKillShoot {
     }
     public void myKillShootTrack() {
     }
-    public void targetKillShootTrack(Player target) {
-    }
+
 
     public void showPersonalSupplies() {
     }

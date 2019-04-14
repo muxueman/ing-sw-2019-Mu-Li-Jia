@@ -1,20 +1,25 @@
+package it.polimi.ingsw.se2019.Adrenaline.Controller;
 
 import java.util.*;
+import it.polimi.ingsw.se2019.Adrenaline.View.View;
+import it.polimi.ingsw.se2019.Adrenaline.Model.PlayBoard;
+import it.polimi.ingsw.se2019.Adrenaline.Model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.Model.KillShootTrack;
 
+/**@author Xueman Mu
+ * @author Moxin Jia
+ * @author Xuejing Li
+ */
 
-public class Controller implements Observer, Observer {
+public class Controller {
 
     public Controller() {
     }
 
     private View view;
 
-    private Playboard playboard;
+    private PlayBoard playBoard;
 
-
-    public View getView() {
-        return View;
-    }
 
     public void updateAllOnBoard() {
     }
@@ -22,20 +27,20 @@ public class Controller implements Observer, Observer {
 
     }
 
-    public void updateKillShootTrack(killShootTrack killShootTrack) {
+    public void updateKillShootTrack(KillShootTrack killShootTrack) {
     }
 
-    public void updatePlayboard(Playboard playboard) {
+    public void updatePlayboard(PlayBoard playboard) {
     }
-    public void visitPlayBoardSelect(string message) {
+    public void visitPlayBoardSelect(String message) {
     }
 
-    public void visitActionSelect(string message) {
+    public void visitActionSelect(String message) {
     }
 
     public void actFinalFrenzy() {
     }
-    public ArrayList<Player> visitTargetSelect(string message) {
+    public ArrayList<Player> visitTargetSelect(String message) {
         return null;
     }
     public void updateKillshoot() {
@@ -44,9 +49,6 @@ public class Controller implements Observer, Observer {
     public void chooseMap() {
     }
     public void chooseStartPoint() {
-    }
-
-
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.*;
  * @author Moxin Jia
  * @author Xuejing Li
  */
-public class viewCard implements Observer {
+public class viewCard  {
 
     public viewCard() {
     }

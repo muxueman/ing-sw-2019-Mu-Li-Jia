@@ -2,7 +2,13 @@ package it.polimi.ingsw.se2019.Adrenaline.Controller;
 
 import java.util.*;
 
-public class PlayerController implements Observer {
+
+/**@author Xueman Mu
+ * @author Moxin Jia
+ * @author Xuejing Li
+ */
+
+public class PlayerController {
 
 
     public PlayerController() {

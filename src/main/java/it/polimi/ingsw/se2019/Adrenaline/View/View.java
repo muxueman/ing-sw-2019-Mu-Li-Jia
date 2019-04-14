@@ -5,12 +5,12 @@ import java.util.*;
  * @author Moxin Jia
  * @author Xuejing Li
  */
-public class View implements Observer {
+public class View {
 
     public View() {
     }
 
-    private Player player;
+
 
     public void showMessage(String message) {
     }
@@ -21,20 +21,12 @@ public class View implements Observer {
     public void showCurrentPlayer() {
     }
 
-    public void showCards(Player player) {
-    }
 
-    public void showWalkcellAvailable(Player player, int walkMode) {
-    }
-
-    public void showShootPlayerAvailable(Player player, int shootMode) {
-    }
 
     public void visualOrderTurn() {
     }
 
-    public void showActionAvailabe(Player player) {
-    }
+
 
     public void showKillShootTrack() {
     }
