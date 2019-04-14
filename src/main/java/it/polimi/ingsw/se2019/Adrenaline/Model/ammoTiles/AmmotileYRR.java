@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.Model.ammoTiles
+package it.polimi.ingsw.se2019.Adrenaline.Model.ammoTiles;
 
 public class AmmotileYRR extends AmmoTile {
 

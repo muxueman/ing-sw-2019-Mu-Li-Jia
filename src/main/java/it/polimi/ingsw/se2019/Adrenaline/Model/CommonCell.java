@@ -15,7 +15,7 @@ public class CommonCell extends Cell {
     /**
      * 
      */
-    private ArrayList<PowerupCard> containedPowerupCard;
+    private PowerupCard containedPowerupCard;
 
 
     public PowerupCard getPowerupCard() {

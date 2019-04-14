@@ -2,16 +2,17 @@
 package it.polimi.ingsw.se2019.Adrenaline.Model;
 import it.polimi.ingsw.se2019.Adrenaline.Model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.Model.Cell;
-import it.polimi.ingsw.se2019.Adrenaline.Model.weaponcards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
-import it.polimi.ingsw.se2019.Adrenaline.Model.powerupcards.PowerupCard;
-i
+import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
+
 import it.polimi.ingsw.se2019.Adrenaline.Model.KillShootTrack;
+import java.util.*;
 
 /**
  * 
  */
-public class PlayBoard extends Observable {
+public class PlayBoard  {
 
     /**
      * Default constructor
@@ -40,9 +41,9 @@ public class PlayBoard extends Observable {
     }
 
 
-    public Player getPlayerFromColor(Color color) {
+    public void getPlayerFromColor(Color color) {
         // TODO implement here
-        return player;
+
     }
 
 

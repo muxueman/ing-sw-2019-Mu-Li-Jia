@@ -1,16 +1,15 @@
 package it.polimi.ingsw.se2019.Adrenaline.Controller;
 
-
 import java.util.*;
 
 /**@author Xueman Mu
  * @author Moxin Jia
  * @author Xuejing Li
  */
-public class cardController implements Observer {
+public class CardController {
 
 
-    public cardController() {
+    public CardController() {
     }
 
     public void getTargetKillShoot() {
