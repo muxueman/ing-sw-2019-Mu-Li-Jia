@@ -1,15 +1,8 @@
+package it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards;
+
 
 import java.util.*;
 
-/**
+/**Zx-2
  * 
  */
-public class Zx-2 extends Card {
-
-    /**
-     * Default constructor
-     */
-    public Zx-2() {
-    }
-
-}

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.Model.effects;
 import it.polimi.ingsw.se2019.Adrenaline.Model.Player;
-import it.polimi.it.se2019.Model.Effect;
+
 
 import java.util.*;
 
@@ -8,19 +8,15 @@ import java.util.*;
  * @author Moxin Jia
  * @author Xuejing Li
  */
-public class targetBackEffect extends Effect {
+public class TargetBackEffect {
 
-    public targetBackEffect() {
+    public TargetBackEffect() {
     }
 
     private int stepBackNum;
     private int targetMove;
     private int targetMoveRange;
 
-    public ArrayList<it.polimi.it.se2019.Model.Player> availbableTarget(it.polimi.it.se2019.Model.Player player) {
-    }
 
-    public void effect(it.polimi.it.se2019.Model.Player player) {
-    }
 
 }

@@ -20,7 +20,7 @@ public class Effect {
     /**
      * 
      */
-    private string targetRange;
+    private String targetRange;
 
     /**
      * 

@@ -1,10 +1,10 @@
-
+package it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards;
 import java.util.*;
 
 /**
  * 
  */
-public class Raggiosolare extends Raggiosolare {
+public class Raggiosolare extends WeaponCard {
 
     /**
      * Default constructor
@@ -12,17 +12,6 @@ public class Raggiosolare extends Raggiosolare {
     public Raggiosolare() {
     }
 
-    /**
-     * 
-     */
-    public class Class1 {
 
-        /**
-         * Default constructor
-         */
-        public Class1() {
-        }
-
-    }
 
 }

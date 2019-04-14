@@ -5,7 +5,7 @@ import it.polimi.ingsw.se2019.Adrenaline.Model.Color;
 /**
  * 
  */
-public class KillShootTrack extends observer {
+public class KillShootTrack  {
 
     /**
      * Default constructor
@@ -27,17 +27,6 @@ public class KillShootTrack extends observer {
     private int currentKillShootTrack;
 
 
-    private ArrayList<Color> currentDamageTrack;
-
-    private ArrayList<Color> currentUpperDamageTrack;
-
-    /**
-     * 
-     */
-    private ArrayList<Color> totalKillShootTrack;
-
-
-    private ArrayList<int> scoreRule;
 
 
 
