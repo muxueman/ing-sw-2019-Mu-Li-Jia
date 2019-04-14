@@ -29,16 +29,6 @@ public class Cell {
      */
     private String cellType;
 
-    /**
-     * 
-     */
-    private ArrayList<Player> cellPlayers;
-
-    /**
-     * 
-     */
-    private ArrayList<Cell> nextcell;
-
 
 
     public void initialCell() {
@@ -53,37 +43,7 @@ public class Cell {
     }
 
 
-    public ArrayList<Player> getPlayer() {
-        // TODO implement here
-        return null;
-    }
-
-
-    public ArrayList<Cell> availableShootCell() {
-        // TODO implement here
-        return null;
-    }
-
-
-    public ArrayList<Cell> availableWalkCell() {
-        // TODO implement here
-        return null;
-    }
-
-
-    public ArrayList<Cell> getAllNextCell() {
-        // TODO implement here
-        return null;
-    }
-
-
     public Cell getNextCell(String direction) {
-        // TODO implement here
-        return null;
-    }
-
-
-    public ArrayList<Cell> getCellOfRoom() {
         // TODO implement here
         return null;
     }
