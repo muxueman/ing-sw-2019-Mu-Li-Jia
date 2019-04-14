@@ -4,7 +4,7 @@ import it.polimi.ingsw.se2019.Adrenaline.Model.Color;
 public class PowerupCard {
 
 
-    private Color Color;
+    private Color color;
     /**
      * Default constructor
      */
