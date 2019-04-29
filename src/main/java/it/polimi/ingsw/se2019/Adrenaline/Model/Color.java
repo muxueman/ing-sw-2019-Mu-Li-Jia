@@ -4,12 +4,12 @@ package it.polimi.ingsw.se2019.Adrenaline.Model;
  *@author Xueman Mu
  */
 public enum Color {
-    YELLOW("yellow"),
-    GREEN("green"),
-    BLUE("blue"),
-    WHITE("white"),
-    PINK("pink"),
-    RED("red");
+    YELLOW("YELLOW"),
+    GREEN("GREEN"),
+    BLUE("BLUE"),
+    WHITE("WHITE"),
+    PINK("PINK"),
+    RED("RED");
     
     private String color;
     private Color(String color){

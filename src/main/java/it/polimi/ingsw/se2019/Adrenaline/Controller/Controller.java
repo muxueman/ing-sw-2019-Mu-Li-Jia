@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.Controller;
 
 import java.util.*;
-import it.polimi.ingsw.se2019.Adrenaline.View.View;
+//import it.polimi.ingsw.se2019.Adrenaline.View.View;
 import it.polimi.ingsw.se2019.Adrenaline.Model.PlayBoard;
 import it.polimi.ingsw.se2019.Adrenaline.Model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.Model.KillShootTrack;
@@ -16,7 +16,7 @@ public class Controller {
     public Controller() {
     }
 
-    private View view;
+    //private View view;
 
     private PlayBoard playBoard;
 

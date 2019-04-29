@@ -3,12 +3,12 @@ package it.polimi.ingsw.se2019.Adrenaline.Model;
 import java.util.*;
 import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
-
+/**
 public class GenerationCell extends Cell {
 
 
-    public GenerationCell() {
-    }
+    //public GenerationCell() {
+    //}
 
 
     private ArrayList<WeaponCard> containedWeaponCard;
@@ -26,3 +26,4 @@ public class GenerationCell extends Cell {
     }
 
 }
+ */

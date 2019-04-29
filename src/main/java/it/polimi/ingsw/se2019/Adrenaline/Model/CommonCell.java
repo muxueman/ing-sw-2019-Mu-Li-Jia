@@ -2,19 +2,15 @@ package it.polimi.ingsw.se2019.Adrenaline.Model;
 import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
 
 /**
- * 
- */
+ *
 public class CommonCell extends Cell {
 
-    /**
-     * Default constructor
-     */
-    public CommonCell() {
+
+
+ public void CommonCell() {
     }
 
-    /**
-     * 
-     */
+
     private PowerupCard containedPowerupCard;
 
 
@@ -28,5 +24,5 @@ public class CommonCell extends Cell {
         // TODO implement here
 
     }
+ */
 
-}
