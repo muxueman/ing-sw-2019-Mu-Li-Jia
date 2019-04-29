@@ -3,9 +3,9 @@ package it.polimi.ingsw.se2019.Adrenaline.Model;
  the color of ammos and powerupCards
  */
 public enum AmmoColor {
-    RED,
-    YELLOW,
-    BLUE;
+    RED("RED"),
+    YELLOW("YELLOW"),
+    BLUE("BLUE");
 
     private String ammoColor;
     private AmmoColor(String ammoColor){
