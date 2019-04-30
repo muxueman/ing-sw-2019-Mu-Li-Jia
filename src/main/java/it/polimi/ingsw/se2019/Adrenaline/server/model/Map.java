@@ -1,7 +1,6 @@
-package it.polimi.ingsw.se2019.Adrenaline.Model;
+package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import java.util.ArrayList;
-import it.polimi.ingsw.se2019.Adrenaline.Model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.Model.Cell;
+
 /**
  *4 types of maps, a map contains several rooms, a room contains several cells
  *@author Xueman Mu

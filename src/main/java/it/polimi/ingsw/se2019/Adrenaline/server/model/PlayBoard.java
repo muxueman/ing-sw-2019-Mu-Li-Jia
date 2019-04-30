@@ -1,12 +1,9 @@
 
-package it.polimi.ingsw.se2019.Adrenaline.Model;
-import it.polimi.ingsw.se2019.Adrenaline.Model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.Model.Cell;
+package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
 import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
 
-import it.polimi.ingsw.se2019.Adrenaline.Model.KillShootTrack;
 import java.util.*;
 
 /**

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.Model;
+package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
 
 /**
