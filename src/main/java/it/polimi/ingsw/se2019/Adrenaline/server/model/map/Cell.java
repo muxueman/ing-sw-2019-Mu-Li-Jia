@@ -25,13 +25,7 @@ public class Cell {
     public void setCellColor(Color cellColor){
         this.cellColor = cellColor;  
     }
-    public void setAdjacentCells(int up, int right, int down, int left){
-        this.adjacentCells = new Cell[4];
-        //this.adjacentCells[0] = map.allCells.get(up);
-        //this.adjacentCells[1] = map.allCells.get(right);
-       // this.adjacentCells[2] = map.allCells.get(down);
-        //this.adjacentCells[3] = map.allCells.get(left);
-    }
+   
     public void setCellsThroDoor(){
 
     }
