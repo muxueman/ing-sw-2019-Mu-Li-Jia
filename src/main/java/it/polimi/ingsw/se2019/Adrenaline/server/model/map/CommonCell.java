@@ -1,13 +1,17 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model;
-import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import java.util.*;
 
 /**
- *
+ *subclass common cell
+ *@author Xueman Mu
+ */
+
 public class CommonCell extends Cell {
 
 
 
- public void CommonCell() {
+    public CommonCell(int cellID) {
     }
 
 

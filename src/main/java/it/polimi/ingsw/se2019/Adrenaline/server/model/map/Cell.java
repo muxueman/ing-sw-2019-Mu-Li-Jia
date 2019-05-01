@@ -1,10 +1,14 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model;
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import java.util.ArrayList;
+
 /**
  *super class Cell
  *@author Xueman Mu
  */
-public class Cell {
+
+public abstract class Cell {
 
     private int cellID;
     private Color cellColor;
@@ -25,6 +29,16 @@ public class Cell {
     public void setCellColor(Color cellColor){
         this.cellColor = cellColor;  
     }
+
+    //@overload
+    //direction 0, 1, 2, 3 represent up, right, down, left respectively
+    public void setAdjacentCells(Cell cellUp, Cell cellRight, Cell cellDown, Cell cellLeft){
+        adjacentCells = new Cell[4];
+        adjacentCells[0] = cellUp;
+        adjacentCells[1] = cellRight;
+        adjacentCells[2] = cellDown;
+        adjacentCells[3] = cellLeft;
+    }
    
     public void setCellsThroDoor(){
 
@@ -39,29 +53,30 @@ public class Cell {
     }
 
     //get values of cell
-    /**
+
     public Color getCellColor() {
-        return this;
+        return this.cellColor;
     }
-    public Player getCellPlayers(){
+    public ArrayList<Player> getCellPlayers(){
         return this.cellPlayers;
     }
-    public Cell getAdjacentCells(){
+    public Cell[] getAdjacentCells(){
         return this.adjacentCells;
     }
     
     //get the cell from a specific direction
     public Cell getNextCell(String direction) {
-        switch(direction){
-            case "up": 
-               return this.adjacentCells[0];
+        switch(direction) {
+            case "up":
+                return this.adjacentCells[0];
             case "right":
-               return this.adjacentCells[1];
-            case "down": 
-               return this.adjacentCells[2];
-            case "left": 
-               return this.adjacentCells[2];
+                return this.adjacentCells[1];
+            case "down":
+                return this.adjacentCells[2];
+            case "left":
+                return this.adjacentCells[3];
+            default:
+                return null; //better solution??
         }
     }
-*/
 }

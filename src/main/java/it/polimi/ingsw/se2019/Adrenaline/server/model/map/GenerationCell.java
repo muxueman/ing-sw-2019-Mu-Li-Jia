@@ -1,14 +1,17 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model;
-
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import java.util.*;
-import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
 /**
+ *subclass common cell
+ *@author Xueman Mu
+ */
+
 public class GenerationCell extends Cell {
 
 
-    //public GenerationCell() {
-    //}
+    public GenerationCell(int cellID) {
+    }
 
 
     private ArrayList<WeaponCard> containedWeaponCard;
@@ -26,4 +29,3 @@ public class GenerationCell extends Cell {
     }
 
 }
- */

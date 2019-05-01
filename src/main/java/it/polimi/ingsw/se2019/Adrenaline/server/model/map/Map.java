@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model;
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import java.util.ArrayList;
 
 /**
@@ -8,17 +8,22 @@ import java.util.ArrayList;
 
 public abstract class Map {
 
-    private ArrayList<Cell> allCells;
-    private int totalCellNum;
-    private String mapInfo;
-    private ArrayList<Cell> YELLOWCells;
-    private ArrayList<Cell> REDCells;
-    private ArrayList<Cell> GREENCells;
-    private ArrayList<Cell> BLUECells;
-    private ArrayList<Cell> WHITECells;
-    private ArrayList<Cell> PINKCells;
+    protected ArrayList<Cell> allCells;
+    protected int totalCellNum;
+    protected String mapInfo;
+    protected ArrayList<Cell> YELLOWCells;
+    protected ArrayList<Cell> REDCells;
+    protected ArrayList<Cell> GREENCells;
+    protected ArrayList<Cell> BLUECells;
+    protected ArrayList<Cell> WHITECells;
+    protected ArrayList<Cell> PINKCells;
 
     //constructor
+    public Map(){
+        initialMap();
+    }
+
+    /**
     public Map(int mapType) {
         switch (mapType) {
             case 1:
@@ -37,21 +42,17 @@ public abstract class Map {
                 System.out.println("error");
         }
     }
+     */
 
-
+    //@override
     //abstract method to initial different kind of map
     public abstract void initialMap();
 
-
+    //@overload
     //set adjacent cells for a specific cell
-    public void setAdjacentCells(int up, int right, int down, int left, Cell cellx){
-        cellx.adjacentCells = new Cell[4];
-        cellx.adjacentCells[0] = this.allCells.get(up);
-        cellx.adjacentCells[1] = this.allCells.get(right);
-        cellx.adjacentCells[2] = this.allCells.get(down);
-        cellx.adjacentCells[3] = this.allCells.get(left);
+    public void setAdjacentCells(int up, int right, int down, int left, Cell cell){
+        cell.setAdjacentCells(allCells.get(up), allCells.get(right), allCells.get(down), allCells.get(left));
     }
-
 
     //get map info
     public String getMapInfo(){
@@ -60,7 +61,7 @@ public abstract class Map {
 
     //comparison of cells, same room/color
     public Boolean checkWithinRoom(Cell cella, Cell cellb){
-        return (cella.color == cellb.color);           
+        return (cella.getCellColor() == cellb.getCellColor());
     }
     //@requires not the same color
     public Boolean checkDoor(Cell cella, Cell cellb){
@@ -68,20 +69,22 @@ public abstract class Map {
     }
 
     //get cells within rooms, which means all cells from same color
-    public Cell getCellsWithinRoom(Cell cellx){
-        switch(cellx.color){
+    public ArrayList<Cell> getCellsWithinRoom(Cell cellx){
+        switch(cellx.getCellColor()){
             case YELLOW:
-               return YELLOWCells;
+                return YELLOWCells;
             case GREEN:
-               return GREENCells;
+                return GREENCells;
             case BLUE:
-               return BLUECells;
+                return BLUECells;
             case PINK: 
-               return PINKCells;
+                return PINKCells;
             case RED:
-               return REDCells;
+                return REDCells;
             case WHITE:
-               return WHITECells;               
+                return WHITECells;
+            default:
+                return null; // better solution??
         }
    }
 
