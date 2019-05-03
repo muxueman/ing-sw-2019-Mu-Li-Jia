@@ -1,4 +1,1 @@
-package it.polimi.ingsw.se2019.Adrenaline.View;
-
-public class viewPlayer {
-}
+package it.polimi.ingsw.se2019.Adrenaline.client.view;

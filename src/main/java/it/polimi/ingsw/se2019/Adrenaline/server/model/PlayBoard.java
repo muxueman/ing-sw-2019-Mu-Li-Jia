@@ -1,8 +1,6 @@
 
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
-import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
-import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
 
 import java.util.*;
 
@@ -19,7 +17,7 @@ public class PlayBoard  {
 
     private ArrayList<Player> players;
 
-    private ArrayList<Cell> cells;
+   // private ArrayList<Cell> cells;
 
     private int playBoardMode;
 

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.Model.powerupCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.Model.weaponCards.WeaponCard;
 
 import java.util.*;
 
@@ -16,11 +14,6 @@ public class Player  {
 
     private String nickName;
 
-    private ArrayList<WeaponCard> weapons;
-
-
-    private ArrayList<PowerupCard> powerups;
-
 
 
 
@@ -29,7 +22,7 @@ public class Player  {
     private int totalscores;
 
 
-    private Cell currentRoom;
+    //private Cell currentRoom;
 
 
     private KillShootTrack killShootTrack;
@@ -59,10 +52,6 @@ public class Player  {
     }
 
 
-    public Cell getCurrentCell() {
-        // TODO implement here
-        return null;
-    }
 
     /**
      * @return
