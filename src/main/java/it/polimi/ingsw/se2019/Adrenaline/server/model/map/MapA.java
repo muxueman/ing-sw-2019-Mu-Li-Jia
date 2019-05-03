@@ -1,6 +1,5 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-
 import java.util.ArrayList;
 
 /**
@@ -83,6 +82,8 @@ public class MapA extends Map{
         setAdjacentCells(5, 9, 0, 0, cell8);
         setAdjacentCells(6, 10, 0, 8, cell9);
         setAdjacentCells(7, 0, 0, 9, cell10);
+
+        this.notDoor = new int[][]{{2,5}, {6,9}};
     }
 
 }

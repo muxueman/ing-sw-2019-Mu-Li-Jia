@@ -94,5 +94,6 @@ public class MapD extends Map{
         setAdjacentCells(7, 12, 0, 10, cell11);
         setAdjacentCells(8, 0, 0, 10, cell12);
 
-    } 
+        this.notDoor = new int[][]{{4,5}, {5,6}};
+    }
 }
