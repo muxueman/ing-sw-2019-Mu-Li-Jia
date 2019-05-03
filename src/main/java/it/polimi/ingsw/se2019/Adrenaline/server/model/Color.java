@@ -1,8 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
+
 /**
  *the color of players and rooms
  *@author Xueman Mu
  */
+
 public enum Color {
     YELLOW("YELLOW"),
     GREEN("GREEN"),
