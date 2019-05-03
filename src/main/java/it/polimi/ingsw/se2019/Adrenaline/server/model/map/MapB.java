@@ -87,6 +87,8 @@ public class MapB extends Map{
         setAdjacentCells(5, 10, 0, 8, cell9);
         setAdjacentCells(6, 11, 0, 9, cell10);
         setAdjacentCells(7, 0, 0, 10, cell11);
+
+        this.notDoor = new int[][] {{4,5},{6,10}};
     }    
 
 }
