@@ -11,8 +11,9 @@ public class GenerationCell extends Cell {
 
 
     public GenerationCell(int cellID) {
+       super(cellID);
     }
-
+/**
 
     private ArrayList<WeaponCard> containedWeaponCard;
 
@@ -27,5 +28,5 @@ public class GenerationCell extends Cell {
         // TODO implement here
 
     }
-
+*/
 }

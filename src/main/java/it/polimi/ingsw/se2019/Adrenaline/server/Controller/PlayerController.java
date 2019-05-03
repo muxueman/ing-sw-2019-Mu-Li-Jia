@@ -1,5 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.Controller;
-
+package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 import java.util.*;
 
 
@@ -7,40 +6,3 @@ import java.util.*;
  * @author Moxin Jia
  * @author Xuejing Li
  */
-
-public class PlayerController {
-
-
-    public PlayerController() {
-    }
-
-
-    public void syncPlayerPosition() {
-    }
-
-    public void nextPlayerOnTurn() {
-    }
-
-    public void playerChooseAction() {
-    }
-
-    public void updateScores() {
-    }
-
-    public void updatePowerUpCard() {
-    }
-
-    public void updateWeapnCard() {
-    }
-
-    public void chooseWeaponCard() {
-    }
-
-    public void chooseAmmotile() {
-    }
-
-    public void choosePowerupCard() {
-    }
-
-
-}

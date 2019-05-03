@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.View;
+package it.polimi.ingsw.se2019.Adrenaline.client.view;
 import java.util.*;
 
 /**@author Xueman Mu

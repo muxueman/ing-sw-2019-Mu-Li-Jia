@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public abstract class Cell {
 
-    private int cellID;
-    private Color cellColor;
+    protected int cellID;
+    protected Color cellColor;
     //all the players in this cell
-    private ArrayList<Player> cellPlayers;
+    protected ArrayList<Player> cellPlayers;
     //store the adjacent cells in a sequence of up, right, down, left.
-    private Cell[] adjacentCells;
+    protected Cell[] adjacentCells;
 
     //constructor
     public Cell(int cellID) {
