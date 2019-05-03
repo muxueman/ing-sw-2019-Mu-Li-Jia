@@ -1,0 +1,18 @@
+
+{
+  "//": "1,2,3 represent RED, BLUE and YELLOW color of ammo respectively, 0 means no cost, and the cost in a sequence",
+  "//": "我没写全， 先定这几种 vision Range list:generalVision(1),generalVisionWithoutYour(2),generalRoom(3),generalRoomWithoutYour(4),cannotSee(5), generalVisionAtLeast2Away(6), myCells(7), twoNearby(8), cardinalDirection(9), adjacent3Cell(10), allCells(11), theVortex(12)",
+  "//": "{}是对象，[]是数组，所有变量名都要小写，如下",
+  "weaponCards": [
+    { "cardName": "VORTEX CANNON",
+      "basicAmmoCost": [1, 2, 0, 1],//其实只有前三个是基本花费，第四位代表是否有specialEffect,1 有 0 没有， 没有就不要写下面三个special参数 但是其他的参数必须有（或者为null也要存在)
+      "damageVision": 12, //这里仅用于deal 2 damage to 1 target on your square这种简单的操作。如果你遇到复杂的功能 在这里写0，下面参数damageDeal先写null，先不管后续再处理，
+      "damageDeal": [0, 2, 1],//[upToTarget(0 is everyone), real damage, marked damage]
+      "basicEffect": "",//解释，把规则抄一遍
+      "specialEffectName": ["with black hole"],//只写名称
+      "specialAmmoCost": [1],//如果有两个specialEffect这里写成数组[[1, 2], [1]],上下同
+      "specialEffect": "",//解释，把规则抄一遍,
+      "notes": ""//没有就null
+    },
+  ]
+}
