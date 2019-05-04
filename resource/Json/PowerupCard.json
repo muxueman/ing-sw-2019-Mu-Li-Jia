@@ -1,7 +1,7 @@
 [
-
   {
     "cardName": "TARGETINE SCOPE",
+    "image": "/weapons/AD_powerups_IT_.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0,1,0],
     "effect": "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage. ",
@@ -19,7 +19,7 @@
   "ammoCost": "null",
   "damageDeal": [0,0,1],
   "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
-  "note": "null",
+  "note": "null"
   },
   {
   "cardName": "TELEPORTER",
@@ -27,6 +27,6 @@
   "damageDeal": "null",
   "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
   "note": "You can't use this after you see where someone respawns at the end of your turn. By then it is too late."
-  },
+  }
 
 ]
