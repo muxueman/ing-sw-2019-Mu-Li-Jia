@@ -1,6 +1,9 @@
 package it.polimi.ingsw.se2019.server.model;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
+
+
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
@@ -17,4 +20,11 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
  */
 
 public class TestMap {
+    @Test
+    public void test(){
+        Map testMapA = new MapA();
+        Map testMapB = new MapB();
+        Map testMapC = new MapC();
+        Map testMapD = new MapD();
+    }
 }

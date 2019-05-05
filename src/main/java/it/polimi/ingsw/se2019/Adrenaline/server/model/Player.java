@@ -14,11 +14,6 @@ public class Player  {
 
     private String nickName;
 
-
-
-
-
-
     private int totalscores;
 
 
@@ -28,49 +23,32 @@ public class Player  {
     private KillShootTrack killShootTrack;
 
 
-    private int actionMode;
+    private String actionMode;
 
 
     public void initialPlayer() {
-        // TODO implement here
 
-}
-
-
-
-
-
+    }
     public int readscores() {
-        // TODO implement here
         return 0;
     }
-
 
     public void addscores(int point) {
         // TODO implement here
 
     }
 
-
-
-    /**
-     * @return
-     */
     public KillShootTrack getKillShootTrack() {
-        // TODO implement here
+
         return null;
     }
 
 
-    public int getActionMode(KillShootTrack track) {
-        // TODO implement here
-        return 0;
+    public String getActionMode() {
+        return this.actionMode;
     }
 
 
-    public void takeAction() {
-        // TODO implement here
 
-    }
 
 }

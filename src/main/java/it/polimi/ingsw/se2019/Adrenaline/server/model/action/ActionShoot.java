@@ -6,5 +6,10 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
  * @author Xueman Mu
  */
 
-public class ActionShoot {
+public class ActionShoot implements ActionStrategy{
+
+    @Override
+    public void takeAction(Player player){
+
+    }
 }
