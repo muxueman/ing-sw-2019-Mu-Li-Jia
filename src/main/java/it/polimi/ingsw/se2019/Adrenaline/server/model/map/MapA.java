@@ -15,7 +15,7 @@ public class MapA extends Map{
     }
 
     //inital information for Map
-    //@override
+    @Override
     public void initialMap(){
         this.totalCellNum = 10;
         this.mapInfo = "Great for 3 or 4 players!";
