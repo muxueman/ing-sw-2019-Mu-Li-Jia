@@ -39,7 +39,7 @@
   {
     "cardName": "MACHINE GUN",
     "image": "/weapons/AD_weapons_IT_0220.png",
-    "basicammoCost": [1,2,0,2],
+    "basicammoCost": [2,1,0,2],
     "damageVision": 21,
     "damageDeal": [0,1,0],
     "basicEffect": "Choose 1 or 2 target you can see and deal 1 damage to each",
