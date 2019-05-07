@@ -1,6 +1,4 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import java.util.*;
 
 /**
  *subclass common cell
