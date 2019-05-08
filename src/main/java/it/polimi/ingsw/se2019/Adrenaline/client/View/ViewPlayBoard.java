@@ -1,11 +1,11 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.View;
 import java.util.*;
 
 /**@author Xueman Mu
  * @author Moxin Jia
  * @author Xuejing Li
  */
-public class ViewPlayBoard extends View {
+public class ViewPlayBoard {
 
     public ViewPlayBoard() {
     }

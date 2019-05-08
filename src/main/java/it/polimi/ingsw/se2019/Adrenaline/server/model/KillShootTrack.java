@@ -11,23 +11,22 @@ import java.util.Map;
  */
 public class KillShootTrack implements Cloneable {
 
-
     private Player player;
-    private int numKillShoot;
+    private int turn;
     private ArrayList<Color> damageColorOnTrack;
     private ArrayList<Color> markColorOnTrack;
-    private int turn;
     protected Map<Color, Integer> playerScore;
     private static int[] scoreTable = {8,6,4,2,2,1};
     private static int maxiDamageOnTrack = 12;
+    protected int numKillShoot;
 
-    public  KillShootTrack() {
-        this.numKillShoot = 0;
+    public  KillShootTrack(Player player) {
+
+        this.player = player;
         turn = 0;
         this.damageColorOnTrack = new ArrayList<Color>();
         this.markColorOnTrack = new ArrayList<Color>();
         playerScore = new HashMap<>();
-        //this.skull = new boolean[6];
     }
     //检查是否已有该玩家的Mark
     public void addMarkToDamage(Player shooter){
@@ -44,7 +43,8 @@ public class KillShootTrack implements Cloneable {
         }
     }
     //先增加原有的mark到damage， 增加新的damage， 增加新的Mark， 检查是否已经被打死，若打死的话 先清除多余的damage，检查是否被overkill, 超杀给shooter加mark
-    public void beAttacked (Player shooter, int damageNum, int markNum ) {
+    public int beAttacked (Player shooter, int damageNum, int markNum ) {
+        int beKilled;
         addMarkToDamage(shooter);
         while(damageNum >0) {
             this.damageColorOnTrack.add(shooter.playerColor);
@@ -58,24 +58,31 @@ public class KillShootTrack implements Cloneable {
             int i = maxiDamageOnTrack;
             while (damageColorOnTrack.get(i) != null) {
                 damageColorOnTrack.remove(i);
-                i++;
+                //i++;
             }
+            player.alive = false;
             killShoot();
             overkillMark(shooter);
+            numKillShoot++;
+            beKilled = 2;
+
         }
         else if(damageColorOnTrack.size() == 11) {
+            player.alive = false;
             killShoot();
+            numKillShoot++;
+            beKilled = 1;
         }
         else{
-            System.out.println("still alive");
+            beKilled = 0;// 未被杀死
         }
+        return beKilled;
     }
-    public void overkillMark(Player shooter){
-        KillShootTrack shooterKillShootTrack = shooter.getKillShootTrack();
-        shooterKillShootTrack.markColorOnTrack.add(shooter.playerColor);
+    public void overkillMark(Player shooter) {
+        shooter.getKillShootTrack().markColorOnTrack.add(shooter.playerColor);
     }
     //count damage num of each color on the track, then add score.
-    public Map countDamageOnTrack() {
+    private Map countDamageOnTrack() {
         Map damageCount = new HashMap<Color, Integer>();
         ArrayList<Color> copyColorOnTrack = (ArrayList<Color>)this.damageColorOnTrack.clone();
         for(int i = 0; i < copyColorOnTrack.size()-1; i++){
@@ -94,6 +101,7 @@ public class KillShootTrack implements Cloneable {
         }
         return damageCount;
     }
+
     public Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
         Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
@@ -146,11 +154,21 @@ public class KillShootTrack implements Cloneable {
     //被射杀，计算damage数，排序，查看最高分数（第几次被射杀），增加玩家的分数，第一射手得得分加1, 清理板子
     public void killShoot(){
         this.playerScore = scoreForfirstShooter(countPlayerScore());
-        clearkillShootTrack();
-        turn++;
     }
-    public int getPlayerScore(Player player){
-        return player.getMyscore();
+    public void recover(){
+        clearkillShootTrack();
+        player.alive = true;
+        turn++;
+        playerScore.clear();
+    }
+    //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤 应有 存有所有玩家的类来调用
+    public void addPlayerScore(Player player){
+        for (Color key : playerScore.keySet()){
+            if(player.playerColor == key){
+                player.myScore += playerScore.get(key);
+                break;
+            }
+        }
     }
 
 
@@ -161,6 +179,7 @@ public class KillShootTrack implements Cloneable {
     public void clearkillShootTrack(){
         damageColorOnTrack.clear();
     }
+
     public Object clone() {
         Object o = null;
         try {
