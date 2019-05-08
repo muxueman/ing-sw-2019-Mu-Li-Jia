@@ -123,9 +123,7 @@ public class WeaponCard {
     }
 
 
-
-
-
 }
+
 
 
