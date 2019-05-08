@@ -8,9 +8,8 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 public class ActionRun implements ActionStrategy{
 
-    @Override
     public void takeAction(Player player){
-
+/**
         //actionMode list: NORMAL, FRENZYBEFORE, FRENZYAFTER
         switch(player.getActionMode()){
             case("NORMAL"):
@@ -23,7 +22,7 @@ public class ActionRun implements ActionStrategy{
                 break;
         }
 
-
+*/
 
     }
 }

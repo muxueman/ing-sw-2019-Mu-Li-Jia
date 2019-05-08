@@ -24,7 +24,7 @@ public class MapA extends Map{
         Cell cell1 = new CommonCell(1);
         cell1.setCellColor(Color.BLUE);
         allCells.add(cell1);
-        BLUECells.add(cell1);
+        //BLUECells.add(cell1);
 
         Cell cell2 = new CommonCell(2);
         cell2.setCellColor(Color.BLUE);

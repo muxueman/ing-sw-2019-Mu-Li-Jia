@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 
 import java.io.IOException;
 import java.net.Socket;

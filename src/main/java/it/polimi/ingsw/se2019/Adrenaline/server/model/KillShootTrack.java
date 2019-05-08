@@ -166,7 +166,7 @@ public class KillShootTrack implements Cloneable {
         this.playerScore = scoreForfirstShooter(countPlayerScore());
     }
     public void recover(){
-        clearkillShootTrack();
+        clearKillShootTrack();
         player.alive = true;
         turn++;
         playerScore.clear();
@@ -186,7 +186,7 @@ public class KillShootTrack implements Cloneable {
         return damageColorOnTrack;
     }
 
-    public void clearkillShootTrack(){
+    public void clearKillShootTrack(){
         damageColorOnTrack.clear();
     }
 

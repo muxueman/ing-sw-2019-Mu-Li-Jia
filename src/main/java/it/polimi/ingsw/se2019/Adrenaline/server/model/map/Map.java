@@ -22,6 +22,12 @@ public abstract class Map {
 
     //constructor
     public Map(){
+        YELLOWCells = new ArrayList<>();
+        REDCells = new ArrayList<>();
+        GREENCells = new ArrayList<>();
+        BLUECells = new ArrayList<>();
+        WHITECells = new ArrayList<>();
+        PINKCells = new ArrayList<>();
         initialMap();
     }
 
