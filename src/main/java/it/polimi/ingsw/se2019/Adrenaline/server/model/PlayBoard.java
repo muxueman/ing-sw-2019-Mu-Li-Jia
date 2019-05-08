@@ -69,7 +69,7 @@ public class PlayBoard {
         if(killTurn == numKillShoot) return true;
         else return false;
     }
-    
+
     // 从当前玩家开始 mode 变为 3 可进行两次3选一 从第一玩家到之后 mode 变为4 可进行一次2选1
     public void changefirenzyMode(){
         int index = allPlayers.indexOf(currentPlayer);
