@@ -31,6 +31,14 @@ public class KillShootTrack implements Cloneable {
         beKilled = 0;
     }
 
+    public  KillShootTrack() {
+        turn = 0;
+        this.damageColorOnTrack = new ArrayList<Color>();
+        this.markColorOnTrack = new ArrayList<Color>();
+        playerScore = new HashMap<>();
+        beKilled = 0;
+    }
+
     public int getNumKillShoot() {
         return numKillShoot;
     }
@@ -112,7 +120,7 @@ public class KillShootTrack implements Cloneable {
         return damageCount;
     }
 
-    public Map valueOfMapDownSort(Map inputMap) {
+    private Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
         Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
@@ -186,6 +194,10 @@ public class KillShootTrack implements Cloneable {
         return damageColorOnTrack;
     }
 
+    public ArrayList<Color> getMarkColorOnTrack() {
+        return markColorOnTrack;
+    }
+
     public void clearKillShootTrack(){
         damageColorOnTrack.clear();
     }
@@ -200,4 +212,7 @@ public class KillShootTrack implements Cloneable {
         return o;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 }
