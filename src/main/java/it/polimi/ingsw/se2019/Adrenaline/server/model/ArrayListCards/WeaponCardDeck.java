@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeaponCardDeck extends WeaponCard {
+public class WeaponCardDeck {
 
     private static Object WeaponCard;
 
@@ -21,9 +21,8 @@ public class WeaponCardDeck extends WeaponCard {
             Gson gson = new Gson();
 
             try {
-                FileReader fileReader = new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/WeaponCard.json");
 
-                BufferedReader reader = new BufferedReader(fileReader);
+                BufferedReader reader = new BufferedReader(new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/WeaponCard.json"));
                 JsonParser parser = new JsonParser();
                 JsonObject json = parser.parse(reader).getAsJsonObject();
 

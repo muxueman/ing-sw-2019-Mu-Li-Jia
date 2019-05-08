@@ -1,5 +1,5 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+
 import java.util.*;
 
 /**

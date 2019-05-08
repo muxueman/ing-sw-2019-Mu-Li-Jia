@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PowerupCardDeck extends PowerupCard {
+public class PowerupCardDeck {
 
     private static Object PowerupCard;
 
@@ -21,9 +21,8 @@ public class PowerupCardDeck extends PowerupCard {
             Gson gson = new Gson();
 
             try {
-                FileReader fileReader = new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/PowerupCard.json");
 
-                BufferedReader reader = new BufferedReader(fileReader);
+                BufferedReader reader = new BufferedReader(new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/PowerupCard.json"));
                 JsonParser parser = new JsonParser();
                 JsonObject json = parser.parse(reader).getAsJsonObject();
 

@@ -8,8 +8,6 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 public class ActionGrab implements ActionStrategy{
 
-    @Override
     public void takeAction(Player player){
-
     }
 }
