@@ -6,6 +6,7 @@ import java.util.List;
 public abstract class Observable<T>{
 
     private List<Observer<T>> observers;
+    //lock is used for keep (multi-)thread safe, avoiding chaos in data
     private final Object lock = new Object();
 
     //constructor
@@ -14,8 +15,11 @@ public abstract class Observable<T>{
     }
 
     public void addObserver(Observer<T> observer){
+        if(observer == null)
+            throw new NullPointerException();
         synchronized (lock) {
-            observers.add(observer);
+            if(!observers.contains(observer))
+                observers.add(observer);
         }
     }
 
@@ -32,5 +36,7 @@ public abstract class Observable<T>{
             }
         }
     }
+
+
 
 }
