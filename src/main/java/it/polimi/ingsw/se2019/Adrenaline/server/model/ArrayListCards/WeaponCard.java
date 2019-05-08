@@ -16,30 +16,38 @@ public class WeaponCard {
     private String notes;
 
     public String getCardName(){
+
         return cardName;
     }
     public void setCardName(String cardName){
+
         this.cardName = cardName;
     }
 
     public ArrayList<Integer> getBasicammoCost(){
+
         return basicammoCost;
     }
     public void setBasicammoCost(ArrayList<Integer> basicammoCost){
+
         this.basicammoCost = basicammoCost;
     }
 
     public Integer getDamageVision(){
+
         return damageVision;
     }
     public void setDamageVision(Integer damageVision){
+
         this.damageVision = damageVision;
     }
 
     public ArrayList<Integer> getDamageDeal(){
+
         return damageDeal;
     }
     public void setDamageDeal(ArrayList<Integer> damageDeal){
+
         this.damageDeal = damageDeal;
     }
 
@@ -47,58 +55,75 @@ public class WeaponCard {
         return basicEffect;
     }
     public void setBasicEffect(String basicEffect){
+
         this.basicEffect = basicEffect;
     }
 
     public java.util.ArrayList<String> getSpecialEffectName(){
+
         return specialEffectName;
     }
     public void setSpecialEffectName(ArrayList<String> specialEffectName){
+
         this.specialEffectName = specialEffectName;
     }
 
     public ArrayList<Integer> getSpecialAmmoCost(){
+
         return specialAmmoCost;
     }
     public void setSpecialAmmoCost(ArrayList<Integer> specialAmmoCost){
+
         this.specialAmmoCost = specialAmmoCost;
     }
 
     public java.util.ArrayList<String> getSpecialEffect(){
+
         return specialEffect;
     }
     public void setSpecialEffect(ArrayList<String> specialEffect){
+
         this.specialEffect = specialEffect;
     }
 
     public String getNotes(){
+
         return notes;
     }
     public void setNotes(String notes){
+
         this.notes = notes;
     }
 
 
     public String toString(){
-        return '{' +
-                "cardName='" + cardName + '\'' +
-                ", basicammoCost='" + basicammoCost + '\'' +
-                ", damageVision='" + damageVision + '\'' +
-                ", damageDeal='" + damageDeal + '\'' +
-                ", basicEffect='" + basicEffect + '\'' +
-                ", specialEffectName='" + specialEffectName + '\'' +
-                ", specialAmmoCost='" + specialAmmoCost + '\'' +
-                ", specialEffect='" + specialEffect + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
+
+        String resultString = "[";
+
+        for(int i = 0; i < 21 ; ++i ){
+
+            resultString += "{" + "\n";
+            resultString += "cardName=" + cardName + "\n";
+            resultString += "basicammoCost='" + basicammoCost + "\n";
+            resultString += "damageVision='" + damageVision + "\n";
+            resultString += "damageDeal='" + damageDeal + "\n";
+            resultString += "basiceffect='" + basicEffect + "\n";
+            resultString += "specialEffectName='" + specialEffectName + "\n";
+            resultString += "specialAmmoCost='" + specialAmmoCost + "\n";
+            resultString += "specialEffect='" + specialEffect + "\n";
+            resultString += "notes='" + notes + "\n";
+            resultString += "}\n";
+        }
+
+        resultString = "]";
+
+        return  resultString;
+
 
     }
 
 
-
-
-
-
 }
+
 
 

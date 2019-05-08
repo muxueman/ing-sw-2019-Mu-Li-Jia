@@ -20,11 +20,12 @@ public class MapA extends Map{
         this.totalCellNum = 10;
         this.mapInfo = "Great for 3 or 4 players!";
         this.allCells = new ArrayList<Cell>();
+
                 
         Cell cell1 = new CommonCell(1);
         cell1.setCellColor(Color.BLUE);
         allCells.add(cell1);
-        //BLUECells.add(cell1);
+        BLUECells.add(cell1);
 
         Cell cell2 = new CommonCell(2);
         cell2.setCellColor(Color.BLUE);
@@ -78,9 +79,9 @@ public class MapA extends Map{
         setAdjacentCells(1, 5, 0, 0, cell4);
         setAdjacentCells(2, 6, 8, 4, cell5);
         setAdjacentCells(3, 7, 9, 5, cell6);
-        setAdjacentCells(0, 0, 10, 6, cell7);
+        //setAdjacentCells(0, 0, 10, 6, cell7);
         setAdjacentCells(5, 9, 0, 0, cell8);
-        setAdjacentCells(6, 10, 0, 8, cell9);
+        //setAdjacentCells(6, 10, 0, 8, cell9);
         setAdjacentCells(7, 0, 0, 9, cell10);
 
         this.notDoor = new int[][]{{2,5}, {6,9}};

@@ -5,10 +5,7 @@ import static org.junit.Assert.*;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
@@ -19,13 +16,12 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
  *  @author Xueman Mu
  */
 
-public class TestMap {
+public class TestMapC {
     @Test
     public void test(){
+        Map testMapC = new MapC();
+        testMapC.initialMap();
+        System.out.println(testMapC.getMapInfo());
 
-            Map testMapA = new MapA();
-            Map testMapB = new MapB();
-            Map testMapC = new MapC();
-            Map testMapD = new MapD();
     }
 }

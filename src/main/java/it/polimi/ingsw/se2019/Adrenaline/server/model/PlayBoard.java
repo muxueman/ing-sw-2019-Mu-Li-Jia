@@ -66,8 +66,7 @@ public class PlayBoard {
 
     //杀死人后 检查是否trigger firenzy
     public boolean triggerFirenzy(){
-        if(killTurn == numKillShoot) return true;
-        else return false;
+        return killTurn == numKillShoot;
     }
 
     // 从当前玩家开始 mode 变为 3 可进行两次3选一 从第一玩家到之后 mode 变为4 可进行一次2选1

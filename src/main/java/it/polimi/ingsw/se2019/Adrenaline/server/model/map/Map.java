@@ -19,6 +19,7 @@ public abstract class Map {
     protected ArrayList<Cell> BLUECells;
     protected ArrayList<Cell> WHITECells;
     protected ArrayList<Cell> PINKCells;
+    protected final static Cell cellO = new CommonCell(0);
 
     //constructor
     public Map(){
@@ -28,7 +29,6 @@ public abstract class Map {
         BLUECells = new ArrayList<>();
         WHITECells = new ArrayList<>();
         PINKCells = new ArrayList<>();
-        initialMap();
     }
 
     /**
@@ -104,6 +104,9 @@ public abstract class Map {
         }
     }
 
+    public ArrayList<Cell> getAllCells(){
+        return allCells;
+    }
     //@overload
     //get cells within rooms, which means all cells from same color
     public ArrayList<Cell> getCellsWithinRoom(Color color){

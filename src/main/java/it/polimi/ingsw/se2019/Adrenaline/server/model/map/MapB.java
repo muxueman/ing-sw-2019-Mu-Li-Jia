@@ -29,7 +29,6 @@ public class MapB extends Map{
 
         Cell cell2 = new CommonCell(2);
         cell2.setCellColor(Color.BLUE);
-        setAdjacentCells(0, 1, 5, 1, cell2);
         allCells.add(cell2);
         BLUECells.add(cell2);
 
@@ -79,14 +78,15 @@ public class MapB extends Map{
         YELLOWCells.add(cell11);
 
         setAdjacentCells(0, 2, 4, 0, cell1);
+        setAdjacentCells(0, 3, 5, 1, cell2);
         setAdjacentCells(0, 0, 6, 2, cell3);
         setAdjacentCells(1, 5, 8, 0, cell4);
         setAdjacentCells(2, 6, 9, 4, cell5);
         setAdjacentCells(3, 7, 10, 5, cell6);
-        setAdjacentCells(0, 0, 11, 6, cell7);
+        //setAdjacentCells(0, 0, 11, 6, cell7);
         setAdjacentCells(4, 9, 0, 0, cell8);
         setAdjacentCells(5, 10, 0, 8, cell9);
-        setAdjacentCells(6, 11, 0, 9, cell10);
+        //setAdjacentCells(6, 11, 0, 9, cell10);
         setAdjacentCells(7, 0, 0, 10, cell11);
 
         this.notDoor = new int[][] {{4,5},{6,10}};

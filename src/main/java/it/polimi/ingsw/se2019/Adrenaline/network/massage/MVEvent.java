@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 public interface MVEvent extends Serializable{
 
-    public void accept(View view);
+    void accept(View view);
 
 }

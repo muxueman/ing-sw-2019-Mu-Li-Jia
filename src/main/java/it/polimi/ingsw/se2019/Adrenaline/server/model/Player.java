@@ -158,7 +158,7 @@ public class Player  {
     public void countMyScore(PlayBoard playBoard) {
         int index = 0;
         while(index < playBoard.getAllPlayers().size()){
-            myScore += (int)(playBoard.getAllPlayers().get(index).killShootTrack.playerScore.get(playerColor));
+            myScore += playBoard.getAllPlayers().get(index).killShootTrack.playerScore.get(playerColor);
             index++;
         }
     }

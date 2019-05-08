@@ -6,5 +6,5 @@ import java.io.Serializable;
 
 public interface VCEvent extends Serializable{
 
-    public void accept(Controller controller);
+    void accept(Controller controller);
 }

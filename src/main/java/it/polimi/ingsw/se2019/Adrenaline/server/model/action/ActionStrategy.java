@@ -8,5 +8,5 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 public interface ActionStrategy {
 
-    public void takeAction(Player player);
+    void takeAction(Player player);
 }

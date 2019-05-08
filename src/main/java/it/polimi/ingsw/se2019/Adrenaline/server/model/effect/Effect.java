@@ -9,5 +9,5 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 public interface Effect {
 
 
-    public void effectAbility(Player player);
+    void effectAbility(Player player);
 }

@@ -1,62 +1,64 @@
-[
-  {
-    "numAmmotileCard": 1,
-    "ammoColor": [3,2,2],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard": 2,
-    "ammoColor": [3,1,1],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard": 3,
-    "ammoColor": [1,2,2],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard": 4,
-    "ammoColor": [1,3,3],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard": 5,
-    "ammoColor": [2,3,3],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard": 6,
-    "ammoColor": [2,1,1],
-    "totalnumCard": 3
-  },
-  {
-    "numAmmotileCard":7,
-    "ammoColor": [0,3,3],
-    "totalnumCard": 2
-  },
-  {
-    "numAmmotileCard": 8,
-    "ammoColor": [0,1,1],
-    "totalnumCard": 2
-  },
-  {
-    "numAmmotileCard": 9,
-    "ammoColor": [0,2,2],
-    "totalnumCard": 2
-  },
-  {
-    "numAmmotileCard": 10,
-    "ammoColor": [0,3,1],
-    "totalnumCard": 4
-  },
-  {
-    "numAmmotileCard": 11,
-    "ammoColor": [0,3,2],
-    "totalnumCard": 4
-  },
-  {
-    "numAmmotileCard": 12,
-    "ammoColor": [0,1,2],
-    "totalnumCard": 4
-  }
-]
+{
+  "ammotileDeck" : [
+    {
+      "numAmmotileCard": 1,
+      "ammoColor": [3, 2, 2],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 2,
+      "ammoColor": [3, 1, 1],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 3,
+      "ammoColor": [1, 2, 2],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 4,
+      "ammoColor": [1, 3, 3],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 5,
+      "ammoColor": [2, 3, 3],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 6,
+      "ammoColor": [2, 1, 1],
+      "totalnumCard": 3
+    },
+    {
+      "numAmmotileCard": 7,
+      "ammoColor": [0, 3, 3],
+      "totalnumCard": 2
+    },
+    {
+      "numAmmotileCard": 8,
+      "ammoColor": [0, 1, 1],
+      "totalnumCard": 2
+    },
+    {
+      "numAmmotileCard": 9,
+      "ammoColor": [0, 2, 2],
+      "totalnumCard": 2
+    },
+    {
+      "numAmmotileCard": 10,
+      "ammoColor": [0, 3, 1],
+      "totalnumCard": 4
+    },
+    {
+      "numAmmotileCard": 11,
+      "ammoColor": [0, 3, 2],
+      "totalnumCard": 4
+    },
+    {
+      "numAmmotileCard": 12,
+      "ammoColor": [0, 1, 2],
+      "totalnumCard": 4
+    }
+  ]
+}
