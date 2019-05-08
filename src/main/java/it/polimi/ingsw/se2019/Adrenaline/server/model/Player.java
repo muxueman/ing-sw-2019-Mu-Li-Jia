@@ -24,7 +24,8 @@ public class Player  {
     protected boolean alive;
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
-    mode = 1 walk+shoot*/
+    mode = 1 walk+shoot
+    */
 
     //constructor
     private Player() {
@@ -39,7 +40,9 @@ public class Player  {
         alive = true;
         //初始化所有的玩家,放入allPlayer
     }
-
+    public void setActionMode(int mode){
+        actionMode = mode;
+    }
     public void setName(String name){
         this.nickName = name;
     }
@@ -150,7 +153,7 @@ public class Player  {
     public void changeActionMode(){
         int damageNum = this.killShootTrack.getDamageColorOnTrack().size();
 
-        //if(triggerFirenzy) this.actionMode = 3
+        //if(triggerFirenzy) this.actionMode = 3 3选1， 4，2选1
         if (damageNum > 2 & damageNum<= 5)
             this.actionMode = 1;
         else if(damageNum > 5 & damageNum <= 10)
