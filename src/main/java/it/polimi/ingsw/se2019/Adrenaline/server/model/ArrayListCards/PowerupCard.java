@@ -11,27 +11,34 @@ public class PowerupCard {
     private String note;
 
     public String getCardName(){
+
         return cardName;
     }
     public void setCardName(String cardName){
+
         this.cardName = cardName;
     }
 
     public String getAmmoCost(){
+
         return ammoCost;
     }
     public void setAmmoCost(String ammoCost){
+
         this.ammoCost = ammoCost;
     }
 
     public ArrayList<Integer> getDamageDeal(){
+
         return damageDeal;
     }
     public void setDamageDeal(ArrayList<Integer> damageDeal){
+
         this.damageDeal = damageDeal;
     }
 
     public String getEffect() {
+
         return effect;
     }
     public void setEffect(String effect) {
@@ -39,21 +46,33 @@ public class PowerupCard {
     }
 
     public String getNote() {
+
         return note;
     }
     public void setNote(String note) {
+
         this.note = note;
     }
 
     public String toString(){
-        return '{' +
-                "cardName='" + cardName + '\'' +
-                ", basicammoCost='" + ammoCost + '\'' +
-                ", damageDeal='" + damageDeal + '\'' +
-                ", effect='" + effect + '\'' +
-                ", note='" + note + '\'' +
-                '}';
+
+        String resultString = "[";
+
+        for(int i = 0; i < 4 ; ++i ){
+
+            resultString += "{" + "\n";
+            resultString += "cardName=" + cardName + "\n";
+            resultString += "ammoCost='" + ammoCost + "\n";
+            resultString += "damageDeal='" + damageDeal + "\n";
+            resultString += "effect='" + effect + "\n";
+            resultString += "note='" + note + "\n";
+            resultString += "}\n";
+        }
+
+        resultString = "]";
+
+        return  resultString;
+
 
     }
-
 }

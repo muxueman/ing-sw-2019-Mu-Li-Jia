@@ -46,11 +46,10 @@ public abstract class Map {
     }
      */
 
-    //@override
     //abstract method to initial different kind of map
     public abstract void initialMap();
 
-    //@overload
+    //overload
     //set adjacent cells for a specific cell
     public void setAdjacentCells(int up, int right, int down, int left, Cell cell){
         cell.setAdjacentCells(allCells.get(up), allCells.get(right), allCells.get(down), allCells.get(left));
