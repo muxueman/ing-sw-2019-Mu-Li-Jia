@@ -186,9 +186,9 @@ public abstract class Map {
         return allCardinalCells;
     }
 
-    //*************** the next part of code is about the walk action**************************
+    //*************** the next part of code is about the run action**************************
 
-    //get all available next walk cells
+    //get all available next run cells
     public ArrayList<Cell> availableOneWalkCell(Cell cellX){
         ArrayList<Cell> availableOneWalkCell = new ArrayList<Cell>();
         int i = 0;

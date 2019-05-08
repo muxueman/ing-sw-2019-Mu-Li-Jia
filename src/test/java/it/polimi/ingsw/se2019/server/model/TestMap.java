@@ -22,9 +22,10 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 public class TestMap {
     @Test
     public void test(){
-        Map testMapA = new MapA();
-        Map testMapB = new MapB();
-        Map testMapC = new MapC();
-        Map testMapD = new MapD();
+
+            Map testMapA = new MapA();
+            Map testMapB = new MapB();
+            Map testMapC = new MapC();
+            Map testMapD = new MapD();
     }
 }
