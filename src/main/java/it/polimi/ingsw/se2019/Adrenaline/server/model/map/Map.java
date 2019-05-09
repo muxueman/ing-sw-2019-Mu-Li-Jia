@@ -83,7 +83,7 @@ public abstract class Map {
 
     //********* the next part of code is about to search available cells when a card is used********
 
-    //@overload
+    //@Overload
     //get cells within rooms, which means all cells from same color
     public ArrayList<Cell> getCellsWithinRoom(Cell cellx){
         switch(cellx.getCellColor()){
@@ -107,7 +107,7 @@ public abstract class Map {
     public ArrayList<Cell> getAllCells(){
         return allCells;
     }
-    //@overload
+    //@Overload
     //get cells within rooms, which means all cells from same color
     public ArrayList<Cell> getCellsWithinRoom(Color color){
         switch(color){
@@ -141,12 +141,18 @@ public abstract class Map {
        }
        return allVisibleCells;
    }
+   public boolean checkAllVisibleCells(Cell X, Cell Y){
+        return getAllVisibleCells(Y).contains(X);
+   }
 
    //get all visible cells except in your cell
     public ArrayList<Cell> getVisibleCellsWithoutYourCell(Cell cellX){
         ArrayList<Cell> allVisibleCellsWithoutYourCell = getAllVisibleCells(cellX);
         allVisibleCellsWithoutYourCell.remove(cellX);
         return allVisibleCellsWithoutYourCell;
+    }
+    public boolean checkVisibleCellsWithoutYourCell(Cell X, Cell Y){
+        return getVisibleCellsWithoutYourCell(Y).contains(X);
     }
 
     //get all visible cells two steps away, which means not your cell and also for adjacent cells
@@ -158,6 +164,9 @@ public abstract class Map {
                 visibleTwoAwayCells.remove(cellX.getAdjacentCells()[i]);
         }
         return visibleTwoAwayCells;
+    }
+    public boolean checkVisibleTwoAwayCells(Cell X, Cell Y){
+        return getVisibleTwoAwayCells(Y).contains(X);
     }
 
     //get cells from a room you can see but not your room, return all the visible color of the room
@@ -182,6 +191,9 @@ public abstract class Map {
         }
         return cardinalTwoCells;
     }
+    public boolean checkCardinalTwoCells(Cell X, Cell Y, int direction){
+        return getAllCardinalCells(Y, direction).contains(X);
+    }
 
     //get all cells in one direction
     public ArrayList<Cell> getAllCardinalCells(Cell cellX, int direction){
@@ -194,11 +206,14 @@ public abstract class Map {
         }
         return allCardinalCells;
     }
+    public boolean checkAllCardinalCells(Cell X, Cell Y, int direction){
+        return getAllCardinalCells(Y, direction).contains(X);
+    }
 
     //*************** the next part of code is about the run action**************************
 
     //get all available next run cells
-    public ArrayList<Cell> availableOneWalkCell(Cell cellX){
+    public ArrayList<Cell> getAvailableOneWalkCell(Cell cellX){
         ArrayList<Cell> availableOneWalkCell = new ArrayList<Cell>();
         int i = 0;
         while(i < 4){
@@ -207,6 +222,9 @@ public abstract class Map {
             i++;
         }
         return availableOneWalkCell;
+    }
+    public boolean checkAvailableOneWalkCell(Cell X, Cell Y){
+        return getAvailableOneWalkCell(Y).contains(X);
     }
 
 }
