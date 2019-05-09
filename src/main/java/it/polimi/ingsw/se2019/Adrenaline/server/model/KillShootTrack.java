@@ -30,7 +30,7 @@ public class KillShootTrack implements Cloneable {
         playerScore = new HashMap<>();
         beKilled = 0;
     }
-
+    //overload
     public  KillShootTrack() {
         turn = 0;
         this.damageColorOnTrack = new ArrayList<Color>();
@@ -119,7 +119,7 @@ public class KillShootTrack implements Cloneable {
         }
         return damageCount;
     }
-
+    //用于给各玩家damage num排序
     private Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
         Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
@@ -143,8 +143,7 @@ public class KillShootTrack implements Cloneable {
     }
 
     public Map countPlayerScore() {
-        Map damageCount = new HashMap(countDamageOnTrack());
-        damageCount = valueOfMapDownSort(damageCount);
+        Map damageCount = new HashMap(valueOfMapDownSort(countDamageOnTrack()));
         Map playerScore = new HashMap<Color, Integer>();
         int i = 0;
         ArrayList<Integer> scoreArray = checkHighestScore();
@@ -203,6 +202,8 @@ public class KillShootTrack implements Cloneable {
         damageColorOnTrack.clear();
     }
 
+
+    /*
     public Object clone() {
         Object o = null;
         try {
@@ -212,8 +213,8 @@ public class KillShootTrack implements Cloneable {
         }
         return o;
     }
-
-  public Player getPlayer() {
+    */
+    public Player getPlayer() {
         return this.player;
     }
 }
