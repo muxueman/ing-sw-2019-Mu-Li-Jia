@@ -45,8 +45,8 @@ public class PowerupCardDeck {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                //} catch (IOException e) {
+                //    e.printStackTrace();
             } finally {
                 try {
                     reader.close();
