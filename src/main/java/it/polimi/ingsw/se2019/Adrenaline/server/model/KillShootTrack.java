@@ -56,11 +56,12 @@ public class KillShootTrack implements Cloneable {
                 markNum++;
                 markColorOnTrack.remove(index);
                 damageColorOnTrack.add(shooter.playerColor);
-                index--;
+                //index--;
             }
             index++;
         }
     }
+
     //先增加原有的mark到damage， 增加新的damage， 增加新的Mark， 检查是否已经被打死，若打死的话 先清除多余的damage，检查是否被overkill, 超杀给shooter加mark
     public int beAttacked (Player shooter, int damageNum, int markNum ) {
         addMarkToDamage(shooter);
@@ -68,10 +69,13 @@ public class KillShootTrack implements Cloneable {
             this.damageColorOnTrack.add(shooter.playerColor);
             damageNum--;
         }
+
         while(markNum >0) {
             this.markColorOnTrack.add(shooter.playerColor);
-            damageNum--;
+            markNum--;
         }
+
+/*
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
             int i = maxiDamageOnTrack;
             while (damageColorOnTrack.get(i) != null) {
@@ -95,8 +99,9 @@ public class KillShootTrack implements Cloneable {
             beKilled = 0;// 未被杀死
         }
         return beKilled;
+        */
+        return 0;
     }
-
 
     public void overkillMark(Player shooter) {
         shooter.getKillShootTrack().markColorOnTrack.add(shooter.playerColor);
@@ -121,6 +126,7 @@ public class KillShootTrack implements Cloneable {
         }
         return damageCount;
     }
+
     //用于给各玩家damage num排序
     private Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
@@ -191,6 +197,21 @@ public class KillShootTrack implements Cloneable {
         }
     }
 
+    public void setNumKillShoot(int numKillShoot) { this.numKillShoot = numKillShoot; }
+
+    public void setBeKilled(int beKilled) { this.beKilled = beKilled; }
+
+    public void setDamageColorOnTrack(ArrayList<Color> damageColorOnTrack) { this.damageColorOnTrack = damageColorOnTrack; }
+
+    public void setMarkColorOnTrack(ArrayList<Color> markColorOnTrack) { this.markColorOnTrack = markColorOnTrack; }
+
+    public void setPlayer(Player player) { this.player = player; }
+
+    public void setPlayerScore(Map<Color, Integer> playerScore) { this.playerScore = playerScore; }
+
+    public static void setScoreTable(int[] scoreTable) { KillShootTrack.scoreTable = scoreTable; }
+
+    public void setTurn(int turn) { this.turn = turn; }
 
     public ArrayList<Color> getDamageColorOnTrack(){
         return damageColorOnTrack;
@@ -219,6 +240,8 @@ public class KillShootTrack implements Cloneable {
     public Player getPlayer() {
         return this.player;
     }
+
+    public Map<Color, Integer> getPlayerScore() { return playerScore; }
 
     @Override
     public String toString() {

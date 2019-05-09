@@ -56,7 +56,6 @@ public class Player  {
     public void setCurrentCell(Cell cell){
         this.currentCell = cell;
     }
-
     public int getPlayerID() {
         return playerID;
     }
@@ -90,6 +89,8 @@ public class Player  {
     public Cell getCurrentCell(){
         return currentCell;
     }
+
+    public void setAlive(boolean alive) { this.alive = alive; }
 
     public boolean isAlive() {
         return alive;
@@ -162,7 +163,7 @@ public class Player  {
         }
     }
     public void countMyScore(Player diedPlayer){
-        myScore += diedPlayer.getKillShootTrack().playerScore.get(this.playerColor);
+        myScore += diedPlayer.getKillShootTrack().getPlayerScore().get(this.playerColor);
     }
     public void addToMyScore(int score){
         myScore += score;
@@ -170,7 +171,6 @@ public class Player  {
 
     public void changeActionMode(){
         int damageNum = this.killShootTrack.getDamageColorOnTrack().size();
-
         //if(triggerFirenzy) this.actionMode = 3 3选1， 4，2选1
         if (damageNum > 2 & damageNum<= 5)
             this.actionMode = 1;
