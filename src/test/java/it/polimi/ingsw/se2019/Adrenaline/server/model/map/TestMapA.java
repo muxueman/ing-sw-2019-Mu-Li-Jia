@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import org.junit.Test;
-
+import static org.junit.Assert.*;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 
@@ -16,9 +16,13 @@ public class TestMapA {
 
 
     @Test
-    public void test(){
+    public void setUp() throws Exception{
         Map testMapA = new MapA();
         testMapA.initialMap();
+        ArrayList<Cell> cellA = testMapA.getAllCells();
+        Cell cellX = cellA.get(4);
+        Cell cellY = cellA.get(1);
+
         System.out.println(testMapA.getMapInfo());
         System.out.println(testMapA.getCellsWithinRoom(Color.RED));
         System.out.println(testMapA.getCellsWithinRoom(Color.YELLOW));
@@ -26,11 +30,9 @@ public class TestMapA {
         System.out.println(testMapA.getCellsWithinRoom(Color.PINK));
         System.out.println(testMapA.getCellsWithinRoom(Color.GREEN));
         System.out.println(testMapA.getCellsWithinRoom(Color.WHITE));
-        ArrayList<Cell> cellA = testMapA.getAllCells();
-        Cell cellX = cellA.get(4);
-        Cell cellY = cellA.get(1);
-        System.out.println(testMapA.checkWithinRoom(testMapA.getAllCells().get(1),testMapA.getAllCells().get(2)));
-        System.out.println(testMapA.checkWithinRoom(testMapA.getAllCells().get(3),testMapA.getAllCells().get(4)));
+
+
+        assertTrue(testMapA.checkWithinRoom(testMapA.getAllCells().get(1),testMapA.getAllCells().get(2)));
         System.out.println(testMapA.getCellsWithinRoom(cellX));
         System.out.println((testMapA.getAllVisibleCells(cellY)));
 
@@ -38,4 +40,5 @@ public class TestMapA {
 
 
     }
+
 }
