@@ -1,5 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils;
 
+/**
+ *the abstract class super Observable
+ *@author Xueman Mu
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 

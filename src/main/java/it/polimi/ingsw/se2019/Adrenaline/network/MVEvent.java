@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.network.massage;
+package it.polimi.ingsw.se2019.Adrenaline.network;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 
