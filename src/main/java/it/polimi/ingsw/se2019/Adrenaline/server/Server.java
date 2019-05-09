@@ -18,7 +18,7 @@ public class Server {
     static final int SOCKET_PORT = 1111;
 
     private PlayBoard playBoard;
-/**
+
     public Server() {
 
         (new SocketServer(this, SOCKET_PORT)).start();
@@ -29,7 +29,7 @@ public class Server {
             Logger.getGlobal().info("Registry already on!");
         }
         try {
-            UnicastRemoteObject.exportObject(RMIServer, RMI_PORT);
+            //UnicastRemoteObject.exportObject(RMIServer, RMI_PORT);
             Naming.rebind("//localhost/Server", rmiServer);
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
@@ -49,7 +49,7 @@ public class Server {
     public PlayBoard getPlayBoard() {
         return playBoard;
     }
-*/
+
     public static void main(String[] args) {
         new Server();
     }
