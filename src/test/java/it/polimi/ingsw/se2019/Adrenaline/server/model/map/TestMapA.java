@@ -1,14 +1,8 @@
-package it.polimi.ingsw.se2019.server.model.map;
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 
 import java.util.ArrayList;

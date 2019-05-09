@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.server.model;
+package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.AmmoColor;

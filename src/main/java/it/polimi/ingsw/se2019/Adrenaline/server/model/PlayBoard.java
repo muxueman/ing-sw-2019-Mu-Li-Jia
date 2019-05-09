@@ -2,7 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.arrayListCards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import java.util.*;
 
 

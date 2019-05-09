@@ -1,10 +1,8 @@
-package it.polimi.ingsw.se2019.server.model.map;
+package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class TestKillShootTrack {
 

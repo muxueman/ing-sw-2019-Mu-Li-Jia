@@ -1,4 +1,4 @@
-package it.polimi.it.se2019;
+package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import static org.junit.Assert.assertTrue;
 

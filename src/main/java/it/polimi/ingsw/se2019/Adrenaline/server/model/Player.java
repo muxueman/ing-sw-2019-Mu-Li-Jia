@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.arrayListCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.arrayListCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.arrayListCards.AmmotileCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 public class Player  {
     protected int playerID;
     protected Color playerColor;
