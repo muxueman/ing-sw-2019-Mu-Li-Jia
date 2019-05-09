@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model.arrayListCards;
+package it.polimi.ingsw.se2019.server.model.deckCards;
 
 import com.google.gson.*;
 
