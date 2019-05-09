@@ -24,11 +24,11 @@ public class Player  {
     protected boolean alive;
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
-    mode = 1 walk+shoot
+    mode = 1 walk+shoott
     */
 
     //constructor
-    private Player() {
+    public Player() {
         playerID = (int)(System.currentTimeMillis()%1000); //randomGenerated number
         this.killShootTrack = new KillShootTrack(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
@@ -86,21 +86,26 @@ public class Player  {
     public Cell getCurrentCell(){
         return currentCell;
     }
-    /*
-    //装载ammo
-    public void fillAmmo(AmmotileCard ammotileCard){
-        ammoOwned.add(ammotileCard.ammo)//color, num
-    }
-    //使用武器卡，消耗ammo
-    public void consumeAmmo(AmmoColor color, int num){
-        weaponsOwned.put(weaponCard, false);
-        int ammoCost
-        ammoOwned.put();
-    }
-    public void loadAmmo(AmmoColor color, int num){
 
+    public boolean isAlive() {
+        return alive;
     }
-    */
+
+    /*
+        //装载ammo
+        public void fillAmmo(AmmotileCard ammotileCard){
+            ammoOwned.add(ammotileCard.ammo)//color, num
+        }
+        //使用武器卡，消耗ammo
+        public void consumeAmmo(AmmoColor color, int num){
+            weaponsOwned.put(weaponCard, false);
+            int ammoCost
+            ammoOwned.put();
+        }
+        public void loadAmmo(AmmoColor color, int num){
+
+        }
+        */
     /*
     public Player findPlayerByColor (Color playerColor){
         int i = 0;
@@ -122,10 +127,14 @@ public class Player  {
         }
     }
     public void fillAmmo(AmmoColor ammoColor, int num){
+        int index = 0;
         switch (ammoColor){
-            case RED: while(num != 0){ammoOwned[0]++; num--; }
-            case YELLOW: while(num != 0){ammoOwned[1]++; num--; }
-            case BLUE: while(num != 0){ammoOwned[2]++; num--; }
+            case RED: while(num != 0){ammoOwned[0]++; num--; } index = 0;
+            case YELLOW: while(num != 0){ammoOwned[1]++; num--; } index = 1;
+            case BLUE: while(num != 0){ammoOwned[2]++; num--; } index = 2;
+        }
+        while(ammoOwned[index] >3) {
+            ammoOwned[index]--;
         }
     }
     public void consumeAmmo(AmmoColor ammoColor){
@@ -136,10 +145,14 @@ public class Player  {
         }
     }
     public void consumeAmmo(AmmoColor ammoColor, int num){
+        int index = 0;
         switch (ammoColor){
             case RED: while(num != 0){ammoOwned[0]--; num--; }
             case YELLOW: while(num != 0){ammoOwned[1]--; num--; }
             case BLUE: while(num != 0){ammoOwned[2]--; num--; }
+        }
+        while(ammoOwned[index] <0) {
+            ammoOwned[index]++;
         }
     }
     public void countMyScore(PlayBoard playBoard) {
@@ -158,6 +171,11 @@ public class Player  {
             this.actionMode = 1;
         else if(damageNum > 5 & damageNum <= 10)
             this.actionMode = 2;
+    }
+    public String ammoOwnedToString(){
+        return "RED ammo: " + ammoOwned[0] + "\n" +
+                "BLUE ammo" + ammoOwned[1] + "\n" +
+                "YELLOW ammo" + ammoOwned[2];
     }
 
     public KillShootTrack getKillShootTrack(){

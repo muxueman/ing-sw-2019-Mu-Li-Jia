@@ -30,7 +30,7 @@ public class PlayBoard {
         setCurrentPlayer();
     }
     public void addPlayers(Player player){
-
+        allPlayers.add(player);
     }
     //生成0到玩家数量-1的随机数， 决定第一个玩家
     public Player setCurrentPlayer(){
