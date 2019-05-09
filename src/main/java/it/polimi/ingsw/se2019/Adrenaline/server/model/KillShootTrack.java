@@ -96,6 +96,8 @@ public class KillShootTrack implements Cloneable {
         }
         return beKilled;
     }
+
+
     public void overkillMark(Player shooter) {
         shooter.getKillShootTrack().markColorOnTrack.add(shooter.playerColor);
     }
@@ -216,5 +218,21 @@ public class KillShootTrack implements Cloneable {
     */
     public Player getPlayer() {
         return this.player;
+    }
+
+    @Override
+    public String toString() {
+        String resultDamgeOnTrack = "damageColorOnTrack: ";
+        for(Color color : damageColorOnTrack){
+            resultDamgeOnTrack += color.toString();
+        }
+        String resultMarkOnTrack = "markColorOnTrack: ";
+        for(Color color : markColorOnTrack){
+            resultMarkOnTrack += color.toString();
+        }
+
+        return "KillShootTrackColor: " + getPlayer().getPlayerColor() + "\n"
+                + resultDamgeOnTrack
+                + resultMarkOnTrack;
     }
 }

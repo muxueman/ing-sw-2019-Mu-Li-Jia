@@ -161,12 +161,11 @@ public class Player  {
             ammoOwned[index]++;
         }
     }
-    public void countMyScore() {
-        int index = 0;
-        while(index < playBoard.getAllPlayers().size()){
-            myScore += playBoard.getAllPlayers().get(index).killShootTrack.playerScore.get(playerColor);
-            index++;
-        }
+    public void countMyScore(Player diedPlayer){
+        myScore += diedPlayer.getKillShootTrack().playerScore.get(this.playerColor);
+    }
+    public void addToMyScore(int score){
+        myScore += score;
     }
 
     public void changeActionMode(){
@@ -186,5 +185,13 @@ public class Player  {
 
     public KillShootTrack getKillShootTrack(){
         return this.killShootTrack;
+    }
+
+    @Override
+    public String toString() {
+        return "Player: " + nickName + "\n"
+        + "Color: " + playerColor + "\n"
+        + "ActionMode: " + actionMode + "\n"
+        +"MyScore: " + myScore;
     }
 }

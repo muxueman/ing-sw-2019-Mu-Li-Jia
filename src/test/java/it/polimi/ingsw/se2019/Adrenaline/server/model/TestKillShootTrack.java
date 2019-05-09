@@ -30,9 +30,6 @@ public class TestKillShootTrack {
         System.out.println(testShooter.getKillShootTrack().getMarkColorOnTrack());
     }
 
-    @Test
-    public void valueOfMapDownSort() {
-    }
 
     @Test
     public void checkHighestScore() {

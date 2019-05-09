@@ -54,6 +54,17 @@ public class PlayBoard {
         allPlayers.add(player);
     }
 
+    public Player findPlayerByColor (Color playerColor){
+        int i = 0;
+        while(allPlayers.get(i).playerColor != playerColor){
+            i++;
+            if(i == allPlayers.size()){
+                //not exists this player
+                break;
+            }
+        }
+        return allPlayers.get(i);
+    }
     //生成0到玩家数量-1的随机数， 只决定第一个玩家
     public Player setCurrentPlayer(){
         this.firstPlayer = (int)(System.currentTimeMillis()%(allPlayers.size()));
@@ -136,13 +147,26 @@ public class PlayBoard {
             }
         }
     }
-
-    public void calculateScore(){
-        for(Player player : allPlayers){
-            player.countMyScore();
+    // 某玩家被杀后 其余玩家给自己增加计分板上的得分
+    public void addScoreFromKST(Player diedPlayer){
+        for(Color playerColor: diedPlayer.getKillShootTrack().playerScore.keySet()){
+            findPlayerByColor(playerColor).countMyScore(diedPlayer);
         }
-
     }
+    //游戏结束后 所有玩家给自己增加得分
+    public void addScoreFromPB(){
+        int index = 0;
+        for (Player player : allPlayers){
+            while(index < colorDamageOnSkullBoard.length){
+                if(player.getPlayerColor() != colorDamageOnSkullBoard[index]) index++;
+                else {
+                    player.addToMyScore(numDamageOnSkullBoard[index]);
+                    break;
+                }
+            }
+        }
+    }
+
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 
     public int getKillTurn() { return killTurn; }
