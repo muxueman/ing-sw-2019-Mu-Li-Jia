@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.network;
 
 /**
- * A ServerMessage object is the message sent from the client to the server.
+ * A ClientMessage object is the message sent from the client to the server.
  * @author Xueman Mu
  */
 
