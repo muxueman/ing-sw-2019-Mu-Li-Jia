@@ -38,7 +38,7 @@ public class EffectInPunisherMode {
             b[j] = b[j-1]+b[j-2];
         }
         for(int i =0;i<20;i++){
-            sum+=a[i]/b[i];
+            sum+=a[i]+b[i];
         }
         System.out.println(sum);
     }

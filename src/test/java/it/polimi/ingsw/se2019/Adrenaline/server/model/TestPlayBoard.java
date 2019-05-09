@@ -52,6 +52,7 @@ public class TestPlayBoard {
         System.out.println(testPlayBoard.triggerFirenzy());
         testPlayBoard.changefirenzyMode();
     }
+    /*
     @Test
     public void testSomeoneDie(){
         setTestInfo();
@@ -63,7 +64,7 @@ public class TestPlayBoard {
         System.out.println("someone died? " + testPlayBoard.checkIfAnyPlayerDie());
 
     }
-
+*/
 
 
 }
