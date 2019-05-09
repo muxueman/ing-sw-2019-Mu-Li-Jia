@@ -4,6 +4,7 @@ public class EffectInBarbecueMode {
 
     private final String type = "in barbecue mode";
 
+
     public void selectSort()
     {
         int[] numbers = {1,2,3,4,5,6,7,8};
@@ -27,4 +28,5 @@ public class EffectInBarbecueMode {
             numbers[k] = temp;
         }
     }
+
 }
