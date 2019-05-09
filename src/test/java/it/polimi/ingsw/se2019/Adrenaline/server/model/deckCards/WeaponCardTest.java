@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +33,7 @@ public class WeaponCardTest {
     public void testCardName() {
 
         weaponCard.setCardName("VORTEX CANNON");
-        System.out.println("cardName: " + weaponCard.getCardName());
+        Assert.assertEquals("VORTEX CANNON", weaponCard.getCardName());
     }
 
 
@@ -55,16 +56,14 @@ public class WeaponCardTest {
         testColor.put(Color.YELLOW,3);
 
         weaponCard.setBasicammoCost(basicammoCost);
-
-        System.out.println("basicammoCost: " + weaponCard.getBasicammoCost());
+        Assert.assertEquals(basicammoCost, weaponCard.getBasicammoCost());
     }
 
     @Test
     public void testDamageVision() {
 
         weaponCard.setDamageVision(12);
-        System.out.println("damageVision: " + weaponCard.getDamageVision());
-
+        Assert.assertEquals(12, weaponCard.getDamageVision().intValue());
     }
 
     @Test
@@ -79,15 +78,16 @@ public class WeaponCardTest {
         damageDeal.add(1);
 
         weaponCard.setDamageDeal(damageDeal);
-        System.out.println("damageDeal: " + weaponCard.getDamageDeal());
-
+        Assert.assertEquals(damageDeal, weaponCard.getDamageDeal());
     }
 
     @Test
     public void testBasicEffect() {
 
         weaponCard.setBasicEffect("Choose a cell you can see but not your cell and choose a target on the cell or move away from it.move it onto the cell and give it 2 damage");
-        System.out.println("basicEffect: " + weaponCard.getBasicEffect());
+
+        Assert.assertEquals("Choose a cell you can see but not your cell and choose a target on the cell or move away from it.move it onto the cell and give it 2 damage",
+                weaponCard.getBasicEffect());
 
     }
 
@@ -101,6 +101,8 @@ public class WeaponCardTest {
         weaponCard.setSpecialEffectName(specialEffectName);
         System.out.println("specialEffectName: " + weaponCard.getSpecialEffectName());
 
+        Assert.assertEquals(specialEffectName, weaponCard.getSpecialEffectName());
+
     }
 
     @Test
@@ -113,5 +115,14 @@ public class WeaponCardTest {
 
     @Test
     public void getNotes() {
+    }
+
+    @Test
+    public void setCardName() {
+        String name = "Card";
+
+        weaponCard.setCardName(name);
+
+        Assert.assertEquals("Card", weaponCard.getCardName());
     }
 }
