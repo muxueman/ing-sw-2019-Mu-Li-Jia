@@ -11,8 +11,8 @@ import java.util.List;
 
 public class AmmotileCardDeck {
 
-    private static Object AmmotileCard;
-    private BufferedReader reader;
+    public static Object AmmotileCard;
+    public BufferedReader reader;
 
     public class AmmotileCard {
 

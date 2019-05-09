@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class AmmotileCard {
 
-    private Integer numAmmotileCard;
-    private ArrayList<Integer> ammoColor;
-    private Integer totalnumCard;
+    public Integer numAmmotileCard;
+    public ArrayList<Integer> ammoColor;
+    public Integer totalnumCard;
 
     public Integer getNumAmmotileCard(){
 
@@ -36,6 +36,8 @@ public class AmmotileCard {
 
         this.totalnumCard = totalnumCard;
     }
+
+
 
     @Override
     public String toString(){
