@@ -74,10 +74,12 @@ public class KillShootTrack implements Cloneable {
         }
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
             int i = maxiDamageOnTrack;
+
             while (damageColorOnTrack.get(i) != null) {
                 damageColorOnTrack.remove(i);
                 //i++;
             }
+
             player.alive = false;
             killShoot();
             overkillMark(shooter);
@@ -181,7 +183,7 @@ public class KillShootTrack implements Cloneable {
         turn++;
         playerScore.clear();
     }
-    //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤 应有 存有所有玩家的类来调用
+    //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤  由存有所有玩家的类来调用
     public void addPlayerScore(Player player){
         for (Color key : playerScore.keySet()){
             if(player.playerColor == key){

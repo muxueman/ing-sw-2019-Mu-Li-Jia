@@ -30,7 +30,10 @@ public class TestKillShootTrack {
         System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
         System.out.println(testPlayer.getKillShootTrack().getMarkColorOnTrack().toString());
         //testPlayer.getKillShootTrack().beAttacked(testShooter,4,2);
+        testPlayer.getKillShootTrack().recover();
+        testPlayer.getKillShootTrack().getNumKillShoot();
     }
+
 
     @Test
     public void getNumKillShoot() {

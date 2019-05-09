@@ -55,6 +55,10 @@ public class TestPlayBoard {
     @Test
     public void testSomeoneDie(){
         setTestInfo();
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
+        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
+
         System.out.println("all players num " + testPlayBoard.getAllPlayers().size());
         System.out.println("someone died? " + testPlayBoard.checkIfAnyPlayerDie());
 
