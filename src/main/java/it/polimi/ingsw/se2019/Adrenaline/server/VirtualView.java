@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.massage.MVEvent;
-import it.polimi.ingsw.se2019.Adrenaline.network.massage.VCEvent;
+import it.polimi.ingsw.se2019.Adrenaline.network.MVEvent;
+import it.polimi.ingsw.se2019.Adrenaline.network.VCEvent;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;
 

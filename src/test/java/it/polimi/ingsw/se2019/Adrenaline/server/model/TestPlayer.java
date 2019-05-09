@@ -21,16 +21,22 @@ public class TestPlayer {
         System.out.println("test action mode：" + testPlayer.getActionMode());
     }
 
-    @Test
+
     public void testName() {
         testPlayer.setName("jiamoxin");
         System.out.println("test nickname: " + testPlayer.getNickName());
     }
 
-    @Test
+
     public void testPlayerColor() {
        testPlayer.setPlayerColor(Color.RED);
        System.out.println("test player color: " + testPlayer.getPlayerColor());
+    }
+    @Test
+    public void testPlayerInfo(){
+       testName();
+       testPlayerColor();
+       System.out.println(testPlayer.toString());
     }
     @Test
     public void testAmmoOwned(){
@@ -51,4 +57,6 @@ public class TestPlayer {
     public void setTestKillShootTrack(){
        System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayer().getNickName());
     }
+
+
 }

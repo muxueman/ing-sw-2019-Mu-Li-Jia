@@ -17,11 +17,13 @@ public class Player  {
     private Map<WeaponCard, Boolean> weaponsOwned;
     private ArrayList<PowerupCard> powerupsOwned;
     protected int myScore;
-    protected ArrayList<Integer> score;
+    //protected ArrayList<Integer> score;
     private Cell currentCell;
     private KillShootTrack killShootTrack;
     protected int actionMode;
     protected boolean alive;
+    protected PlayBoard playBoard;
+
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
     mode = 1 walk+shoott
@@ -36,10 +38,12 @@ public class Player  {
         powerupsOwned = new ArrayList<>();
         actionMode = 0;
         myScore = 0;
-        score = new ArrayList<>();
+        //score = new ArrayList<>();
         alive = true;
         //初始化所有的玩家,放入allPlayer
     }
+
+    public void setPlayBoard(PlayBoard playBoard) { this.playBoard = playBoard; }
     public void setActionMode(int mode){
         actionMode = mode;
     }
@@ -126,6 +130,7 @@ public class Player  {
             case YELLOW: ammoOwned[2]++;
         }
     }
+    //overload
     public void fillAmmo(AmmoColor ammoColor, int num){
         int index = 0;
         switch (ammoColor){
@@ -144,6 +149,7 @@ public class Player  {
             case YELLOW: ammoOwned[2]--;
         }
     }
+    //overload
     public void consumeAmmo(AmmoColor ammoColor, int num){
         int index = 0;
         switch (ammoColor){
@@ -155,12 +161,11 @@ public class Player  {
             ammoOwned[index]++;
         }
     }
-    public void countMyScore(PlayBoard playBoard) {
-        int index = 0;
-        while(index < playBoard.getAllPlayers().size()){
-            myScore += playBoard.getAllPlayers().get(index).killShootTrack.playerScore.get(playerColor);
-            index++;
-        }
+    public void countMyScore(Player diedPlayer){
+        myScore += diedPlayer.getKillShootTrack().playerScore.get(this.playerColor);
+    }
+    public void addToMyScore(int score){
+        myScore += score;
     }
 
     public void changeActionMode(){
@@ -180,5 +185,13 @@ public class Player  {
 
     public KillShootTrack getKillShootTrack(){
         return this.killShootTrack;
+    }
+
+    @Override
+    public String toString() {
+        return "Player: " + nickName + "\n"
+        + "Color: " + playerColor + "\n"
+        + "ActionMode: " + actionMode + "\n"
+        +"MyScore: " + myScore;
     }
 }
