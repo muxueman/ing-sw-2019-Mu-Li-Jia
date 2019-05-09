@@ -1,10 +1,12 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.ServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.RMIController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 //UnicastRemoteObject用于导出的远程对象和获得与该远程对象通信的存根。
 import java.rmi.server.UnicastRemoteObject;
@@ -17,13 +19,15 @@ public class RMIServer implements ServerInterface {
     RMIServer(Server server) {
         this.server = server;
     }
-/**
-    public ServerInterface addClient(ClientInterface client) {
+
+    @Override
+    public PlayServerInterface addClient(ClientInterface client) {
+
         RMIController rmiController = new RMIController(server.getPlayBoard(), client);
         try {
-            ServerInterface Server = (ServerInterface) UnicastRemoteObject.exportObject(RMIController, 0);
+            PlayServerInterface playServer = (PlayServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
             addClient(client);
-            return Server;
+            return playServer;
         } catch (RemoteException e) {
             Logger.getGlobal().warning(e.getMessage());
             return null;
@@ -32,5 +36,4 @@ public class RMIServer implements ServerInterface {
     private void addClient(ClientInterface client, ServerController controller) {
         server.addClient(client, controller);
     }
- */
 }

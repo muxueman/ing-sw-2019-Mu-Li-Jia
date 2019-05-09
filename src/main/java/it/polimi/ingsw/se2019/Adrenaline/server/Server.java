@@ -1,5 +1,11 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
+/**
+ * This class creates the server socket and RMI based on the port number and creates connection.
+ * Always runs the server first before creates a connection.
+ * @author Xueman Mu
+ */
+
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
@@ -14,8 +20,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
 public class Server {
-    static final int RMI_PORT = 1099;
-    static final int SOCKET_PORT = 1111;
+
+    //port number (if cannot be established, possibly because current port number is being used
+    static final int RMI_PORT = 1100;
+    static final int SOCKET_PORT = 1200;
 
     private PlayBoard playBoard;
 
@@ -23,13 +31,14 @@ public class Server {
 
         (new SocketServer(this, SOCKET_PORT)).start();
         RMIServer rmiServer = new RMIServer(this);
+
         try {
             LocateRegistry.createRegistry(RMI_PORT);
         } catch (RemoteException e) {
             Logger.getGlobal().info("Registry already on!");
         }
         try {
-            //UnicastRemoteObject.exportObject(RMIServer, RMI_PORT);
+            UnicastRemoteObject.exportObject(rmiServer, RMI_PORT);
             Naming.rebind("//localhost/Server", rmiServer);
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
@@ -37,12 +46,12 @@ public class Server {
         //playBoard = new PlayBoard();
     }
 
-    public synchronized void addPlayer(ClientInterface client, ServerController controller) {
+    public synchronized void addClient(ClientInterface client, ServerController controller) {
         //playBoard.addPlayers(client, controller);
     }
 
     public synchronized void addClient(Socket clientConnection) throws IOException {
-       // SocketController client = new SocketController(clientConnection, playBoard);
+       //SocketController client = new SocketController(clientConnection, playBoard);
        // addClient(client, client);
     }
 
