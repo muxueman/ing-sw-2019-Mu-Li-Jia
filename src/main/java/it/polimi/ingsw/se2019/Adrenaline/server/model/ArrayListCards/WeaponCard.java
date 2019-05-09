@@ -95,7 +95,7 @@ public class WeaponCard {
         this.notes = notes;
     }
 
-
+    @Override
     public String toString(){
 
         String resultString = "[";

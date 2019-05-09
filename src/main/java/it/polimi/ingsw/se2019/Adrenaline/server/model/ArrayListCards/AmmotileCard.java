@@ -37,6 +37,7 @@ public class AmmotileCard {
         this.totalnumCard = totalnumCard;
     }
 
+    @Override
     public String toString(){
 
         String resultString = "[";

@@ -54,6 +54,7 @@ public class PowerupCard {
         this.note = note;
     }
 
+    @Override
     public String toString(){
 
         String resultString = "[";
