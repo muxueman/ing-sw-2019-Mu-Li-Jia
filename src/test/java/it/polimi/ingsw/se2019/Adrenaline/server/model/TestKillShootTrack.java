@@ -25,6 +25,8 @@ public class TestKillShootTrack {
         setTestInfo();
         testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
         testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        int beAttacked = testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        System.out.println(beAttacked);
         System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
         System.out.println(testPlayer.getKillShootTrack().getMarkColorOnTrack().toString());
         //testPlayer.getKillShootTrack().beAttacked(testShooter,4,2);

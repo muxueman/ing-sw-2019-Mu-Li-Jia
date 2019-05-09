@@ -50,13 +50,11 @@ public class KillShootTrack implements Cloneable {
     //检查是否已有该玩家的Mark
     public void addMarkToDamage(Player shooter){
         int index = 0;
-        int markNum = 0;
         while(index < markColorOnTrack.size()){
             if(shooter.playerColor == markColorOnTrack.get((index))){
-                markNum++;
                 markColorOnTrack.remove(index);
                 damageColorOnTrack.add(shooter.playerColor);
-                //index--;
+                index--;
             }
             index++;
         }
@@ -74,8 +72,6 @@ public class KillShootTrack implements Cloneable {
             this.markColorOnTrack.add(shooter.playerColor);
             markNum--;
         }
-
-/*
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
             int i = maxiDamageOnTrack;
             while (damageColorOnTrack.get(i) != null) {
@@ -99,8 +95,6 @@ public class KillShootTrack implements Cloneable {
             beKilled = 0;// 未被杀死
         }
         return beKilled;
-        */
-        return 0;
     }
 
     public void overkillMark(Player shooter) {
