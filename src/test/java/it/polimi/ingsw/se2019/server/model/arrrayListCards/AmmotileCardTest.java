@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.model.ArrayListCards;
+package it.polimi.ingsw.se2019.server.model.arrrayListCards;
 
 import org.junit.After;
 import org.junit.Before;

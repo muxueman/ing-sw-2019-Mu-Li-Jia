@@ -1,13 +1,10 @@
-package it.polimi.ingsw.se2019.server.model.ArrayListCards;
+package it.polimi.ingsw.se2019.server.model.map;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
@@ -19,13 +16,12 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
  *  @author Xueman Mu
  */
 
-public class TestMap {
+public class TestMapD {
     @Test
     public void test(){
+        Map testMapD = new MapD();
+        testMapD.initialMap();
+        System.out.println(testMapD.getMapInfo());
 
-            Map testMapA = new MapA();
-            Map testMapB = new MapB();
-            Map testMapC = new MapC();
-            Map testMapD = new MapD();
     }
 }

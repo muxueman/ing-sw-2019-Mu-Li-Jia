@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.server.model;
+package it.polimi.ingsw.se2019.server.model.map;
 
 import static org.junit.Assert.*;
 

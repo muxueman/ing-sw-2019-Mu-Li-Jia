@@ -6,7 +6,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import org.junit.Test;
-import sun.jvm.hotspot.debugger.win32.coff.TestParser;
+//import sun.jvm.hotspot.debugger.win32.coff.TestParser;
 
 import static org.junit.Assert.*;
 

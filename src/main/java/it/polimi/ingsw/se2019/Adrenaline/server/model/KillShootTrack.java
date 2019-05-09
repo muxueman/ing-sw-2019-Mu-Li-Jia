@@ -214,6 +214,6 @@ public class KillShootTrack implements Cloneable {
     }
 
   public Player getPlayer() {
-        return player;
+        return this.player;
     }
 }
