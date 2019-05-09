@@ -89,7 +89,7 @@ public class PlayBoard {
                     colorDamageOnSkullBoard[killTurn] = currentPlayer.getPlayerColor();
                     killTurn++;
                     playerDie = true;
-                    index++;
+                    break;
                 }
                 else index++;
             }

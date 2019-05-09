@@ -1,6 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import org.junit.Test;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
@@ -14,28 +16,24 @@ import java.util.ArrayList;
 
 public class TestMapA {
 
+    Map testMapA = new MapA();
 
     @Test
-    public void test(){
-        Map testMapA = new MapA();
+    public void test() {
         testMapA.initialMap();
-        System.out.println(testMapA.getMapInfo());
-        System.out.println(testMapA.getCellsWithinRoom(Color.RED));
-        System.out.println(testMapA.getCellsWithinRoom(Color.YELLOW));
-        System.out.println(testMapA.getCellsWithinRoom(Color.BLUE));
-        System.out.println(testMapA.getCellsWithinRoom(Color.PINK));
-        System.out.println(testMapA.getCellsWithinRoom(Color.GREEN));
-        System.out.println(testMapA.getCellsWithinRoom(Color.WHITE));
         ArrayList<Cell> cellA = testMapA.getAllCells();
         Cell cellX = cellA.get(4);
         Cell cellY = cellA.get(1);
-        System.out.println(testMapA.checkWithinRoom(testMapA.getAllCells().get(1),testMapA.getAllCells().get(2)));
-        System.out.println(testMapA.checkWithinRoom(testMapA.getAllCells().get(3),testMapA.getAllCells().get(4)));
-        System.out.println(testMapA.getCellsWithinRoom(cellX));
-        System.out.println((testMapA.getAllVisibleCells(cellY)));
+        Cell cellZ = cellA.get(2);
 
-
-
-
+        testMapA.checkDoor(cellX, cellY);
+        testMapA.getCellsWithinRoom(cellX);
+        testMapA.getAllVisibleCells(cellX);
+        testMapA.getAllCells();
+        testMapA.getCellsWithinRoom(Color.RED);
+        testMapA.getCellsWithinRoom(Color.YELLOW);
+        testMapA.getCellsWithinRoom(Color.BLUE);
+        testMapA.getCellsWithinRoom(Color.GREEN);
+        testMapA.getCellsWithinRoom(Color.WHITE);
     }
 }

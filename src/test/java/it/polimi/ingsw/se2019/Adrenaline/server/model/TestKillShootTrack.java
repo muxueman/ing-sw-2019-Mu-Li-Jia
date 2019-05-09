@@ -8,8 +8,27 @@ import static org.junit.Assert.*;
 
 public class TestKillShootTrack {
 
-    KillShootTrack testKillShootTrack = new KillShootTrack();
+    PlayBoard testPlayBoard = new PlayBoard(5);
     Player testShooter = new Player();
+    Player testPlayer = new Player();
+    Player testPlayer2 = new Player();
+    KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
+
+    public void setTestInfo() {
+        testShooter.setPlayerColor(Color.RED);
+        testPlayer.setPlayerColor(Color.WHITE);
+        testPlayer2.setPlayerColor(Color.GREEN);
+        testPlayer.setAlive(false);
+    }
+    @Test
+    public void testBeAttacked(){
+        setTestInfo();
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
+        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
+        System.out.println(testPlayer.getKillShootTrack().getMarkColorOnTrack().toString());
+        //testPlayer.getKillShootTrack().beAttacked(testShooter,4,2);
+    }
 
     @Test
     public void getNumKillShoot() {

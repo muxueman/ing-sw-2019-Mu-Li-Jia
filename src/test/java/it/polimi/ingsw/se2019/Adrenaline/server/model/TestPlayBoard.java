@@ -1,5 +1,4 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
-
 import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
@@ -10,21 +9,38 @@ import static org.junit.Assert.*;
 public class TestPlayBoard {
 
     PlayBoard testPlayBoard = new PlayBoard(5);
-
-
-    Player tesetShooter = new Player();
+    Player testShooter = new Player();
     Player testPlayer = new Player();
+    Player testPlayer2 = new Player();
     KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
+
+
+    public void setTestInfo() {
+        testShooter.setPlayerColor(Color.RED);
+        testPlayer.setPlayerColor(Color.WHITE);
+        testPlayer2.setPlayerColor(Color.GREEN);
+        testPlayer.setAlive(false);
+        testPlayBoard.addPlayers(testShooter);
+        testPlayBoard.addPlayers(testPlayer);
+        testPlayBoard.addPlayers(testPlayer2);
+        testPlayBoard.getAllPlayers();
+        testPlayBoard.setKillTurn(5);
+        testPlayBoard.setNumKillShoot(5);
+        testPlayBoard.setCurrentPlayer();
+
+    }
     @Test
     public void testPlayerOnBoard() {
-        testPlayBoard.addPlayers(tesetShooter);
+        setTestInfo();
+        testPlayBoard.addPlayers(testShooter);
         testPlayBoard.addPlayers(testPlayer);
         testPlayBoard.setCurrentPlayer();
         System.out.println(testPlayBoard.getCurrentPlayer());
         testPlayBoard.nextPlayer(testPlayBoard.getCurrentPlayer());
         System.out.println(testPlayBoard.getAllPlayers());
-        testPlayBoard.nextPlayer(tesetShooter);
-        System.out.println(testPlayBoard.nextPlayer(tesetShooter));
+        testPlayBoard.nextPlayer(testShooter);
+        System.out.println(testPlayBoard.nextPlayer(testShooter));
+        testPlayBoard.findPlayerByColor(Color.RED);
     }
 
 
@@ -36,6 +52,14 @@ public class TestPlayBoard {
         System.out.println(testPlayBoard.triggerFirenzy());
         testPlayBoard.changefirenzyMode();
     }
+    @Test
+    public void testSomeoneDie(){
+        setTestInfo();
+        System.out.println("all players num " + testPlayBoard.getAllPlayers().size());
+        System.out.println("someone died? " + testPlayBoard.checkIfAnyPlayerDie());
+
+    }
+
 
 
 }
