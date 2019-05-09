@@ -123,6 +123,7 @@ public class KillShootTrack implements Cloneable {
         return inputMap;
     }
 
+
     public ArrayList<Integer> checkHighestScore(){
         ArrayList<Integer> scoreArray = new ArrayList<Integer>();
         int index = 0;
@@ -199,5 +200,4 @@ public class KillShootTrack implements Cloneable {
         }
         return o;
     }
-
 }
