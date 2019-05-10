@@ -7,10 +7,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 
 
 import static org.junit.Assert.*;
-
-
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-
 import java.util.ArrayList;
 
 /**
