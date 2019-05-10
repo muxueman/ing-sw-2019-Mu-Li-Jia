@@ -74,17 +74,19 @@ public class KillShootTrack implements Cloneable {
         }
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
             int i = maxiDamageOnTrack;
-
-            while (damageColorOnTrack.get(i) != null) {
-                damageColorOnTrack.remove(i);
-                //i++;
+            if (damageColorOnTrack.get(i) != null) damageColorOnTrack.remove(shooter.getPlayerColor());
+            //System.out.println(damageColorOnTrack.toString());
+            /*
+            while (damageColorOnTrack.get(i) == shooter.getPlayerColor()) {
+                damageColorOnTrack.remove(shooter.getPlayerColor());
             }
-
+            */
             player.alive = false;
             killShoot();
             overkillMark(shooter);
             numKillShoot++;
             beKilled = 2;
+            clearKillShootTrack();
 
         }
         else if(damageColorOnTrack.size() == 11) {

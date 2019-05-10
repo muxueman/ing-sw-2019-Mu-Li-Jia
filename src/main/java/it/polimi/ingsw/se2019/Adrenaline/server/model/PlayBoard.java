@@ -71,6 +71,10 @@ public class PlayBoard {
         currentPlayer = allPlayers.get(firstPlayer);
         return currentPlayer;
     }
+    public Player setCurrentPlayer(Player player){
+        currentPlayer = player;
+        return currentPlayer;
+    }
     //返回下一个玩家 不改变 当前玩家
     public Player nextPlayer(Player currentPlayer){
         int playerTurn = allPlayers.indexOf(currentPlayer);
@@ -98,7 +102,18 @@ public class PlayBoard {
         return playerDie;
     }
 
-
+    public boolean checkIfAnyPlayerDie(Player shooter){
+        boolean playerDie = false;
+        for(Player player : allPlayers){
+            if(player.isAlive()) continue;
+            else {
+                numDamageOnSkullBoard[killTurn] = player.getKillShootTrack().getBeKilled();
+                colorDamageOnSkullBoard[killTurn] = player.getPlayerColor();
+                playerDie = true;
+            }
+        }
+        return playerDie;
+    }
     //杀死人后 检查是否trigger firenzy
     public boolean triggerFirenzy(){
         if(killTurn == numKillShoot) firenzyTriggerd = true;
@@ -143,9 +158,16 @@ public class PlayBoard {
                     count++;
                 }
 
-
             }
         }
+        else if(index == firstPlayer){
+            int i = 0;
+            while(i < allPlayers.size()){
+                allPlayers.get(i).setActionMode(3);
+                i++;
+            }
+        }
+
     }
     // 某玩家被杀后 其余玩家给自己增加计分板上的得分
     public void addScoreFromKST(Player diedPlayer){

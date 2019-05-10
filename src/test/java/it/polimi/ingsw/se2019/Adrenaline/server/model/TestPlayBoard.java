@@ -24,7 +24,7 @@ public class TestPlayBoard {
         testPlayBoard.addPlayers(testPlayer);
         testPlayBoard.addPlayers(testPlayer2);
         testPlayBoard.getAllPlayers();
-        testPlayBoard.setKillTurn(5);
+        testPlayBoard.setKillTurn(4);
         testPlayBoard.setNumKillShoot(5);
         testPlayBoard.setCurrentPlayer();
 
@@ -55,12 +55,20 @@ public class TestPlayBoard {
     @Test
     public void testSomeoneDie(){
         setTestInfo();
+        testPlayBoard.setCurrentPlayer(testPlayBoard.getAllPlayers().get(testPlayBoard.getFirstPlayer()));
         testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
         testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
-        testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
-
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 4, 2);
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 4, 2);
         System.out.println("all players num " + testPlayBoard.getAllPlayers().size());
         System.out.println("someone died? " + testPlayBoard.checkIfAnyPlayerDie());
+        testPlayBoard.changefirenzyMode(); //还应测试另两种情况；
+        System.out.println(testPlayBoard.getCurrentPlayer().getPlayerColor().toString());
+        System.out.println(testPlayBoard.getAllPlayers().get(testPlayBoard.getFirstPlayer()).getPlayerColor().toString());
+        System.out.println(testPlayer.getActionMode());
+        System.out.println(testPlayer2.getActionMode());
+        System.out.println(testShooter.getActionMode());
+
 
     }
 
