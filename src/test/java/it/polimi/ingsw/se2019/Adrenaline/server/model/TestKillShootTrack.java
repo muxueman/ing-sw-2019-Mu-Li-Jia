@@ -13,20 +13,30 @@ public class TestKillShootTrack {
     Player testPlayer = new Player();
     Player testPlayer2 = new Player();
     KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
+    KillShootTrack testKillShootTrack2 = new KillShootTrack();
 
     public void setTestInfo() {
         testShooter.setPlayerColor(Color.RED);
         testPlayer.setPlayerColor(Color.WHITE);
         testPlayer2.setPlayerColor(Color.GREEN);
-        testPlayer.setAlive(false);
+        testPlayer2.setAlive(false);
     }
+
     @Test
-    public void testBeAttacked(){
+    public void testBeAttacked() {
         setTestInfo();
-        testPlayer.getKillShootTrack().beAttacked(testShooter, 3, 2);
-        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
-        int beAttacked = testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
-        System.out.println(beAttacked);
+        testPlayer.beAttacked(testShooter, 3, 2);
+        testPlayer.getKillShootTrack().beAttacked(testPlayer2, 3, 2);
+        System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
+        testPlayer.changeActionMode();
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 2, 2);
+        System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
+        testPlayer.changeActionMode();
+        System.out.println(testPlayer.getActionMode());
+        int beAttacked = testPlayer.getKillShootTrack().beAttacked(testShooter, 2, 2);
+        testPlayer.getKillShootTrack();
+        testPlayer.getKillShootTrack().addPlayerScore(testShooter);
+        System.out.println("beAttacked" + beAttacked);
         System.out.println(testPlayer.getKillShootTrack().getDamageColorOnTrack().toString());
         System.out.println(testPlayer.getKillShootTrack().getMarkColorOnTrack().toString());
         //testPlayer.getKillShootTrack().beAttacked(testShooter,4,2);
@@ -35,39 +45,31 @@ public class TestKillShootTrack {
     }
 
 
-    @Test
     public void getNumKillShoot() {
         testKillShootTrack.getNumKillShoot();
     }
-    @Test
+
     public void getBeKilled() {
         testKillShootTrack.getBeKilled();
     }
 
-    @Test
     public void addMarkToDamage() {
         testKillShootTrack.addMarkToDamage(testShooter);
     }
 
     @Test
-    public void overkillMark() {
-        System.out.println(testShooter.getKillShootTrack().getMarkColorOnTrack());
+    public void testSet() {
+        testKillShootTrack.setPlayerScore(testKillShootTrack.getPlayerScore());
+        testKillShootTrack.setPlayer(testPlayer);
+        testKillShootTrack.setBeKilled(2);
+        testKillShootTrack.setDamageColorOnTrack(testKillShootTrack.getDamageColorOnTrack());
+        testKillShootTrack.setMarkColorOnTrack(testKillShootTrack.getMarkColorOnTrack());
+        testKillShootTrack.setTurn(3);
+
     }
 
-
-    @Test
-    public void checkHighestScore() {
-        testKillShootTrack.checkHighestScore();
-    }
     @Test
     public void getDamageColorOnTrack() {
-        testKillShootTrack.getDamageColorOnTrack();
-        testKillShootTrack.getMarkColorOnTrack();
+        testKillShootTrack.toString();
     }
-    @Test
-    public void clearkillShootTrack() {
-        testKillShootTrack.clearKillShootTrack();
-    }
-
-
 }

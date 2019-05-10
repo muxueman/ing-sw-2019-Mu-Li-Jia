@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -22,8 +23,9 @@ public class TestPlayer {
     }
 
     public void testPlayerColor() {
-       testPlayer.setPlayerColor(Color.RED);
-       System.out.println("test player color: " + testPlayer.getPlayerColor());
+        System.out.println("test player ID: " + testPlayer.getPlayerID());
+        testPlayer.setPlayerColor(Color.RED);
+        System.out.println("test player color: " + testPlayer.getPlayerColor());
     }
 
     public void testActionMode() {
@@ -37,10 +39,18 @@ public class TestPlayer {
        testPlayer.getPowerupsOwned();
        testPlayer.getAmmoOwned();
        testPlayer.getPowerupsOwned();
+       testPlayer.getWeaponsOwned();
     }
 
     public void testAmmoOwned(){
+        testPlayer.fillAmmo(AmmoColor.RED);
+        testPlayer.fillAmmo(AmmoColor.BLUE);
+        testPlayer.fillAmmo(AmmoColor.YELLOW);
+        testPlayer.consumeAmmo(AmmoColor.RED);
+        testPlayer.consumeAmmo(AmmoColor.BLUE);
+        testPlayer.consumeAmmo(AmmoColor.YELLOW);
         System.out.println("initial ammo owned: \n" + testPlayer.ammoOwnedToString());
+        testPlayer.consumeAmmo(AmmoColor.RED, 2);
         testPlayer.consumeAmmo(AmmoColor.RED, 2);
         System.out.println("after comsume ammo owned: \n" + testPlayer.ammoOwnedToString());
         testPlayer.consumeAmmo(AmmoColor.RED, 2);
@@ -49,7 +59,12 @@ public class TestPlayer {
         System.out.println("after fill ammo owned: \n" + testPlayer.ammoOwnedToString());
 
     }
-
+    @Test
+    public void testPlayerSet(){
+        testPlayer.setPlayBoard(testPlayBoard);
+        testPlayer.setCurrentCell(testPlayBoard.getMap().getAllCells().get(0));
+        testPlayer.getCurrentCell();
+    }
     @Test
     public void testPlayerInfo(){
        testName();
@@ -58,6 +73,8 @@ public class TestPlayer {
        testActionMode();
        testAmmoOwned();
        testCardsOwned();
+       testPlayerSet();
+       testPlayer.getMyScore();
     }
 
     @Test

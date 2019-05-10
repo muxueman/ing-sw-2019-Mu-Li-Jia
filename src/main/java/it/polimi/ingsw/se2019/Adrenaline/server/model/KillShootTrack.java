@@ -74,8 +74,9 @@ public class KillShootTrack implements Cloneable {
         }
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
             int i = maxiDamageOnTrack;
-            if (damageColorOnTrack.get(i) != null) damageColorOnTrack.remove(shooter.getPlayerColor());
-            //System.out.println(damageColorOnTrack.toString());
+            while (damageColorOnTrack.size() - maxiDamageOnTrack != 0) {
+                damageColorOnTrack.remove(damageColorOnTrack.size()-1);
+            }
             /*
             while (damageColorOnTrack.get(i) == shooter.getPlayerColor()) {
                 damageColorOnTrack.remove(shooter.getPlayerColor());
@@ -102,24 +103,19 @@ public class KillShootTrack implements Cloneable {
     }
 
     public void overkillMark(Player shooter) {
-        shooter.getKillShootTrack().markColorOnTrack.add(shooter.playerColor);
+        shooter.getKillShootTrack().markColorOnTrack.add(player.playerColor);
     }
     //count damage num of each color on the track, then add score.
     private Map countDamageOnTrack() {
-        Map damageCount = new HashMap<Color, Integer>();
-        ArrayList<Color> copyColorOnTrack = (ArrayList<Color>)this.damageColorOnTrack.clone();
-        for(int i = 0; i < copyColorOnTrack.size()-1; i++){
-            Color currentColor = copyColorOnTrack.get(i);
-            int sum = 0;
-            for(int j = i+1; j < copyColorOnTrack.size(); j++){
-                Color comparedColor = copyColorOnTrack.get(j);
-                if(currentColor == comparedColor){
-                    sum++;
-                    damageCount.put(currentColor, sum);
-                    copyColorOnTrack.remove(j);
-                    j--;
-                }
-                else continue;
+        Map<Color, Integer> damageCount = new HashMap<Color, Integer>();
+        for(Color color : damageColorOnTrack){
+            if(damageCount.containsKey(color)) {
+                Integer times = damageCount.get(color);
+                times++; // 不会每次都创建新对象了
+                damageCount.put(color, times);
+            }
+            else {
+                damageCount.put(color, new Integer(1));
             }
         }
         return damageCount;
@@ -130,7 +126,7 @@ public class KillShootTrack implements Cloneable {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
         Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return (o2.getValue() - o1.getValue());
+                return (-(o1.getValue() - o2.getValue()));
                 //return (o1.getKey()).toString().compareTo(o2.getKey());
             }
         });
@@ -146,6 +142,7 @@ public class KillShootTrack implements Cloneable {
             index++;
         }
         return scoreArray;
+
     }
 
     public Map countPlayerScore() {
@@ -177,11 +174,14 @@ public class KillShootTrack implements Cloneable {
     */
     //被射杀，计算damage数，排序，查看最高分数（第几次被射杀），增加玩家的分数，第一射手得得分加1, 清理板子
     public void killShoot(){
-        this.playerScore = scoreForfirstShooter(countPlayerScore());
+        this.playerScore = countPlayerScore();
+        this.playerScore = scoreForfirstShooter(playerScore);
+        System.out.println(playerScore.toString());
+        turn++;
     }
+
     public void recover(){
         clearKillShootTrack();
-        player.alive = true;
         turn++;
         playerScore.clear();
     }

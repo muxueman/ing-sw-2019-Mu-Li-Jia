@@ -40,6 +40,7 @@ public class PlayBoard {
     //overload only for test
     public PlayBoard(int numKillShoot) {
         map = new MapA();
+        map.initialMap();
         this.allPlayers = new ArrayList<>();
         this.numKillShoot = numKillShoot;
         numDamageOnSkullBoard = new int[numKillShoot];
@@ -89,10 +90,13 @@ public class PlayBoard {
         while(index < allPlayers.size()){
             if(index != allPlayers.indexOf(currentPlayer)){
                 if(!allPlayers.get(index).alive){
-                    numDamageOnSkullBoard[killTurn] = allPlayers.get(index).getKillShootTrack().getBeKilled();
-                    colorDamageOnSkullBoard[killTurn] = currentPlayer.getPlayerColor();
                     killTurn++;
+                    numDamageOnSkullBoard[killTurn-1] = allPlayers.get(index).getKillShootTrack().getBeKilled();
+                    colorDamageOnSkullBoard[killTurn-1] = currentPlayer.getPlayerColor();
                     playerDie = true;
+                    addScoreFromKST(allPlayers.get(index));
+                    System.out.println(allPlayers.get(index).getKillShootTrack().playerScore);
+                    allPlayers.get(index).recover();
                     break;
                 }
                 else index++;
@@ -101,19 +105,21 @@ public class PlayBoard {
         }
         return playerDie;
     }
-
+    //重载
     public boolean checkIfAnyPlayerDie(Player shooter){
         boolean playerDie = false;
         for(Player player : allPlayers){
             if(player.isAlive()) continue;
             else {
-                numDamageOnSkullBoard[killTurn] = player.getKillShootTrack().getBeKilled();
-                colorDamageOnSkullBoard[killTurn] = player.getPlayerColor();
+                killTurn++;
+                numDamageOnSkullBoard[killTurn-1] = player.getKillShootTrack().getBeKilled();
+                colorDamageOnSkullBoard[killTurn-1] = player.getPlayerColor();
                 playerDie = true;
             }
         }
         return playerDie;
     }
+    //在开枪后检查是否有人死， 如果有人死，算分。
     //杀死人后 检查是否trigger firenzy
     public boolean triggerFirenzy(){
         if(killTurn == numKillShoot) firenzyTriggerd = true;
@@ -188,6 +194,11 @@ public class PlayBoard {
             }
         }
     }
+    public void setNumKillShoot(int numKillShoot) {
+        this.numKillShoot = numKillShoot;
+        //当玩家设定的局数不在5-8内 提示重新设置
+
+    }
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 
@@ -197,12 +208,8 @@ public class PlayBoard {
 
     public Map getMap() { return map; }
 
-    public int getNumKillShoot() { return numKillShoot; }
 
-    public void setNumKillShoot(int numKillShoot) {
-        this.numKillShoot = numKillShoot;
-        //当玩家设定的局数不在5-8内 提示重新设置
-    }
+    public int getNumKillShoot() { return numKillShoot; }
 
     public ArrayList<Player> getAllPlayers() {
         return allPlayers;
@@ -222,16 +229,6 @@ public class PlayBoard {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
-    }
-
-
-    public Player getPlayerFromColor(Color color) {
-        int index = 0;
-        while(index < allPlayers.size()){
-            if(allPlayers.get(index).getPlayerColor() == color) break;
-            else index++;
-        }
-        return allPlayers.get(index);
     }
 
 }

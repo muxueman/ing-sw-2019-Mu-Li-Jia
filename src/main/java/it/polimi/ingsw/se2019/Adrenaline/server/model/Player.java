@@ -96,6 +96,10 @@ public class Player  {
         return alive;
     }
 
+    public void beAttacked(Player shooter, int damage, int mark){
+        this.killShootTrack.beAttacked(shooter, damage, mark);
+    }
+
     /*
         //装载ammo
         public void fillAmmo(AmmotileCard ammotileCard){
@@ -172,9 +176,9 @@ public class Player  {
     public void changeActionMode(){
         int damageNum = this.killShootTrack.getDamageColorOnTrack().size();
         //if(triggerFirenzy) this.actionMode = 3 3选1， 4，2选1
-        if (damageNum > 2 & damageNum<= 5)
+        if (damageNum > 2 && damageNum<= 5)
             this.actionMode = 1;
-        else if(damageNum > 5 & damageNum <= 10)
+        else if(damageNum > 5 && damageNum <= 10)
             this.actionMode = 2;
     }
     public String ammoOwnedToString(){
@@ -194,4 +198,9 @@ public class Player  {
         + "ActionMode: " + actionMode + "\n"
         +"MyScore: " + myScore;
     }
+    public void recover(){
+        alive = true;
+        killShootTrack.recover();
+    }
+
 }
