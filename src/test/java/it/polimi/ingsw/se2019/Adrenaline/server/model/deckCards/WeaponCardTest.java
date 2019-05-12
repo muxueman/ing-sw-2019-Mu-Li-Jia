@@ -1,17 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class WeaponCardTest {
 
@@ -33,29 +26,24 @@ public class WeaponCardTest {
     public void testCardName() {
 
         weaponCard.setCardName("VORTEX CANNON");
+        System.out.println("cardName:" + weaponCard.getCardName());
         Assert.assertEquals("VORTEX CANNON", weaponCard.getCardName());
+
     }
 
 
     @Test
     public void testBasicammoCost() {
 
-        ArrayList<Integer> basicammoCost = new ArrayList<>();
-        //for the first ammocost 1 for red , 2 for blue , 3 for yellow , 0 for null
-        basicammoCost.add(1);
-        //for the second ammocost 1 for red , 2 for blue , 3 for yellow , 0 for null
-        basicammoCost.add(2);
-        //for the third ammocost 1 for red , 2 for blue , 3 for yellow , 0 for null
-        basicammoCost.add(0);
-        //for specialEffect 1 for the card has 1 specialeffect , 2 for the card has 2 specialeffects , 0 for null
-        basicammoCost.add(1);
-
-        Map<Color,Integer> testColor = new HashMap<>();
-        testColor.put(Color.RED,1);
-        testColor.put(Color.BLUE,2);
-        testColor.put(Color.YELLOW,3);
-
+        int[] basicammoCost;
+        basicammoCost = new int[]{1,2,0,1};
+        WeaponCard weaponCard = new WeaponCard();
         weaponCard.setBasicammoCost(basicammoCost);
+        System.out.println(basicammoCost.toString());
+
+        //for the third ammocost 1 for red , 2 for blue , 3 for yellow , 0 for null
+        //for specialEffect 1 for the card has 1 specialeffect , 2 for the card has 2 specialeffects , 0 for null
+
         Assert.assertEquals(basicammoCost, weaponCard.getBasicammoCost());
     }
 
@@ -63,21 +51,17 @@ public class WeaponCardTest {
     public void testDamageVision() {
 
         weaponCard.setDamageVision(12);
-        Assert.assertEquals(12, weaponCard.getDamageVision().intValue());
+        System.out.println("damageVision:" + weaponCard.getDamageVision());
+        Assert.assertEquals(12, weaponCard.getDamageVision());
     }
 
     @Test
     public void testDamageDeal() {
 
-        ArrayList<Integer> damageDeal = new ArrayList<>();
-        //this mean deal damage to how many target (0 for everyone) 1 for 1 target, 2 for 2 targets...
-        damageDeal.add(0);
-        //this mean the person who accept damage that real damage number ,2 for 2 real damage,0 for null
-        damageDeal.add(2);
-        //this mean will give the target how many marked damage,1 for 1 marked damage,2 for 2 marked damage, 0 for null
-        damageDeal.add(1);
-
+        int[] damageDeal;
+        damageDeal = new int[] {0,2,1};
         weaponCard.setDamageDeal(damageDeal);
+        System.out.println(damageDeal.toString());
         Assert.assertEquals(damageDeal, weaponCard.getDamageDeal());
     }
 
@@ -85,44 +69,58 @@ public class WeaponCardTest {
     public void testBasicEffect() {
 
         weaponCard.setBasicEffect("Choose a cell you can see but not your cell and choose a target on the cell or move away from it.move it onto the cell and give it 2 damage");
-
-        Assert.assertEquals("Choose a cell you can see but not your cell and choose a target on the cell or move away from it.move it onto the cell and give it 2 damage",
-                weaponCard.getBasicEffect());
+        System.out.println("basicEffect:" + weaponCard.getBasicEffect());
+        Assert.assertEquals("Choose a cell you can see but not your cell and choose a target on the cell or move away from it.move it onto the cell and give it 2 damage",weaponCard.getBasicEffect());
 
     }
 
     @Test
     public void testSpecialEffectName() {
 
-        ArrayList<String> specialEffectName = new ArrayList<>();
-
-        specialEffectName.add("with black hole");
-
+        String[] specialEffectName;
+        specialEffectName = new String[]{"with black hole"};
         weaponCard.setSpecialEffectName(specialEffectName);
-        System.out.println("specialEffectName: " + weaponCard.getSpecialEffectName());
-
+        System.out.println(specialEffectName.toString());
         Assert.assertEquals(specialEffectName, weaponCard.getSpecialEffectName());
 
     }
 
     @Test
-    public void getSpecialAmmoCost() {
+    public void testSpecialAmmoCost() {
+
+        int[] specialAmmoCost;
+        specialAmmoCost = new int[]{1};
+        weaponCard.setSpecialAmmoCost(specialAmmoCost);
+        System.out.println(specialAmmoCost.toString());
+        Assert.assertEquals(specialAmmoCost,weaponCard.getSpecialAmmoCost());
     }
 
     @Test
-    public void getSpecialEffect() {
+    public void testSpecialEffect() {
+
+        String[] specialEffect;
+        specialEffect = new String[]{"Choose up to 2 other targets on the cell or 1 move away from it.Move them onto the cell and give them each 1 damage"};
+        weaponCard.setSpecialEffect(specialEffect);
+        System.out.println(specialEffect.toString());
+        Assert.assertEquals(specialEffect,weaponCard.getSpecialEffect());
+
     }
 
     @Test
-    public void getNotes() {
+    public void testNotes() {
+
+        weaponCard.setNotes("The 3 target must be different,but some might start on the same cell.It is legal to choose targets on your cell or even on cells you can't see.They all end up on that cell");
+        System.out.println("notes:" +weaponCard.getNotes());
+        Assert.assertEquals("The 3 target must be different,but some might start on the same cell.It is legal to choose targets on your cell or even on cells you can't see.They all end up on that cell",weaponCard.getNotes());
+
     }
 
+
     @Test
-    public void setCardName() {
-        String name = "Card";
+    public void readWeaponCardTest() {
 
-        weaponCard.setCardName(name);
+        WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
+        System.out.println(weaponCardDeck.toString());
 
-        Assert.assertEquals("Card", weaponCard.getCardName());
     }
 }

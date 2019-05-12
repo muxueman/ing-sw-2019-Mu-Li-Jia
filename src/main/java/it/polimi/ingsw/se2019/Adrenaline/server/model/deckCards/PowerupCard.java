@@ -1,12 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PowerupCard {
 
     private String cardName;
     private String ammoCost;
-    private ArrayList<Integer> damageDeal;
+    private int[] damageDeal;
     private String effect;
     private String note;
 
@@ -28,11 +29,11 @@ public class PowerupCard {
         this.ammoCost = ammoCost;
     }
 
-    public ArrayList<Integer> getDamageDeal(){
+    public int[] getDamageDeal(){
 
         return damageDeal;
     }
-    public void setDamageDeal(ArrayList<Integer> damageDeal){
+    public void setDamageDeal(int[] damageDeal){
 
         this.damageDeal = damageDeal;
     }
@@ -42,6 +43,7 @@ public class PowerupCard {
         return effect;
     }
     public void setEffect(String effect) {
+
         this.effect = effect;
     }
 
@@ -55,25 +57,13 @@ public class PowerupCard {
     }
 
     @Override
-    public String toString(){
-
-        String resultString = "[";
-
-        for(int i = 0; i < 4 ; ++i ){
-
-            resultString += "{" + "\n";
-            resultString += "cardName=" + cardName + "\n";
-            resultString += "ammoCost='" + ammoCost + "\n";
-            resultString += "damageDeal='" + damageDeal + "\n";
-            resultString += "effect='" + effect + "\n";
-            resultString += "note='" + note + "\n";
-            resultString += "}\n";
-        }
-
-        resultString = "]";
-
-        return  resultString;
-
-
+    public String toString() {
+        return "PowerupCard{" +
+                "cardName='" + cardName + '\'' +
+                ", ammoCost='" + ammoCost + '\'' +
+                ", damageDeal=" + Arrays.toString(damageDeal) +
+                ", effect='" + effect + '\'' +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

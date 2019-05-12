@@ -1,18 +1,19 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WeaponCard {
 
 
     private String cardName;
-    private ArrayList<Integer> basicammoCost;
-    private Integer damageVision;
-    private ArrayList<Integer> damageDeal;
+    private int[] basicammoCost;
+    private int damageVision;
+    private int[] damageDeal;
     private String basicEffect;
-    private ArrayList<String>specialEffectName;
-    private ArrayList<Integer>specialAmmoCost;
-    private ArrayList<String>specialEffect;
+    private String[] specialEffectName;
+    private int[]specialAmmoCost;
+    private String[] specialEffect;
     private String notes;
 
     public String getCardName(){
@@ -24,34 +25,35 @@ public class WeaponCard {
         this.cardName = cardName;
     }
 
-    public ArrayList<Integer> getBasicammoCost(){
+    public int[] getBasicammoCost(){
 
         return basicammoCost;
     }
-    public void setBasicammoCost(ArrayList<Integer> basicammoCost){
+    public void setBasicammoCost(int[] basicammoCost){
 
         this.basicammoCost = basicammoCost;
     }
 
-    public Integer getDamageVision(){
+    public int getDamageVision(){
 
         return damageVision;
     }
-    public void setDamageVision(Integer damageVision){
+    public void setDamageVision(int damageVision){
 
         this.damageVision = damageVision;
     }
 
-    public ArrayList<Integer> getDamageDeal(){
+    public int[] getDamageDeal(){
 
         return damageDeal;
     }
-    public void setDamageDeal(ArrayList<Integer> damageDeal){
+    public void setDamageDeal(int[] damageDeal){
 
         this.damageDeal = damageDeal;
     }
 
     public String getBasicEffect(){
+
         return basicEffect;
     }
     public void setBasicEffect(String basicEffect){
@@ -59,29 +61,29 @@ public class WeaponCard {
         this.basicEffect = basicEffect;
     }
 
-    public java.util.ArrayList<String> getSpecialEffectName(){
+    public String[] getSpecialEffectName(){
 
         return specialEffectName;
     }
-    public void setSpecialEffectName(ArrayList<String> specialEffectName){
+    public void setSpecialEffectName(String[] specialEffectName){
 
         this.specialEffectName = specialEffectName;
     }
 
-    public ArrayList<Integer> getSpecialAmmoCost(){
+    public int[] getSpecialAmmoCost(){
 
         return specialAmmoCost;
     }
-    public void setSpecialAmmoCost(ArrayList<Integer> specialAmmoCost){
+    public void setSpecialAmmoCost(int[] specialAmmoCost){
 
         this.specialAmmoCost = specialAmmoCost;
     }
 
-    public java.util.ArrayList<String> getSpecialEffect(){
+    public String[] getSpecialEffect(){
 
         return specialEffect;
     }
-    public void setSpecialEffect(ArrayList<String> specialEffect){
+    public void setSpecialEffect(String[] specialEffect){
 
         this.specialEffect = specialEffect;
     }
@@ -96,33 +98,19 @@ public class WeaponCard {
     }
 
     @Override
-    public String toString(){
-
-        String resultString = "[";
-
-        for(int i = 0; i < 21 ; ++i ){
-
-            resultString += "{" + "\n";
-            resultString += "cardName=" + cardName + "\n";
-            resultString += "basicammoCost='" + basicammoCost + "\n";
-            resultString += "damageVision='" + damageVision + "\n";
-            resultString += "damageDeal='" + damageDeal + "\n";
-            resultString += "basiceffect='" + basicEffect + "\n";
-            resultString += "specialEffectName='" + specialEffectName + "\n";
-            resultString += "specialAmmoCost='" + specialAmmoCost + "\n";
-            resultString += "specialEffect='" + specialEffect + "\n";
-            resultString += "notes='" + notes + "\n";
-            resultString += "}\n";
-        }
-
-        resultString = "]";
-
-        return  resultString;
-
-
+    public String toString() {
+        return "WeaponCard{" +
+                "cardName='" + cardName + '\'' +
+                ", basicammoCost=" + Arrays.toString(basicammoCost) +
+                ", damageVision=" + damageVision +
+                ", damageDeal=" + Arrays.toString(damageDeal) +
+                ", basicEffect='" + basicEffect + '\'' +
+                ", specialEffectName=" + Arrays.toString(specialEffectName) +
+                ", specialAmmoCost=" + Arrays.toString(specialAmmoCost) +
+                ", specialEffect=" + Arrays.toString(specialEffect) +
+                ", notes='" + notes + '\'' +
+                '}';
     }
-
-
 }
 
 

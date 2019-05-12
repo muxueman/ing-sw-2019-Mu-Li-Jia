@@ -1,38 +1,37 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AmmotileCard {
 
-    public Integer numAmmotileCard;
-    public ArrayList<Integer> ammoColor;
-    public Integer totalnumCard;
+    public int numAmmotileCard;
+    public int[] ammoColor;
+    public int totalnumCard;
 
-    public Integer getNumAmmotileCard(){
+    public int getNumAmmotileCard(){
 
         return numAmmotileCard;
     }
-    public void setNumAmmotileCard(Integer numAmmotileCard){
+    public void setNumAmmotileCard(int numAmmotileCard){
 
         this.numAmmotileCard = numAmmotileCard;
     }
 
-    public ArrayList<Integer> getAmmoColor() {
-
+    public int[] getAmmoColor() {
         return ammoColor;
     }
 
-    public void setAmmoColor(ArrayList<Integer> ammoColor) {
-
+    public void setAmmoColor(int[] ammoColor) {
         this.ammoColor = ammoColor;
     }
 
-    public Integer getTotalnumCard() {
+    public int getTotalnumCard() {
 
         return totalnumCard;
     }
 
-    public void setTotalnumCard(Integer totalnumCard) {
+    public void setTotalnumCard(int totalnumCard) {
 
         this.totalnumCard = totalnumCard;
     }
@@ -40,26 +39,13 @@ public class AmmotileCard {
 
 
     @Override
-    public String toString(){
-
-        String resultString = "[";
-
-        for(int i = 0; i < 12 ; ++i ){
-            resultString += "{" + "\n";
-            resultString += "numAmmotileCard=" + numAmmotileCard + "\n";
-            resultString += "ammoColor='" + ammoColor + "\n";
-            resultString += "totalnumCard='" + totalnumCard + "\n";
-            resultString += "}\n";
-        }
-
-        resultString = "]";
-
-        return  resultString;
-
-
+    public String toString() {
+        return "AmmotileCard{" +
+                "numAmmotileCard=" + numAmmotileCard +
+                ", ammoColor=" + Arrays.toString(ammoColor) +
+                ", totalnumCard=" + totalnumCard +
+                '}';
     }
-
-
 }
 
 
