@@ -82,8 +82,8 @@ public class PowerupCardTest {
     @Test
     public void readPowerupCardTest() {
 
-        PowerupCardDeck powerupCardDeck = new PowerupCardDeck();
-        System.out.println(powerupCardDeck.toString());
+     //   PowerupCardDeck powerupCardDeck = new PowerupCardDeck();
+     //   System.out.println(powerupCardDeck.toString());
 
     }
 

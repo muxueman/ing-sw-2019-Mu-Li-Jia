@@ -1,7 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import com.google.gson.*;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

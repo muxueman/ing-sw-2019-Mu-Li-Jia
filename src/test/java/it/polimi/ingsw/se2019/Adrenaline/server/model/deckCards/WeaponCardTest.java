@@ -119,8 +119,8 @@ public class WeaponCardTest {
     @Test
     public void readWeaponCardTest() {
 
-        WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
-        System.out.println(weaponCardDeck.toString());
+      //  WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
+      //  System.out.println(weaponCardDeck.toString());
 
     }
 }
