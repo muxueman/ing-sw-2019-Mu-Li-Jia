@@ -6,7 +6,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
  * @author Xueman Mu
  */
 
-public interface ActionStrategy {
-
-    void takeAction(Player player);
-}
+//public interface ActionStrategy {
+//
+//    boolean takeAction(Player player);
+//}

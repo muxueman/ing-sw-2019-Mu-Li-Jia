@@ -9,6 +9,8 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+
 public class Player  {
     protected int playerID;
     protected Color playerColor;
@@ -71,6 +73,8 @@ public class Player  {
         return ammoOwned;
     }
 
+    public PlayBoard getPlayBoard() { return playBoard; }
+
     public Map<WeaponCard, Boolean> getWeaponsOwned() {
         return weaponsOwned;
     }
@@ -99,6 +103,7 @@ public class Player  {
     public void beAttacked(Player shooter, int damage, int mark){
         this.killShootTrack.beAttacked(shooter, damage, mark);
     }
+
 
     /*
         //装载ammo
@@ -129,43 +134,63 @@ public class Player  {
     }
     */
     public void fillAmmo(AmmoColor ammoColor){
+        int index = 0;
         switch(ammoColor){
-            case RED: ammoOwned[0]++;
-            case BLUE: ammoOwned[1]++;
-            case YELLOW: ammoOwned[2]++;
+            case RED: ammoOwned[0]++; index = 0; break;
+            case BLUE: ammoOwned[1]++; index = 1; break;
+            case YELLOW: ammoOwned[2]++; index = 2; break;
         }
+        while(ammoOwned[index] > 3){
+            ammoOwned[index]--;
+        }
+
     }
     //overload
     public void fillAmmo(AmmoColor ammoColor, int num){
         int index = 0;
         switch (ammoColor){
-            case RED: while(num != 0){ammoOwned[0]++; num--; } index = 0;
-            case YELLOW: while(num != 0){ammoOwned[1]++; num--; } index = 1;
-            case BLUE: while(num != 0){ammoOwned[2]++; num--; } index = 2;
+            case RED: while(num != 0){ammoOwned[0]++; num--; } index = 0; break;
+            case YELLOW: while(num != 0){ammoOwned[1]++; num--; } index = 1; break;
+            case BLUE: while(num != 0){ammoOwned[2]++; num--; } index = 2; break;
         }
         while(ammoOwned[index] >3) {
             ammoOwned[index]--;
         }
     }
     public void consumeAmmo(AmmoColor ammoColor){
+        int index = 0;
         switch(ammoColor){
-            case RED: ammoOwned[0]--;
-            case BLUE: ammoOwned[1]--;
-            case YELLOW: ammoOwned[2]--;
+            case RED: ammoOwned[0]--; index = 0; break;
+            case BLUE: ammoOwned[1]--; index = 1; break;
+            case YELLOW: ammoOwned[2]--; index = 2; break;
+        }
+        while(ammoOwned[index] <0) {
+            ammoOwned[index]++;
         }
     }
     //overload
     public void consumeAmmo(AmmoColor ammoColor, int num){
         int index = 0;
         switch (ammoColor){
-            case RED: while(num != 0){ammoOwned[0]--; num--; }
-            case YELLOW: while(num != 0){ammoOwned[1]--; num--; }
-            case BLUE: while(num != 0){ammoOwned[2]--; num--; }
+            case RED: while(num != 0){ammoOwned[0]--; num--; } index = 0; break;
+            case YELLOW: while(num != 0){ammoOwned[1]--; num--; } index = 1; break;
+            case BLUE: while(num != 0){ammoOwned[2]--; num--; } index = 2; break;
         }
         while(ammoOwned[index] <0) {
             ammoOwned[index]++;
         }
     }
+    public void addPowerupCard() throws Exception{
+        PowerupCard powerupCard = new PowerupCard();
+        powerupsOwned.add(powerupCard);
+        if(powerupsOwned.size() > 3) throw new InvalidGrabException(); // 最多三张powerup
+    }
+    public void addWeaponCard() throws Exception{
+        WeaponCard weaponCard = new WeaponCard();
+        weaponsOwned.put(weaponCard, true);
+        if(weaponsOwned.size() > 3) throw new InvalidGrabException();
+    }
+
     public void countMyScore(Player diedPlayer){
         myScore += diedPlayer.getKillShootTrack().getPlayerScore().get(this.playerColor);
     }
@@ -202,5 +227,53 @@ public class Player  {
         alive = true;
         killShootTrack.recover();
     }
-
+    public ArrayList<WeaponCard> getAvailableWeapon(){
+        ArrayList<WeaponCard>availableWeapons = new ArrayList<>();
+        for (WeaponCard key : weaponsOwned.keySet()){
+            if(weaponsOwned.get(key) == true) availableWeapons.add(key);
+            else continue;
+        }
+        return availableWeapons;
+    }
+    public boolean reloadWeapon(WeaponCard weaponCard){
+        ArrayList<Integer> ammoCost = weaponCard.getBasicammoCost();
+        int i = 0;
+        while(i<3){
+            i++;
+            switch (ammoCost.get(i)){
+                case 0: continue;
+                case 1:
+                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
+                    else return false;
+                case 2:
+                    if(getAmmoOwned()[2] > 0) {getAmmoOwned()[2]--; break;}
+                    else return false;
+                case 3:
+                    if(getAmmoOwned()[3] > 0) {getAmmoOwned()[3]--; break;}
+                    else return false;
+            }
+        }
+        weaponsOwned.put(weaponCard, true);
+        return true;
+    }
+    public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
+//        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
+//        int i = 0;
+//        while(){
+//            i++;
+//            switch (extraAmmoCost.get(i)){
+//                case 0: continue;
+//                case 1:
+//                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
+//                    else return false;
+//                case 2:
+//                    if(getAmmoOwned()[2] > 0) {getAmmoOwned()[2]--; break;}
+//                    else return false;
+//                case 3:
+//                    if(getAmmoOwned()[3] > 0) {getAmmoOwned()[3]--; break;}
+//                    else return false;
+//            }
+//        }
+        return true;
+    }
 }

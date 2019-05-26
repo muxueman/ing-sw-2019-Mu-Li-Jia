@@ -18,6 +18,8 @@ public abstract class Cell {
     protected ArrayList<Player> cellPlayers;
     //store the adjacent cells in a sequence of up, right, down, left.
     protected Cell[] adjacentCells;
+    //to identify the cell is which kind;
+    protected int type;
 
     //constructor
     public Cell(int cellID) {
@@ -60,6 +62,8 @@ public abstract class Cell {
     public Cell[] getAdjacentCells(){
         return this.adjacentCells;
     }
+    public int getType() { return type; }
+    public abstract void reload();
 
     //overload
     //get the cell from a specific direction
