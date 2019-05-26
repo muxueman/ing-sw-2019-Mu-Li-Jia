@@ -15,14 +15,13 @@ public class CommonCell extends Cell {
         this.type = 0;
         ammotileInCell = new AmmotileCard();
     }
-
     public AmmotileCard getAmmotileCard(){
         return ammotileInCell;
     }
     public void removeAmmotileCard(){
         ammotileInCell = null;
     }
-    public ArrayList<Integer> getAmmoColor(){
+    public int[] getAmmoColor(){
         return ammotileInCell.getAmmoColor();
     }
 

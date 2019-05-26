@@ -236,11 +236,11 @@ public class Player  {
         return availableWeapons;
     }
     public boolean reloadWeapon(WeaponCard weaponCard){
-        ArrayList<Integer> ammoCost = weaponCard.getBasicammoCost();
+        int[] ammoCost = weaponCard.getBasicammoCost();
         int i = 0;
         while(i<3){
             i++;
-            switch (ammoCost.get(i)){
+            switch (ammoCost[i]){
                 case 0: continue;
                 case 1:
                     if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}

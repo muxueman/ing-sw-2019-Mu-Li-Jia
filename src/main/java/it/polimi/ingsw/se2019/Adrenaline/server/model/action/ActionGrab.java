@@ -19,11 +19,11 @@ public class ActionGrab {
 
     public void pickAmmoTile(Player player) {
         //player.setCurrentCell((CommonCell)player.getCurrentCell()) ;
-        ArrayList<Integer> ammoOnCard =((CommonCell) player.getCurrentCell()).getAmmoColor();
+        int[] ammoOnCard =((CommonCell) player.getCurrentCell()).getAmmoColor();
         int i = 0;
         while(i < 3) {
             i++;
-            switch (ammoOnCard.get(i-1)){
+            switch (ammoOnCard[i-1]){
                 case 0: PowerupCard powerupCard = new PowerupCard(); player.getPowerupsOwned().add(powerupCard); break;
                 case 1: player.fillAmmo(AmmoColor.RED); break;
                 case 2: player.fillAmmo(AmmoColor.BLUE); break;
@@ -35,11 +35,11 @@ public class ActionGrab {
     }
     //捡武器卡前应判断是否有足够的ammo
     public boolean checkPlayerAmmoAvailable(WeaponCard weaponCard, Player player){
-        ArrayList<Integer> ammoCost = weaponCard.getBasicammoCost();
+        int[] ammoCost = weaponCard.getBasicammoCost();
         int i = 1;
         while(i<3){
             i++;
-            switch (ammoCost.get(i)){
+            switch (ammoCost[i]){
                 case 0: continue;
                 case 1:
                     if(player.getAmmoOwned()[1] > 0) continue;
@@ -58,11 +58,11 @@ public class ActionGrab {
     public void pickWeaponCrad(Player player, int position){
 
         WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard(position);
-        ArrayList<Integer> ammoCost = weaponCard.getBasicammoCost();
+        int[] ammoCost = weaponCard.getBasicammoCost();
         int i = 1;
         while(i < 3){
             i++;
-            switch(ammoCost.get(i-1)){
+            switch(ammoCost[i-1]){
                 case 0: continue;
                 case 1: player.consumeAmmo(AmmoColor.RED);
                 case 2: player.consumeAmmo(AmmoColor.BLUE);
