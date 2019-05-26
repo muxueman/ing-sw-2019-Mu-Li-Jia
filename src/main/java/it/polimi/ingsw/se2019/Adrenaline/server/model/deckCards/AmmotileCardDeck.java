@@ -1,60 +1,60 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class AmmotileCardDeck {
 
-    public static Object AmmotileCard;
-    public BufferedReader reader;
 
-    public class AmmotileCard {
+    public ArrayList<AmmotileCard> atCards;
+    BufferedReader reader = null;
+    public AmmotileCardDeck() {
 
-        List<AmmotileCard> ammotileCardList = new ArrayList<>();
+        atCards = new ArrayList<>();
 
-        public List<AmmotileCard> deserialize() {
-
+        try {
             Gson gson = new Gson();
+            reader = new BufferedReader(new FileReader("src/main/resource/json/AmmotileCard.json"));
+            JsonParser parser = new JsonParser();
+            JsonObject json = parser.parse(reader).getAsJsonObject();
 
+            JsonArray ammotileCardArray = json.getAsJsonArray("ammotileCardDeck");
 
-            try {
+            for (JsonElement ammotileCardElement : ammotileCardArray) {
 
-                reader = new BufferedReader(new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/AmmotileCard.json"));
-                JsonParser parser = new JsonParser();
-                JsonObject json = parser.parse(reader).getAsJsonObject();
+                AmmotileCard ammotileCardReaded = gson.fromJson(ammotileCardElement.toString(),AmmotileCard.class);
+                atCards.add(ammotileCardReaded);
 
-                JsonArray AmmotileCardArray = json.getAsJsonArray("ammotileCardDeck");
+            }
 
-                for (JsonElement ammotileCardElement : AmmotileCardArray) {
-
-                    String ammotileCardJson = ammotileCardElement.getAsString();
-
-                    AmmotileCard ammotileCard= gson.fromJson(ammotileCardJson, AmmotileCard.class);
-
-                    ammotileCardList.add(ammotileCard);
-                }
-
-                System.out.println(AmmotileCard);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            {
+                if(null != reader ){
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            return ammotileCardList;
-
         }
+
+    }
+
+    @Override
+    public String toString() {
+        return "AmmotileCardDeck{" +
+                "ammotileCards=" + atCards +
+                '}';
     }
 }

@@ -7,55 +7,51 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeaponCardDeck {
 
-    private static Object WeaponCard;
-    private BufferedReader reader;
 
-    public class WeaponCard {
+    public ArrayList<WeaponCard> weaponCards;
+    BufferedReader reader = null;
+    public WeaponCardDeck() {
 
-        List<WeaponCard> weaponCardList = new ArrayList<>();
+        weaponCards = new ArrayList<>();
 
-        public List<WeaponCard> deserialize() {
-
+        try {
             Gson gson = new Gson();
+         reader = new BufferedReader(new FileReader("src/main/resource/json/WeaponCard.json"));
+            JsonParser parser = new JsonParser();
+            JsonObject json = parser.parse(reader).getAsJsonObject();
 
+            JsonArray weaponCardArray = json.getAsJsonArray("weaponCardDeck");
 
-            try {
+            for (JsonElement weaponCardElement : weaponCardArray) {
 
-                reader = new BufferedReader(new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/WeaponCard.json"));
-                JsonParser parser = new JsonParser();
-                JsonObject json = parser.parse(reader).getAsJsonObject();
+                WeaponCard weaponCardReaded = gson.fromJson(weaponCardElement.toString(), WeaponCard.class);
+                weaponCards.add(weaponCardReaded);
 
-                JsonArray weaponCardArray = json.getAsJsonArray("weaponCardDeck");
+            }
 
-                for (JsonElement weaponCardElement : weaponCardArray) {
-
-                    String weaponCardJson = weaponCardElement.getAsString();
-
-                    WeaponCard weaponCard= gson.fromJson(weaponCardJson, WeaponCard.class);
-
-                    weaponCardList.add(weaponCard);
-                }
-
-
-                System.out.println(WeaponCard);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            {
+                if(null != reader ){
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            return weaponCardList;
-
         }
+
+    }
+
+    @Override
+    public String toString() {
+        return "WeaponCardDeck{" +
+                "weaponCards=" + weaponCards +
+                '}';
     }
 }

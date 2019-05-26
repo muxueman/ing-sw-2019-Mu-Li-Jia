@@ -1,14 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class AmmotileCardTest {
@@ -35,6 +31,7 @@ public class AmmotileCardTest {
 
         ammotileCard.setTotalnumCard(3);
         System.out.println("test totalnumCard: " + ammotileCard.getTotalnumCard());
+        Assert.assertEquals(3,ammotileCard.getTotalnumCard());
 
     }
 
@@ -43,27 +40,28 @@ public class AmmotileCardTest {
 
         ammotileCard.setNumAmmotileCard(1);
         System.out.println("test numAmmotileCard: " + ammotileCard.getNumAmmotileCard());
+        Assert.assertEquals(1,ammotileCard.getNumAmmotileCard());
 
     }
 
     //AmmoColor 1 for red , 2 for Blue ,3 for yellow
 
+
     @Test
-    public void testAmmoColor(){
-        ArrayList<Integer> ammoColor = new ArrayList<>();
-        ammoColor.add(3);
-        ammoColor.add(2);
-        ammoColor.add(2);
-        ammotileCard.setAmmoColor(ammoColor);
-        Map<Color,Integer> testColor = new HashMap<>();
-        testColor.put(Color.RED,1);
-        testColor.put(Color.BLUE,2);
-        testColor.put(Color.YELLOW,3);
+    public void setAmmoTest() {
+        int[] ammoTest;
 
-        System.out.println(("test AmmoColor:" + ammotileCard.getAmmoColor()));
-
+        ammoTest = new int[]{1,1,1};
+        ammotileCard.setAmmoColor(ammoTest);
+        System.out.println(ammotileCard.toString());
+        Assert.assertEquals(ammoTest,ammotileCard.getAmmoColor());
     }
 
+    @Test
+    public void readAmmoTest() {
 
+        AmmotileCardDeck ammotileCardDeck = new AmmotileCardDeck();
+        System.out.println(ammotileCardDeck.toString());
 
+    }
 }

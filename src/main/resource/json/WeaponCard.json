@@ -43,9 +43,9 @@
     "damageVision": 21,
     "damageDeal": [0, 1, 0],
     "basicEffect": "Choose 1 or 2 target you can see and deal 1 damage to each",
-    "specialEffectName": [["with focus shot"], ["with turret tripod"]],
-    "specialAmmoCost": [[3], [2]],
-    "specialEffect": [["Deal 1 additional damage to one of those targets"], ["Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different to a different target you can see"]],
+    "specialEffectName": ["with focus shot", "with turret tripod"],
+    "specialAmmoCost": [3, 2],
+    "specialEffect": ["Deal 1 additional damage to one of those targets", "Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different to a different target you can see"],
     "notes": "If you deal both additional points of damage,they must be dealt to 2 different targets.If you see only 2 targets,you deal 2 to each if you use both optional effects.If you use the basic effect on only 1 target,you can still use the turret tripot to give it 1 additional damage."
   },
   {
@@ -68,7 +68,7 @@
     "damageDeal": [0, 2, 0],
     "basicEffect": "Deal 2 damage to 1 target you can see",
     "specialEffectName": [["with chain reaction"], ["with high voltage"]],
-    "specialAmmoCost": [[2], [2]],
+    "specialAmmoCost": [2, 2],
     "specialEffect": [["Deal 1 damage to a second target that your first target can see"], ["Deal 2 damage to a third target that your second target can see.You cannot use this effect unless you first use the chain reaction."]],
     "notes": "This card constrains the order in which you can see its effects.(Most cards don't.)Also note that each target must be a different player"
   },
@@ -91,9 +91,9 @@
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
     "basicEffect": "Deal 2 damage to 1 target you can see",
-    "specialEffectName": [["with phase glide"], ["with charged shot"]],
-    "specialAmmoCost": [[0], [2]],
-    "specialEffect": [["Move 1 or 2 cells.This effect can be used either before or after the basic effect"], ["Deal 1 additional damage to your target"]],
+    "specialEffectName": ["with phase glide", "with charged shot"],
+    "specialAmmoCost": [0, 2],
+    "specialEffect": ["Move 1 or 2 cells.This effect can be used either before or after the basic effect", "Deal 1 additional damage to your target"],
     "notes": "The two moves have no ammocost.You don't have to be able to see your target when you play the card.For example,you can move 2 cells and shoot a target you now see.You cannot use 1 move before shooting and 1 move after."
   },
   {
@@ -189,8 +189,8 @@
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
     "basicEffect": "Deal 2 damage to 1 target you can see that is not on your cell.Then you may move the target 1 cell.",
-    "specialEffectName": [["with rocket jump"], ["with fragmenting warhead"]],
-    "specialAmmoCost": [[2], [3]],
+    "specialEffectName": ["with rocket jump", "with fragmenting warhead"],
+    "specialAmmoCost": [2, 3],
     "specialEffect": [["Move 1 or 2 cells.This effect can be used either before or after the basic effect"], ["During the basic effect ,deal 1 damage to every player on your target's original cell-including the target,even if you move it."]],
     "notes": "If you use the rocket jump before the basic effect,you consider only your new cell when determining if a target is legal.You can even move off a cell so you can shoot someone on it.If you use the fragmenting warhead,you deal damage to everyone on the target's cell before you move the target - you target will take 3 damage total."
   },
@@ -237,8 +237,8 @@
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
     "basicEffect": "Deal 2 damage to 1 target you can see",
-    "specialEffectName": [["with shadowstep"], ["with slice and dice"]],
-    "specialAmmoCost": [[0], [3]],
+    "specialEffectName": ["with shadowstep", "with slice and dice"],
+    "specialAmmoCost": [0, 3],
     "specialEffect": [["Move 1 cell before or after the basic effect"], ["Deal 2 damage to a different target on your cell.The shadowstep may be used before or after this effect."]],
     "notes": "Combining all effects allows you to move onto a cell and whack 2 people;or whack somebody,move,and whack somebody else;or whack 2 people and then move"
   },

@@ -7,56 +7,56 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PowerupCardDeck {
 
-    private static Object PowerupCard;
-    private BufferedReader reader;
 
-    public class PowerupCard {
 
-        List<PowerupCard> powerupCardList = new ArrayList<>();
+    public ArrayList<PowerupCard> ppCards;
+    BufferedReader reader = null;
 
-        public List<PowerupCard> deserialize() {
+    public PowerupCardDeck() {
 
+        ppCards = new ArrayList<>();
+
+
+        try {
             Gson gson = new Gson();
+            reader = new BufferedReader(new FileReader("src/main/resource/json/PowerupCard.json"));
+            JsonParser parser = new JsonParser();
+            JsonObject json = parser.parse(reader).getAsJsonObject();
 
+            JsonArray powerupCardArray = json.getAsJsonArray("powerupCardDeck");
 
-            try {
+            for (JsonElement powerupCardElement : powerupCardArray) {
 
-                reader = new BufferedReader(new FileReader("src/mian/java/it.polimi.ingsw.se2019.Adrenaline/resource/Json/PowerupCard.json"));
-                JsonParser parser = new JsonParser();
-                JsonObject json = parser.parse(reader).getAsJsonObject();
+                PowerupCard powerupCardReaded = gson.fromJson(powerupCardElement.toString(),PowerupCard.class);
+                ppCards.add(powerupCardReaded);
 
-                JsonArray powerupCardArray = json.getAsJsonArray("PowerupCardDeck");
+            }
 
-                for (JsonElement powerupCardElement : powerupCardArray) {
-
-                    String powerupCardJson = powerupCardElement.getAsString();
-
-                    PowerupCard powerupCard= gson.fromJson(powerupCardJson, PowerupCard.class);
-
-                    powerupCardList.add(powerupCard);
-                }
-
-
-                System.out.println(PowerupCard);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-            } finally {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            {
+                if(null != reader ){
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            return powerupCardList;
-
         }
+
+
+    }
+
+    @Override
+    public String toString() {
+        return "PowerupCardDeck{" +
+                "powerupCards=" +  +
+                '}';
     }
 }
 
