@@ -1,13 +1,81 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.action;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.AmmoColor;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 
+import java.util.ArrayList;
 /**
  * interface ActionStrategy
  * @author Xueman Mu
  */
 
-public class ActionGrab implements ActionStrategy{
+public class ActionGrab {
 
-    public void takeAction(Player player){
+    //pick 之前 应由controller先判断player所在位置， 应该捡武器卡 或其他， 如果捡武器卡 应决定捡哪一张
+
+    public void pickAmmoTile(Player player) {
+        //player.setCurrentCell((CommonCell)player.getCurrentCell()) ;
+        int[] ammoOnCard =((CommonCell) player.getCurrentCell()).getAmmoColor();
+        int i = 0;
+        while(i < 3) {
+            i++;
+            switch (ammoOnCard[i-1]){
+                case 0: PowerupCard powerupCard = new PowerupCard(); player.getPowerupsOwned().add(powerupCard); break;
+                case 1: player.fillAmmo(AmmoColor.RED); break;
+                case 2: player.fillAmmo(AmmoColor.BLUE); break;
+                case 3: player.fillAmmo(AmmoColor.YELLOW); break;
+            }
+        }
+        ((CommonCell) player.getCurrentCell()).removeAmmotileCard();
+        player.getPlayBoard().getPickedCell().add(player.getCurrentCell());
     }
+    //捡武器卡前应判断是否有足够的ammo
+    public boolean checkPlayerAmmoAvailable(WeaponCard weaponCard, Player player){
+        int[] ammoCost = weaponCard.getBasicammoCost();
+        int i = 1;
+        while(i<3){
+            i++;
+            switch (ammoCost[i]){
+                case 0: continue;
+                case 1:
+                    if(player.getAmmoOwned()[1] > 0) continue;
+                    else return false;
+                case 2:
+                    if(player.getAmmoOwned()[2] > 0) continue;
+                    else return false;
+                case 3:
+                    if(player.getAmmoOwned()[3] > 0) continue;
+                    else return false;
+            }
+        }
+        return true;
+    }
+
+    public void pickWeaponCrad(Player player, int position){
+
+        WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard(position);
+        int[] ammoCost = weaponCard.getBasicammoCost();
+        int i = 1;
+        while(i < 3){
+            i++;
+            switch(ammoCost[i-1]){
+                case 0: continue;
+                case 1: player.consumeAmmo(AmmoColor.RED);
+                case 2: player.consumeAmmo(AmmoColor.BLUE);
+                case 3: player.consumeAmmo(AmmoColor.YELLOW);
+            }
+        }
+        ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
+        player.getPlayBoard().getPickedCell().add(player.getCurrentCell());
+    }
+
+    /*
+     * check if he has enough ammo to pick the weapon
+     * start from ammocost[1], when you pick a new weapon, you dont have to the first ammo
+     */
+
 }
