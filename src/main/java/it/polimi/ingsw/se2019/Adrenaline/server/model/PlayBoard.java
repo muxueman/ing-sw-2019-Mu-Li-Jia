@@ -1,6 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
+
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
@@ -21,7 +23,7 @@ public class PlayBoard {
     private int killTurn;// 记录本场第几次的射杀
     private int firstPlayer; //
     private boolean firenzyTriggerd;
-
+    private ArrayList<Cell> pickedCell;
     // constructor
     public PlayBoard(Map map, ArrayList<Player> allPlayers) {
         this.map = map;
@@ -199,6 +201,13 @@ public class PlayBoard {
         //当玩家设定的局数不在5-8内 提示重新设置
 
     }
+    public void reloadCardOnBoard(){
+        int i = 0;
+        while(pickedCell.get(i) != null){
+            pickedCell.get(i).reload();
+            i++;
+        }
+    }
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 
@@ -231,4 +240,7 @@ public class PlayBoard {
         return currentPlayer;
     }
 
+    public ArrayList<Cell> getPickedCell() {
+        return pickedCell;
+    }
 }

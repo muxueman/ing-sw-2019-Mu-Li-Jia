@@ -78,7 +78,7 @@ public class TestPlayer {
     }
 
     @Test
-    public void testScore(){
+    public void testScore() {
         testPlayerColor();
         Player killedPlayer = new Player();
         testPlayer.addToMyScore(8);
@@ -92,7 +92,6 @@ public class TestPlayer {
         testScore.get(testPlayer.playerColor);
         testPlayer.countMyScore(killedPlayer);
     }
-
     @Test
     public void testPlayerAlive(){
        System.out.println(testPlayer.isAlive());
@@ -102,6 +101,4 @@ public class TestPlayer {
     public void setTestKillShootTrack(){
        System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayer().getNickName());
     }
-
-
 }
