@@ -39,7 +39,7 @@ public class ActionGrab {
         int i = 1;
         while(i<3){
             i++;
-            switch (ammoCost[i]){
+            switch (ammoCost[i-1]){
                 case 0: continue;
                 case 1:
                     if(player.getAmmoOwned()[1] > 0) continue;
@@ -64,9 +64,9 @@ public class ActionGrab {
             i++;
             switch(ammoCost[i-1]){
                 case 0: continue;
-                case 1: player.consumeAmmo(AmmoColor.RED);
-                case 2: player.consumeAmmo(AmmoColor.BLUE);
-                case 3: player.consumeAmmo(AmmoColor.YELLOW);
+                case 1: player.consumeAmmo(AmmoColor.RED); break;
+                case 2: player.consumeAmmo(AmmoColor.BLUE); break;
+                case 3: player.consumeAmmo(AmmoColor.YELLOW); break;
             }
         }
         ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
@@ -75,7 +75,7 @@ public class ActionGrab {
 
     /*
      * check if he has enough ammo to pick the weapon
-     * start from ammocost[1], when you pick a new weapon, you dont have to the first ammo
+     * start from ammocost[1], when you pick a new weapon, you dont have to pay the first ammo
      */
 
 }

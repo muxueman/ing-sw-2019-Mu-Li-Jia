@@ -56,7 +56,9 @@ public class Player  {
         playerColor = color;
     }
     public void setCurrentCell(Cell cell){
+        this.getCurrentCell().removePlayer(this);
         this.currentCell = cell;
+        cell.addPlayer(this);
     }
     public int getPlayerID() {
         return playerID;
@@ -164,9 +166,9 @@ public class Player  {
             case BLUE: ammoOwned[1]--; index = 1; break;
             case YELLOW: ammoOwned[2]--; index = 2; break;
         }
-        while(ammoOwned[index] <0) {
-            ammoOwned[index]++;
-        }
+//        while(ammoOwned[index] <0) {
+//            ammoOwned[index]++;
+//        }
     }
     //overload
     public void consumeAmmo(AmmoColor ammoColor, int num){
@@ -176,16 +178,16 @@ public class Player  {
             case YELLOW: while(num != 0){ammoOwned[1]--; num--; } index = 1; break;
             case BLUE: while(num != 0){ammoOwned[2]--; num--; } index = 2; break;
         }
-        while(ammoOwned[index] <0) {
-            ammoOwned[index]++;
-        }
+//        while(ammoOwned[index] <0) {
+//            ammoOwned[index]++;
+//        }
     }
-    public void addPowerupCard() throws Exception{
+    public void addPowerupCard() throws InvalidGrabException{
         PowerupCard powerupCard = new PowerupCard();
         powerupsOwned.add(powerupCard);
         if(powerupsOwned.size() > 3) throw new InvalidGrabException(); // 最多三张powerup
     }
-    public void addWeaponCard() throws Exception{
+    public void addWeaponCard() throws InvalidGrabException{
         WeaponCard weaponCard = new WeaponCard();
         weaponsOwned.put(weaponCard, true);
         if(weaponsOwned.size() > 3) throw new InvalidGrabException();
@@ -240,7 +242,7 @@ public class Player  {
         int i = 0;
         while(i<3){
             i++;
-            switch (ammoCost[i]){
+            switch (ammoCost[i-1]){
                 case 0: continue;
                 case 1:
                     if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
@@ -256,6 +258,7 @@ public class Player  {
         weaponsOwned.put(weaponCard, true);
         return true;
     }
+
     public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
 //        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
 //        int i = 0;

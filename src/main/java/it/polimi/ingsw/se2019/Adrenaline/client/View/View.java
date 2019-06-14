@@ -1,41 +1,17 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
+
 import java.util.*;
 
-/**@author Xueman Mu
- * @author Moxin Jia
- * @author Xuejing Li
- */
-public class View {
+
+public abstract class View extends Observable<String>{
 
     public View() {
     }
 
 
-
-    public void showMessage(String message) {
-    }
-
-    public void update() {
-    }
-
-    public void showCurrentPlayer() {
-    }
-
-
-
-    public void visualOrderTurn() {
-    }
-
-
-
-    public void showKillShootTrack() {
-    }
-
-    public void showPlayBoard() {
-    }
-
-    public void showKillShootRecord() {
-    }
-
+    //show the Ranking with scores
+    public abstract void showRanking(KillShootTrack track);
+    public abstract void reportError(String error);
 
 }

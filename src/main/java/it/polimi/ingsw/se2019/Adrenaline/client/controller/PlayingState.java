@@ -1,21 +1,38 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ActionController{
+public class PlayingState extends ControllerState{
 
+    //private int selectedAction;
+    private ClientMessage clientMessage;
     private int actionMode;
-    public ActionController() {
+
+    public PlayingState(ClientController clientController, int actionMode){
+        super(clientController, "");
+        this.actionMode = actionMode;
+        clientMessage = new ClientMessage("ACTION", actionMode);
     }
 
-    public void TurnStep(int actionMode, Player player) {
-
+    @Override
+    public ControllerState initState(){
+        //
+        return super.initState();
+    }
+    @Override
+    public ControllerState update(String message) {
+        //
+        return initState();
+    }
+    @Override
+    public ControllerState updateStatus(ServerMessage serverMessage) {
+        //
+    }
+    //switch sate depending on the message of actions
+    private ControllerState request(String message){
         // we have Action(step), Round and Turn to represent
         int currentRound = 1;
         int currentStep = 1;
@@ -24,19 +41,21 @@ public class ActionController{
 
         if (actionMode != 4)
             numRound = 2;
-/**
+
         while(currentRound <= numRound){
             switch(actionMode) {
                 case 0:
                 case 1:
                 case 2:
-                    showAvailableAction(["run", "grab", "shoot", "end round"]);
+                    clientController.sendToView("select an action: run, grab, shoot, end round");
+                    //clientController.sendToView(["run", "grab", "shoot", "end round"]);
+                    clientController.sendToView.sendToServer("select an action: run, grab, shoot, end round");
                     choiceMessage1 = getActionChoice();
                     switch (choiceMessage1) {
                         case "grab":
                             takeGrabAction(player, choiceMessage1);
                             break;
-                        case "shoot":
+                        case "shoot":r
                             takeShootAction(player, choiceMessage1);
                             break;
                         case "end round":
@@ -237,48 +256,8 @@ public class ActionController{
             takeReloadAction(player);
         }
         endTurn();
-    }
-*/
 
+
+    }
 
 }
-//public class ActionController implements PlayServerInterface {
-/*
-    private ServerController serverController;
-    private MatchController matchController;
-    private List<WindowPatternCard> windowPatternCards;
-
-    public ChoosePatternState(ServerController serverController, ClientInterface client) throws RemoteException {
-        this.serverController = serverController;
-        matchController = serverController.getMatch();
-        windowPatternCards = matchController.getChoosableWindowPatternCards(client);
-        ServerMessage serverMessage = new ServerMessage("CHOOSE", true, new WindowPatternUpdate(windowPatternCards));
-        PrivateObjectiveCard privateObjectiveCard = matchController.getPrivateObjectiveCard(client);
-        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(privateObjectiveCard));
-        client.updateStatus(new PlayMessage());
-        client.updateStatus(serverMessage);
-    }
-
-    /**
-     *
-     * The update method is used to elaborate the message from the Client and update the model.
-     * @param message message is the message to elaborate.
-     * @param client is the reference to the client interface.
-     * @return the current state.
-     * @throws RemoteException when there is a RMI communication error.
-     *
-
-    @Override
-    public PlayServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
-        int index = message.getMainParam() - 1;
-        if (message.getTextMove().equalsIgnoreCase("CHOOSE") && index >= 0 && index < windowPatternCards.size()) {
-            matchController.chooseWindowPatternCard(client, windowPatternCards.get(index));
-            matchController.initPlayer(client);
-            return new WaitingForMatchState();
-        }
-        client.sendError("Can't choose the window pattern card!");
-        return this;
-    }
-    */
-
-    }

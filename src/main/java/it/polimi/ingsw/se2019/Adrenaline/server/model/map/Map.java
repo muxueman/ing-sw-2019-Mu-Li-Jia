@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import java.util.ArrayList;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 /**
  *4 types of maps, a map contains several rooms, a room contains several cells
@@ -223,8 +224,17 @@ public abstract class Map {
         }
         return availableOneWalkCell;
     }
+    public int getDirectionFromCellToCell(Cell sor, Cell dest){
+        int direction = 0;
+        while(direction < 4){
+            if(sor.getNextCell(direction) == dest) break;
+            direction++;
+        }
+        return direction;
+    }
     public boolean checkAvailableOneWalkCell(Cell X, Cell Y){
         return getAvailableOneWalkCell(Y).contains(X);
     }
+
 
 }
