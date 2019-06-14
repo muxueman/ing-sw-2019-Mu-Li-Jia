@@ -1,7 +1,9 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
 
+//first player select a map
 public class SelectMapState extends ControllerState{
 
     private int selectedMap;
@@ -28,24 +30,22 @@ public class SelectMapState extends ControllerState{
         switch (message) {
             case "1":
             case "A":
-                selectedMap = 1;
-                return this;
+                selectedMap = 1;break;
             case "2":
             case "B":
-                selectedMap = 2;
-                return new PlaceMapState(clientController).initState();
+                selectedMap = 2;break;
             case "3":
             case "C":
-                selectedMap = 3;
-                return new PlaceMapState(clientController).initState();
+                selectedMap = 3;break;
             case "4":
             case "D":
-                selectedMap = 4;
-                return new PlaceMapState(clientController).initState();
+                selectedMap = 4;break;
             default:
                 clientController.reportError("Not a valid map!");
                 return this;
         }
+        ClientMessage clientMessage = new ClientMessage("map", selectedMap);
+        return new SelectKillState(clientController).initState();
     }
 
 }
