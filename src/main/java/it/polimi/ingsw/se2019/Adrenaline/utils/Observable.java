@@ -8,9 +8,9 @@ package it.polimi.ingsw.se2019.Adrenaline.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Observable<T>{
+public abstract class Observable<String>{
 
-    private List<Observer<T>> observers;
+    private List<Observer<String>> observers;
     //lock is used for keep (multi-)thread safe, avoiding chaos in data
     private final Object lock = new Object();
 
@@ -19,7 +19,7 @@ public abstract class Observable<T>{
         this.observers = new ArrayList<>();
     }
 
-    public void addObserver(Observer<T> observer){
+    public void addObserver(Observer<String> observer){
         if(observer == null)
             throw new NullPointerException();
         synchronized (lock) {

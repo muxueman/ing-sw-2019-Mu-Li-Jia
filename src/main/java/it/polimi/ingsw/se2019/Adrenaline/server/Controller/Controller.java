@@ -1,11 +1,18 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
 
-/**@author Xueman Mu
- * @author Moxin Jia
- * @author Xuejing Li
- */
+import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
 
-public class Controller{
+public interface Controller{
+    boolean isActive();
+
+    void setActive(boolean active);
+
+    void nextState(PlayServerInterface nextState);
+
+    void setMatch(MatchController currentMatch);
+
+    MatchController getMatch();
+
 
 }
