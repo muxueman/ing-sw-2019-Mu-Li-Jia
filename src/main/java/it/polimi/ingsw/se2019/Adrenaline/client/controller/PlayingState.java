@@ -27,12 +27,12 @@ public class PlayingState extends ControllerState{
         //
         return initState();
     }
-    @Override
+    //@Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
-        //
+        return null;
     }
     //switch sate depending on the message of actions
-    private ControllerState request(String message){
+    private ControllerState request(String message) {
         // we have Action(step), Round and Turn to represent
         int currentRound = 1;
         int currentStep = 1;
@@ -41,7 +41,7 @@ public class PlayingState extends ControllerState{
 
         if (actionMode != 4)
             numRound = 2;
-
+/*
         while(currentRound <= numRound){
             switch(actionMode) {
                 case 0:
@@ -259,5 +259,7 @@ public class PlayingState extends ControllerState{
 
 
     }
-
+*/
+return null;
+    }
 }

@@ -10,9 +10,9 @@ import java.rmi.RemoteException;
 
 public interface ClientInterface extends Remote {
 
-    void sendError(String error) throws RemoteException;
+    public void sendError(String error) throws RemoteException;
 
-    void updateStatus(ServerMessage serverMessage) throws RemoteException;
+    public void updateStatus(ServerMessage serverMessage) throws RemoteException;
 
-    void checkConnection() throws RemoteException;
+    public void checkConnection() throws RemoteException;
 }

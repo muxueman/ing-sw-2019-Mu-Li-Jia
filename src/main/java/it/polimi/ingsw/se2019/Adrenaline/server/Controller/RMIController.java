@@ -9,6 +9,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.ServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 
 import java.rmi.RemoteException;
@@ -19,14 +20,14 @@ import java.util.logging.Logger;
 public class RMIController implements PlayServerInterface, ServerController {
 
     private ClientInterface client;
-    private PlayBoard playBoard;
-    //private MatchController matchController;
+    private Lobby lobby;
+    private MatchController matchController;
     private PlayServerInterface state;
     private boolean active;
 
     public RMIController(PlayBoard playBoard, ClientInterface client) {
-        //state = new PlayerSetupState(this, playBoard);
-        this.playBoard = playBoard;
+        //state = new SetupState(this, lobby);
+        this.lobby = lobby;
         this.client = client;
         active = true;
         (new Timer()).scheduleAtFixedRate(new RMIPing(), 0, 1000);
@@ -54,7 +55,7 @@ public class RMIController implements PlayServerInterface, ServerController {
     public void nextState(PlayServerInterface nextState) {
         state = nextState;
     }
-/*
+
     @Override
     public void setMatch(MatchController matchController) {
         this.matchController = matchController;
@@ -64,7 +65,7 @@ public class RMIController implements PlayServerInterface, ServerController {
     public MatchController getMatch() {
         return matchController;
     }
-*/
+
     private class AsyncUpdate extends Thread {
 
         private ClientMessage message;
