@@ -241,16 +241,7 @@ public class PlayingState extends ControllerState{
                                     takeShootAction(player, choiceMessage8);
                                     break;
                                 case "end round":
-                                    break;
-                            }
-                            break;
-                        case "end round":
-                            break;
-                    }
-                    break;
-            }
-            currentRound++;
-        }
+                                    break;zzZzZZZ ZZZ
         if (actionMode == 0 || actionMode == 1 ||actionMode == 2) {
             showAvailableAction(["reload"]);
             takeReloadAction(player);

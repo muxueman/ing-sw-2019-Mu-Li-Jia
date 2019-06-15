@@ -4,7 +4,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import java.util.*;
 
 
-public abstract class View extends Observable<String>{
+public abstract class View{
 
     public View() {
     }
@@ -14,9 +14,8 @@ public abstract class View extends Observable<String>{
     public abstract void showMessage(String message);
     public abstract void showRanking(KillShootTrack track);
     public abstract void reportError(String error);
-    public
-    public void showStatus(Status status) {
+    //public void showStatus(Status status) {
         // doesn't need to do anything, only used by CLIView
-    }
+    //}
 
 }
