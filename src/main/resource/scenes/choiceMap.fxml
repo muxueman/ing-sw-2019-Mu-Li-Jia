@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="350.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.client.view.AlertBoxController">
+    <children>
+      <Label layoutX="247.0" layoutY="21.0" prefHeight="33.0" prefWidth="107.0" text="ChoiceMap" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+        <Button fx:id="closeButton" layoutX="562.0" layoutY="15.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="8.0" text="X">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Button>
+        <Label fx:id="labelOne" alignment="CENTER" layoutX="8.0" layoutY="70.0" prefHeight="60.0" prefWidth="386.0" style="-fx-background-color: white;" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="32.0" layoutY="180.0">
+         <image>
+            <Image url="@../map/map_A.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="172.0" layoutY="180.0">
+         <image>
+            <Image url="@../map/map_B.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="312.0" layoutY="180.0">
+         <image>
+            <Image url="@../map/map_C.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="452.0" layoutY="180.0">
+         <image>
+            <Image url="@../map/map_D.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

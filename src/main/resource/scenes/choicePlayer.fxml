@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="250.0" prefWidth="400.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.client.view.AlertBoxController">
+    <children>
+      <Label layoutX="154.0" layoutY="17.0" prefHeight="17.0" prefWidth="90.0" text="ChoicePlayer" textAlignment="CENTER" textFill="WHITE" />
+        <Button fx:id="closeButton" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="8.0" text="X">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Button>
+        <Label fx:id="labelOne" alignment="CENTER" layoutX="8.0" layoutY="70.0" prefHeight="60.0" prefWidth="386.0" style="-fx-background-color: white;" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="310.0" layoutY="160.0">
+         <image>
+            <Image url="@../player/小紫（violet）.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="240.0" layoutY="160.0">
+         <image>
+            <Image url="@../player/小绿（sprog）.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="170.0" layoutY="160.0">
+         <image>
+            <Image url="@../player/小蓝（banshee）.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="100.0" layoutY="160.0">
+         <image>
+            <Image url="@../player/小黄（d-struct-or）.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="30.0" layoutY="160.0">
+         <image>
+            <Image url="@../player/小黑（dozer）.jpg" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
