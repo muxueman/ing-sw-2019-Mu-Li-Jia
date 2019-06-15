@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
 /**
- *  It behaves like a real View with respect to Model and controller:
+ *  It behaves like a real view with respect to Model and controller:
  *  It is an observer with respect to the Model
  *  It is an observable towards the controller
  *  @author Xueman Mu
