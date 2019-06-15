@@ -110,7 +110,7 @@ public class ActionShoot{
         boolean shoot = false;
         int i = 0;
         if (weaponCard.getCardName() == "FURANCE") {
-            target.addAll(target.get(i).getCurrentCell().getCellPlayers());
+            target.addAll(getTargetFromCell(target.get(i).getPlayBoard().getMap().getCellsWithinRoom(target.get(i).getCurrentCell())));
             target.remove(target.get(i));
         }
         while (i < target.size()) {
@@ -368,11 +368,7 @@ public class ActionShoot{
         }
         return  targetsInVision;
     }
-    public void moveTarget(Player target, int direction){
-        //try
-        target.setCurrentCell(target.getCurrentCell().getNextCell(direction));
-        // catch cannotMoveException;
-    }
+
     public void dealDamageMarkToTarget(Player shooter, int damage, int mark, Player target){
         target.getKillShootTrack().beAttacked(shooter, damage, mark);
     }
@@ -469,6 +465,14 @@ public class ActionShoot{
         shooter.getCurrentCell().addPlayer(target);
         target.setCurrentCell(shooter.getCurrentCell());
     }
+    public void moveTarget(Player target, int direction){
+        //try
+        target.getCurrentCell().removePlayer(target);
+        target.setCurrentCell(target.getCurrentCell().getNextCell(direction));
+        target.getCurrentCell().addPlayer(target);
+        // catch cannotMoveException;
+    }
+
     public void dealDamageToEveryoneInCell(Player shooter, int damage, int mark, Player target){
         ArrayList<Player> targets = new ArrayList<>();
         targets.addAll(target.getCurrentCell().getCellPlayers());
