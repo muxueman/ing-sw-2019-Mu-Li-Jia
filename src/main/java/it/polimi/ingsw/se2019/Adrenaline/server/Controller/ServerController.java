@@ -15,7 +15,7 @@ public interface ServerController {
 
     void nextState(PlayServerInterface nextState);
 
-    //void setMatch(MatchController currentMatch);
+    void setMatch(MatchController currentMatch);
 
-    //MatchController getMatch();
+    MatchController getMatch();
 }

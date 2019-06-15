@@ -11,9 +11,11 @@ public class SelectKillState extends ControllerState {
         this.numKillShoot = 5;
     }
     @Override
-    public ControllerState update(String message){
+    public ControllerState update(String message) {
         numKillShoot = Integer.valueOf(message);
         ClientMessage clientMessage = new ClientMessage("numKillShoot", numKillShoot);
         clientController.sendToServer(clientMessage);
-
+        return null;
+        //return this;
+    }
 }
