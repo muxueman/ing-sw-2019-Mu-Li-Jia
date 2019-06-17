@@ -57,7 +57,23 @@ public class InitialViewController extends GUIController {
      * initial view scene.
      *
      */
-    
+
+    public void initialize(){
+        final String textEffect = "textEffect";
+        final String networkButtonEffect = "networkButton";
+        final String searchButtonEffect = "searchButton";
+        hostText.getStyleClass().add(textEffect);
+        portText.getStyleClass().add(textEffect);
+        nameText.getStyleClass().add(textEffect);
+        rmiButton.getStyleClass().add(networkButtonEffect);
+        socketButton.getStyleClass().add(networkButtonEffect);
+        searchButton.getStyleClass().add(searchButtonEffect);
+        nameText.setVisible(false);
+        searchButton.setVisible(false);
+
+    }
+
+
 
 
 }

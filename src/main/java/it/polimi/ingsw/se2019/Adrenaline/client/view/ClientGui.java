@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,13 +42,13 @@ public class ClientGui extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/initialView.fxml"));
         Parent root = loader.load();
-        primaryStage.setTitle("Sagrada");
+        primaryStage.setTitle("Adrenalina");
         Scene initialScene = new Scene(root);
         primaryStage.setScene(initialScene);
         primaryStage.setResizable(false);
         primaryStage.show();
         GUIController guiController = loader.getController();
-       // new Controller(new GUIView(guiController));
+        //new ClientController(new GUIView(guiController));
     }
 }
 
