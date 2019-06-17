@@ -22,7 +22,8 @@ public class NonPlayingState extends ControllerState{
     public ControllerState nextState(boolean error, boolean playing) {
         if (playing) {
             //clientController.getView().launchTimer();
-            return new PlayingState(clientController).initState();
+            //return new PlayingState(clientController).initState();
+            return null;
         }
         return this;
     }

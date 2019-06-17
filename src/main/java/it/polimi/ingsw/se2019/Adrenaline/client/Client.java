@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client;
 
 //represent a client
 
+import it.polimi.ingsw.se2019.Adrenaline.client.view.ClientGui;
 import javafx.application.Application;
 
 import java.util.Scanner;

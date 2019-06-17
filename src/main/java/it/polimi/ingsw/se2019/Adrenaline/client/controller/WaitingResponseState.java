@@ -29,13 +29,14 @@ public class WaitingResponseState extends ControllerState{
         return this;
     }
 
-    @Override
+    //@Override
     public ControllerState updateStatus(ServerMessage serverMessage){
         if(serverMessage.getMessage().equals("CONNECT")){
             //wpc = false;
             nextState = new NonPlayingState(clientController);
         }
-        return super.updateStatus(serverMessage);
+        //return super.updateStatus(serverMessage);
+        return null;
     }
 
 }

@@ -15,8 +15,8 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
-public class SocketController implements ClientInterface, ServerController {
-
+public class SocketController  {
+//implements ClientInterface, ServerController
     private final Socket socket;
     private boolean active;
     private ObjectInputStream in;
@@ -45,7 +45,7 @@ public class SocketController implements ClientInterface, ServerController {
             while (isActive()) {
                 try {
                     clientMessage = (ClientMessage) in.readObject();
-                    state = state.update(clientMessage, SocketController.this);
+                    //state = state.update(clientMessage, SocketController.this);
                 } catch (IOException | ClassNotFoundException e) {
                     Logger.getGlobal().warning(e.getMessage());
                     active = false;
@@ -56,18 +56,18 @@ public class SocketController implements ClientInterface, ServerController {
     }
 
     // The isActive method is used to check if the SocketController is active.
-    @Override
+    //@Override
     public boolean isActive() {
         return active && !socket.isClosed();
     }
 
-    @Override
+    //@Override
     public void setActive(boolean active) {
         this.active = active;
     }
 
     // The sendError method is used to report an error to the client.
-    @Override
+    //@Override
     public void sendError(String error) {
         try {
             ServerMessage errorMessage = new ErrorMessage(error);
@@ -81,7 +81,7 @@ public class SocketController implements ClientInterface, ServerController {
     // The updateStatus method elaborates the server message, if it is accepted
     // change the status of the controller, else sends error.
 
-    @Override
+    //@Override
     public void updateStatus(ServerMessage serverMessage) {
         try {
             out.writeObject(serverMessage);
@@ -91,12 +91,12 @@ public class SocketController implements ClientInterface, ServerController {
         }
     }
 
-    @Override
+    //@Override
     public void checkConnection() throws RemoteException {
         // just checking the connection...
     }
 
-    @Override
+    //@Override
     public void nextState(PlayServerInterface nextState) {
         state = nextState;
     }
