@@ -25,7 +25,7 @@ public class RMIController implements PlayServerInterface, ServerController {
     private PlayServerInterface state;
     private boolean active;
 
-    public RMIController(PlayBoard playBoard, ClientInterface client) {
+    public RMIController(Lobby lobby, ClientInterface client) {
         //state = new SetupState(this, lobby);
         this.lobby = lobby;
         this.client = client;

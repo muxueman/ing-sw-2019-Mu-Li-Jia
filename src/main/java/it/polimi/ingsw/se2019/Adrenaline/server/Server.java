@@ -9,7 +9,6 @@ package it.polimi.ingsw.se2019.Adrenaline.server;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -22,14 +21,14 @@ import java.util.logging.Logger;
 public class Server {
 
     //port number (if cannot be established, possibly because current port number is being used
-    static final int RMI_PORT = 1100;
-    static final int SOCKET_PORT = 1200;
+    static final int RMI_PORT = 1099;
+    static final int SOCKET_PORT = 1100;
 
-    private PlayBoard playBoard;
+    private Lobby lobby;
 
     public Server() {
 
-        (new SocketServer(this, SOCKET_PORT)).start();
+        //(new SocketServer(this, SOCKET_PORT)).start();
         RMIServer rmiServer = new RMIServer(this);
 
         try {
@@ -43,20 +42,20 @@ public class Server {
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
         }
-        //playBoard = new PlayBoard();
+        lobby = new Lobby();
     }
 
     public synchronized void addClient(ClientInterface client, ServerController controller) {
-        //playBoard.addPlayers(client, controller);
+        //Lobby.addClient(client, controller);
     }
-
+/*
     public synchronized void addClient(Socket clientConnection) throws IOException {
-       //SocketController client = new SocketController(clientConnection, playBoard);
-       // addClient(client, client);
+         SocketController client = new SocketController(clientConnection, lobby);
+         addClient(client, client);
     }
-
-    public PlayBoard getPlayBoard() {
-        return playBoard;
+*/
+    public Lobby getLobby() {
+        return lobby;
     }
 
     public static void main(String[] args) {

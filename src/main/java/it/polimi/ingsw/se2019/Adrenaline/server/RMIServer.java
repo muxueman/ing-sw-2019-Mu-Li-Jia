@@ -23,8 +23,9 @@ public class RMIServer implements ServerInterface {
     @Override
     public PlayServerInterface addClient(ClientInterface client) {
 
-        RMIController rmiController = new RMIController(server.getPlayBoard(), client);
+        RMIController rmiController = new RMIController(server.getLobby(), client);
         try {
+            //if port num = 0, an anonymous port is chosen
             PlayServerInterface playServer = (PlayServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
             addClient(client);
             return playServer;
