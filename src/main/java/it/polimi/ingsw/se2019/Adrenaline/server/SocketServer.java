@@ -38,7 +38,7 @@ public class SocketServer extends Thread {
                 newClientConnection = serverSocket.accept();
                 Logger.getGlobal().info("A new client connected.");
                 // Every time there is a connection established, add that to the client connection list
-                server.addClient(newClientConnection);
+                //server.addClient(newClientConnection);
 
             } catch (IOException e) {
                 Logger.getGlobal().warning(e.getMessage());

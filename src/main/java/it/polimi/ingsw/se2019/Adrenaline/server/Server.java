@@ -9,7 +9,6 @@ package it.polimi.ingsw.se2019.Adrenaline.server;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -22,43 +21,50 @@ import java.util.logging.Logger;
 public class Server {
 
     //port number (if cannot be established, possibly because current port number is being used
-    static final int RMI_PORT = 1100;
-    static final int SOCKET_PORT = 1200;
+    static final int RMI_PORT = 1099;
+    static final int SOCKET_PORT = 1100;
 
-    private PlayBoard playBoard;
+    private Lobby lobby;
 
     public Server() {
 
-        (new SocketServer(this, SOCKET_PORT)).start();
+        //(new SocketServer(this, SOCKET_PORT)).start();
+        //创建远程对象实例
         RMIServer rmiServer = new RMIServer(this);
 
         try {
+            //启动RMI注册服务，指定端口为1099
+            System.out.println("RMI Registry start.....");
             LocateRegistry.createRegistry(RMI_PORT);
         } catch (RemoteException e) {
             Logger.getGlobal().info("Registry already on!");
         }
         try {
+            //把server实例注册到启动了RMI注册服务器的机器上
             UnicastRemoteObject.exportObject(rmiServer, RMI_PORT);
             Naming.rebind("//localhost/Server", rmiServer);
+            System.out.println("Server running...");
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
         }
-        //playBoard = new PlayBoard();
+        lobby = new Lobby();
     }
 
+    //addClient for RMI server
     public synchronized void addClient(ClientInterface client, ServerController controller) {
-        //playBoard.addPlayers(client, controller);
+        //Lobby.addClient(client, controller);
     }
-
+/*
     public synchronized void addClient(Socket clientConnection) throws IOException {
-       //SocketController client = new SocketController(clientConnection, playBoard);
-       // addClient(client, client);
+         SocketController client = new SocketController(clientConnection, lobby);
+         addClient(client, client);
+    }
+*/
+    public Lobby getLobby() {
+        return lobby;
     }
 
-    public PlayBoard getPlayBoard() {
-        return playBoard;
-    }
-
+    //start a server!
     public static void main(String[] args) {
         new Server();
     }

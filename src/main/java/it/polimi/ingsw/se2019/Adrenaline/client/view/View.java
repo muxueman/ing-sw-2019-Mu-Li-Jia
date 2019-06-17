@@ -17,5 +17,8 @@ public abstract class View{
     //public void showStatus(Status status) {
         // doesn't need to do anything, only used by CLIView
     //}
+    public void nextView(boolean wpc) {
+        // doesn't need to do anything, only used by GUIView
+    }
 
 }
