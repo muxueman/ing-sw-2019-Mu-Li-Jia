@@ -11,8 +11,8 @@ package it.polimi.ingsw.se2019.Adrenaline.network;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ServerInterface extends Remote{
+public interface RMIServerInterface extends Remote{
 
     //server provided by server
-    PlayServerInterface addClient(ClientInterface client) throws RemoteException;
+    GameServerInterface addClient(ClientInterface client) throws RemoteException;
 }

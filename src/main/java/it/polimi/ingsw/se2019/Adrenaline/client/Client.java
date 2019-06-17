@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client;
 
 //represent a client
 
+import it.polimi.ingsw.se2019.Adrenaline.client.view.CLIView;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.ClientGui;
 import javafx.application.Application;
 
@@ -9,11 +10,10 @@ import java.util.Scanner;
 
 public class Client {
 
-
-
     //choose to play with cli or gui
     private static boolean chooseView(String input) {
         if (input.equalsIgnoreCase("cli") || input.equalsIgnoreCase("c")) {
+            CLIView CLIview = new CLIView();
             //new Controller(new CLIView(System.out, colors));
         } else if (input.equalsIgnoreCase("gui") || input.equalsIgnoreCase("g")) {
             Application.launch(ClientGui.class);

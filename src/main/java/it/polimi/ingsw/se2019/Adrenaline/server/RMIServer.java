@@ -1,8 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.RMIServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.RMIController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
@@ -12,7 +12,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
-public class RMIServer implements ServerInterface {
+
+public class RMIServer implements RMIServerInterface {
 
     private final Server server;
 
@@ -21,19 +22,23 @@ public class RMIServer implements ServerInterface {
     }
 
     @Override
-    public PlayServerInterface addClient(ClientInterface client) {
+    public GameServerInterface addClient(ClientInterface client) {
 
+        //针对每一个用户，创建属于他的RMIController(它继承了gameserverinterface)并把它注册到RMI
+        //RMIController rmiController = new RMIController(server.getLobby(), client);
         RMIController rmiController = new RMIController(server.getLobby(), client);
         try {
             //if port num = 0, an anonymous port is chosen
-            PlayServerInterface playServer = (PlayServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
+            GameServerInterface gameServer = (GameServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
             addClient(client);
-            return playServer;
+            return gameServer;
         } catch (RemoteException e) {
             Logger.getGlobal().warning(e.getMessage());
             return null;
         }
     }
+
+    //通过这个函数把client和server controller 一一对应的信息存在lobby里
     private void addClient(ClientInterface client, ServerController controller) {
         server.addClient(client, controller);
     }

@@ -41,16 +41,17 @@ public abstract class ControllerState {
         return nextState(serverMessage.isError(), serverMessage.isPlaying());
     }
     */
-    //next state if called by a response from the server
+    //next state if called by a response from the server, return next state
     protected ControllerState nextState(boolean error, boolean playing) {
         return initState();
     }
 
-    //create new state of controller (inform clientController and view of client)
+    //create new state of controller (inform clientController and view of client), return myself
     public ControllerState initState() {
         sendMessage();
         return this;
     }
+
     //send message to the controller, then view
     protected void sendMessage() {
         clientController.sendToView(message);

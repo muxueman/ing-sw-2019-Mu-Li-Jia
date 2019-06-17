@@ -7,22 +7,22 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
+
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 
 import java.rmi.RemoteException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-public class RMIController implements PlayServerInterface, ServerController {
+public class RMIController implements GameServerInterface {
 
+    //also implement serverController
     private ClientInterface client;
     private Lobby lobby;
     private MatchController matchController;
-    private PlayServerInterface state;
+    private GameServerInterface state;
     private boolean active;
 
     public RMIController(Lobby lobby, ClientInterface client) {
@@ -36,13 +36,13 @@ public class RMIController implements PlayServerInterface, ServerController {
 
     // The update method is used to send to the server an update.
     @Override
-    public PlayServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
+    public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
         (new AsyncUpdate(message, client)).start();
         return null;
     }
 
     // The isActive method is used to check if the RMIController is active.
-    @Override
+    //@Override
     public boolean isActive() {
         return active;
     }
@@ -52,16 +52,16 @@ public class RMIController implements PlayServerInterface, ServerController {
         this.active = active;
     }
 
-    public void nextState(PlayServerInterface nextState) {
+    public void nextState(GameServerInterface nextState) {
         state = nextState;
     }
 
-    @Override
+    //@Override
     public void setMatch(MatchController matchController) {
         this.matchController = matchController;
     }
 
-    @Override
+    //@Override
     public MatchController getMatch() {
         return matchController;
     }

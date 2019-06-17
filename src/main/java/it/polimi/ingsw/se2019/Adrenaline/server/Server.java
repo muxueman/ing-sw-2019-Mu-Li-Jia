@@ -29,22 +29,28 @@ public class Server {
     public Server() {
 
         //(new SocketServer(this, SOCKET_PORT)).start();
+        //创建远程对象实例
         RMIServer rmiServer = new RMIServer(this);
 
         try {
+            //启动RMI注册服务，指定端口为1099
+            System.out.println("RMI Registry start.....");
             LocateRegistry.createRegistry(RMI_PORT);
         } catch (RemoteException e) {
             Logger.getGlobal().info("Registry already on!");
         }
         try {
+            //把server实例注册到启动了RMI注册服务器的机器上
             UnicastRemoteObject.exportObject(rmiServer, RMI_PORT);
             Naming.rebind("//localhost/Server", rmiServer);
+            System.out.println("Server running...");
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
         }
         lobby = new Lobby();
     }
 
+    //addClient for RMI server
     public synchronized void addClient(ClientInterface client, ServerController controller) {
         //Lobby.addClient(client, controller);
     }
@@ -58,6 +64,7 @@ public class Server {
         return lobby;
     }
 
+    //start a server!
     public static void main(String[] args) {
         new Server();
     }
