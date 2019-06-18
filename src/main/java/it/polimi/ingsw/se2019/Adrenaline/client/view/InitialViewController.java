@@ -51,6 +51,7 @@ public class InitialViewController extends GUIController {
     private boolean errorMessage = false;
     private boolean player = false;
 
+
     /**
      *
      * The initialize method is used to initialize the
@@ -73,7 +74,104 @@ public class InitialViewController extends GUIController {
 
     }
 
+    /**
+     *
+     * The getTable method is used to take the player's name and
+     * get into a room.
+     *
+     */
 
+    public void getTable(){
+        if(!nameText.getText().equals("")){
+            notify(nameText.getText());
+        }else {
+            messageText.setText("Please enter a name");
+        }
+
+    }
+
+    /**
+     *
+     * The getConnection method is used to connect to the server.
+     * @param event event from the user interface.
+     *
+     */
+
+    @FXML
+    public void getConnection(ActionEvent event) {
+        if (hostText.getText().equals("") || portText.getText().equals("")) {
+            messageText.setText("Insert: " + (hostText.getText().equals("") ? "Host" : "")   + " " + (portText.getText().equals("") ? "Port" : "") );
+        } else {
+            try {
+                messageText.setText("");
+                Integer.parseInt(portText.getText());
+                if(errorMessage){
+                    notify("cancel");
+                    errorMessage = false;
+                }
+
+                if (event.getSource() == socketButton) {
+                    notify("2");
+                    notify(hostText.getText());
+                    notify(portText.getText());
+                } else if (event.getSource() == rmiButton) {
+                    notify("1");
+                    notify(hostText.getText());
+                    notify(portText.getText());
+                }
+            } catch (NumberFormatException e) {
+                messageText.setText("Invalid port");
+            }
+        }
+    }
+
+    /**
+     *
+     * The reportError method is used to set an error text in
+     * the user's interface.
+     *
+     * @param error error's string.
+     *
+     */
+
+    @Override
+    public void reportError(String error) {
+        Platform.runLater(() -> errorText.setText(error));
+        errorMessage = true;
+    }
+
+    /**
+     *
+     * The nextView method is used to
+     * ask the graphic user interface to change view.
+     *
+     */
+
+    @Override
+    public void nextView(boolean wpc) {
+        if(!player) {
+            Platform.runLater(() -> {
+                errorText.setText("");
+                title.setText("Enter name \nor reconnection token");
+                socketButton.setVisible(false);
+                rmiButton.setVisible(false);
+                hostText.setVisible(false);
+                portText.setVisible(false);
+                nameText.setVisible(true);
+                searchButton.setVisible(true);
+                player = true;
+            });
+        } else {
+            Platform.runLater( () -> {
+                Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
+            });
+        }
+    }
 
 
 }
+
+
+
+
+

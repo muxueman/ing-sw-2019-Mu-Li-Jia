@@ -3,6 +3,13 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ *
+ * @author Li xuejing
+ *
+ *
+ */
+
 public class PowerupCard {
 
     private String cardName;
