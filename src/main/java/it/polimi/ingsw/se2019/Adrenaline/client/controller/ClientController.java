@@ -16,13 +16,14 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ClientController implements ClientInterface {
+public class ClientController implements ClientInterface, Observer<String> {
     //current view, state
     private View view;
     private Model model;
     private ControllerState state;
     private GameServerInterface gameServer;
 
+    private int actionMode;
     protected boolean playing;
 
     //constructor
@@ -30,6 +31,7 @@ public class ClientController implements ClientInterface {
         this.view = view;
         this.gameServer = null;
         playing = false;
+        actionMode = 1;
         state = new ConnectionState(this).initState();
     }
     //get value
@@ -42,6 +44,7 @@ public class ClientController implements ClientInterface {
     protected ControllerState getState() {
         return state;
     }
+    public int getActionMode(){return actionMode;}
 
     //set value
     public void setGameServer(GameServerInterface gameServer) {
@@ -71,6 +74,10 @@ public class ClientController implements ClientInterface {
         view.nextView(wpc);
     }
 
+    @Override
+    public synchronized void update(String message) {
+        state = state.update(message);
+    }
     public void updateStatus(ServerMessage serverMessage) throws RemoteException{};
 
     public void checkConnection() throws RemoteException{};
