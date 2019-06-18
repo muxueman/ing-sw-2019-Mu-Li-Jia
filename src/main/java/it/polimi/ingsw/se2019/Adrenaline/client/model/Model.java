@@ -14,6 +14,10 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         boardStatus = null;
         nextUpdate = new ModelUpdate();
     }
+    public void initModel() {
+        boardStatus = new BoardStatus(5);
+        nextUpdate = new ModelUpdate(boardStatus);
+    }
     private void pingUpdate() {
         notify(new ModelUpdate(boardStatus));
     }
@@ -30,6 +34,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
             nextUpdate = new ModelUpdate(boardStatus);
         }
     }
+
 
     @Override
     public void updateMap(Map selectedMap) {

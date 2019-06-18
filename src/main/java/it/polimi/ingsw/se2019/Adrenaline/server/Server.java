@@ -52,14 +52,14 @@ public class Server {
 
     //addClient for RMI server
     public synchronized void addClient(ClientInterface client, ServerController controller) {
-        //Lobby.addClient(client, controller);
+        lobby.addClient(client, controller);
     }
-/*
-    public synchronized void addClient(Socket clientConnection) throws IOException {
-         SocketController client = new SocketController(clientConnection, lobby);
-         addClient(client, client);
-    }
-*/
+
+//    public synchronized void addClient(Socket clientConnection) throws IOException {
+//         SocketController client = new SocketController(clientConnection, lobby);
+//         addClient(client, client);
+//    }
+
     public Lobby getLobby() {
         return lobby;
     }

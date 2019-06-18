@@ -10,25 +10,17 @@ import java.util.List;
 
 public abstract class Observable<T>{
 
-    private List<Observer<T>> observers;
-    //lock is used for keep (multi-)thread safe, avoiding chaos in data
+
     private final Object lock = new Object();
+    private List<Observer<T>> observers = new ArrayList<>();
 
-    //constructor
-    public Observable(){
-        this.observers = new ArrayList<>();
-    }
-
-    public void addObserver(Observer<T> observer){
-        if(observer == null)
-            throw new NullPointerException();
+    public void register(Observer<T> observer){
         synchronized (lock) {
-            if(!observers.contains(observer))
-                observers.add(observer);
+            observers.add(observer);
         }
     }
 
-    public void removeObserver(Observer<T> observer){
+    public void deregister(Observer<T> observer){
         synchronized (lock) {
             observers.remove(observer);
         }
@@ -41,7 +33,6 @@ public abstract class Observable<T>{
             }
         }
     }
-
 
 
 }
