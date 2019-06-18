@@ -21,7 +21,7 @@ public class SocketController  {
     private boolean active;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private PlayServerInterface state;
+    private GameServerInterface state;
     private PlayBoard playBoard;
     //private MatchController matchController;
 
@@ -97,7 +97,7 @@ public class SocketController  {
     }
 
     //@Override
-    public void nextState(PlayServerInterface nextState) {
+    public void nextState(GameServerInterface nextState) {
         state = nextState;
     }
 /*

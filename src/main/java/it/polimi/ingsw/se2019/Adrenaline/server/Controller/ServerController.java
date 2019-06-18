@@ -5,7 +5,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 
 public interface ServerController {
 
@@ -13,7 +13,7 @@ public interface ServerController {
 
     void setActive(boolean active);
 
-    void nextState(PlayServerInterface nextState);
+    void nextState(GameServerInterface nextState);
 
     void setMatch(MatchController currentMatch);
 

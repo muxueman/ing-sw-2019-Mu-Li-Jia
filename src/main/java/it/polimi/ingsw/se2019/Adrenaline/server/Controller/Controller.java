@@ -1,14 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.network.PlayServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 
 public interface Controller{
     boolean isActive();
 
     void setActive(boolean active);
 
-    void nextState(PlayServerInterface nextState);
+    void nextState(GameServerInterface nextState);
 
     void setMatch(MatchController currentMatch);
 
