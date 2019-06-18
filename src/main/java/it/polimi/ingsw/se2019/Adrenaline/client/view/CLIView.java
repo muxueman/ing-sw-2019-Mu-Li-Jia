@@ -1,62 +1,81 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.GnuParser;
+import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
+//import org.apache.commons.cli.DefaultParser;
+import org.fusesource.jansi.Ansi;
+
+import java.io.PrintStream;
+import java.util.List;
+import java.util.Scanner;
 
 
-public class CLIView {
+public class CLIView extends View {
 
 
-    public CLIView () {
-        String[] arg = { "-h", "-c", "config.xml" };
-        testOptions(arg);
+    private boolean active;
+    private PrintStream out;
+
+    public CLIView(PrintStream out) {
+        active = true;
+        this.out = out;
+        (new InputHandler()).start();
     }
 
+    private class InputHandler extends Thread {
 
-    public void testOptions(String[] args) {
-        Options options = new Options();
-        Option opt = new Option("h", "help", false, "Print help");
-        opt.setRequired(false);
-        options.addOption(opt);
-
-        opt = new Option("c", "configFile", true, "Name server config properties file");
-        opt.setRequired(false);
-        options.addOption(opt);
-
-        opt = new Option("p", "printConfigItem", false, "Print all config item");
-        opt.setRequired(false);
-        options.addOption(opt);
-
-        HelpFormatter hf = new HelpFormatter();
-        hf.setWidth(110);
-        CommandLine commandLine = null;
-        CommandLineParser parser = new DefaultParser();
-        try {
-            commandLine = parser.parse(options, args);
-            if (commandLine.hasOption('h')) {
-                // 打印使用帮助
-                hf.printHelp("testApp", options, true);
-            }
-
-            // 打印opts的名称和值
-            System.out.println("--------------------------------------");
-            Option[] opts = commandLine.getOptions();
-            if (opts != null) {
-                for (Option opt1 : opts) {
-                    String name = opt1.getLongOpt();
-                    String value = commandLine.getOptionValue(name);
-                    System.out.println(name + "=>" + value);
+        @Override
+        public void run() {
+            try(Scanner in = new Scanner(System.in)) {
+                while (isActive()) {
+                    String input = in.nextLine();
+                    CLIView.this.notify(input);
                 }
             }
         }
-        catch (ParseException e) {
-            hf.printHelp("testApp", options, true);
-        }
-
     }
+    public boolean isActive() {
+        return active;
+    }
+
+
+    public void showMessage(String message) {
+        print(message);
+    }
+    public void reportError(String error) {
+        showMessage("Error: " + error);
+    }
+    private void print(Object object){
+        out.println(object);
+    }
+
+
+    private void print(Status status){
+//        if () {
+//            out.println(status.toAnsi().fg(Ansi.Color.DEFAULT));
+//        } else out.println(status.toString());
+    }
+    @Override
+    public void update(ModelUpdate message) {
+        print(message.getMessage());
+        List<Status> statusUpdates = message.getStatusUpdates();
+        for (Status status : statusUpdates) {
+            if (status != null) {
+                print(status);
+            }
+        }
+    }
+
+
+
+
+
 }

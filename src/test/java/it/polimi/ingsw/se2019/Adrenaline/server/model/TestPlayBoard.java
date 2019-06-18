@@ -92,7 +92,7 @@ public class TestPlayBoard {
         testPlayBoard.changefirenzyMode();
         testPlayBoard.getNumDamageOnSkullBoard();
         testPlayBoard.getColorDamageOnSkullBoard();
-        testPlayBoard.getWeaponCardsOnBoard();
+//        testPlayBoard.getWeaponCardsOnBoard();
         System.out.println(testPlayBoard.getCurrentPlayer().getPlayerColor().toString());
         System.out.println(testPlayBoard.getAllPlayers().get(testPlayBoard.getFirstPlayer()).getPlayerColor().toString());
         System.out.println(testPlayer.getActionMode());

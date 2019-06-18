@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
+
 public class ConnectionState extends ControllerState{
 
     private int selectedConnection; // 1 for RMI, 2 for Socket
@@ -58,5 +60,12 @@ public class ConnectionState extends ControllerState{
         }
         clientController.reportError("Insert valid inputs, please.");
         return this;
+    }
+    @Override
+    public ControllerState updateStatus(ServerMessage serverMessage) {
+        if (serverMessage.isError()) {
+            clientController.reportError(serverMessage.getMessage());
+        }
+        return nextState(serverMessage.isError(), serverMessage.isPlaying());
     }
 }

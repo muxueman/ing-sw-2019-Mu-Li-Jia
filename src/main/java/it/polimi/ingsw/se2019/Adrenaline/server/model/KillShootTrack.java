@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  *
  */
-public class KillShootTrack implements Cloneable {
+public class KillShootTrack{
 
     private Player player;
     private int turn;

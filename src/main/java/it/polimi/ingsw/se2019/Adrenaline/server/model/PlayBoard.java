@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCardDeck;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
@@ -18,11 +19,12 @@ public class PlayBoard {
     private Color[] colorDamageOnSkullBoard; //与num一一对应
     private Player currentPlayer;
     private Map map;
-    private WeaponCard[][][] weaponCardsOnBoard;
+//    private WeaponCard[][][] weaponCardsOnBoard;
     private int numKillShoot; //记录射杀的总数 即玩家设定的 一局死多少人后结束
     private int killTurn;// 记录本场第几次的射杀
     private int firstPlayer; //
     private boolean firenzyTriggerd;
+    private WeaponCardDeck weaponCardDeck;
     private ArrayList<Cell> pickedCell;
     // constructor
     public PlayBoard(Map map, ArrayList<Player> allPlayers) {
@@ -31,13 +33,14 @@ public class PlayBoard {
         this.numKillShoot = 5; //默认玩五局 玩家可再修改 选择 5-8 局
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
-        weaponCardsOnBoard = new WeaponCard[][][]{};
+//        weaponCardsOnBoard = new WeaponCard[][][]{};
         killTurn = 0;
         setCurrentPlayer();
         firenzyTriggerd = false;
         for(Player player : this.allPlayers){
             player.setPlayBoard(this);
         }
+        weaponCardDeck = new WeaponCardDeck();
     }
     //overload only for test
     public PlayBoard(int numKillShoot) {
@@ -47,7 +50,7 @@ public class PlayBoard {
         this.numKillShoot = numKillShoot;
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
-        weaponCardsOnBoard = new WeaponCard[][][]{};
+//        weaponCardsOnBoard = new WeaponCard[][][]{};
         killTurn = 0;
         firenzyTriggerd = false;
     }
@@ -201,13 +204,13 @@ public class PlayBoard {
         //当玩家设定的局数不在5-8内 提示重新设置
 
     }
-    public void reloadCardOnBoard(){
-        int i = 0;
-        while(pickedCell.get(i) != null){
-            pickedCell.get(i).reload();
-            i++;
-        }
-    }
+//    public void reloadCardOnBoard(){
+//        int i = 0;
+//        while(pickedCell.get(i) != null){
+//            pickedCell.get(i).reload();
+//            i++;
+//        }
+//    }
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 
@@ -232,9 +235,9 @@ public class PlayBoard {
         return colorDamageOnSkullBoard;
     }
 
-    public WeaponCard[][][] getWeaponCardsOnBoard() {
-        return weaponCardsOnBoard;
-    }
+//    public WeaponCard[][][] getWeaponCardsOnBoard() {
+//        return weaponCardsOnBoard;
+//    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;

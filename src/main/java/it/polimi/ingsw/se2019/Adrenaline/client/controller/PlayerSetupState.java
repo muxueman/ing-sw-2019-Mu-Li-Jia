@@ -16,7 +16,6 @@ public class PlayerSetupState extends ControllerState{
         username = message;
         ClientMessage clientMessage = new ClientMessage(username, 0);
         clientController.sendToServer(clientMessage);
-        //return new WaitingResponseState(clientController, new );
-        return null;
+        return new WaitingResponseState(clientController, new SelectMapState(clientController,4));
     }
 }

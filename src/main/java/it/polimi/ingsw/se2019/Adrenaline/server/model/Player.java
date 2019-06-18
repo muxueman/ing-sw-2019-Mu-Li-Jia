@@ -259,24 +259,24 @@ public class Player  {
         return true;
     }
 
-    public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
-//        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
-//        int i = 0;
-//        while(){
-//            i++;
-//            switch (extraAmmoCost.get(i)){
-//                case 0: continue;
-//                case 1:
-//                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
-//                    else return false;
-//                case 2:
-//                    if(getAmmoOwned()[2] > 0) {getAmmoOwned()[2]--; break;}
-//                    else return false;
-//                case 3:
-//                    if(getAmmoOwned()[3] > 0) {getAmmoOwned()[3]--; break;}
-//                    else return false;
-//            }
-//        }
-        return true;
-    }
+//    public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
+////        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
+////        int i = 0;
+////        while(){
+////            i++;
+////            switch (extraAmmoCost.get(i)){
+////                case 0: continue;
+////                case 1:
+////                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
+////                    else return false;
+////                case 2:
+////                    if(getAmmoOwned()[2] > 0) {getAmmoOwned()[2]--; break;}
+////                    else return false;
+////                case 3:
+////                    if(getAmmoOwned()[3] > 0) {getAmmoOwned()[3]--; break;}
+////                    else return false;
+////            }
+////        }
+//        return true;
+//    }
 }
