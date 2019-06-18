@@ -14,7 +14,6 @@ public class WeaponCardDeck {
     public ArrayList<WeaponCard> weaponCards;
     BufferedReader reader = null;
     public WeaponCardDeck() {
-
         weaponCards = new ArrayList<>();
 
         try {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.network.*;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
@@ -18,6 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class ClientController implements ClientInterface {
     //current view, state
     private View view;
+    private Model model;
     private ControllerState state;
     private GameServerInterface gameServer;
 
@@ -33,6 +35,9 @@ public class ClientController implements ClientInterface {
     //get value
     protected View getView() {
         return view;
+    }
+    protected Model getModel() {
+        return model;
     }
     protected ControllerState getState() {
         return state;

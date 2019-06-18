@@ -23,24 +23,24 @@ public abstract class ControllerState {
     public abstract ControllerState update(String message);
     //deal with the server message, if it is accepted change the status of the controller, else sends error.
 
-   /* public ControllerState updateStatus(ServerMessage serverMessage){
+    public ControllerState updateStatus(ServerMessage serverMessage){
         List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
         for (StatusUpdate statusUpdate : statusUpdates) {
-            statusUpdate.updateStatus(controller.getModel());
+            statusUpdate.updateStatus(clientController.getModel());
         }
-        controller.getModel().pingUpdate(serverMessage.getMessage());
+        clientController.getModel().pingUpdate(serverMessage.getMessage());
         if (serverMessage.isError()) {
             if(serverMessage.getMessage().equals("ENDGAME")) {
-                return new EndGameState(controller).initState();
+                return new EndGameState(clientController).initState();
             }
             if(serverMessage.getMessage().equals("TIMER")) {
-                return new WaitingResponseState(controller, new NonPlayingState(controller));
+                return new WaitingResponseState(clientController, new NonPlayingState(clientController));
             }
-            controller.reportError(serverMessage.getMessage());
+            clientController.reportError(serverMessage.getMessage());
         }
         return nextState(serverMessage.isError(), serverMessage.isPlaying());
     }
-    */
+
     //next state if called by a response from the server, return next state
     protected ControllerState nextState(boolean error, boolean playing) {
         return initState();
@@ -56,5 +56,8 @@ public abstract class ControllerState {
     protected void sendMessage() {
         clientController.sendToView(message);
     }
+
+
+
 
 }
