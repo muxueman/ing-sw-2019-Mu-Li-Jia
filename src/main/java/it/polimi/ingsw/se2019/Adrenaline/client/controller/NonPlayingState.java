@@ -2,7 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 public class NonPlayingState extends ControllerState{
 
-    //constructor
+    //constructor,"You passed the turn to the next player."
     public NonPlayingState(ClientController clientController){
         super(clientController, "");
     }
@@ -10,7 +10,7 @@ public class NonPlayingState extends ControllerState{
     @Override
     public ControllerState initState() {
         //clientController.getView().play(false);
-        clientController.playing = false;
+        //clientController.playing = false;
         return super.initState();
     }
     @Override
@@ -22,8 +22,7 @@ public class NonPlayingState extends ControllerState{
     public ControllerState nextState(boolean error, boolean playing) {
         if (playing) {
             //clientController.getView().launchTimer();
-            //return new PlayingState(clientController).initState();
-            return null;
+            return new ActionSelectState(clientController,0, 0).initState();
         }
         return this;
     }

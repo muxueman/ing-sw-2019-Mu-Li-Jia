@@ -22,7 +22,6 @@ public abstract class ControllerState {
     //deal with the message from client, if it is accepted updates the state of the controller, else sends error.
     public abstract ControllerState update(String message);
     //deal with the server message, if it is accepted change the status of the controller, else sends error.
-
     public ControllerState updateStatus(ServerMessage serverMessage){
         List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
         for (StatusUpdate statusUpdate : statusUpdates) {
@@ -46,6 +45,7 @@ public abstract class ControllerState {
         return initState();
     }
 
+    //the important part!!! this is to notify the view to show the request options
     //create new state of controller (inform clientController and view of client), return myself
     public ControllerState initState() {
         sendMessage();

@@ -26,11 +26,14 @@ public class ConnectionState extends ControllerState{
         } catch (NumberFormatException e) {
             intMessage = -1;
         }
+        //第一次选择connection type
         if (selectedConnection == 0 && (intMessage == 1 || intMessage == 2)) {
             selectedConnection = intMessage;
             clientController.sendToView("Insert host ip (\"cancel\" to select the connection type again):");
             return this;
-        } else if (selectedConnection != 0 &&  host == null) {
+        }
+        //取消选择connection type
+        else if (selectedConnection != 0 &&  host == null) {
             if (message.equalsIgnoreCase("CANCEL")) {
                 selectedConnection = 0;
                 clientController.sendToView("Changing connection type, choose:\n" +
@@ -41,7 +44,6 @@ public class ConnectionState extends ControllerState{
             if (message.equals("")) {
                 message = "localhost";
             }
-
             host = message;
             clientController.sendToView("Insert port: ");
             return this;
@@ -61,6 +63,8 @@ public class ConnectionState extends ControllerState{
         clientController.reportError("Insert valid inputs, please.");
         return this;
     }
+
+
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
         if (serverMessage.isError()) {
