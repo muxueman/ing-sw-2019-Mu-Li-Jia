@@ -34,6 +34,13 @@ public class Lobby {
         queue.start();
 
     }
+
+    public synchronized void addClient(ClientInterface client, ServerController controller) {
+        clients.put(client, false);
+        controllers.put(client, controller);
+        clientInterfaces.put(controller, client);
+    }
+
     private synchronized void remove(ClientInterface clientInterface) {
         ServerController serverController = controllers.get(clientInterface);
         clients.remove(clientInterface);
