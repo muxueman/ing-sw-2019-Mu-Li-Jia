@@ -1,14 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
+import org.fusesource.jansi.Ansi;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- * @author Li xuejing
- *
- *
- */
 
 public class WeaponCard {
 
@@ -118,6 +114,8 @@ public class WeaponCard {
                 ", notes='" + notes + '\'' +
                 '}';
     }
+
+
 }
 
 
