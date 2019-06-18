@@ -2,7 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.network.updates;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.UpdatableModel;
+import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 
 public class MapUpdate implements StatusUpdate {
 

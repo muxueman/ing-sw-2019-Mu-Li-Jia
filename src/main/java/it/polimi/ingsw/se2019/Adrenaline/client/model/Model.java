@@ -1,17 +1,9 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCardDeck;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.UpdatableModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 

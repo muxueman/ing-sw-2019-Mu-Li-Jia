@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
+package it.polimi.ingsw.se2019.Adrenaline.network;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 
