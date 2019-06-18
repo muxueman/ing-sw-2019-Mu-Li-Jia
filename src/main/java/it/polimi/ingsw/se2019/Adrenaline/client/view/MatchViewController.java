@@ -10,10 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
 import java.awt.*;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
 
 public class MatchViewController extends GUIController{
 
