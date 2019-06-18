@@ -4,5 +4,5 @@ import org.fusesource.jansi.Ansi;
 
 public interface Status extends Serializable {
     String toString();
-    Ansi toAnsi();
+//    Ansi toAnsi();
 }

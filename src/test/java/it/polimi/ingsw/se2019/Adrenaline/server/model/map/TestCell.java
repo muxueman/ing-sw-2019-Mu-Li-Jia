@@ -12,7 +12,7 @@ public class TestCell {
     Cell cellb = new CommonCell(4);
     Cell cellc = new CommonCell(5);
     Cell celld = new CommonCell(6);
-    Player playerA = new Player();
+    Player playerA = new Player("jia");
 
     @Test
     public void testGenerationCell(){

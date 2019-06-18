@@ -11,6 +11,7 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.UpdatableModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
@@ -37,6 +38,12 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
             nextUpdate = new ModelUpdate(boardStatus);
         }
     }
+
+    @Override
+    public void updateMap(Map selectedMap) {
+        nextUpdate.addStatusUpdate(boardStatus);
+    }
+
 
 
 }

@@ -14,9 +14,9 @@ public class TestPlayBoard {
 
     Map testMap = new MapA();
     PlayBoard testPlayBoard = new PlayBoard(5);
-    Player testShooter = new Player();
-    Player testPlayer = new Player();
-    Player testPlayer2 = new Player();
+    Player testShooter = new Player("jia");
+    Player testPlayer = new Player("li");
+    Player testPlayer2 = new Player("mu");
     KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
     ArrayList<Player> allPlayer = new ArrayList<>();
 

@@ -1,4 +1,267 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.network.ErrorMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.UpdateMessage;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
+//import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
+import java.rmi.RemoteException;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MatchController {
+
+    private final String matchID;
+
+    private Player currentPlayer;
+    private Map<ClientInterface, Player> players;
+    private Map<Player, ServerController> controllers;
+    private Map<Player, ClientInterface> clients;
+    private List<Color> colors = new ArrayList<>(Arrays.asList(Color.values()));
+
+    private TurnHandler turnHandler;
+
+    private boolean started;
+
+    private Timer timer;
+
+    public MatchController(String matchID) {
+        this.matchID = matchID;
+        currentPlayer = null;
+        players = new HashMap<>();
+        controllers = new HashMap<>();
+        clients = new HashMap<>();
+        started = false;
+
+        timer = new Timer();
+    }
+
+    public synchronized boolean isNotFull() {
+        return !(players.size() == 5 && isReady());
+    }
+
+    private synchronized boolean isReady() {
+        boolean notReady = players.entrySet().stream().map(Map.Entry::getValue)
+                .anyMatch(player -> !player.isReady());
+        return !notReady;
+    }
+    public synchronized void addClient(ClientInterface client, ServerController controller) {
+        if (isNotFull()) {
+            Collections.shuffle(colors);
+            Color color = colors.get(0);
+            colors.remove(0);
+            UUID uuid = UUID.randomUUID();
+            Player player = new Player(uuid.toString());
+            players.put(client, player);
+            controllers.put(player, controller);
+            clients.put(player, client);
+        }
+    }
+    public synchronized void setPlayer(String username, ClientInterface client) {
+        boolean taken = players.entrySet().stream().map(Map.Entry::getValue).map(Player::getUserName)
+                .anyMatch(un -> un != null && un.equals(username));
+        if (!taken) {
+            players.get(client).setUserName(username);
+            Logger.getGlobal().log(Level.INFO,"New player: {0}", username);
+        }
+    }
+
+    synchronized List<it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map> getChoosableMap(ClientInterface client) {
+        List<it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map> choosableMap = new ArrayList<>();
+        choosableMap.add(new MapA());
+        choosableMap.add(new MapB());
+        choosableMap.add(new MapC());
+        choosableMap.add(new MapD());
+//        if (!choosableMap.isEmpty()) {
+//            temp.add(windowPatternCards.get(0));
+//            choosableWindowPatternCards.addAll(windowPatternCards.remove(0));
+//            if (!windowPatternCards.isEmpty()) {
+//                temp.add(windowPatternCards.get(0));
+//                choosableWindowPatternCards.addAll(windowPatternCards.remove(0));
+//            }
+//        }
+//        distributedWindowPatternCards.put(client, temp);
+        int i = 0;
+        if(clients.size() == 3){
+            choosableMap.remove(3);
+        }
+        else if(clients.size() == 5){
+            choosableMap.remove(0);
+        }
+        return choosableMap;
+    }
+    public void startWhenReady() {
+        (new MatchStarter()).start();
+    }
+    private class MatchStarter extends Thread {
+
+        private boolean active = true;
+
+        @Override
+        public void run() {
+            while (active) {
+                if (isReady()) {
+                    startMatch();
+                    active = false;
+                }
+            }
+        }
+    }
+    private synchronized void startMatch() {
+        if (players.size() == 1) {
+            endGame(true);
+            return;
+        }
+        if (turnHandler == null) {
+            started = true;
+            List<Player> definitivePlayers = new ArrayList<>();
+            players.forEach((client, player) -> definitivePlayers.add(player));
+            turnHandler = new TurnHandler(definitivePlayers);
+//            currentPlayer = turnHandler.getCurrentPlayer();
+
+            closeTimer();
+            startTimer();
+        }
+    }
+
+    private void endGame(boolean onePlayer) {
+        ErrorMessage endGameMessage = new ErrorMessage("ENDGAME");
+        updateAll(endGameMessage);
+        if (onePlayer) {
+            Player activePlayer = null;
+            for (Player player : players.values()) {
+                ServerController serverController = controllers.get(player);
+                if (serverController.isActive()) {
+                    activePlayer = player;
+                }
+            }
+//            if (activePlayer != null) {
+//                Map<Player, Score> ranking = new HashMap<>();
+//                ranking.put(activePlayer, countPoints(activePlayer));
+//                UpdateMessage updateMessage = new UpdateMessage("You won because everyone left!");
+//                updateMessage.addStatusUpdate(new RankingUpdate(new Ranking(ranking)));
+//                updateClient(clients.get(activePlayer), updateMessage);
+//            }
+//        } else {
+//            List<Player> playerList = turnHandler.getPlayers();
+//            Map<Player, Score> ranking = new HashMap<>();
+//            for (Player player : playerList) {
+//                ranking.put(player, countPoints(player));
+//            }
+            UpdateMessage updateMessage = new UpdateMessage("");
+//            updateMessage.addStatusUpdate(new RankingUpdate(new Ranking(ranking)));
+            updateAll(updateMessage);
+        }
+        endMatch();
+    }
+
+
+    private void endMatch() {
+        closeTimer();
+    }
+
+
+    private void startTimer() {
+        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
+            //Read the content of the file
+            StringBuilder jsonIn = new StringBuilder();
+            while(input.hasNextLine()) {
+                jsonIn.append(input.nextLine());
+            }
+//            JSONParser parser = new JSONParser();
+//            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
+//            JSONArray jsonArray = (JSONArray) root.get("timer");
+//            JSONObject cell = (JSONObject) jsonArray.get(0);
+//            final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
+//            timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
+        } catch (Exception e) {
+            Logger.getGlobal().warning(e.getMessage());
+        }
+    }
+    private void closeTimer() {
+        timer.cancel();
+        timer = new Timer();
+    }
+    private void updateAll(ServerMessage serverMessage) {
+        for (ClientInterface client : clients.values()) {
+            updateClient(client, serverMessage);
+        }
+    }
+
+
+    private void updateClient(ClientInterface client, ServerMessage serverMessage) {
+        try {
+            ServerController serverController = controllers.get(players.get(client));
+            if (serverController.isActive()) {
+                client.updateStatus(serverMessage);
+            }
+        } catch (RemoteException e) {
+            Logger.getGlobal().warning("There has been a connection error from player "
+                    + players.get(client).getUserName());
+        }
+    }
+    private void updateCurrentPlayer(ServerMessage serverMessage) {
+        ClientInterface client = clients.get(currentPlayer);
+        updateClient(client, serverMessage);
+    }
+    private class GameTimerTask extends TimerTask {
+        private int seconds;
+
+        @Override
+        public void run() {
+            if(seconds == 0) {
+                ErrorMessage errorMessage = new ErrorMessage("TIMER");
+                updateCurrentPlayer(errorMessage);
+                nextTurn();
+            }
+            seconds--;
+        }
+        private GameTimerTask(int seconds) {
+            this.seconds = seconds;
+        }
+
+    }
+
+    synchronized void nextTurn() {
+//        try {
+//            ServerMessage serverMessage = new PlayMessage();
+//            UpdateMessage updateMessage = new UpdateMessage(currentPlayer.getUsername() + " passed the turn.");
+//            Die chosenDie = currentPlayer.resetMoves();
+//            draftPool.returnDie(chosenDie);
+//            if (chosenDie != null) {
+//                serverMessage.addStatusUpdate(new AdditionalStatusUpdate(null));
+//                serverMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
+//                serverMessage.setMessage("You put back the chosen die.");
+//                updateMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
+//            }
+//            updateCurrentPlayer(serverMessage);
+//            updateAll(updateMessage, (p, c) -> !p.equals(currentPlayer));
+//            nextPlayer();
+//            boolean found = false;
+//            while (!found) {
+//                if (controllers.get(currentPlayer).isActive()) {
+//                    found = true;
+//                } else {
+//                    nextPlayer();
+//                }
+//            }
+//            refreshControllerStates();
+//            updateCurrentPlayer(new PlayMessage());
+//            closeTimer();
+//            startTimer();
+//        } catch (EndGameException e) {
+//            endGame(false);
+//        }
+//    }
+    }
+
+
 }

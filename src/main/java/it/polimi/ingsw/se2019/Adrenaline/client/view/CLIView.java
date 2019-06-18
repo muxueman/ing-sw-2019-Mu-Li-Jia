@@ -20,7 +20,6 @@ import java.util.Scanner;
 
 public class CLIView extends View {
 
-
     private boolean active;
     private PrintStream out;
 
@@ -73,6 +72,8 @@ public class CLIView extends View {
             }
         }
     }
+
+
 
 
 

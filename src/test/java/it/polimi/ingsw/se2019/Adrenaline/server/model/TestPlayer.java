@@ -12,14 +12,14 @@ import static org.junit.Assert.*;
 
 public class TestPlayer {
 
-    Player testPlayer = new Player();
+    Player testPlayer = new Player("JIA");
     KillShootTrack testKillShootTrack = new KillShootTrack(testPlayer);
     PlayBoard testPlayBoard = new PlayBoard(5);
     int testMode = 2;
 
     public void testName() {
         testPlayer.setName("jiamoxin");
-        System.out.println("test nickname: " + testPlayer.getNickName());
+        System.out.println("test nickname: " + testPlayer.getUserName());
     }
 
     public void testPlayerColor() {
@@ -80,7 +80,7 @@ public class TestPlayer {
     @Test
     public void testScore() {
         testPlayerColor();
-        Player killedPlayer = new Player();
+        Player killedPlayer = new Player("JIA");
         testPlayer.addToMyScore(8);
         killedPlayer.setPlayerColor(Color.BLUE);
         Map<Color, Integer> testScore = new HashMap();
@@ -99,6 +99,6 @@ public class TestPlayer {
 
     @Test
     public void setTestKillShootTrack(){
-       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayer().getNickName());
+       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayer().getUserName());
     }
 }

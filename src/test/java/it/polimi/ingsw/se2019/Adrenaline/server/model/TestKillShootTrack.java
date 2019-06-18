@@ -9,9 +9,9 @@ import static org.junit.Assert.*;
 public class TestKillShootTrack {
 
     PlayBoard testPlayBoard = new PlayBoard(5);
-    Player testShooter = new Player();
-    Player testPlayer = new Player();
-    Player testPlayer2 = new Player();
+    Player testShooter = new Player("JIA");
+    Player testPlayer = new Player("MO");
+    Player testPlayer2 = new Player("XIN");
     KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
     KillShootTrack testKillShootTrack2 = new KillShootTrack();
 

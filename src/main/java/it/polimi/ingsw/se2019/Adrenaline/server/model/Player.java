@@ -12,9 +12,9 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 
 public class Player  {
-    protected int playerID;
+    protected String playerID;
     protected Color playerColor;
-    private String nickName;
+    private String userName;
     private int[] ammoOwned;
     private Map<WeaponCard, Boolean> weaponsOwned;
     private ArrayList<PowerupCard> powerupsOwned;
@@ -32,8 +32,8 @@ public class Player  {
     */
 
     //constructor
-    public Player() {
-        playerID = (int)(System.currentTimeMillis()%1000); //randomGenerated number
+    public Player(String playerID) {
+        this.playerID = playerID;
         this.killShootTrack = new KillShootTrack(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
@@ -45,12 +45,16 @@ public class Player  {
         //初始化所有的玩家,放入allPlayer
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void setPlayBoard(PlayBoard playBoard) { this.playBoard = playBoard; }
     public void setActionMode(int mode){
         actionMode = mode;
     }
     public void setName(String name){
-        this.nickName = name;
+        this.userName = name;
     }
     public void setPlayerColor(Color color){
         playerColor = color;
@@ -60,15 +64,16 @@ public class Player  {
         this.currentCell = cell;
         cell.addPlayer(this);
     }
-    public int getPlayerID() {
+
+    public String getPlayerID() {
         return playerID;
     }
     public Color getPlayerColor() {
         return playerColor;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getUserName() {
+        return userName;
     }
 
     public int[] getAmmoOwned() {
@@ -106,6 +111,9 @@ public class Player  {
         this.killShootTrack.beAttacked(shooter, damage, mark);
     }
 
+    public boolean isReady() {
+        return userName != null;
+    }
 
     /*
         //装载ammo
@@ -220,7 +228,7 @@ public class Player  {
 
     @Override
     public String toString() {
-        return "Player: " + nickName + "\n"
+        return "Player: " + userName + "\n"
         + "Color: " + playerColor + "\n"
         + "ActionMode: " + actionMode + "\n"
         +"MyScore: " + myScore;
