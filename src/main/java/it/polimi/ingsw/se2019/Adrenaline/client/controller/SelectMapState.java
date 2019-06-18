@@ -44,8 +44,9 @@ public class SelectMapState extends ControllerState{
                 clientController.reportError("Not a valid map!");
                 return this;
         }
-        ClientMessage clientMessage = new ClientMessage("map", selectedMap);
-        return new SelectKillState(clientController).initState();
+        ClientMessage clientMessage = new ClientMessage("CHOOSEMAP", selectedMap);
+        clientController.sendToServer(clientMessage);
+        return new WaitingResponseState(clientController,new SelectKillState(clientController));
     }
 
 }

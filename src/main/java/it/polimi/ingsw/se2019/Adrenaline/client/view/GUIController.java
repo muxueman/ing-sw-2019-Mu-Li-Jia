@@ -228,6 +228,16 @@ public abstract class GUIController {
     public void nextView(boolean wpc) {
 
     }
+    /**
+     *
+     * The notify method is used to notify a client.
+     * @param message message needed to be notify.
+     *
+     */
+    void notify(String message) {
+        guiView.notify(message);
+    }
+
 
 
 

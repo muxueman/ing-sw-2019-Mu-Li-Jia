@@ -35,6 +35,11 @@
           <version>2.8.5</version>
         <type>pom</type>
       </dependency>
+    <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>1.17.1</version>
+    </dependency>
 
   </dependencies>
 
