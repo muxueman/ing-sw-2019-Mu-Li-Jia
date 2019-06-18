@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
  * @author Li xuejing
  */
 
-public class GUIView{
+public class GUIView extends View{
 
     private GUIController guiController = null;
 
@@ -50,4 +52,18 @@ public class GUIView{
         guiController.guiPlay(playing);
     }
 
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void reportError(String error) {
+
+    }
+
+    @Override
+    public void update(ModelUpdate message) {
+
+    }
 }
