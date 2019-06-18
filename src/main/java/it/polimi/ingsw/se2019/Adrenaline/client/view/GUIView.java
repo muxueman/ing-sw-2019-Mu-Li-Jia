@@ -37,15 +37,17 @@ public class GUIView{
         guiController.setGuiView(this);
     }
 
-    /**
-     *
-     * The notify method is used to notify a gui client.
-     *
-     * @param message a message needed to be notified.
-     *
-     */
 
     protected void notify(String message) {
         super.notify();
     }
+
+
+
+    public void launchTimer() { guiController.guiLaunchTimer(); }
+
+    public void play(boolean playing) {
+        guiController.guiPlay(playing);
+    }
+
 }
