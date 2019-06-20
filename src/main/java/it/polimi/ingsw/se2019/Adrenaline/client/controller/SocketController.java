@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.util.logging.Logger;
 
 public class SocketController implements GameServerInterface {
 
@@ -22,13 +24,13 @@ public class SocketController implements GameServerInterface {
     /**
      *
      * The constructor creates a local controller of the game that communicates with the server.
-     * @param controller is a reference to the controller.
+     * @param clientController is a reference to the controller.
      * @param socket is a reference to the socket used.
      * @throws IOException when the input or the output is not valid.
      *
      */
-    protected SocketController(ClientController controller, Socket socket) throws IOException {
-        this.controller = controller;
+    protected SocketController(ClientController clientController, Socket socket) throws IOException {
+        this.controller = clientController;
         this.socket = socket;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());

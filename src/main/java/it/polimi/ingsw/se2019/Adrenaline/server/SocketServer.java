@@ -13,11 +13,9 @@ import java.util.logging.Logger;
 
 public class SocketServer extends Thread {
 
-    //this variable is a constant and only associates with the class itself (initial only once)
     private final Server server;
     private ServerSocket serverSocket;
 
-    //create socket server
     SocketServer(Server server, int port) {
         this.server = server;
         try {
@@ -29,20 +27,48 @@ public class SocketServer extends Thread {
 
     @Override
     public void run() {
-
         while(true) {
             Socket newClientConnection;
             try {
-                // Listens for a connection to be made and return a socket object
-                //使用 ServerSocket 监听某一端口，然后等待连接获取 Socket对象
                 newClientConnection = serverSocket.accept();
                 Logger.getGlobal().info("A new client connected.");
-                // Every time there is a connection established, add that to the client connection list
-                //server.addClient(newClientConnection);
-
+                server.addClient(newClientConnection);
             } catch (IOException e) {
                 Logger.getGlobal().warning(e.getMessage());
             }
         }
     }
+
+//    //this variable is a constant and only associates with the class itself (initial only once)
+//    private final Server server;
+//    private ServerSocket serverSocket;
+//
+//    //create socket server
+//    SocketServer(Server server, int port) {
+//        this.server = server;
+//        try {
+//            serverSocket = new ServerSocket(port);
+//        } catch (IOException e) {
+//            Logger.getGlobal().warning(e.getMessage());
+//        }
+//    }
+//
+//    @Override
+//    public void run() {
+//
+//        while(true) {
+//            Socket newClientConnection;
+//            try {
+//                // Listens for a connection to be made and return a socket object
+//                //使用 ServerSocket 监听某一端口，然后等待连接获取 Socket对象
+//                newClientConnection = serverSocket.accept();
+//                Logger.getGlobal().info("A new client connected.");
+//                // Every time there is a connection established, add that to the client connection list
+//                //server.addClient(newClientConnection);
+//
+//            } catch (IOException e) {
+//                Logger.getGlobal().warning(e.getMessage());
+//            }
+//        }
+//    }
 }

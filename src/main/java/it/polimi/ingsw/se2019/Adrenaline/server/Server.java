@@ -56,10 +56,10 @@ public class Server {
         lobby.addClient(client, controller);
     }
 
-//    public synchronized void addClient(Socket clientConnection) throws IOException {
-//         SocketController client = new SocketController(clientConnection, lobby);
-//         addClient(client, client);
-//    }
+    public synchronized void addClient(Socket clientConnection) throws IOException {
+         SocketController client = new SocketController(clientConnection, lobby);
+         addClient(client, client);
+    }
 
     public Lobby getLobby() {
         return lobby;
