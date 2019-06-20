@@ -16,7 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-public class RMIController implements GameServerInterface {
+public class RMIController implements GameServerInterface, ServerController {
 
     //also implement serverController
     private ClientInterface client;
@@ -26,7 +26,7 @@ public class RMIController implements GameServerInterface {
     private boolean active;
 
     public RMIController(Lobby lobby, ClientInterface client) {
-        //state = new SetupState(this, lobby);
+        state = new SetupState(this, lobby);
         this.lobby = lobby;
         this.client = client;
         active = true;

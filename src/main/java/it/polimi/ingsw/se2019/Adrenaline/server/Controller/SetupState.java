@@ -15,7 +15,7 @@ public class SetupState implements GameServerInterface {
     private ServerController serverController;
     private Lobby lobby;
 
-    SetupState(ServerController serverController, PlayBoard playBoard){
+    SetupState(ServerController serverController, Lobby lobby){
         this.serverController = serverController;
         this.lobby = lobby;
     }
