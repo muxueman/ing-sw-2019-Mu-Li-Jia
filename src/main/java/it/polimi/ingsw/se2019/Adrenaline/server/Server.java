@@ -28,7 +28,7 @@ public class Server {
 
     public Server() {
 
-        //(new SocketServer(this, SOCKET_PORT)).start();
+        (new SocketServer(this, SOCKET_PORT)).start();
         //创建远程对象实例
         RMIServer rmiServer = new RMIServer(this);
 

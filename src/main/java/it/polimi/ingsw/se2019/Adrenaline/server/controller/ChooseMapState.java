@@ -1,9 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 
 import java.rmi.RemoteException;

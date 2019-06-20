@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 
 import java.util.List;
 

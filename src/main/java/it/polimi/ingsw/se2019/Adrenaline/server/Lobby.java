@@ -4,6 +4,9 @@ import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ChooseMapState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -33,6 +36,22 @@ public class Lobby {
         queue = new Queue();
         queue.start();
 
+//        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
+//            StringBuilder jsonIn = new StringBuilder();
+//            while(input.hasNextLine()) {
+//                jsonIn.append(input.nextLine());
+//            }
+//            JSONParser parser = new JSONParser();
+//            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
+//            JSONArray jsonArray = (JSONArray) root.get("timer");
+//            JSONObject cell = (JSONObject) jsonArray.get(0);
+//            seconds = Integer.parseInt((String) cell.get("seconds"));
+//        } catch (Exception e) {
+//            Logger.getGlobal().warning(e.getMessage());
+//            seconds = 90;
+//        }
+
+
     }
 
     public synchronized void addClient(ClientInterface client, ServerController controller) {
@@ -41,6 +60,39 @@ public class Lobby {
         clientInterfaces.put(controller, client);
     }
 
+    public boolean connect(ServerController serverController, ClientInterface client, String token) throws RemoteException {
+        if (token.length() == 73) {
+            String[] ids = token.split("_");
+            MatchController match = matches.get(ids[0]);
+            if (match != null && ids.length == 2) {
+                if (!match.reconnect(ids[1], serverController, client)) {
+                    client.sendError("You can't reconnect to this match! Insert username.");
+                }
+            } else {
+                client.sendError("There is no match for this token! Insert username.");
+            }
+        } else {
+            if (usernames.values().contains(token)) {
+                client.sendError("This username is already taken!");
+            } else {
+                usernames.put(client, token);
+                clients.replace(client, true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void disconnect(ServerController serverController, MatchController matchController) {
+        if (matchController != null) {
+            matchController.disconnect(serverController);
+        } else {
+            ClientInterface clientInterface = clientInterfaces.get(serverController);
+            if (clientInterface != null) {
+                remove(clientInterface);
+            }
+        }
+    }
     private synchronized void remove(ClientInterface clientInterface) {
         ServerController serverController = controllers.get(clientInterface);
         clients.remove(clientInterface);

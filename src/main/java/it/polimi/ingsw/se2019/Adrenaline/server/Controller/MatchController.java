@@ -1,9 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ErrorMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.UpdateMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
@@ -113,6 +114,38 @@ public class MatchController {
                     active = false;
                 }
             }
+        }
+    }
+
+
+    synchronized void initPlayer(ClientInterface client) {
+        Player player = players.get(client);
+        String reconnectionToken = matchID + "_" + player.getPlayerID();
+        ServerMessage serverMessage = new ServerMessage(false, "This is your board:");
+//        serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
+//        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(player.getPrivateObjectiveCard()));
+//        serverMessage.addStatusUpdate(new PublicObjectiveUpdate(publicObjectiveCards));
+//        List<ToolCardStatus> toolCardStatuses = new ArrayList<>();
+//        for (ToolCard toolCard : toolCards) {
+//            toolCardStatuses.add(toolCard.getStatus());
+//        }
+//        serverMessage.addStatusUpdate(new ToolCardsUpdate(toolCardStatuses));
+//        serverMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
+//        serverMessage.addStatusUpdate(new RoundTrackUpdate(roundTrack.getStatus()));
+//        serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
+        updateClient(client, serverMessage);
+        List<Player> readyPlayers = new ArrayList<>();
+        players.values().forEach(p -> {
+            if (p.isReady() && !p.equals(player)) {
+                readyPlayers.add(p);
+            }
+        });
+        if (!readyPlayers.isEmpty()) {
+            ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
+            for (Player p : readyPlayers) {
+//                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
+            }
+            updateClient(client, opponentsMessage);
         }
     }
     private synchronized void startMatch() {
@@ -261,6 +294,60 @@ public class MatchController {
 //            endGame(false);
 //        }
 //    }
+    }
+    public boolean reconnect(String id, ServerController serverController, ClientInterface client) {
+        Player player = null;
+        ClientInterface clientInterface;
+        for (Player p : players.values()) {
+            if (p.getPlayerID().equals(id)) {
+                clientInterface = clients.get(p);
+                player = p;
+                players.remove(clientInterface);
+                players.put(client, player);
+                clients.replace(p, client);
+                controllers.replace(p, serverController);
+                break;
+            }
+        }
+        if (player != null) {
+            PlayMessage playMessage = new PlayMessage();
+            playMessage.setMessage("RECONNECT");
+            updateClient(client, playMessage);
+            initPlayer(client);
+            serverController.setMatch(this);
+            return true;
+        }
+        return false;
+    }
+
+    public void disconnect(ServerController serverController) {
+        ServerController currentController = controllers.get(currentPlayer);
+        if (started) {
+//            if (playersNumber() == 1) {
+//                endGame(true);
+//            } else if (playersNumber() == 0) {
+//                endMatch();
+//            } else if (currentController.equals(serverController)) {
+//                nextTurn();
+//            }
+//        } else {
+//            Player player = null;
+//            for (Player p : players.values()) {
+//                ServerController controller = controllers.get(p);
+//                if (serverController.equals(controller)) {
+//                    player = p;
+//                    break;
+//                }
+//            }
+//            ClientInterface client = clients.get(player);
+//            controllers.remove(player);
+//            clients.remove(player);
+//            players.remove(client);
+//            windowPatternCards.addAll(distributedWindowPatternCards.get(client));
+//            distributedWindowPatternCards.remove(client);
+//            colors.add(distributedPrivateObjectiveCards.get(client));
+//            distributedPrivateObjectiveCards.remove(client);
+        }
     }
 
 

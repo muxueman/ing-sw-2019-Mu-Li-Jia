@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.network;
+package it.polimi.ingsw.se2019.Adrenaline.network.messages;
 
 /**
  * A ServerMessage object is the message sent from the server to the client.

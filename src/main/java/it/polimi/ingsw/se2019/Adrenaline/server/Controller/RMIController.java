@@ -6,7 +6,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  */
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
@@ -16,7 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-public class RMIController implements GameServerInterface {
+public class RMIController implements GameServerInterface, ServerController {
 
     //also implement serverController
     private ClientInterface client;
@@ -110,6 +110,7 @@ public class RMIController implements GameServerInterface {
                 Logger.getGlobal().warning("There has been a problem with a client.");
                 if (isActive()) {
                     setActive(false);
+                    lobby.disconnect(RMIController.this, matchController);
                     //playBoard.disconnect(RMIController.this, matchController);
                 }
                 this.cancel();

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 
 //first player select a map
 public class SelectMapState extends ControllerState{

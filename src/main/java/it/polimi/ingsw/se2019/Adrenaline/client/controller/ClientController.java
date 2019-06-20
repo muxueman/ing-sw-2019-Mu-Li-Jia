@@ -4,7 +4,8 @@ import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.network.*;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;
 
 import java.io.IOException;
@@ -93,8 +94,7 @@ public class ClientController implements ClientInterface, Observer<String> {
                 case 1: // RMI Connection
                     return connectToRMI(host, port);
                 case 2: // Socket Connection, not developed yet
-                    //return connectToSocket(host, port);
-                    return false;
+                    return connectToSocket(host, port);
                 default:
                     return false;
             }
@@ -125,7 +125,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         return true;
     }
 
-    /*
+
     private boolean connectToSocket(String host, int port) {
         try {
             Socket socket = new Socket(host, port);
@@ -139,6 +139,6 @@ public class ClientController implements ClientInterface, Observer<String> {
         }
         return true;
     }
-    */
+
 
 }

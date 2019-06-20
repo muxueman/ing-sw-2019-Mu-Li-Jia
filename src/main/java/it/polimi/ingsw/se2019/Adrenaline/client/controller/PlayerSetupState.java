@@ -1,6 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 
 public class PlayerSetupState extends ControllerState{
 

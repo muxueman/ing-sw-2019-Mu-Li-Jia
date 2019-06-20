@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.network;
+package it.polimi.ingsw.se2019.Adrenaline.network.messages;
 
 /**
  * A ClientMessage object is the message sent from the client to the server.
