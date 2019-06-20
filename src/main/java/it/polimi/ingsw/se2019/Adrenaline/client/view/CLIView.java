@@ -52,6 +52,12 @@ public class CLIView extends View {
     public void reportError(String error) {
         showMessage("Error: " + error);
     }
+
+    @Override
+    public InitialViewController getGuiController() {
+        return null;
+    }
+
     private void print(Object object){
         out.println(object);
     }

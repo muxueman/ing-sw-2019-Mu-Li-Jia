@@ -64,6 +64,8 @@ public class WpcViewController extends GUIController {
     }
 
 
+    @Override
+    protected void close(AnchorPane anchorPane) {
 
-
+    }
 }

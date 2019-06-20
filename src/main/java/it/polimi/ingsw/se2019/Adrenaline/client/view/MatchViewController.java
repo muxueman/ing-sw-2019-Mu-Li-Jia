@@ -164,6 +164,11 @@ public class MatchViewController extends GUIController{
         }
     }
 
+    @Override
+    protected void close(AnchorPane anchorPane) {
+
+    }
+
     @FXML
     private void setImageDisable(Boolean bool) {
         imageOne.setDisable(bool);
