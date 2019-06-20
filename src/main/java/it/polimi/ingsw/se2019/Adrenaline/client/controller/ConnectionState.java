@@ -29,14 +29,14 @@ public class ConnectionState extends ControllerState{
         //第一次选择connection type
         if (selectedConnection == 0 && (intMessage == 1 || intMessage == 2)) {
             selectedConnection = intMessage;
-            clientController.sendToView("Insert host ip (\"cancel\" to select the connection type again):");
+            clientController.sendMessage("Insert host ip (\"cancel\" to select the connection type again):");
             return this;
         }
         //取消选择connection type
         else if (selectedConnection != 0 &&  host == null) {
             if (message.equalsIgnoreCase("CANCEL")) {
                 selectedConnection = 0;
-                clientController.sendToView("Changing connection type, choose:\n" +
+                clientController.sendMessage("Changing connection type, choose:\n" +
                         "1. RMI Connection\n" +
                         "2. Socket Connection");
                 return this;
@@ -45,11 +45,11 @@ public class ConnectionState extends ControllerState{
                 message = "localhost";
             }
             host = message;
-            clientController.sendToView("Insert port: ");
+            clientController.sendMessage("Insert port: ");
             return this;
         } else if (host != null && port == 0 && intMessage != -1) {
             port = intMessage;
-            clientController.sendToView("Connecting to server...");
+            clientController.sendMessage("Connecting to server...");
             if (clientController.connect(selectedConnection, host, port)) {
                 clientController.nextView(false);
                 return new PlayerSetupState(clientController).initState();

@@ -35,7 +35,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         view.register(this);
         model.register(view);
         playing = false;
-        actionMode = 1;
+        actionMode = 0;
         state = new ConnectionState(this).initState();
     }
     //get value
@@ -58,7 +58,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     }
 
     //send message to the view
-    public void sendToView(String message) {
+    public void sendMessage(String message) {
         view.showMessage(message);
     }
     //send clientMessage to a server
@@ -70,6 +70,7 @@ public class ClientController implements ClientInterface, Observer<String> {
             state = state.nextState(true, false);
         }
     }
+
     public void reportError(String error){
         view.reportError(error);
     }
@@ -106,7 +107,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     private boolean connectToRMI(String host, int port) {
         try {
             RMIServerInterface rmiServer = (RMIServerInterface) Naming.lookup("//" + host + ":" + port + "/Server");
-            ClientInterface client = (ClientInterface) UnicastRemoteObject.exportObject(this, 0);
+            ClientInterface client = (ClientInterface) UnicastRemoteObject.exportObject(this, 1099);
             GameServerInterface thisGameServer = rmiServer.addClient(client);
             if (thisGameServer == null) {
                 return false;
@@ -140,5 +141,6 @@ public class ClientController implements ClientInterface, Observer<String> {
         return true;
     }
     */
+
 
 }
