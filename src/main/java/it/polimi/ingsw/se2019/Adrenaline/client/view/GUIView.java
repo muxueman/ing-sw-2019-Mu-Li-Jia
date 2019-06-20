@@ -63,7 +63,14 @@ public class GUIView extends View{
     }
 
     @Override
+    public InitialViewController getGuiController() {
+        return null;
+    }
+
+    @Override
     public void update(ModelUpdate message) {
 
     }
+
+
 }

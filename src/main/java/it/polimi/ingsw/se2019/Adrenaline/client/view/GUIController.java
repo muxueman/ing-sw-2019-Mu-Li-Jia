@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,6 +17,9 @@ public abstract class GUIController {
     protected GUIView guiView = null;
     private double initialX = 0;
     private double initialY = 0;
+
+    protected BoardStatus boardStatus;
+
 
 
     /**
@@ -239,7 +243,8 @@ public abstract class GUIController {
     }
 
 
+    protected void setInit() {
+    }
 
-
-
+    protected abstract void close(AnchorPane anchorPane);
 }

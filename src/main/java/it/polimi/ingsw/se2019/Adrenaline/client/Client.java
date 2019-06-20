@@ -16,7 +16,6 @@ public class Client {
         if (input.equalsIgnoreCase("cli") || input.equalsIgnoreCase("c")) {
 //            settings();
             new ClientController(new CLIView(System.out));
-//            CLIView CLIview = new CLIView();
             //new Controller(new CLIView(System.out, colors));
         } else if (input.equalsIgnoreCase("gui") || input.equalsIgnoreCase("g")) {
             Application.launch(ClientGui.class);

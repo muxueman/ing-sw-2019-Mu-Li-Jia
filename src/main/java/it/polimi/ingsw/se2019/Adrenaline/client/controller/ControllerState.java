@@ -54,7 +54,7 @@ public abstract class ControllerState {
 
     //send message to the controller, then view
     protected void sendMessage() {
-        clientController.sendToView(message);
+        clientController.sendMessage(message);
     }
 
 

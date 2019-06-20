@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -48,7 +47,7 @@ public class ClientGui extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         GUIController guiController = loader.getController();
-        //new ClientController(new GUIView(guiController));
+        new ClientController(new GUIView(guiController));
     }
 }
 

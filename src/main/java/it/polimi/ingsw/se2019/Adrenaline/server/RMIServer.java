@@ -25,12 +25,12 @@ public class RMIServer implements RMIServerInterface {
     public GameServerInterface addClient(ClientInterface client) {
 
         //针对每一个用户，创建属于他的RMIController(它继承了gameserverinterface)并把它注册到RMI
-        //RMIController rmiController = new RMIController(server.getLobby(), client);
         RMIController rmiController = new RMIController(server.getLobby(), client);
         try {
             //if port num = 0, an anonymous port is chosen
             GameServerInterface gameServer = (GameServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
             addClient(client);
+            System.out.println("a client added with a RMI Controller");
             return gameServer;
         } catch (RemoteException e) {
             Logger.getGlobal().warning(e.getMessage());

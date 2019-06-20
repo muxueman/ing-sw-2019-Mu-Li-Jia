@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,13 +54,11 @@ public class InitialViewController extends GUIController {
 
 
     /**
-     *
      * The initialize method is used to initialize the
      * initial view scene.
-     *
      */
 
-    public void initialize(){
+    public void initialize() {
         final String textEffect = "textEffect";
         final String networkButtonEffect = "networkButton";
         final String searchButtonEffect = "searchButton";
@@ -71,30 +70,30 @@ public class InitialViewController extends GUIController {
         searchButton.getStyleClass().add(searchButtonEffect);
         nameText.setVisible(false);
         searchButton.setVisible(false);
-
+        closeButton.setOnAction(event -> AlertBox.displayCloseRequest(this,root));
+        addDraggableNode(root);
+        boardStatus = null;
     }
 
+
     /**
-     *
      * The getTable method is used to take the player's name and
      * get into a room.
-     *
      */
 
-    public void getTable(){
-        if(!nameText.getText().equals("")){
+    public void getTable() {
+        if (!nameText.getText().equals("")) {
             notify(nameText.getText());
-        }else {
+        } else {
             messageText.setText("Please enter a name");
         }
 
     }
 
     /**
-     *
      * The getConnection method is used to connect to the server.
-     * @param event event from the user interface.
      *
+     * @param event event from the user interface.
      */
 
     @FXML
@@ -126,12 +125,10 @@ public class InitialViewController extends GUIController {
     }
 
     /**
-     *
      * The reportError method is used to set an error text in
      * the user's interface.
      *
      * @param error error's string.
-     *
      */
 
     @Override
@@ -141,10 +138,8 @@ public class InitialViewController extends GUIController {
     }
 
     /**
-     *
      * The nextView method is used to
      * ask the graphic user interface to change view.
-     *
      */
 
     @Override
@@ -152,7 +147,7 @@ public class InitialViewController extends GUIController {
         if(!player) {
             Platform.runLater(() -> {
                 errorText.setText("");
-                title.setText("Enter name \nor reconnection token");
+                title.setText("Insert name \nor reconnection token");
                 socketButton.setVisible(false);
                 rmiButton.setVisible(false);
                 hostText.setVisible(false);
@@ -163,14 +158,26 @@ public class InitialViewController extends GUIController {
             });
         } else {
             Platform.runLater( () -> {
+                switchSceneSameStage(root, "/scenes/matchView.fxml", "/scenes/matchViewStyle.css",
+                        new MatchViewController(boardStatus, wpc));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
             });
         }
     }
 
 
-}
 
+    @Override
+    protected void close(AnchorPane anchorPane) {
+
+    }
+
+    public void update(ModelUpdate message) {
+        Platform.runLater(() -> guiView.getGuiController().update(message));
+
+
+    }
+}
 
 
 
