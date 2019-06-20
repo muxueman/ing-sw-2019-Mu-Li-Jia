@@ -20,6 +20,7 @@ public class SocketServer extends Thread {
         this.server = server;
         try {
             serverSocket = new ServerSocket(port);
+            //System.out.println("Socket Server HOST: " + serverSocket.getInetAddress());
         } catch (IOException e) {
             Logger.getGlobal().warning(e.getMessage());
         }
@@ -32,6 +33,7 @@ public class SocketServer extends Thread {
             try {
                 newClientConnection = serverSocket.accept();
                 Logger.getGlobal().info("A new client connected.");
+                System.out.println("CLIENT CONNECTION, FROM: " + newClientConnection.getInetAddress() + ", PORT: " + newClientConnection.getPort());
                 server.addClient(newClientConnection);
             } catch (IOException e) {
                 Logger.getGlobal().warning(e.getMessage());

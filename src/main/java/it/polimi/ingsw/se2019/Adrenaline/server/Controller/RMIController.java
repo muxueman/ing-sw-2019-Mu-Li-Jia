@@ -26,7 +26,7 @@ public class RMIController implements GameServerInterface, ServerController {
     private boolean active;
 
     public RMIController(Lobby lobby, ClientInterface client) {
-        state = new SetupState(this, lobby);
+        state = new PlayerSetupState(this, lobby);
         this.lobby = lobby;
         this.client = client;
         active = true;
