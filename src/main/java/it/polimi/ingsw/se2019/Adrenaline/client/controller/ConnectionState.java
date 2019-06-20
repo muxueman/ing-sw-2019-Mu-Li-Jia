@@ -52,6 +52,7 @@ public class ConnectionState extends ControllerState{
             clientController.sendMessage("Connecting to server...");
             if (clientController.connect(selectedConnection, host, port)) {
                 clientController.nextView(false);
+                clientController.sendMessage("Connecting success!");
                 return new PlayerSetupState(clientController).initState();
             } else {
                 host = null;

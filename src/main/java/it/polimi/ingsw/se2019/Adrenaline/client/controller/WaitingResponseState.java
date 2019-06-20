@@ -5,17 +5,18 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 public class WaitingResponseState extends ControllerState{
 
     private ControllerState nextState;
+    private boolean wpc;
 
     //constructor: wait a response from server
     public WaitingResponseState(ClientController clientController, ControllerState nextState) {
         super(clientController, "Waiting for a response from the server...");
         this.nextState = nextState;
-        //wpc = true;
+        wpc = true;
     }
     public WaitingResponseState(ClientController clientController, ControllerState previousState, ControllerState nextState) {
         this(clientController, nextState);
         this.previousState = previousState;
-        //wpc = true;
+        wpc = true;
     }
 
     @Override
@@ -29,14 +30,24 @@ public class WaitingResponseState extends ControllerState{
         return this;
     }
 
-    //@Override
+    @Override
     public ControllerState updateStatus(ServerMessage serverMessage){
         if(serverMessage.getMessage().equals("CONNECT")){
-            //wpc = false;
+            wpc = false;
             nextState = new NonPlayingState(clientController);
         }
-        //return super.updateStatus(serverMessage);
-        return null;
+        return super.updateStatus(serverMessage);
+    }
+    @Override
+    public ControllerState nextState(boolean error, boolean playing) {
+        if (error) {
+            return previousState.initState();
+        } else if (playing) {
+            clientController.nextView(wpc);
+            return nextState.initState();
+        } else {
+            return this;
+        }
     }
 
 }

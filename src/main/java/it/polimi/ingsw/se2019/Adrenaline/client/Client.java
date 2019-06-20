@@ -14,9 +14,7 @@ public class Client {
     //choose to play with cli or gui
     private static boolean chooseView(String input) {
         if (input.equalsIgnoreCase("cli") || input.equalsIgnoreCase("c")) {
-//            settings();
             new ClientController(new CLIView(System.out));
-            //new Controller(new CLIView(System.out, colors));
         } else if (input.equalsIgnoreCase("gui") || input.equalsIgnoreCase("g")) {
             Application.launch(ClientGui.class);
         } else {

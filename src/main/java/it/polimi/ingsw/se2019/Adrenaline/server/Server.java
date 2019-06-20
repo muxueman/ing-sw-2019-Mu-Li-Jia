@@ -41,10 +41,8 @@ public class Server {
         }
         try {
             //把server实例注册到启动了RMI注册服务器的机器上
-            System.out.println("RMI Server created...");
             UnicastRemoteObject.exportObject(rmiServer, RMI_PORT);
             Naming.rebind("//localhost/Server", rmiServer);
-            System.out.println("RMI Server connected to Registry...");
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
         }

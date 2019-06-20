@@ -56,6 +56,7 @@ public class MatchController {
     }
     public synchronized void addClient(ClientInterface client, ServerController controller) {
         if (isNotFull()) {
+            //shuffle the colors
             Collections.shuffle(colors);
             Color color = colors.get(0);
             colors.remove(0);
@@ -99,9 +100,11 @@ public class MatchController {
         }
         return choosableMap;
     }
+
     public void startWhenReady() {
         (new MatchStarter()).start();
     }
+
     private class MatchStarter extends Thread {
 
         private boolean active = true;
