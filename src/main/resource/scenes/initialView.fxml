@@ -9,14 +9,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.client.view.InitialViewController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.se2019.Adrenaline.client.view.InitialViewController">
     <children>
         <ImageView fitHeight="456.0" fitWidth="636.0" layoutX="-12.0" layoutY="-18.0" pickOnBounds="true" AnchorPane.bottomAnchor="-42.0" AnchorPane.leftAnchor="-12.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="-18.0">
             <image>
                 <Image url="@../map/initialView.png" />
             </image>
         </ImageView>
-        <Text fx:id="title" fill="WHITE" layoutX="156.0" layoutY="236.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" text="Enter your Host/Port" textAlignment="CENTER" wrappingWidth="296.21875">
+        <Text fx:id="title" fill="WHITE" layoutX="156.0" layoutY="236.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" text="Enter your Host" textAlignment="CENTER" wrappingWidth="296.21875">
             <font>
                 <Font name="Arial Bold" size="22.0" />
             </font>

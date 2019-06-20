@@ -243,7 +243,6 @@ public abstract class GUIController {
     }
 
 
-
-
-
+    protected void setInit() {
+    }
 }

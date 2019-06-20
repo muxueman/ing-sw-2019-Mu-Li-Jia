@@ -7,17 +7,24 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -156,6 +163,17 @@ public class MatchViewController extends GUIController{
             Logger.getGlobal().warning(e.getMessage());
         }
     }
+
+    @FXML
+    private void setImageDisable(Boolean bool) {
+        imageOne.setDisable(bool);
+        imageTwo.setDisable(bool);
+        imageThree.setDisable(bool);
+    }
+
+
+
+
 
 
 }

@@ -24,4 +24,5 @@ public abstract class View extends Observable<String> implements Observer<ModelU
         // doesn't need to do anything, only used by GUIView
     }
 
+    public abstract InitialViewController getGuiController();
 }
