@@ -4,9 +4,9 @@ import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ChooseMapState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -36,21 +36,20 @@ public class Lobby {
         queue = new Queue();
         queue.start();
 
-//        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
-//            StringBuilder jsonIn = new StringBuilder();
-//            while(input.hasNextLine()) {
-//                jsonIn.append(input.nextLine());
-//            }
-//            JSONParser parser = new JSONParser();
-//            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
-//            JSONArray jsonArray = (JSONArray) root.get("timer");
-//            JSONObject cell = (JSONObject) jsonArray.get(0);
-//            seconds = Integer.parseInt((String) cell.get("seconds"));
-//        } catch (Exception e) {
-//            Logger.getGlobal().warning(e.getMessage());
-//            seconds = 90;
-//        }
-
+        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
+            StringBuilder jsonIn = new StringBuilder();
+            while(input.hasNextLine()) {
+                jsonIn.append(input.nextLine());
+            }
+            JSONParser parser = new JSONParser();
+            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
+            JSONArray jsonArray = (JSONArray) root.get("timer");
+            JSONObject cell = (JSONObject) jsonArray.get(0);
+            seconds = Integer.parseInt((String) cell.get("seconds"));
+        } catch (Exception e) {
+            Logger.getGlobal().warning(e.getMessage());
+            seconds = 90;
+        }
 
     }
 
@@ -62,7 +61,10 @@ public class Lobby {
 
     public boolean connect(ServerController serverController, ClientInterface client, String token) throws RemoteException {
         if (token.length() == 73) {
+            System.out.println(token);
+            System.out.println("start to bound client and server......");
             String[] ids = token.split("_");
+            System.out.println(ids);
             MatchController match = matches.get(ids[0]);
             if (match != null && ids.length == 2) {
                 if (!match.reconnect(ids[1], serverController, client)) {
@@ -101,6 +103,7 @@ public class Lobby {
         usernames.remove(clientInterface);
     }
 
+    //另一个线程，等待用户连接游戏，4人游戏开始，否则 3 人 ，需要改进
     private class Queue extends Thread {
 
         private boolean active = true;
@@ -109,10 +112,10 @@ public class Lobby {
         @Override
         public void run() {
             while (active) {
-                if (playersNumber(3)) {
+                if (playersNumber(4)) {
                     timerStarted = false;
                     startMatch();
-                } else if (playersNumber(2)) {
+                } else if (playersNumber(3)) {
                     if (!timerStarted) {
                         timerStarted = true;
                         startTimer();
@@ -126,6 +129,7 @@ public class Lobby {
             }
         }
 
+        //判断游戏人数是否大于n人
         private boolean playersNumber(int n) {
             synchronized (Lobby.this) {
                 long readyPlayers = clients.entrySet().stream().map(Map.Entry::getValue).filter(ready -> ready).count();
@@ -133,6 +137,7 @@ public class Lobby {
             }
         }
 
+        //计时1000秒
         private void startTimer() {
             timer.scheduleAtFixedRate(new StartGameTask(seconds), 0, 1000);
         }
@@ -145,7 +150,6 @@ public class Lobby {
     private class StartGameTask extends TimerTask {
 
         private int seconds;
-
         @Override
         public void run() {
             if(seconds == 0) {
@@ -153,11 +157,11 @@ public class Lobby {
             }
             seconds--;
         }
-
         private StartGameTask(int seconds) { this.seconds = seconds; }
     }
 
 
+    //entry set 返回此映射中包含的映射关系的 Set 视图。
     private synchronized void startMatch() {
         List<ClientInterface> playingClients = new ArrayList<>();
         for (Map.Entry<ClientInterface, Boolean> entry : clients.entrySet()) {

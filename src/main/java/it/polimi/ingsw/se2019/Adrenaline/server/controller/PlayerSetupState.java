@@ -29,8 +29,8 @@ public class PlayerSetupState implements GameServerInterface {
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
 
-        System.out.println("trying to connect");
         if (lobby.connect(serverController, client, message.getTextMove())) {
+            System.out.println("player set up success");
             return new WaitingForMatchState();
         }
         return this;

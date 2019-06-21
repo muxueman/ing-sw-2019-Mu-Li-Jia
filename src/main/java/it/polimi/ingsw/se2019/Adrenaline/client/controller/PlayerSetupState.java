@@ -15,10 +15,9 @@ public class PlayerSetupState extends ControllerState{
     @Override
     public ControllerState update(String message){
         username = message;
-        System.out.println("receive username!");
         ClientMessage clientMessage = new ClientMessage(username, 0);
         clientController.sendToServer(clientMessage);
-        return new WaitingResponseState(clientController, new SelectMapState(clientController, 3));
+        return new WaitingResponseState(clientController, new SelectMapState(clientController));
     }
 
     @Override
