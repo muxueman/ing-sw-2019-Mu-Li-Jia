@@ -89,7 +89,8 @@ public class ClientController implements ClientInterface, Observer<String> {
     public void checkConnection() throws RemoteException{};
 
     //connection between client and server, 1 for RMI, 2 for socket
-    protected boolean connect(int selectedConnection, String host, int port) {
+    //protected
+    public boolean connect(int selectedConnection, String host, int port) {
         if (gameServer == null) {
             switch (selectedConnection) {
                 case 1: // RMI Connection

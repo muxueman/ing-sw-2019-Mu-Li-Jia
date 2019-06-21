@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class SelectMapState extends ControllerState{
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
         if (serverMessage.getMessage().equalsIgnoreCase("CHOOSE")) {
-//            List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
+            List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
 //            if (!statusUpdates.isEmpty()) {
 //                WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
 //                windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
