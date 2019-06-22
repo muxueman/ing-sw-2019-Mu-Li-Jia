@@ -44,7 +44,7 @@ public class SelectMapState extends ControllerState{
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
-        if (serverMessage.getMessage().equalsIgnoreCase("CHOOSE")) {
+        if (serverMessage.getMessage().equalsIgnoreCase("CHOOSEMAP")) {
             List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
 //            if (!statusUpdates.isEmpty()) {
 //                WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
