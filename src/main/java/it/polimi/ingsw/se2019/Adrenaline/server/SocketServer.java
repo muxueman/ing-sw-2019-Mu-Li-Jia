@@ -33,8 +33,7 @@ public class SocketServer extends Thread {
             try {
                 //使用 ServerSocket 监听某一端口，然后等待连接获取 Socket对象
                 newClientConnection = serverSocket.accept();
-                Logger.getGlobal().info("A new client connected.");
-                System.out.println("CLIENT CONNECTION, FROM: " + newClientConnection.getInetAddress() + ", PORT: " + newClientConnection.getPort());
+                Logger.getGlobal().info("CLIENT CONNECTION, FROM: " + newClientConnection.getInetAddress() + ", PORT: " + newClientConnection.getPort());
                 // Every time there is a connection established, add that to the client connection list
                 server.addClient(newClientConnection);
             } catch (IOException e) {
