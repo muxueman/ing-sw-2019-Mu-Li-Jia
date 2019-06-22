@@ -2,26 +2,19 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+
+import java.util.List;
 
 //first player select a map
 public class SelectMapState extends ControllerState{
 
     private int selectedMap;
 
-    public SelectMapState(ClientController clientController, int numberPlayers) {
+    public SelectMapState(ClientController clientController) {
 
-        super(clientController, "Please select a map:\n");
-        switch (numberPlayers) {
-            case 3:
-                message += "1.A   2.B   3.C";
-                break;
-            case 4:
-                message += "1.A   2.B   3.C   4.D";
-                break;
-            case 5:
-                message += "2.B   3.C   4.D";
-                break;
-        }
+        super(clientController, "Please select a map: 1.A   2.B   3.C   4.D");
     }
 
     @Override
@@ -47,6 +40,27 @@ public class SelectMapState extends ControllerState{
         ClientMessage clientMessage = new ClientMessage("CHOOSEMAP", selectedMap);
         clientController.sendToServer(clientMessage);
         return new WaitingResponseState(clientController,new SelectKillState(clientController));
+    }
+
+    @Override
+    public ControllerState updateStatus(ServerMessage serverMessage) {
+        if (serverMessage.getMessage().equalsIgnoreCase("CHOOSE")) {
+            List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
+//            if (!statusUpdates.isEmpty()) {
+//                WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
+//                windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
+//                for (StatusUpdate statusUpdate : statusUpdates) {
+//                    statusUpdate.updateStatus(controller.getModel());
+//                }
+//                controller.getModel().pingUpdate(serverMessage.getMessage());
+//                controller.sendMessage("Choose your window pattern card:");
+//            } else {
+//                controller.reportError("Can't obtain the window pattern cards!");
+//            }
+        } else {
+            clientController.reportError("There has been a problem.");
+        }
+        return this;
     }
 
 }
