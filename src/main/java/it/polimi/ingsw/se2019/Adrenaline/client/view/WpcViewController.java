@@ -68,4 +68,6 @@ public class WpcViewController extends GUIController {
     protected void close(AnchorPane anchorPane) {
 
     }
+
+
 }

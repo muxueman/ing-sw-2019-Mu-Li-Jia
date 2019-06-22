@@ -4,7 +4,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ChooseMapState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
-import jdk.nashorn.internal.parser.JSONParser;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -36,20 +36,20 @@ public class Lobby {
         queue = new Queue();
         queue.start();
 
-//        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
-//            StringBuilder jsonIn = new StringBuilder();
-//            while(input.hasNextLine()) {
-//                jsonIn.append(input.nextLine());
-//            }
-//            JSONParser parser = new JSONParser();
-//            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
-//            JSONArray jsonArray = (JSONArray) root.get("timer");
-//            JSONObject cell = (JSONObject) jsonArray.get(0);
-//            seconds = Integer.parseInt((String) cell.get("seconds"));
-//        } catch (Exception e) {
-//            Logger.getGlobal().warning(e.getMessage());
-//            seconds = 90;
-//        }
+        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
+            StringBuilder jsonIn = new StringBuilder();
+            while(input.hasNextLine()) {
+                jsonIn.append(input.nextLine());
+            }
+            JSONParser parser = new JSONParser();
+            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
+            JSONArray jsonArray = (JSONArray) root.get("timer");
+            JSONObject cell = (JSONObject) jsonArray.get(0);
+            seconds = Integer.parseInt((String) cell.get("seconds"));
+        } catch (Exception e) {
+            Logger.getGlobal().warning(e.getMessage());
+            seconds = 90;
+        }
 
 
     }

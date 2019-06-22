@@ -41,7 +41,7 @@ public class GUIView extends View{
 
 
     protected void notify(String message) {
-        super.notify();
+        super.notify(message);
     }
 
 

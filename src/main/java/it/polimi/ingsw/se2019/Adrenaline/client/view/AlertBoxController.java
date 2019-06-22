@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -143,6 +144,9 @@ public class AlertBoxController extends GUIController {
     public String getChoiceBoxValue(){
         return choiceBox.getValue();
     }
+
+
+
 
 
     @Override

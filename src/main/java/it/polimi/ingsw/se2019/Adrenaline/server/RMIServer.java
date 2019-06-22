@@ -30,7 +30,7 @@ public class RMIServer implements RMIServerInterface {
             //if port num = 0, an anonymous port is chosen
             GameServerInterface gameServer = (GameServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
             addClient(client);
-            System.out.println("a client added with a RMI Controller");
+            System.out.println("a client added with a RMI controller");
             return gameServer;
         } catch (RemoteException e) {
             Logger.getGlobal().warning(e.getMessage());

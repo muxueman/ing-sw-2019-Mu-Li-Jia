@@ -17,6 +17,10 @@ import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 public class MatchController {
 
@@ -212,12 +216,12 @@ public class MatchController {
             while(input.hasNextLine()) {
                 jsonIn.append(input.nextLine());
             }
-//            JSONParser parser = new JSONParser();
-//            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
-//            JSONArray jsonArray = (JSONArray) root.get("timer");
-//            JSONObject cell = (JSONObject) jsonArray.get(0);
-//            final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
-//            timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
+            JSONParser parser = new JSONParser();
+            JSONObject root = (JSONObject) parser.parse(jsonIn.toString());
+            JSONArray jsonArray = (JSONArray) root.get("timer");
+            JSONObject cell = (JSONObject) jsonArray.get(0);
+            final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
+            timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
         } catch (Exception e) {
             Logger.getGlobal().warning(e.getMessage());
         }
