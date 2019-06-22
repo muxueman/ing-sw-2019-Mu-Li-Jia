@@ -38,6 +38,7 @@ public class SocketController implements ClientInterface, ServerController {
         matchController = null;
         state = new PlayerSetupState(this, lobby);
         (new SocketListener()).start();
+        Logger.getGlobal().info("A socket controller created....");
     }
 
     /**
