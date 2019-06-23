@@ -247,4 +247,5 @@ public abstract class GUIController {
     }
 
     protected abstract void close(AnchorPane anchorPane);
+
 }

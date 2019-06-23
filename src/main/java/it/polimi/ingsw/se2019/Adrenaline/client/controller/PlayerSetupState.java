@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 
 public class PlayerSetupState extends ControllerState{
 
@@ -16,7 +17,14 @@ public class PlayerSetupState extends ControllerState{
         username = message;
         ClientMessage clientMessage = new ClientMessage(username, 0);
         clientController.sendToServer(clientMessage);
-//        return new WaitingResponseState(clientController, new SelectMapState(clientController, ));
-        return null;
+        return new WaitingResponseState(clientController, new SelectMapState(clientController));
+    }
+
+    @Override
+    public ControllerState updateStatus(ServerMessage serverMessage) {
+        if (serverMessage.isError()) {
+            clientController.reportError(serverMessage.getMessage());
+        }
+        return nextState(serverMessage.isError(), serverMessage.isPlaying());
     }
 }

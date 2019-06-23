@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -21,81 +22,160 @@
             <Image url="@../../../../../ing-sw-2019-Mu-Li-Jia/src/main/resource/map/map_D.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="96.0" layoutY="81.0" prefHeight="272.0" prefWidth="409.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="95.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="116.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="96.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="136.0" minHeight="0.0" prefHeight="95.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="84.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <StackPane layoutX="95.0" layoutY="79.0" prefHeight="277.0" prefWidth="412.0">
          <children>
-            <ImageView fitHeight="95.0" fitWidth="94.0">
-               <image>
-                  <Image url="@../map/00.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="90.0" fitWidth="117.0" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../map/01.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="91.0" fitWidth="102.0" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../map/02.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="97.0" fitWidth="95.0" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../map/03.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="99.0" fitWidth="88.0" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../map/10.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="98.0" fitWidth="107.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../map/11.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="95.0" fitWidth="98.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../map/12.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="98.0" fitWidth="94.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../map/13.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="84.0" fitWidth="95.0" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../map/20.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="89.0" fitWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../map/21.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="101.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../map/22.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="88.0" fitWidth="99.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../map/23.jpg" />
-               </image>
-            </ImageView>
+            <GridPane prefHeight="272.0" prefWidth="409.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="95.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="116.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="96.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="136.0" minHeight="0.0" prefHeight="95.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="84.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="95.0" fitWidth="94.0">
+                     <image>
+                        <Image url="@../map/00.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="90.0" fitWidth="117.0" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../map/01.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="91.0" fitWidth="102.0" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../map/02.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="97.0" fitWidth="95.0" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../map/03.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="99.0" fitWidth="88.0" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/10.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="98.0" fitWidth="107.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/11.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="95.0" fitWidth="98.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/12.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="98.0" fitWidth="94.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/13.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="84.0" fitWidth="95.0" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/20.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/21.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="86.0" fitWidth="101.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/22.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="88.0" fitWidth="99.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/23.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <GridPane layoutX="10.0" layoutY="10.0" prefHeight="272.0" prefWidth="409.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="95.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="116.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="96.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="136.0" minHeight="0.0" prefHeight="95.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="84.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="95.0" fitWidth="94.0">
+                     <image>
+                        <Image url="@../map/00.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="90.0" fitWidth="117.0" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../map/01.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="91.0" fitWidth="102.0" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../map/02.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="97.0" fitWidth="95.0" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../map/03.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="99.0" fitWidth="88.0" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/10.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="98.0" fitWidth="107.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/11.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="95.0" fitWidth="98.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/12.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="98.0" fitWidth="94.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../map/13.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="84.0" fitWidth="95.0" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/20.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="105.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/21.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="86.0" fitWidth="101.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/22.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="88.0" fitWidth="99.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../map/23.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </StackPane>
       <GridPane layoutX="-10.0" layoutY="140.0" prefHeight="175.0" prefWidth="100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
