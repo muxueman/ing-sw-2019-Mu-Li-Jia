@@ -5,6 +5,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
 import java.util.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 
 public abstract class View extends Observable<String> implements Observer<ModelUpdate> {
@@ -25,4 +26,10 @@ public abstract class View extends Observable<String> implements Observer<ModelU
     }
 
     public abstract InitialViewController getGuiController();
+
+    public void showStatus(Status status){
+
+    }
+
+
 }

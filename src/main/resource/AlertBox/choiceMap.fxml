@@ -24,22 +24,22 @@
                 <Font size="14.0" />
             </font>
         </Label>
-      <ImageView fx:id="mapA" fitHeight="100.0" fitWidth="120.0" layoutX="32.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgOne" fitHeight="100.0" fitWidth="120.0" layoutX="32.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_A.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="mapB" fitHeight="100.0" fitWidth="120.0" layoutX="172.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgTwo" fitHeight="100.0" fitWidth="120.0" layoutX="172.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_B.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="mapC" fitHeight="100.0" fitWidth="120.0" layoutX="312.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgThree" fitHeight="100.0" fitWidth="120.0" layoutX="312.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_C.png" />
          </image>
       </ImageView>
-      <ImageView  fx:id="mapD" fitHeight="100.0" fitWidth="120.0" layoutX="452.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView  fx:id="imgFour" fitHeight="100.0" fitWidth="120.0" layoutX="452.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_D.png" />
          </image>

@@ -158,7 +158,7 @@ public class InitialViewController extends GUIController {
             });
         } else {
             Platform.runLater( () -> {
-                switchSceneSameStage(root, "/scenes/mapD.fxml", "/scenes/matchViewStyle.css",
+                switchSceneSameStage(root, "/scenes/gameMap.fxml", "/scenes/matchViewStyle.css",
                         new MatchViewController(boardStatus, wpc));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
             });

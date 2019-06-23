@@ -1,23 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
-import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,152 +21,93 @@ import java.util.logging.Logger;
 public class MatchViewController extends GUIController{
 
     @FXML
-    private TextArea textArea;
+    private Pane root;
     @FXML
-    private AnchorPane anchorPane;
+    private ImageView background;
     @FXML
-    private ImageView cancelImage;
+    private ImageView map;
     @FXML
-    private ImageView switchImage;
+    private GridPane weaponR;
     @FXML
-    private ImageView imageOne;
+    private GridPane weaponB;
     @FXML
-    private ImageView imageTwo;
+    private GridPane weaponY;
     @FXML
-    private ImageView imageThree;
+    private AnchorPane selfPlayer;
     @FXML
-    private ImageView imagePrivateOC;
+    private AnchorPane player1;
     @FXML
-    private ImageView chosenDie;
+    private AnchorPane player2;
     @FXML
-    private javafx.scene.control.Button settingsButton;
+    private AnchorPane player3;
     @FXML
-    private javafx.scene.control.Button closeButton;
+    private AnchorPane player4;
     @FXML
-    private javafx.scene.control.Button endTurnButton;
+    private Button nextButton;
     @FXML
-    private AnchorPane root;
+    private TextArea textMessege;
     @FXML
-    private GridPane playerOneGrid;
+    private Button confirmButton;
     @FXML
-    private javafx.scene.control.Label playerOneName;
+    private Button cancelButton;
     @FXML
-    private javafx.scene.control.Label playerOneWPC;
+    private TextArea selfScore;
     @FXML
-    private javafx.scene.control.Label playerOneFT;
+    private TextArea player1Score;
     @FXML
-    private javafx.scene.control.Label messageLabel;
+    private TextArea player2Score;
     @FXML
-    private GridPane playerTwoGrid;
+    private TextArea player3Score;
     @FXML
-    private javafx.scene.control.Label playerTwoName;
+    private TextArea player4Score;
     @FXML
-    private javafx.scene.control.Label playerTwoWPC;
+    private HBox ammotile;
     @FXML
-    private javafx.scene.control.Label playerTwoFT;
+    private GridPane skull;
     @FXML
-    private GridPane playerThreeGrid;
+    private GridPane selfBlood;
     @FXML
-    private javafx.scene.control.Label playerThreeName;
+    private GridPane action;
     @FXML
-    private javafx.scene.control.Label playerThreeWPC;
+    private Button endRound;
     @FXML
-    private javafx.scene.control.Label playerThreeFT;
-    @FXML
-    private GridPane playerActualGrid;
-    @FXML
-    private javafx.scene.control.Label playerActualName;
-    @FXML
-    private javafx.scene.control.Label playerActualWPC;
-    @FXML
-    private javafx.scene.control.Label playerActualFT;
-    @FXML
-    private VBox draftPoolSpace;
-    @FXML
-    private HBox roundTrackSpace;
-    @FXML
-    private HBox diceStorage;
-    @FXML
-    private javafx.scene.control.Label timerLabel;
-    @FXML
-    private javafx.scene.control.Label errorLabel;
+    private Button endTurn;
+
 
     private boolean wpc;
-    private boolean isToolCard = true;
-    private boolean nextIsPrivateOC = true;
-    private boolean toolCardUsed = false;
-    private boolean toolCard = false;
 
-    private Timeline timeline;
-    private Integer timeSeconds;
-
-    /**
-     * The constructor of the MatchViewController class.
-     *
-     * @param boardStatus boardStatus from the server.
-     */
-
-    public MatchViewController(BoardStatus boardStatus, boolean wpc) {
+    public MatchViewController(BoardStatus boardStatus,boolean wpc){
         this.boardStatus = boardStatus;
         this.wpc = wpc;
+
     }
 
-    @FXML
-    @Override
-    public void guiLaunchTimer() {
-        try (Scanner input = new Scanner(MatchViewController.class.getResourceAsStream("/file/config.json"))){
-            //Read the content of the file
-            StringBuilder jsonIn = new StringBuilder();
-            while(input.hasNextLine()) {
-                jsonIn.append(input.nextLine());
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject rootFile = (JSONObject) parser.parse(jsonIn.toString());
-            JSONArray jsonArray = (JSONArray) rootFile.get("timer");
-            JSONObject cell = (JSONObject) jsonArray.get(0);
-            final int seconds = Integer.parseInt((String) cell.get("seconds"));
-            Platform.runLater(()->{
-                if (timeline != null) {
-                    timeline.stop();
-                }
-                timeSeconds = seconds;
-                timerLabel.setText(timeSeconds.toString());
-                timeline = new Timeline();
-                timeline.setCycleCount(Timeline.INDEFINITE);
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(1),
-                                event -> {
-                                    timeSeconds--;
-                                    timerLabel.setText(
-                                            timeSeconds.toString());
-                                    if (timeSeconds <= 0) {
-                                        notify("PASS");
-                                        messageLabel.setText("");
-                                        errorLabel.setText("");
-                                        endTurnButton.setVisible(false);
-                                        timeline.stop();
-                                    }
-                                }));
-                timeline.playFromStart();
-            });
-        } catch (Exception e) {
-            Logger.getGlobal().warning(e.getMessage());
-        }
-    }
+
+
 
     @Override
     protected void close(AnchorPane anchorPane) {
 
     }
 
-    @FXML
-    private void setImageDisable(Boolean bool) {
-        imageOne.setDisable(bool);
-        imageTwo.setDisable(bool);
-        imageThree.setDisable(bool);
+
+
+    public void showPlayer() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/playerBoard.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+
+
+            /*
+            selfPlayer.getChildren().add(anchorPane):
+             */
+
+        } catch (IOException e) {
+            Logger.getGlobal().warning(e.toString());
+        }
+
+
     }
-
-
 
 
 

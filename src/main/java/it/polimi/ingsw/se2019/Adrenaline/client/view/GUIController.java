@@ -22,29 +22,6 @@ public abstract class GUIController {
 
 
 
-    /**
-     * The addDraggableNode method is used to permit
-     * a node to be draggable.
-     *
-     * @param node chosen node to be draggable.
-     */
-
-    public void addDraggableNode(final Node node) {
-
-        node.setOnMousePressed(me -> {
-            if (me.getButton() != MouseButton.MIDDLE) {
-                initialX = me.getSceneX();
-                initialY = me.getSceneY();
-            }
-        });
-
-        node.setOnMouseDragged(me -> {
-            if (me.getButton() != MouseButton.MIDDLE) {
-                node.getScene().getWindow().setX(me.getScreenX() - initialX);
-                node.getScene().getWindow().setY(me.getScreenY() - initialY);
-            }
-        });
-    }
 
     /**
      * The switchSceneSameStage method is used to switch the scene using the
@@ -116,49 +93,6 @@ public abstract class GUIController {
         // only used by MatchViewController
     }
 
-    /**
-     * The guiPlay method is used to send a playing message to the client and
-     * then active a zone on the gui.
-     *
-     * @param playing      true or false corresponding to play or not.
-     * @param diePlaced    true or false corresponding in a placed die or not.
-     * @param toolCardUsed true or false corresponding in a tool card used or not.
-     */
-
-    public void guiPlay(boolean playing, boolean diePlaced, boolean toolCardUsed) {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiDraft method is used to active the draft pool on the gui.
-     *
-     * @param toolCard a boolean used to active or not.
-     */
-
-    public void guiDraft(boolean toolCard) {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiWindow method is used to active the windowFrame on the gui.
-     *
-     * @param toolCard a boolean used to active or not.
-     */
-
-
-    public void guiWindow(boolean toolCard) {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiTool method is used to active the toolCard block on the gui.
-     *
-     * @param toolCard a boolean used to active or not.
-     */
-
-    public void guiTool(boolean toolCard) {
-        // only used by MatchViewController
-    }
 
     /**
      * The guiLaunchTimer method is used to launch the timer on the gui.

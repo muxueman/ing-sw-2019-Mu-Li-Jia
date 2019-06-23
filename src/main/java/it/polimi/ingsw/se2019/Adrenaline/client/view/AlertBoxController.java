@@ -2,7 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,6 @@ import javafx.event.ActionEvent;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class AlertBoxController extends GUIController {
@@ -40,6 +39,8 @@ public class AlertBoxController extends GUIController {
     private Label secondP;
     @FXML
     private Label thirdP;
+    @FXML
+    private Label fourthP;
     @FXML
     private Label fifthP;
     @FXML
@@ -61,13 +62,13 @@ public class AlertBoxController extends GUIController {
     @FXML
     private Button newGameButton;
     @FXML
-    private ImageView mapA;
+    private ImageView imgOne;
     @FXML
-    private ImageView mapB;
+    private ImageView imgTwo;
     @FXML
-    private ImageView mapC;
+    private ImageView imgThree;
     @FXML
-    private ImageView mapD;
+    private ImageView imgFour;
 
     public void initialize() {
         addDraggableNode(root);
@@ -96,7 +97,7 @@ public class AlertBoxController extends GUIController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/initialView.fxml"));
                     Stage primaryStage = new Stage();
                     Parent newRoot = loader.load();
-                    primaryStage.setTitle("Sagrada");
+                    primaryStage.setTitle("Adrenalina");
                     Scene initialScene = new Scene(newRoot);
                     primaryStage.setScene(initialScene);
                     primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -112,24 +113,29 @@ public class AlertBoxController extends GUIController {
     }
 
     public void setLabelOne(String s) {
+
         labelOne.setText(s);
     }
 
     public void setButtonOneText(String string) {
+
         buttonOne.setText(string);
     }
 
     public void setButtonTwoText(String string) {
+
         buttonOne.setText(string);
     }
 
 
     public void setButtonOne(EventHandler<ActionEvent> value) {
+
         buttonOne.setOnAction(value);
     }
 
     public void setButtonTwo(EventHandler<ActionEvent> value) {
-        buttonOne.setOnAction(value);
+
+        buttonTwo.setOnAction(value);
     }
 
     public void setChoiceBox() {
@@ -145,7 +151,58 @@ public class AlertBoxController extends GUIController {
         return choiceBox.getValue();
     }
 
+    private void setTextArea(Player myScore,String username){
+        textArea.setVisible(true);
+        textArea.clear();
+        textArea.appendText("Player's name: "+ username +"\n");
+        textArea.appendText("Player's score" + myScore + "\n");
 
+    }
+
+    public void setFirstP(Player player,Player score){
+        firstP.setText(player.getUserName());
+        firstScore.setText(Integer.toString(player.getMyScore()));
+        firstScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
+    }
+
+    public void setSecondP(Player player,Player score){
+        secondP.setText(player.getUserName());
+        secondScore.setText(Integer.toString(player.getMyScore()));
+        secondScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
+    }
+
+    public void setThirdP(Player player,Player score){
+        thirdP.setText(player.getUserName());
+        thirdScore.setText(Integer.toString(player.getMyScore()));
+        thirdScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
+    }
+
+    public void setFourthP(Player player,Player score){
+        fourthP.setText(player.getUserName());
+        fourthScore.setText(Integer.toString(player.getMyScore()));
+        fourthScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
+    }
+
+    public void setFifthP(Player player,Player score){
+        fifthP.setText(player.getUserName());
+        fifthScore.setText(Integer.toString(player.getMyScore()));
+        fifthScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
+    }
+
+
+    public void setImgOne(EventHandler<MouseEvent> value) {
+        imgOne.setOnMouseClicked(value);
+    }
+
+    public void setImgTwo(EventHandler<MouseEvent> value) {
+        imgTwo.setOnMouseClicked(value);
+    }
+    public void setImgThree(EventHandler<MouseEvent> value) {
+        imgThree.setOnMouseClicked(value);
+    }
+    public void setImgFour(EventHandler<MouseEvent> value) {
+        imgFour.setOnMouseClicked(value);
+    }
 
 
 
@@ -153,6 +210,9 @@ public class AlertBoxController extends GUIController {
     protected void close(AnchorPane anchorPane) {
 
     }
+
+
+
 }
 
 
