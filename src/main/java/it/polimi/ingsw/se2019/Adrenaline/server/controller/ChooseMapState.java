@@ -20,7 +20,7 @@ public class ChooseMapState implements GameServerInterface {
     public ChooseMapState(ServerController serverController, ClientInterface client) throws RemoteException {
         this.serverController = serverController;
         matchController = serverController.getMatch();
-        chooseMaps = matchController.getChoosableMaps(client);
+        //chooseMaps = matchController.getChoosableMaps(client);
         ServerMessage serverMessage = new ServerMessage("CHOOSEMAP", true, new MapUpdate());//需改进
 //        PrivateObjectiveCard privateObjectiveCard = matchController.getPrivateObjectiveCard(client);
 //        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(privateObjectiveCard));

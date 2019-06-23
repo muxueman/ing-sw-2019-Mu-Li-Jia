@@ -6,10 +6,10 @@ package it.polimi.ingsw.se2019.Adrenaline.server;
  * @author Xueman Mu
  */
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.logging.Logger;
+        import java.io.IOException;
+        import java.net.ServerSocket;
+        import java.net.Socket;
+        import java.util.logging.Logger;
 
 public class SocketServer extends Thread {
 

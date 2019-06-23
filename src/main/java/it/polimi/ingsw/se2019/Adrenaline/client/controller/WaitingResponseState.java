@@ -2,6 +2,8 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 
+import java.util.logging.Logger;
+
 public class WaitingResponseState extends ControllerState{
 
     private ControllerState nextState;
@@ -35,6 +37,7 @@ public class WaitingResponseState extends ControllerState{
         if(serverMessage.getMessage().equals("CONNECT")){
             wpc = false;
             nextState = new NonPlayingState(clientController);
+            Logger.getGlobal().info("next state: nonplaying state");
         }
         return super.updateStatus(serverMessage);
     }
@@ -44,10 +47,14 @@ public class WaitingResponseState extends ControllerState{
             return previousState.initState();
         } else if (playing) {
             clientController.nextView(wpc);
+            Logger.getGlobal().info("next state: select map state");
             return nextState.initState();
         } else {
             return this;
         }
     }
-
+    @Override
+    public void sendMessage() {
+        clientController.reportError(message);
+    }
 }

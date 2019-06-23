@@ -5,7 +5,9 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
+//import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
@@ -19,12 +21,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 
 public class MatchController {
 
@@ -36,12 +35,19 @@ public class MatchController {
     private Map<Player, ClientInterface> clients;
     private List<Color> colors = new ArrayList<>(Arrays.asList(Color.values()));
 
+
+    private HashMap<Integer, Integer> selectedKills = new HashMap<>();
+    private HashMap<Integer, Integer> selectedMaps = new HashMap<>();
+
+    private PlayBoard playBoard;
+
     private TurnHandler turnHandler;
     private boolean started;
     private Timer timer;
 
     public MatchController(String matchID) {
         this.matchID = matchID;
+        playBoard = null;
         colors.remove(Color.RED);
         currentPlayer = null;
         players = new HashMap<>();
@@ -52,6 +58,7 @@ public class MatchController {
         started = false;
         turnHandler = null;
         timer = new Timer();
+        Logger.getGlobal().log(Level.INFO,"a match controller is created ");
     }
 
     public synchronized boolean isNotFull() {
@@ -88,24 +95,100 @@ public class MatchController {
         }
     }
 
-    synchronized List<it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map> getChoosableMap(ClientInterface client) {
-        List<it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map> choosableMap = new ArrayList<>();
-        choosableMap.add(new MapA());
-        choosableMap.add(new MapB());
-        choosableMap.add(new MapC());
-        choosableMap.add(new MapD());
-        int i = 0;
-        if(clients.size() == 3){
-            choosableMap.remove(3);
+    synchronized void chooseMap(ClientInterface client, int selectMap){
+        if (selectedMaps.containsKey(selectMap)) {
+            selectedMaps.put(selectMap, selectedMaps.get(selectMap) + 1);
+        } else {
+            selectedMaps.put(selectMap, 1);
         }
-        else if(clients.size() == 5){
-            choosableMap.remove(0);
+        if (numMap() == clients.size()){
+            it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map selectedMap = null;
+            Integer maxCount = Collections.max(selectedMaps.values());
+            for (Integer i : selectedMaps.keySet()) {
+                if (selectedMaps.get(i) == maxCount) {
+                    switch (i){
+                        case 1: selectedMap = new MapA();break;
+                        case 2: selectedMap = new MapB();break;
+                        case 3: selectedMap = new MapC();break;
+                        case 4: selectedMap = new MapD();break;
+                        default: selectedMap = new MapB();
+                    }
+                }
+            }
+            if (selectedMap != null){
+                Logger.getGlobal().log(Level.INFO,"chose the map : {0} ", selectedMap);
+                for (ClientInterface c : clients.values()){
+                    chooseMapEach(c, selectedMap);
+                }
+            }
         }
-        return choosableMap;
+    }
+
+    synchronized void chooseKill(ClientInterface client, int selectKill){
+        if (selectedKills.containsKey(selectKill)) {
+            selectedKills.put(selectKill, selectedKills.get(selectKill) + 1);
+        } else {
+            selectedKills.put(selectKill, 1);
+        }
+        if (numKill() == clients.size()){
+            Integer selectedKill = null;
+            Integer maxCount = Collections.max(selectedKills.values());
+            for (Integer i : selectedKills.keySet()) {
+                if (selectedKills.get(i) == maxCount) {
+                    selectedKill = i;
+                }
+            }
+            if (selectedKill != null){
+                Logger.getGlobal().log(Level.INFO,"chose the number of kill shoot: {0} ", selectedKill);
+                for (ClientInterface c : clients.values()){
+                    chooseKillEach(c, selectedKill);
+                }
+
+            }
+        }
+    }
+
+    protected void chooseMapEach(ClientInterface client, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) {
+        Player player = players.get(client);
+        //playBoard.setMap(map);
+
+        //这个时候 update map
+        ServerMessage serverMessage = new ServerMessage(false, "map is selected");
+        Logger.getGlobal().log(Level.INFO,"map is selected ");
+        //serverMessage.addStatusUpdate(new MapUpdate(players.get(client).getStatus()));
+        updateAll(serverMessage, (p, c) -> c != client && p.isReady());
+    }
+
+    protected void chooseKillEach(ClientInterface client, Integer selectedKill) {
+        Player player = players.get(client);
+        //playBoard.setNumKillShoot(selectedKill);
+
+        ServerMessage serverMessage = new ServerMessage(false, "kill is selected");
+        Logger.getGlobal().log(Level.INFO,"kill is selected ");
+        //serverMessage.addStatusUpdate(new PlayerStatusUpdate(players.get(client).getStatus()));
+        updateAll(serverMessage, (p, c) -> c != client && p.isReady());
+    }
+
+    //calculate the number of values(client) that have already selected
+    protected Integer numMap(){
+        int num = 0;
+        for(int m : selectedMaps.keySet()){
+            num += selectedMaps.get(m) + 1;
+        }
+        return num;
+    }
+    protected Integer numKill(){
+        int num = 0;
+        for(int k : selectedKills.keySet()){
+            num += selectedKills.get(k) + 1;
+        }
+        return num;
     }
 
     public void startWhenReady() {
+        Logger.getGlobal().log(Level.INFO,"ready to start a match ");
         (new MatchStarter()).start();
+
     }
 
     private class MatchStarter extends Thread {
@@ -125,6 +208,7 @@ public class MatchController {
 
 
     synchronized void initPlayer(ClientInterface client) {
+        Logger.getGlobal().log(Level.INFO,"ready to init a player ");
         Player player = players.get(client);
         String reconnectionToken = matchID + "_" + player.getPlayerID();
         ServerMessage serverMessage = new ServerMessage(false, "This is your board:");
@@ -149,13 +233,14 @@ public class MatchController {
         if (!readyPlayers.isEmpty()) {
             ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
             for (Player p : readyPlayers) {
-//                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
+                //opponentsMessage.addStatusUpdate(new PlayerStatusUpdate());
             }
             updateClient(client, opponentsMessage);
         }
     }
     private synchronized void startMatch() {
         //如果开始的人数少于三人
+        Logger.getGlobal().log(Level.INFO,"start a match ");
         if (players.size() < 3) {
             endGame(true);
             return;
@@ -168,24 +253,13 @@ public class MatchController {
 //            refreshDraftPool();
 //            currentPlayer = turnHandler.getCurrentPlayer();
 //            refreshControllerStates();
-//            updateAll(new PlayMessage());
-//            updateCurrentPlayer(new PlayMessage());
+            updateAll(new PlayMessage());
+            updateCurrentPlayer(new PlayMessage());
             closeTimer();
             startTimer();
         }
     }
 
-    // put the remaining dice in the round track
-//    private synchronized void refreshDraftPool() {
-//        if (roundTrack.getCurrentRound() != 0) {
-//            roundTrack.insertDice(draftPool.getDice(), roundTrack.getCurrentRound() - 1);
-//        }
-//        draftPool.setDraftPool(diceBag.roundDraw(players.size()));
-//        UpdateMessage updateMessage = new UpdateMessage("This is the draft pool right now:");
-//        updateMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
-//        updateMessage.addStatusUpdate(new RoundTrackUpdate(roundTrack.getStatus()));
-//        updateAll(updateMessage);
-//    }
 
     //change state between playing state and non playing state
     private synchronized void refreshControllerStates() {
@@ -198,16 +272,17 @@ public class MatchController {
         });
     }
 
-   //pass to next player
+    //pass to next player
     private synchronized void nextPlayer() throws EndGameException {
         //currentPlayer = turnHandler.nextTurn();
         //if (turnHandler.isNewRound()) {
-            //refreshDraftPool();
+        //refreshDraftPool();
         //}
     }
 
 
     private void endGame(boolean lessPlayer) {
+        Logger.getGlobal().log(Level.INFO,"end game ");
         ErrorMessage endGameMessage = new ErrorMessage("ENDGAME");
         updateAll(endGameMessage);
         if (lessPlayer) {
@@ -245,6 +320,7 @@ public class MatchController {
 
 
     public void startTimer() {
+        Logger.getGlobal().log(Level.INFO,"start timer ");
         try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/config.json"))){
             //Read the content of the file
             StringBuilder jsonIn = new StringBuilder();
@@ -258,17 +334,29 @@ public class MatchController {
             final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
             timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             Logger.getGlobal().warning(e.getMessage());
         }
     }
     private void closeTimer() {
+        //Logger.getGlobal().log(Level.INFO,"close timer ");
         timer.cancel();
         timer = new Timer();
     }
     private void updateAll(ServerMessage serverMessage) {
+        Logger.getGlobal().log(Level.INFO,"updateAll {0} ", serverMessage);
         for (ClientInterface client : clients.values()) {
             updateClient(client, serverMessage);
+        }
+    }
+    private void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {
+        Logger.getGlobal().log(Level.INFO,"updateAll {0} ", serverMessage);
+        for (Map.Entry<Player, ClientInterface> entry : clients.entrySet()) {
+            Player player = entry.getKey();
+            ClientInterface client = entry.getValue();
+            if (conditions.apply(player, client)) {
+                updateClient(client, serverMessage);
+            }
         }
     }
 
@@ -369,26 +457,26 @@ public class MatchController {
     public void disconnect(ServerController serverController) {
         ServerController currentController = controllers.get(currentPlayer);
         if (started) {
-//            if (playersNumber() == 1) {
-//                endGame(true);
-//            } else if (playersNumber() == 0) {
-//                endMatch();
-//            } else if (currentController.equals(serverController)) {
-//                nextTurn();
-//            }
-//        } else {
-//            Player player = null;
-//            for (Player p : players.values()) {
-//                ServerController controller = controllers.get(p);
-//                if (serverController.equals(controller)) {
-//                    player = p;
-//                    break;
-//                }
-//            }
-//            ClientInterface client = clients.get(player);
-//            controllers.remove(player);
-//            clients.remove(player);
-//            players.remove(client);
+            if (playersNumber() == 1) {
+                endGame(true);
+            } else if (playersNumber() == 0) {
+                endMatch();
+            } else if (currentController.equals(serverController)) {
+                nextTurn();
+            }
+        } else {
+            Player player = null;
+            for (Player p : players.values()) {
+                ServerController controller = controllers.get(p);
+                if (serverController.equals(controller)) {
+                    player = p;
+                    break;
+                }
+            }
+            ClientInterface client = clients.get(player);
+            controllers.remove(player);
+            clients.remove(player);
+            players.remove(client);
 //            windowPatternCards.addAll(distributedWindowPatternCards.get(client));
 //            distributedWindowPatternCards.remove(client);
 //            colors.add(distributedPrivateObjectiveCards.get(client));
@@ -396,7 +484,14 @@ public class MatchController {
         }
     }
 
-
-
-
+    //number of players that are active
+    private int playersNumber() {
+        final int[] number = {0};
+        controllers.forEach((p, c) -> {
+            if (c.isActive()) {
+                number[0]++;
+            }
+        });
+        return number[0];
+    }
 }

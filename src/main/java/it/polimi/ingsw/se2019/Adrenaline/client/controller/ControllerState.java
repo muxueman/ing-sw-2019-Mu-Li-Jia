@@ -4,6 +4,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class ControllerState {
 
@@ -30,13 +31,16 @@ public abstract class ControllerState {
         clientController.getModel().pingUpdate(serverMessage.getMessage());
         if (serverMessage.isError()) {
             if(serverMessage.getMessage().equals("ENDGAME")) {
+                Logger.getGlobal().info("next state: end game");
                 return new EndGameState(clientController).initState();
             }
             if(serverMessage.getMessage().equals("TIMER")) {
+                Logger.getGlobal().info("next state: waiting for response");
                 return new WaitingResponseState(clientController, new NonPlayingState(clientController));
             }
             clientController.reportError(serverMessage.getMessage());
         }
+        Logger.getGlobal().info("next state: next state");
         return nextState(serverMessage.isError(), serverMessage.isPlaying());
     }
 
@@ -45,7 +49,6 @@ public abstract class ControllerState {
         return initState();
     }
 
-    //the important part!!! this is to notify the view to show the request options
     //create new state of controller (inform clientController and view of client), return myself
     public ControllerState initState() {
         sendMessage();
@@ -56,8 +59,6 @@ public abstract class ControllerState {
     protected void sendMessage() {
         clientController.sendMessage(message);
     }
-
-
 
 
 }
