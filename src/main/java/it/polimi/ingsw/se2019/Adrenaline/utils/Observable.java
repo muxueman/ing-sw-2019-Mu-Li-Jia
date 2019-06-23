@@ -7,6 +7,7 @@ package it.polimi.ingsw.se2019.Adrenaline.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class Observable<T>{
 
@@ -17,6 +18,7 @@ public abstract class Observable<T>{
     public void register(Observer<T> observer){
         synchronized (lock) {
             observers.add(observer);
+            //Logger.getGlobal().info("add an observer!");
         }
     }
 
@@ -30,6 +32,7 @@ public abstract class Observable<T>{
         synchronized (lock) {
             for(Observer<T> observer : observers){
                 observer.update(message);
+                //Logger.getGlobal().info("notify an observer!");
             }
         }
     }

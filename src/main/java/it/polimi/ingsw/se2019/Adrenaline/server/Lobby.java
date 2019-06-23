@@ -10,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Lobby {
@@ -103,7 +104,7 @@ public class Lobby {
         usernames.remove(clientInterface);
     }
 
-    //另一个线程，等待用户连接游戏，4人游戏开始，否则 3 人 ，需要改进
+    //另一个线程，等待用户连接游戏，3人游戏开始，否则 2 人 ，需要改进
     private class Queue extends Thread {
 
         private boolean active = true;
@@ -112,19 +113,19 @@ public class Lobby {
         @Override
         public void run() {
             while (active) {
-                if (playersNumber(4)) {
+                if (playersNumber(3)) {
                     timerStarted = false;
                     startMatch();
-                } else if (playersNumber(3)) {
-                    if (!timerStarted) {
-                        timerStarted = true;
-                        startTimer();
-                    }
-                } else {
-                    if (timerStarted) {
-                        timerStarted = false;
-                        closeTimer();
-                    }
+//                } else if (playersNumber(2)) {
+//                    if (!timerStarted) {
+//                        timerStarted = true;
+//                        startTimer();
+//                    }
+//                } else {
+//                    if (timerStarted) {
+//                        timerStarted = false;
+//                        closeTimer();
+//                    }
                 }
             }
         }
@@ -163,16 +164,19 @@ public class Lobby {
 
     //entry set 返回此映射中包含的映射关系的 Set 视图。
     private synchronized void startMatch() {
+        Logger.getGlobal().log(Level.INFO,"start a match");
         List<ClientInterface> playingClients = new ArrayList<>();
         for (Map.Entry<ClientInterface, Boolean> entry : clients.entrySet()) {
             if (entry.getValue() && currentMatch.isNotFull()) {
                 ClientInterface client = entry.getKey();
+                Logger.getGlobal().log(Level.INFO,"current match: ");
                 currentMatch.addClient(client, controllers.get(client));
                 currentMatch.setPlayer(usernames.get(client), client);
                 ServerController serverController = controllers.get(client);
                 serverController.setMatch(currentMatch);
                 try {
                     serverController.nextState(new ChooseMapState(serverController, client));
+                    Logger.getGlobal().log(Level.INFO,"next state choose map state ");
                 } catch (RemoteException e) {
                     Logger.getGlobal().warning("There has been an error: " + e.getMessage());
                 }
@@ -184,13 +188,14 @@ public class Lobby {
         }
         currentMatch.startWhenReady();
         createMatch();
-        closeTimer();
+        //closeTimer();
     }
 
     private synchronized void createMatch() {
         String matchID = UUID.randomUUID().toString();
         currentMatch = new MatchController(matchID);
         matches.put(matchID, currentMatch);
+        Logger.getGlobal().log(Level.INFO,"match created with ID: {0}", matchID );
     }
 
 

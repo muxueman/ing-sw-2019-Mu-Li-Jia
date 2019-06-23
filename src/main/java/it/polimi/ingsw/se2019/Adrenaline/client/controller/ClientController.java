@@ -84,8 +84,11 @@ public class ClientController implements ClientInterface, Observer<String> {
     public synchronized void update(String message) {
         state = state.update(message);
     }
-    public void updateStatus(ServerMessage serverMessage) throws RemoteException{};
 
+    @Override
+    public synchronized void updateStatus(ServerMessage serverMessage) {
+        state = state.updateStatus(serverMessage);
+    }
     public void checkConnection() throws RemoteException{};
 
     //connection between client and server, 1 for RMI, 2 for socket
