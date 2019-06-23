@@ -8,20 +8,15 @@ import java.util.HashMap;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
-public class Player  {
+public class Player extends PlayerStatus {
     protected String playerID;
     protected Color playerColor;
     private String userName;
-    private int[] ammoOwned;
-    private Map<WeaponCard, Boolean> weaponsOwned;
-    private ArrayList<PowerupCard> powerupsOwned;
     protected int myScore;
-    //protected ArrayList<Integer> score;
     private Cell currentCell;
-    private KillShootTrack killShootTrack;
     protected int actionMode;
     protected boolean alive;
     protected PlayBoard playBoard;
@@ -32,17 +27,8 @@ public class Player  {
     */
 
     //constructor
-    public Player(String playerID) {
-        this.playerID = playerID;
-        this.killShootTrack = new KillShootTrack(this);
-        ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
-        weaponsOwned = new HashMap<>();
-        powerupsOwned = new ArrayList<>();
-        actionMode = 0;
-        myScore = 0;
-        //score = new ArrayList<>();
-        alive = true;
-        //初始化所有的玩家,放入allPlayer
+    public Player(String userName) {
+        super(userName);
     }
 
     public void setUserName(String userName) {
@@ -97,7 +83,9 @@ public class Player  {
     public int getActionMode(){
         return actionMode;
     }
-    public Cell getCurrentCell(){
+
+    @Override
+    public Cell getCurrentCell() {
         return currentCell;
     }
 
@@ -272,7 +260,7 @@ public class Player  {
 ////        int i = 0;
 ////        while(){
 ////            i++;
-////            switch (extraAmmoCost.get(i)){
+////            switch (extr`aAmmoCost.get(i)){
 ////                case 0: continue;
 ////                case 1:
 ////                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}

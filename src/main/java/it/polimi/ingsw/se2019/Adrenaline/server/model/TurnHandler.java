@@ -22,5 +22,31 @@ public class TurnHandler {
         orderedPlayers.addAll(invertedList);
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
 
+    /**
+     *
+     * The getRoundTrack method return the roundTrack
+     *
+     * @return the roundTrack.
+     *
+     */
+
+//    public RoundTrack getRoundTrack() {
+//        return roundTrack;
+//    }
+
+    /**
+     *
+     * The getCurrentPlayer return the current player.
+     *
+     * @return the player that is playing.
+     *
+     */
+
+    public Player getCurrentPlayer() {
+        return orderedPlayers.get(0);
+    }
 }

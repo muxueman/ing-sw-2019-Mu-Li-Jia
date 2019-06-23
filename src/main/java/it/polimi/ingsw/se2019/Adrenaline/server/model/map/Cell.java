@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.CellStatus;
 
 import java.util.ArrayList;
 
@@ -10,21 +11,13 @@ import java.util.ArrayList;
  *@author Xueman Mu
  */
 
-public abstract class Cell {
+public abstract class Cell extends CellStatus {
 
-    protected int cellID;
-    protected Color cellColor;
-    //all the players in this cell
-    protected ArrayList<Player> cellPlayers;
-    //store the adjacent cells in a sequence of up, right, down, left.
-    protected Cell[] adjacentCells;
-    //to identify the cell is which kind;
-    protected int type;
+
 
     //constructor
     public Cell(int cellID) {
-        this.cellID = cellID;
-        this.cellPlayers = new ArrayList<Player>();
+        super(cellID);
     }
     //set values of cell
     public void setCellColor(Color cellColor){

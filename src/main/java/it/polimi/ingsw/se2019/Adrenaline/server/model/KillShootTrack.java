@@ -1,5 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.KillShootTrackStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+
 import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +12,7 @@ import java.util.Map;
 /**
  *
  */
-public class KillShootTrack{
+public class KillShootTrack extends KillShootTrackStatus{
 
     private Player player;
     private int turn;
@@ -22,12 +25,11 @@ public class KillShootTrack{
     private int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
 
     public  KillShootTrack(Player player) {
-
         this.player = player;
         turn = 0;
-        this.damageColorOnTrack = new ArrayList<Color>();
-        this.markColorOnTrack = new ArrayList<Color>();
-        playerScore = new HashMap<>();
+        damageColorOnTrack = new ArrayList<Color>();
+        markColorOnTrack = new ArrayList<Color>();
+        numKillShoot = 0;
         beKilled = 0;
     }
     //overload
@@ -122,16 +124,21 @@ public class KillShootTrack{
     }
 
     //用于给各玩家damage num排序
-    private Map valueOfMapDownSort(Map inputMap) {
+    public Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
         Collections.sort(infoIds, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return (-(o1.getValue() - o2.getValue()));
-                //return (o1.getKey()).toString().compareTo(o2.getKey());
+                return (-(o1.getValue().compareTo(o2.getValue())));
             }
         });
-        return inputMap;
+        inputMap.clear();
+        LinkedHashMap outMap = new LinkedHashMap();
+        for(Map.Entry<String,Integer> mapping: infoIds){
+            outMap.put(mapping.getKey(), mapping.getValue());
+        }
+        return outMap;
     }
+
 
 
     public ArrayList<Integer> checkHighestScore(){
@@ -146,7 +153,8 @@ public class KillShootTrack{
     }
 
     public Map countPlayerScore() {
-        Map damageCount = new HashMap(valueOfMapDownSort(countDamageOnTrack()));
+        Map damageCount = new HashMap();
+        damageCount = valueOfMapDownSort(countDamageOnTrack());
         Map playerScore = new HashMap<Color, Integer>();
         int i = 0;
         ArrayList<Integer> scoreArray = checkHighestScore();
@@ -176,7 +184,7 @@ public class KillShootTrack{
     public void killShoot(){
         this.playerScore = countPlayerScore();
         this.playerScore = scoreForfirstShooter(playerScore);
-        System.out.println(playerScore.toString());
+//        System.out.println(playerScore.toString());
         turn++;
     }
 
