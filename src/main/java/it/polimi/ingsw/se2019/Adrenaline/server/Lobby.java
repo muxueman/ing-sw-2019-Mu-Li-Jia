@@ -195,7 +195,6 @@ public class Lobby {
         String matchID = UUID.randomUUID().toString();
         currentMatch = new MatchController(matchID);
         matches.put(matchID, currentMatch);
-        Logger.getGlobal().log(Level.INFO,"match created with ID: {0}", matchID );
     }
 
 

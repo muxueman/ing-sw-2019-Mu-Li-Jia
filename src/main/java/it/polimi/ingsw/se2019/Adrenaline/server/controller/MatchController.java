@@ -58,7 +58,6 @@ public class MatchController {
         started = false;
         turnHandler = null;
         timer = new Timer();
-        Logger.getGlobal().log(Level.INFO,"a match controller is created ");
     }
 
     public synchronized boolean isNotFull() {
@@ -320,7 +319,6 @@ public class MatchController {
 
 
     public void startTimer() {
-        Logger.getGlobal().log(Level.INFO,"start timer ");
         try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/config.json"))){
             //Read the content of the file
             StringBuilder jsonIn = new StringBuilder();
@@ -334,12 +332,11 @@ public class MatchController {
             final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
             timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             Logger.getGlobal().warning(e.getMessage());
         }
     }
     private void closeTimer() {
-        //Logger.getGlobal().log(Level.INFO,"close timer ");
         timer.cancel();
         timer = new Timer();
     }
