@@ -62,10 +62,7 @@ public class Lobby {
 
     public boolean connect(ServerController serverController, ClientInterface client, String token) throws RemoteException {
         if (token.length() == 73) {
-            System.out.println(token);
-            System.out.println("start to bound client and server......");
             String[] ids = token.split("_");
-            System.out.println(ids);
             MatchController match = matches.get(ids[0]);
             if (match != null && ids.length == 2) {
                 if (!match.reconnect(ids[1], serverController, client)) {
@@ -164,12 +161,11 @@ public class Lobby {
 
     //entry set 返回此映射中包含的映射关系的 Set 视图。
     private synchronized void startMatch() {
-        Logger.getGlobal().log(Level.INFO,"start a match");
         List<ClientInterface> playingClients = new ArrayList<>();
         for (Map.Entry<ClientInterface, Boolean> entry : clients.entrySet()) {
+            // when a client is adding to this match, we have this procedure
             if (entry.getValue() && currentMatch.isNotFull()) {
                 ClientInterface client = entry.getKey();
-                Logger.getGlobal().log(Level.INFO,"current match: ");
                 currentMatch.addClient(client, controllers.get(client));
                 currentMatch.setPlayer(usernames.get(client), client);
                 ServerController serverController = controllers.get(client);

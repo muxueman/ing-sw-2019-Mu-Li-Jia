@@ -1,22 +1,22 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
-
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 
 import java.rmi.RemoteException;
-
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ChooseMapState implements GameServerInterface {
+public class ChooseKillState implements GameServerInterface {
     private ServerController serverController;
     private MatchController matchController;
+    private int KillNum;
 
-    public ChooseMapState(ServerController serverController, ClientInterface client) throws RemoteException {
-        Logger.getGlobal().log(Level.INFO,"choose map state..... ");
+
+    public ChooseKillState(ServerController serverController, ClientInterface client) throws RemoteException {
+        Logger.getGlobal().log(Level.INFO, "choose kill state..... ");
         this.serverController = serverController;
         matchController = serverController.getMatch();
 //        matchController = serverController.getMatch();
@@ -31,14 +31,14 @@ public class ChooseMapState implements GameServerInterface {
     //the message from the Client and update the model.
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
-        Logger.getGlobal().log(Level.INFO,"CHOOSEMAP: {0} ",message.getMainParam());
-        if (message.getTextMove().equals("CHOOSEMAP")) {
-            matchController.chooseMap(message.getMainParam());
+        Logger.getGlobal().log(Level.INFO, "CHOOSEKILL: {0} ", message.getMainParam());
+        if (message.getTextMove().equals("CHOOSEKILL")) {
+            matchController.chooseKill(message.getMainParam());
             //matchController.initPlayer(client);
             //Logger.getGlobal().log(Level.INFO,"init player");
-            return new ChooseKillState(serverController,client);
+            return new WaitingForMatchState();
         }
-        client.sendError("Can't choose the kill number!");
+        client.sendError("Can't choose the map!");
         return this;
     }
 }

@@ -20,6 +20,7 @@ public class ServerMessage implements Serializable {
     private boolean playing;
     private String message;
     private ArrayList<StatusUpdate> statusUpdates;
+    private int parameter;
 
     //Constructs a message with default settings.
 
@@ -30,6 +31,7 @@ public class ServerMessage implements Serializable {
         playing = false;
         message = "";
         statusUpdates = new ArrayList<>();
+        parameter = 0;
     }
 
     public ServerMessage(boolean playing) {
@@ -44,6 +46,12 @@ public class ServerMessage implements Serializable {
         this.playing = playing;
         this.message = message;
         statusUpdates = new ArrayList<>();
+    }
+
+    public ServerMessage(boolean playing, String message, Integer parameter) {
+        this.playing = false;
+        this.message = message;
+        this.parameter = parameter;
     }
 
     public ServerMessage(boolean error, boolean playing, String message) {
@@ -101,6 +109,7 @@ public class ServerMessage implements Serializable {
     public boolean isPlaying() {
         return playing;
     }
+    public int getParm(){return parameter;}
 
     // get values of the messages
     public void setMessage(String message) {

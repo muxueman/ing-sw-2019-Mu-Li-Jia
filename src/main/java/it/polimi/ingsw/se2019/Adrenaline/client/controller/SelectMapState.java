@@ -44,22 +44,30 @@ public class SelectMapState extends ControllerState{
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
+
         if (serverMessage.getMessage().equalsIgnoreCase("CHOOSEMAP")) {
-            List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
-            if (!statusUpdates.isEmpty()) {
-//                WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
-//                windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
-                for (StatusUpdate statusUpdate : statusUpdates) {
-                    statusUpdate.updateStatus(clientController.getModel());
-                }
-                clientController.getModel().pingUpdate(serverMessage.getMessage());
-                clientController.sendMessage("Choose your map:");
-            } else {
-                clientController.reportError("Can't obtain the window pattern cards!");
-            }
-        } else {
-            clientController.reportError("There has been a problem.");
+            String finalMap = String.valueOf(serverMessage.getParm());
+            String messageMap = "(select map state) the map of this match: " + finalMap;
+            clientController.sendMessage(messageMap);
+            return nextState(false,true);
         }
+//
+//        if (serverMessage.getMessage().equalsIgnoreCase("CHOOSEMAP")) {
+//            List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
+//            if (!statusUpdates.isEmpty()) {
+////                WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
+////                windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
+//                for (StatusUpdate statusUpdate : statusUpdates) {
+//                    statusUpdate.updateStatus(clientController.getModel());
+//                }
+//                clientController.getModel().pingUpdate(serverMessage.getMessage());
+//                clientController.sendMessage("Choose your map:");
+//            } else {
+//                clientController.reportError("Can't obtain the window pattern cards!");
+//            }
+//        } else {
+//            clientController.reportError("There has been a problem.");
+//        }
         return this;
     }
 

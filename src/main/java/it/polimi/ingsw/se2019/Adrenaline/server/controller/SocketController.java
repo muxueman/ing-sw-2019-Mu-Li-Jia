@@ -40,11 +40,7 @@ public class SocketController implements ClientInterface, ServerController {
         (new SocketListener()).start();
     }
 
-    /**
-     *
-     * The SocketListener class implements a socket that receive the message.
-     *
-     */
+
     private class SocketListener extends Thread {
 
         @Override
@@ -63,28 +59,16 @@ public class SocketController implements ClientInterface, ServerController {
         }
     }
 
-    /**
-     * The isActive method is used to check if the SocketController is active.
-     * @return true if it is active, false if not.
-     */
     @Override
     public boolean isActive() {
         return active && !socket.isClosed();
     }
 
-    /**
-     * The setActive method is used to set active or not the SocketController.
-     * @param active is the boolean containing if the SocketController has to be set active or not.
-     */
     @Override
     public void setActive(boolean active) {
         this.active = active;
     }
 
-    /**
-     * The sendError method is used to report an error to the client.
-     * @param error is the string message of the error.
-     */
     @Override
     public void sendError(String error) {
         try {
@@ -96,13 +80,6 @@ public class SocketController implements ClientInterface, ServerController {
         }
     }
 
-    /**
-     *
-     * The updateStatus method elaborates the server message, if it is accepted
-     * change the status of the controller, else sends error.
-     * @param serverMessage is the string message to be elaborated.
-     *
-     */
     @Override
     public void updateStatus(ServerMessage serverMessage) {
         try {

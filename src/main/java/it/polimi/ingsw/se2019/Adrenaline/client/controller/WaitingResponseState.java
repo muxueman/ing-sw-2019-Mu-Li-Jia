@@ -34,12 +34,26 @@ public class WaitingResponseState extends ControllerState{
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage){
-        if(serverMessage.getMessage().equals("CONNECT")){
-            wpc = false;
-            nextState = new NonPlayingState(clientController);
-            Logger.getGlobal().info("next state: nonplaying state");
+        switch (serverMessage.getMessage()){
+            case("CONNECT"):
+                wpc = false;
+                nextState = new NonPlayingState(clientController);
+                Logger.getGlobal().info("next state: nonplaying state");
+                return super.updateStatus(serverMessage);
+            case("CHOOSEMAP"):
+                String finalMap = String.valueOf(serverMessage.getParm());
+                String messageMap = "the map of this match: " + finalMap;
+                clientController.sendMessage(messageMap);
+                return nextState(false,true).initState();
+            case("CHOOSEKILL"):
+                String finalKill = String.valueOf(serverMessage.getParm());
+                String messageKill = "the map of this match: " + finalKill;
+                clientController.sendMessage(messageKill);
+                return nextState(false,true).initState();
+
+                default:
+                    return nextState(false,true);
         }
-        return super.updateStatus(serverMessage);
     }
     @Override
     public ControllerState nextState(boolean error, boolean playing) {
@@ -47,7 +61,6 @@ public class WaitingResponseState extends ControllerState{
             return previousState.initState();
         } else if (playing) {
             clientController.nextView(wpc);
-            Logger.getGlobal().info("next state: select map state");
             return nextState.initState();
         } else {
             return this;

@@ -6,6 +6,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.updates.MapUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
@@ -33,11 +34,15 @@ public class MatchController {
     private Map<ClientInterface, Player> players;
     private Map<Player, ServerController> controllers;
     private Map<Player, ClientInterface> clients;
+    private Map<ClientInterface,Color> figures;
     private List<Color> colors = new ArrayList<>(Arrays.asList(Color.values()));
 
 
-    private HashMap<Integer, Integer> selectedKills = new HashMap<>();
-    private HashMap<Integer, Integer> selectedMaps = new HashMap<>();
+    private HashMap<Integer, Integer> selectedKills;
+    private HashMap<Integer, Integer> selectedMaps;
+    private it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map selectedMap;
+    private int selectedKill;
+    private int selectedMapInt;
 
     private PlayBoard playBoard;
 
@@ -48,11 +53,16 @@ public class MatchController {
     public MatchController(String matchID) {
         this.matchID = matchID;
         playBoard = null;
+        selectedMaps = new HashMap<>();
+        selectedKills = new HashMap<>();
+        selectedMapInt = 0;
+        selectedKill = 5;
         colors.remove(Color.RED);
         currentPlayer = null;
         players = new HashMap<>();
         controllers = new HashMap<>();
         clients = new HashMap<>();
+        figures = new HashMap<>();
         started = false;
         //roundTrack = new RoundTack();
         started = false;
@@ -82,6 +92,7 @@ public class MatchController {
             players.put(client, player);
             controllers.put(player, controller);
             clients.put(player, client);
+            figures.put(client, color);
         }
     }
 
@@ -94,17 +105,18 @@ public class MatchController {
         }
     }
 
-    synchronized void chooseMap(ClientInterface client, int selectMap){
+    public void chooseMap(int selectMap) throws RemoteException{
+        Logger.getGlobal().log(Level.INFO,"a client chose the map : {0} ", selectMap);
         if (selectedMaps.containsKey(selectMap)) {
             selectedMaps.put(selectMap, selectedMaps.get(selectMap) + 1);
         } else {
             selectedMaps.put(selectMap, 1);
         }
         if (numMap() == clients.size()){
-            it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map selectedMap = null;
             Integer maxCount = Collections.max(selectedMaps.values());
             for (Integer i : selectedMaps.keySet()) {
                 if (selectedMaps.get(i) == maxCount) {
+                    selectedMapInt = i;
                     switch (i){
                         case 1: selectedMap = new MapA();break;
                         case 2: selectedMap = new MapB();break;
@@ -122,64 +134,58 @@ public class MatchController {
             }
         }
     }
+    public it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map getSelectedMap(){
+        return this.selectedMap;
+    }
 
-    synchronized void chooseKill(ClientInterface client, int selectKill){
+    public void chooseKill(int selectKill) throws RemoteException{
         if (selectedKills.containsKey(selectKill)) {
             selectedKills.put(selectKill, selectedKills.get(selectKill) + 1);
         } else {
             selectedKills.put(selectKill, 1);
         }
         if (numKill() == clients.size()){
-            Integer selectedKill = null;
             Integer maxCount = Collections.max(selectedKills.values());
             for (Integer i : selectedKills.keySet()) {
                 if (selectedKills.get(i) == maxCount) {
-                    selectedKill = i;
+                    this.selectedKill = i;
                 }
             }
-            if (selectedKill != null){
-                Logger.getGlobal().log(Level.INFO,"chose the number of kill shoot: {0} ", selectedKill);
-                for (ClientInterface c : clients.values()){
-                    chooseKillEach(c, selectedKill);
-                }
-
+            Logger.getGlobal().log(Level.INFO,"chose the number of kill shoot: {0} ", selectedKill);
+            for (ClientInterface c : clients.values()){
+                chooseKillEach(c);
             }
         }
     }
 
-    protected void chooseMapEach(ClientInterface client, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) {
-        Player player = players.get(client);
+    protected void chooseMapEach(ClientInterface client, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) throws RemoteException{
+        //Player player = players.get(client);
         //playBoard.setMap(map);
-
-        //这个时候 update map
-        ServerMessage serverMessage = new ServerMessage(false, "map is selected");
-        Logger.getGlobal().log(Level.INFO,"map is selected ");
-        //serverMessage.addStatusUpdate(new MapUpdate(players.get(client).getStatus()));
-        updateAll(serverMessage, (p, c) -> c != client && p.isReady());
+        ServerMessage serverMessage = new ServerMessage(false, "CHOOSEMAP",selectedMapInt);
+        Logger.getGlobal().log(Level.INFO,"map is selected {0}", selectedMapInt);
+        client.updateStatus(serverMessage);
     }
 
-    protected void chooseKillEach(ClientInterface client, Integer selectedKill) {
-        Player player = players.get(client);
+    protected void chooseKillEach(ClientInterface client) throws RemoteException {
+        //Player player = players.get(client);
         //playBoard.setNumKillShoot(selectedKill);
-
-        ServerMessage serverMessage = new ServerMessage(false, "kill is selected");
-        Logger.getGlobal().log(Level.INFO,"kill is selected ");
-        //serverMessage.addStatusUpdate(new PlayerStatusUpdate(players.get(client).getStatus()));
-        updateAll(serverMessage, (p, c) -> c != client && p.isReady());
+        ServerMessage serverMessage = new ServerMessage(false, "CHOOSEKILL",selectedKill);
+        Logger.getGlobal().log(Level.INFO,"kill is selected {0}", selectedKill);
+        client.updateStatus(serverMessage);
     }
 
     //calculate the number of values(client) that have already selected
     protected Integer numMap(){
         int num = 0;
         for(int m : selectedMaps.keySet()){
-            num += selectedMaps.get(m) + 1;
+            num += selectedMaps.get(m);
         }
         return num;
     }
     protected Integer numKill(){
         int num = 0;
         for(int k : selectedKills.keySet()){
-            num += selectedKills.get(k) + 1;
+            num += selectedKills.get(k);
         }
         return num;
     }
@@ -187,7 +193,6 @@ public class MatchController {
     public void startWhenReady() {
         Logger.getGlobal().log(Level.INFO,"ready to start a match ");
         (new MatchStarter()).start();
-
     }
 
     private class MatchStarter extends Thread {
@@ -210,7 +215,7 @@ public class MatchController {
         Logger.getGlobal().log(Level.INFO,"ready to init a player ");
         Player player = players.get(client);
         String reconnectionToken = matchID + "_" + player.getPlayerID();
-        ServerMessage serverMessage = new ServerMessage(false, "This is your board:");
+        ServerMessage serverMessage = new ServerMessage(false, "This is your map :");
 //        serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
 //        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(player.getPrivateObjectiveCard()));
 //        serverMessage.addStatusUpdate(new PublicObjectiveUpdate(publicObjectiveCards));
@@ -237,9 +242,11 @@ public class MatchController {
             updateClient(client, opponentsMessage);
         }
     }
+
+    //输入用户名之后从这里开始一个match,并且update player->clientController.updateStatus(server Message)
     private synchronized void startMatch() {
         //如果开始的人数少于三人
-        Logger.getGlobal().log(Level.INFO,"start a match ");
+        Logger.getGlobal().log(Level.INFO,"start a match for match controller");
         if (players.size() < 3) {
             endGame(true);
             return;
@@ -250,8 +257,8 @@ public class MatchController {
             players.forEach((client, player) -> definitivePlayers.add(player));
             turnHandler = new TurnHandler(definitivePlayers);
 //            refreshDraftPool();
-//            currentPlayer = turnHandler.getCurrentPlayer();
-//            refreshControllerStates();
+            currentPlayer = turnHandler.getCurrentPlayer();
+            //refreshControllerStates();
             updateAll(new PlayMessage());
             updateCurrentPlayer(new PlayMessage());
             closeTimer();
@@ -259,14 +266,15 @@ public class MatchController {
         }
     }
 
-
     //change state between playing state and non playing state
     private synchronized void refreshControllerStates() {
         controllers.forEach((player, controller) -> {
             if (player.equals(currentPlayer)) {
+                Logger.getGlobal().log(Level.INFO,"current player next state: playing");
                 controller.nextState(new PlayingState(this));
             } else {
                 controller.nextState(new NonPlayingState());
+                Logger.getGlobal().log(Level.INFO,"not current player next state: nonplaying");
             }
         });
     }
@@ -281,7 +289,6 @@ public class MatchController {
 
 
     private void endGame(boolean lessPlayer) {
-        Logger.getGlobal().log(Level.INFO,"end game ");
         ErrorMessage endGameMessage = new ErrorMessage("ENDGAME");
         updateAll(endGameMessage);
         if (lessPlayer) {
@@ -347,7 +354,7 @@ public class MatchController {
         }
     }
     private void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {
-        Logger.getGlobal().log(Level.INFO,"updateAll {0} ", serverMessage);
+        Logger.getGlobal().log(Level.INFO,"updateAll {0} with Bifunction ", serverMessage);
         for (Map.Entry<Player, ClientInterface> entry : clients.entrySet()) {
             Player player = entry.getKey();
             ClientInterface client = entry.getValue();

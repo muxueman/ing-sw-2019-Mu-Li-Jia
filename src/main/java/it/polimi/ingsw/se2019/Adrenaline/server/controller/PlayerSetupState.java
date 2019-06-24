@@ -6,6 +6,8 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
 
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlayerSetupState implements GameServerInterface {
 
@@ -15,22 +17,12 @@ public class PlayerSetupState implements GameServerInterface {
     PlayerSetupState(ServerController serverController, Lobby lobby) {
         this.serverController = serverController;
         this.lobby = lobby;
+        Logger.getGlobal().log(Level.INFO,"player set up state....");
     }
 
-    /**
-     *
-     * The update method is used to elaborate the message from the Client and update the model.
-     * @param message message is the message to elaborate.
-     * @param client is the reference to the client interface.
-     * @return the current state.
-     * @throws RemoteException when there is a RMI communication error.
-     *
-     */
-    @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
 
         if (lobby.connect(serverController, client, message.getTextMove())) {
-            System.out.println("player set up success");
             return new WaitingForMatchState();
         }
         return this;

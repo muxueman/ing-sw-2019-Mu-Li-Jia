@@ -10,24 +10,10 @@ public class PlayingState implements GameServerInterface {
 
     private MatchController matchController;
 
-    /**
-     *
-     *The constructor creates the state initializing the match controller.
-     * @param matchController is the reference to the match controller.
-     *
-     */
     public PlayingState(MatchController matchController) {
         this.matchController = matchController;
     }
 
-    /**
-     *
-     * The update method is used to elaborate the message from the Client and update the model.
-     * @param message message is the message to elaborate.
-     * @param client is the reference to the client interface.
-     * @return the current state.
-     *
-     */
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) {
         String textMove = message.getTextMove();
