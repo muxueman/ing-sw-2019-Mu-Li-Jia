@@ -106,7 +106,6 @@ public class MatchController {
     }
 
     public void chooseMap(int selectMap) throws RemoteException{
-        Logger.getGlobal().log(Level.INFO,"a client chose the map : {0} ", selectMap);
         if (selectedMaps.containsKey(selectMap)) {
             selectedMaps.put(selectMap, selectedMaps.get(selectMap) + 1);
         } else {
@@ -151,18 +150,18 @@ public class MatchController {
                     this.selectedKill = i;
                 }
             }
-            Logger.getGlobal().log(Level.INFO,"chose the number of kill shoot: {0} ", selectedKill);
+            Logger.getGlobal().log(Level.INFO,"chose the kill number: {0} ", selectedKill);
             for (ClientInterface c : clients.values()){
                 chooseKillEach(c);
             }
         }
     }
+    public int getSelectedKill(){return this.selectedKill;}
 
     protected void chooseMapEach(ClientInterface client, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) throws RemoteException{
         //Player player = players.get(client);
         //playBoard.setMap(map);
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEMAP",selectedMapInt);
-        Logger.getGlobal().log(Level.INFO,"map is selected {0}", selectedMapInt);
         client.updateStatus(serverMessage);
     }
 
@@ -170,7 +169,6 @@ public class MatchController {
         //Player player = players.get(client);
         //playBoard.setNumKillShoot(selectedKill);
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEKILL",selectedKill);
-        Logger.getGlobal().log(Level.INFO,"kill is selected {0}", selectedKill);
         client.updateStatus(serverMessage);
     }
 

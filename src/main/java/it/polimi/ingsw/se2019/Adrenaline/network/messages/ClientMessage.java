@@ -19,16 +19,25 @@ public class ClientMessage implements Serializable {
     private String textMove;
     private int mainParam;
     private List<Integer> additionalParams;
+    private int additionalParam;
 
     // Constructs a message with a move and a main parameter , or a list of additional parameters
     public ClientMessage(String textMove, int mainParam) {
         this.textMove = textMove;
         this.mainParam = mainParam;
+        this.additionalParam = 0;
         this.additionalParams = new ArrayList<>();
+    }
+    public ClientMessage(String textMove, int mainParam, int additionalParam){
+        this.textMove = textMove;
+        this.mainParam = mainParam;
+        this.additionalParam = 0;
+        this.additionalParam= additionalParam;
     }
     public ClientMessage(String textMove, int mainParam, List<Integer> additionalParams) {
         this.textMove = textMove;
         this.mainParam = mainParam;
+        this.additionalParam = 0;
         this.additionalParams = new ArrayList<>(additionalParams);
     }
 
@@ -45,6 +54,7 @@ public class ClientMessage implements Serializable {
     public int getMainParam() {
         return mainParam;
     }
+    public int getAddParams(){ return additionalParam;}
     public List<Integer> getAdditionalParams() {
         return additionalParams;
     }

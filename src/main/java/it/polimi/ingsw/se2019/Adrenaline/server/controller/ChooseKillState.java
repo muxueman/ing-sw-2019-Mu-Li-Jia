@@ -12,8 +12,6 @@ import java.util.logging.Logger;
 public class ChooseKillState implements GameServerInterface {
     private ServerController serverController;
     private MatchController matchController;
-    private int KillNum;
-
 
     public ChooseKillState(ServerController serverController, ClientInterface client) throws RemoteException {
         Logger.getGlobal().log(Level.INFO, "choose kill state..... ");
@@ -35,7 +33,7 @@ public class ChooseKillState implements GameServerInterface {
         if (message.getTextMove().equals("CHOOSEKILL")) {
             matchController.chooseKill(message.getMainParam());
             //matchController.initPlayer(client);
-            //Logger.getGlobal().log(Level.INFO,"init player");
+            //在选择所有玩家选择完kill并更新之后再initPlayer;
             return new WaitingForMatchState();
         }
         client.sendError("Can't choose the map!");

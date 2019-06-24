@@ -47,12 +47,13 @@ public class WaitingResponseState extends ControllerState{
                 return nextState(false,true).initState();
             case("CHOOSEKILL"):
                 String finalKill = String.valueOf(serverMessage.getParm());
-                String messageKill = "the map of this match: " + finalKill;
+                String messageKill = "the kill number of this match: " + finalKill;
                 clientController.sendMessage(messageKill);
-                return nextState(false,true).initState();
+                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
 
                 default:
                     return nextState(false,true);
+                    //return this;
         }
     }
     @Override

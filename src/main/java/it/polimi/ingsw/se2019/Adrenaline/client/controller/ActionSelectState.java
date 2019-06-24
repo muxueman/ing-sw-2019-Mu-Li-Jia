@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class ActionSelectState extends ControllerState {
 
     private int currentRound;
-    private int currentStep;
     private int numRound;
     private int actionMode;
+    private String additionalMessage;
     private ArrayList<String> previousActions;
+    //below is only to check whether client choose the right action (CLI exclusive)
+    private ArrayList<String> selectedActions;
 
     public ActionSelectState(ClientController clientController, ArrayList<String> previousActions) {
 
@@ -19,20 +21,26 @@ public class ActionSelectState extends ControllerState {
             numRound = 2;
         }
         this.currentRound = 1;
-        this.currentStep = 1;
         this.previousActions = previousActions;
+        this.selectedActions = new ArrayList<>();
         this.actionMode = this.clientController.getActionMode();
-        message += addChoice();
+        additionalMessage =  addChoice();
+        message += additionalMessage;
+        for (String m: additionalMessage.split(",")){
+            selectedActions.add(m);
+        }
     }
 
+    //need test!!!
     protected String addChoice() {
+        String m = "";
         while (currentRound <= numRound) {
             switch (actionMode) {
                 case 0:
                 case 1:
                 case 2:
                     if (previousActions.get(0) == null) {
-                        System.out.println("select an action: run, grab, shoot, end round");
+                        return "select an action: run, grab, shoot, end round";
                     } else {
                         switch (previousActions.get(0)) {
                             case "grab":
@@ -42,7 +50,7 @@ public class ActionSelectState extends ControllerState {
                             case "run":
                                 if (actionMode == 2) {
                                     if (previousActions.get(1) == null) {
-                                        System.out.println("run, grab, shoot, end round");
+                                        return "run, grab, shoot, end round";
                                     } else {
                                         switch (previousActions.get(1)) {
                                             case "grab":
@@ -51,204 +59,132 @@ public class ActionSelectState extends ControllerState {
                                                 break;
                                             case "run":
                                                 if (previousActions.get(2) == null) {
-                                                    System.out.println("run, grab, end round");
-                                                } else {
-                                                    switch (previousActions.get(2)) {
-                                                        case "grab":
-                                                        case "run":
-                                                        case "end round":
-                                                            break;
-                                                    }
+                                                    return "run, grab, end round";
                                                 }
                                                 break;
                                         }
-
+                                    }
+                                } else if (previousActions.get(1) == null) {
+                                    return "run, grab, end round";
+                                } else {
+                                    switch (previousActions.get(1)) {
+                                        case "grab":
+                                        case "end round":
+                                            break;
+                                        case "run":
+                                            if (previousActions.get(2) == null) {
+                                                if (actionMode == 1) {
+                                                    return "run, grab, end round";
+                                                }
+                                                if (actionMode == 0) {
+                                                    return "run, grab";
+                                                }
+                                            }
+                                            break;
                                     }
                                 }
                         }
-
-
-
-
-
-/*
-                                        takeRunAction(player, choiceMessage2):
-
-                                        choiceMessage3 = getActionChoice();
-
-                                        }
-                                        break;
-                                }
-                            } else {
-                                showAvailableAction["run", "grab", "end round"];
-                                choiceMessage4 = getActionChoice();
-                                switch (choiceMessage4) {
-                                    case "grab":
-                                        takeGrabAction(player, choieMessage4);
-                                        break;
-                                    case "end round":
-                                        break;
-                                    case "run":
-                                        takeRunAction(player, choiceMessage4);
-                                        if (actionMode == 0) {
-                                            showAvailableAction(["run", "end round"]);
-                                            choiceMessage5 = getActionChoice();
-                                            switch (choiceMessage5) {
-                                                case "run":
-                                                    takeRunAction(player, choiceMessage5);
-                                                    break;
-                                                case "end round":
-                                                    break;
-                                            }
-                                        }
-                                        if (actionMode == 1) {
-                                            showAvailableAction(["run", "grab", "end round"]);
-                                            choiceMessage6 = getActionChoice();
-                                            switch (choiceMessage6) {
-                                                case "run":
-                                                    takeRunAction(player, choiceMessage6);
-                                                    break;
-                                                case "grab":
-                                                    takeGrabAction(player, choiceMessage6):
-                                                    break;
-                                                case "end round":
-                                                    break;
-                                            }
-                                        }
-                                }
-                            }
-                            break;
                     }
-            }
-            break;
-            case 3: case 4:
-                showAvailableAction(["run", "grab", "shoot", "reload", "end round"]);
-                choiceMessage7 = getActionChoice();
-                switch (choiceMessage7) {
-                    case "run":
-                        takeRunAction(player, choiceMessage7);
-                        showAvailableAction(["run", "grab", "shoot", "reload", "end round"]);
-                        choiceMessage9 = getActionChoice();
-                        switch (choiceMessage9) {
-                            case "run":
-                                takeRunAction(player, choiceMessage9);
-                                if (actionMode == 3) {
-                                    showAvailableAction(["run", "grab", "end round"]);
-                                    choiceMessage11 = getActionChoice();
-                                    switch (choiceMessage11) {
-                                        case "run":
-                                            takeRunAction(player, choiceMessage11);
-                                            showAvailableAction(["run", "end round"]);
-                                            choiceMessage12 = getActionChoice();
-                                            switch (choiceMessage12) {
-                                                case "run":
-                                                    takeRunAction(player, choiceMessage12);
-                                                    break;
-                                                case "end round":
-                                                    break;
-                                            }
-                                            break;
-                                        case "grab":
-                                            takeGrabAction(player, choiceMessage11);
-                                            break;
-                                        case "end round":
-                                            break;
-                                    }
-                                }
-                                if (actionMode == 4) {
-                                    showAvailableAction(["run", "grab", "shoot", "reload", "end round"]);
-                                    choiceMessage13 = getActionChoice();
-                                    switch (choiceMessage13) {
-                                        case "run":
-                                            takeRunAction(player, choiceMessage13);
-                                            showAvailableAction(["grab", "end round"]);
-                                            choiceMessage15 = getActionChoice();
-                                            switch (choiceMessage15) {
-                                                case "grab":
-                                                    takeGrabAction(player, choiceMessage15);
-                                                    break;
-                                                case "end round":
-                                                    break;
-                                            }
-                                            break;
-                                        case "grab":
-                                            takeGrabAction(player, choiceMessage13);
-                                            break;
-                                        case "shoot":
-                                            takeShootAction(player, choiceMessage13);
-                                            break;
-                                        case "reload":
-                                            takeReloadAction(player);
-                                            showAvailableAction(["shoot", "end round"]);
-                                            choiceMessage14 = getActionChoice();
-                                            switch (choiceMessage14) {
-                                                case "shoot":
-                                                    takeShootAction(player, choiceMessage14);
-                                                    break;
-                                                case "end round":
-                                                    break;
-                                            }
-                                            break;
-                                        case "end round":
-                                            break;
-                                    }
-                                }
-                                break;
+                    currentRound += 1;
+                    break;
+                case 3:
+                case 4:
+                    if (previousActions.get(0) == null) {
+                        return "run, grab, shoot, reload, end round";
+                    } else {
+                        switch (previousActions.get(0)) {
                             case "grab":
-                                takeGrabAction(player, choiceMessage9);
-                                break;
                             case "shoot":
-                                takeShootAction(player, choiceMessage9);
+                            case "end round":
                                 break;
                             case "reload":
-                                takeReloadAction(player);
-                                showAvailableAction(["shoot", "end round"]);
-                                choiceMessage10 = getActionChoice();
-                                switch (choiceMessage10) {
-                                    case "shoot":
-                                        takeShootAction(player, choiceMessage10);
-                                        break;
-                                    case "end round":
-                                        break;
+                                if (previousActions.get(1) == null) {
+                                    return "shoot, end round";
                                 }
                                 break;
-                            case "end round":
-                                break;
+                            case "run":
+                                if (previousActions.get(1) == null) {
+                                    return "run, grab, shoot, reload, end round";
+                                } else {
+                                    switch (previousActions.get(1)) {
+                                        case "grab":
+                                        case "shoot":
+                                        case "end round":
+                                            break;
+                                        case "reload":
+                                            if (previousActions.get(2) == null) {
+                                                return "shoot, end round";
+                                            }
+                                            break;
+                                        case "run":
+                                            if (actionMode == 3) {
+                                                if (previousActions.get(2) == null) {
+                                                    return "run, grab, end round";
+                                                } else {
+                                                    switch (previousActions.get(2)) {
+                                                        case "grab":
+                                                        case "end round":
+                                                            break;
+                                                        case "run":
+                                                            if (previousActions.get(3) == null) {
+                                                                return "run, end round";
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            if (actionMode == 4) {
+                                                if (previousActions.get(2) == null) {
+                                                    return "run, grab, shoot, reload, end round";
+                                                } else {
+                                                    switch (previousActions.get(2)) {
+                                                        case "grab":
+                                                        case "shoot":
+                                                        case "end round":
+                                                            break;
+                                                        case "reload":
+                                                            if (previousActions.get(3) == null) {
+                                                                return "shoot, end round";
+                                                            }
+                                                            break;
+                                                        case "run":
+                                                            if (previousActions.get(3) == null) {
+                                                                return "grab, end round";
+                                                            }
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                }
                         }
-                        break;
-                    case "grab":
-                        takeGrabAction(player, choiceMessage7);
-                        break;
-                    case "shoot":
-                        takeShootAction(player, choiceMessage7);
-                        break;
-                    case "reload":
-                        takeReloadAction(player, choiceMessage7);
-                        showAvailableAction(["shoot", "end round"]);
-                        choiceMessaged8 = getActionChoice();
-                        switch (choiceMessage8) {
-                            case "shoot":
-                                takeShootAction(player, choiceMessage8);
-                                break;
-                            case "end round":
-                                break;zzZzZZZ ZZZ
-                            if (actionMode == 0 || actionMode == 1 ||actionMode == 2) {
-                                showAvailableAction(["reload"]);
-                                takeReloadAction(player);
-                            }
-                            endTurn();
-
-
-*/
                     }
-
-
+                    currentRound += 1;
+                    break;
             }
         }
-        return "1";
+        return "end turn";
     }
-
     public ControllerState update(String message) {
+        if (selectedActions.contains(message)) {
+            switch (message) {
+                case ("grab"):
+                    return new GrabState(clientController, previousActions);
+                case ("run"):
+                    return new WalkState(clientController, previousActions);
+                case ("shoot"):
+                    return new ShootState(clientController, previousActions);
+                case ("end round"):
+                    previousActions.add("end round");
+                    return new ActionSelectState(clientController, previousActions);
+                case ("end turn"):
+                    return new NonPlayingState(clientController);
+                default:
+                    clientController.reportError("not valid action!");
+            }
+        }
         return this;
     }
 }
