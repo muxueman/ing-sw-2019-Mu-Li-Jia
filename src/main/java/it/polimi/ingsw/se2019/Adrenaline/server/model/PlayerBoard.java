@@ -1,6 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.KillShootTrackStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 import java.util.*;
@@ -12,33 +12,23 @@ import java.util.Map;
 /**
  *
  */
-public class KillShootTrack extends KillShootTrackStatus{
+public class PlayerBoard extends PlayerBoardStatus {
 
-    private Player player;
     private int turn;
-    private ArrayList<Color> damageColorOnTrack;
-    private ArrayList<Color> markColorOnTrack;
     protected Map<Color, Integer> playerScore;
     private static int[] scoreTable = {8,6,4,2,2,1};
     private static int maxiDamageOnTrack = 12;
-    protected int numKillShoot; // 被射杀的次数
-    private int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
 
-    public  KillShootTrack(Player player) {
-        this.player = player;
+
+    public PlayerBoard(PlayerStatus player) {
+        super(player);
         turn = 0;
-        damageColorOnTrack = new ArrayList<Color>();
-        markColorOnTrack = new ArrayList<Color>();
         numKillShoot = 0;
-        beKilled = 0;
     }
-    //overload
-    public  KillShootTrack() {
+    //overload for test
+    public PlayerBoard() {
         turn = 0;
-        this.damageColorOnTrack = new ArrayList<Color>();
-        this.markColorOnTrack = new ArrayList<Color>();
         playerScore = new HashMap<>();
-        beKilled = 0;
     }
 
     public int getNumKillShoot() {
@@ -53,9 +43,9 @@ public class KillShootTrack extends KillShootTrackStatus{
     public void addMarkToDamage(Player shooter){
         int index = 0;
         while(index < markColorOnTrack.size()){
-            if(shooter.playerColor == markColorOnTrack.get((index))){
+            if(shooter.getPlayerColor() == markColorOnTrack.get((index))){
                 markColorOnTrack.remove(index);
-                damageColorOnTrack.add(shooter.playerColor);
+                damageColorOnTrack.add(shooter.getPlayerColor());
                 index--;
             }
             index++;
@@ -66,12 +56,12 @@ public class KillShootTrack extends KillShootTrackStatus{
     public int beAttacked (Player shooter, int damageNum, int markNum ) {
         addMarkToDamage(shooter);
         while(damageNum >0) {
-            this.damageColorOnTrack.add(shooter.playerColor);
+            this.damageColorOnTrack.add(shooter.getPlayerColor());
             damageNum--;
         }
 
         while(markNum >0) {
-            this.markColorOnTrack.add(shooter.playerColor);
+            this.markColorOnTrack.add(shooter.getPlayerColor());
             markNum--;
         }
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
@@ -84,16 +74,16 @@ public class KillShootTrack extends KillShootTrackStatus{
                 damageColorOnTrack.remove(shooter.getPlayerColor());
             }
             */
-            player.alive = false;
+            playerStatus.setAlive(false);
             killShoot();
             overkillMark(shooter);
             numKillShoot++;
             beKilled = 2;
-            clearKillShootTrack();
+//            clearKillShootTrack();
 
         }
         else if(damageColorOnTrack.size() == 11) {
-            player.alive = false;
+            playerStatus.setAlive(false);
             killShoot();
             numKillShoot++;
             beKilled = 1;
@@ -105,7 +95,7 @@ public class KillShootTrack extends KillShootTrackStatus{
     }
 
     public void overkillMark(Player shooter) {
-        shooter.getKillShootTrack().markColorOnTrack.add(player.playerColor);
+        shooter.getKillShootTrack().markColorOnTrack.add(playerStatus.getPlayerColor());
     }
     //count damage num of each color on the track, then add score.
     private Map countDamageOnTrack() {
@@ -190,14 +180,16 @@ public class KillShootTrack extends KillShootTrackStatus{
 
     public void recover(){
         clearKillShootTrack();
-        turn++;
+//        turn++;
         playerScore.clear();
+        beKilled = 0;
     }
     //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤  由存有所有玩家的类来调用
     public void addPlayerScore(Player player){
         for (Color key : playerScore.keySet()){
-            if(player.playerColor == key){
-                player.myScore += playerScore.get(key);
+            if(player.getPlayerColor() == key){
+                int score = player.getMyScore();
+                player.setMyScore(score += playerScore.get(key));
                 break;
             }
         }
@@ -211,11 +203,9 @@ public class KillShootTrack extends KillShootTrackStatus{
 
     public void setMarkColorOnTrack(ArrayList<Color> markColorOnTrack) { this.markColorOnTrack = markColorOnTrack; }
 
-    public void setPlayer(Player player) { this.player = player; }
-
     public void setPlayerScore(Map<Color, Integer> playerScore) { this.playerScore = playerScore; }
 
-    public static void setScoreTable(int[] scoreTable) { KillShootTrack.scoreTable = scoreTable; }
+    public static void setScoreTable(int[] scoreTable) { PlayerBoard.scoreTable = scoreTable; }
 
     public void setTurn(int turn) { this.turn = turn; }
 
@@ -243,9 +233,6 @@ public class KillShootTrack extends KillShootTrackStatus{
         return o;
     }
     */
-    public Player getPlayer() {
-        return this.player;
-    }
 
     public Map<Color, Integer> getPlayerScore() { return playerScore; }
 
@@ -260,7 +247,7 @@ public class KillShootTrack extends KillShootTrackStatus{
             resultMarkOnTrack += color.toString();
         }
 
-        return "KillShootTrackColor: " + getPlayer().getPlayerColor() + "\n"
+        return "KillShootTrackColor: " + playerStatus.getPlayerColor() + "\n"
                 + resultDamgeOnTrack
                 + resultMarkOnTrack;
     }

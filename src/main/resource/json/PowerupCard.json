@@ -11,7 +11,7 @@
   {
     "cardName": "NEWTON",
     "ammoCost": "null",
-    "damageDeal": "null",
+    "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
     "Note": "You can't use this to move a figure after it respawns at the end of your turn. That would be too late."
   },
@@ -25,7 +25,7 @@
   {
     "cardName": "TELEPORTER",
     "ammoCost": "null",
-    "damageDeal": "null",
+    "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
     "note": "You can't use this after you see where someone respawns at the end of your turn. By then it is too late."
   }

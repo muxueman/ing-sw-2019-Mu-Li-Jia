@@ -110,10 +110,10 @@ public class Lobby {
         @Override
         public void run() {
             while (active) {
-                if (playersNumber(3)) {
+                if (playersNumber(2)) {
                     timerStarted = false;
                     startMatch();
-                } else if (playersNumber(2)) {
+                } else if (playersNumber(1)) {
                     if (!timerStarted) {
                         timerStarted = true;
                         startTimer();

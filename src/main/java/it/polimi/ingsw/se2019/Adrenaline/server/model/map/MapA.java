@@ -37,12 +37,9 @@ public class MapA extends Map{
         allCells.add(cell3);
         BLUECells.add(cell3);
 
-        Cell cell4 = new GenerationCell(4);
-        cell4.setCellColor(Color.RED);
-        allCells.add(cell4);
-        REDCells.add(cell4);
+        Cell cell4 = null;
 
-        Cell cell5 = new CommonCell(5);
+        Cell cell5 = new GenerationCell(5);
         cell5.setCellColor(Color.RED);
         allCells.add(cell5);
         REDCells.add(cell5);
@@ -50,41 +47,48 @@ public class MapA extends Map{
         Cell cell6 = new CommonCell(6);
         cell6.setCellColor(Color.RED);
         allCells.add(cell6);
-        PINKCells.add(cell6);
+        REDCells.add(cell6);
 
         Cell cell7 = new CommonCell(7);
-        cell7.setCellColor(Color.YELLOW);
+        cell7.setCellColor(Color.PINK);
         allCells.add(cell7);
-        YELLOWCells.add(cell7);
+        PINKCells.add(cell7);
 
         Cell cell8 = new CommonCell(8);
-        cell8.setCellColor(Color.WHITE);
+        cell8.setCellColor(Color.YELLOW);
         allCells.add(cell8);
-        WHITECells.add(cell8);
+        YELLOWCells.add(cell8);
 
-        Cell cell9 = new CommonCell(9);
-        cell9.setCellColor(Color.WHITE);
-        allCells.add(cell9);
-        WHITECells.add(cell9);
+        Cell cell9 = null;
 
-        Cell cell10 = new GenerationCell(10);
-        cell10.setCellColor(Color.YELLOW);
+        Cell cell10 = new CommonCell(10);
+        cell10.setCellColor(Color.WHITE);
         allCells.add(cell10);
-        YELLOWCells.add(cell10);
+        WHITECells.add(cell10);
+
+        Cell cell11 = new GenerationCell(11);
+        cell11.setCellColor(Color.WHITE);
+        allCells.add(cell11);
+        YELLOWCells.add(cell11);
+
+        Cell cell12 = new GenerationCell(12);
+        cell12.setCellColor(Color.YELLOW);
+        allCells.add(cell12);
+        YELLOWCells.add(cell12);
 
 
         setAdjacentCells(0, 2, 4, 0, cell1);
         setAdjacentCells(0, 3, 5, 1, cell2);
         setAdjacentCells(0, 0, 6, 2, cell3);
-        setAdjacentCells(1, 5, 0, 0, cell4);
-        setAdjacentCells(2, 6, 8, 4, cell5);
-        setAdjacentCells(3, 7, 9, 5, cell6);
+        setAdjacentCells(1, 5, 0, 0, cell5);
+        setAdjacentCells(2, 6, 8, 4, cell6);
+        setAdjacentCells(3, 7, 9, 5, cell7);
         //setAdjacentCells(0, 0, 10, 6, cell7);
-        setAdjacentCells(5, 9, 0, 0, cell8);
+        setAdjacentCells(5, 9, 0, 0, cell10);
         //setAdjacentCells(6, 10, 0, 8, cell9);
-        setAdjacentCells(7, 0, 0, 9, cell10);
+        setAdjacentCells(7, 0, 0, 9, cell12);
 
-        this.notDoor = new int[][]{{2,5}, {6,9}};
+        this.notDoor = new int[][]{{2,6}, {7,11}};
     }
 
 }

@@ -1,23 +1,19 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import org.junit.Test;
 
 import java.util.*;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+public class TestPlayerBoard {
 
-public class TestKillShootTrack {
-
-    PlayBoard testPlayBoard = new PlayBoard(5);
+    Board testBoard = new Board(5);
     Player testShooter = new Player("JIA");
     Player testPlayer = new Player("MO");
     Player testPlayer2 = new Player("XIN");
-    KillShootTrack testKillShootTrack = testPlayer.getKillShootTrack();
-    KillShootTrack testKillShootTrack2 = new KillShootTrack();
+    PlayerBoard testKillShootTrack = testPlayer.getKillShootTrack();
+    PlayerBoard testKillShootTrack2 = new PlayerBoard();
 
     public void setTestInfo() {
         testShooter.setPlayerColor(Color.RED);
@@ -47,17 +43,18 @@ public class TestKillShootTrack {
         testPlayer.getKillShootTrack().recover();
         testPlayer.getKillShootTrack().getNumKillShoot();
     }
+
     @Test
     public void testKilled() {
         setTestInfo();
 //        System.out.println("highest score"+testPlayer.getKillShootTrack().checkHighestScore());
 //        System.out.println("countPlayerScore"+testPlayer.getKillShootTrack().countPlayerScore());
-        testPlayer.beAttacked(testShooter, 4,2);
-        testPlayer.beAttacked(testPlayer2, 2,2);
-        testPlayer.beAttacked(testShooter,3,2);
+        testPlayer.beAttacked(testShooter, 4, 2);
+        testPlayer.beAttacked(testPlayer2, 2, 2);
+        testPlayer.beAttacked(testShooter, 3, 2);
         System.out.println(testPlayer.getKillShootTrack().getPlayerScore());
         testPlayer.getKillShootTrack().recover();
-        testPlayer.beAttacked(testPlayer2,3,2);
+        testPlayer.beAttacked(testPlayer2, 3, 2);
 //        System.out.println("highest score"+testPlayer.getKillShootTrack().checkHighestScore());
 //        System.out.println("countPlayerScore"+testPlayer.getKillShootTrack().countPlayerScore());
 //        System.out.println(testPlayer.getKillShootTrack().getNumKillShoot());
@@ -82,7 +79,7 @@ public class TestKillShootTrack {
     @Test
     public void testSet() {
         testKillShootTrack.setPlayerScore(testKillShootTrack.getPlayerScore());
-        testKillShootTrack.setPlayer(testPlayer);
+//        testKillShootTrack.setPlayer(testPlayer);
         testKillShootTrack.setBeKilled(2);
         testKillShootTrack.setDamageColorOnTrack(testKillShootTrack.getDamageColorOnTrack());
         testKillShootTrack.setMarkColorOnTrack(testKillShootTrack.getMarkColorOnTrack());
@@ -100,18 +97,18 @@ public class TestKillShootTrack {
         inputMap.clear();
         LinkedHashMap outMap = new LinkedHashMap();
         System.out.println(infoIds);
-        for(Map.Entry<String,Integer> mapping: infoIds){
+        for (Map.Entry<String, Integer> mapping : infoIds) {
             outMap.put(mapping.getKey(), mapping.getValue());
         }
         return outMap;
     }
 
     @Test
-    public void testSort(){
-        Map testSortMap  = new HashMap<>();
-        testSortMap.put(Color.WHITE,20);
-        testSortMap.put(Color.RED,10);
-        testSortMap.put(Color.YELLOW,30);
+    public void testSort() {
+        Map testSortMap = new HashMap<>();
+        testSortMap.put(Color.WHITE, 20);
+        testSortMap.put(Color.RED, 10);
+        testSortMap.put(Color.YELLOW, 30);
         testSortMap.put(Color.GREEN, 60);
         System.out.println(testSortMap);
         System.out.println(valueOfMapDownSort(testSortMap));
@@ -121,6 +118,6 @@ public class TestKillShootTrack {
 
     @Test
     public void getDamageColorOnTrack() {
-        testKillShootTrack.toString();
+//        testKillShootTrack.toString();
     }
 }

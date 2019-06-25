@@ -61,20 +61,22 @@ public class MapC extends Map{
         allCells.add(cell8);
         YELLOWCells.add(cell8);
 
-        Cell cell9 = new CommonCell(9);
-        cell9.setCellColor(Color.WHITE);
-        allCells.add(cell9);
-        WHITECells.add(cell9);
+        Cell cell9 = null;
 
         Cell cell10 = new CommonCell(10);
-        cell10.setCellColor(Color.YELLOW);
-        allCells.add(cell9);
-        YELLOWCells.add(cell9);
+        cell10.setCellColor(Color.WHITE);
+        allCells.add(cell10);
+        WHITECells.add(cell10);
 
-        Cell cell11 = new GenerationCell(11);
+        Cell cell11 = new CommonCell(11);
         cell11.setCellColor(Color.YELLOW);
-        allCells.add(cell11);
-        YELLOWCells.add(cell11);
+        allCells.add(cell10);
+        YELLOWCells.add(cell10);
+
+        Cell cell12 = new GenerationCell(12);
+        cell12.setCellColor(Color.YELLOW);
+        allCells.add(cell12);
+        YELLOWCells.add(cell12);
 
 
         setAdjacentCells(0, 2, 5, 0, cell1);
@@ -85,9 +87,9 @@ public class MapC extends Map{
         setAdjacentCells(2, 7, 9, 5, cell6);
         setAdjacentCells(3, 8, 10, 6, cell7);
         //setAdjacentCells(4, 0, 11, 7, cell8);
-        setAdjacentCells(6, 10, 0, 0, cell9);
+        setAdjacentCells(6, 10, 0, 0, cell10);
         //setAdjacentCells(7, 11, 0, 9, cell10);
-        setAdjacentCells(8, 0, 0, 10, cell11);
+        setAdjacentCells(8, 0, 0, 10, cell12);
 
         this.notDoor = new int[][]{{2,6}, {6,7}};
     } 

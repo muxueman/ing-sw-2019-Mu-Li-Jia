@@ -1,11 +1,9 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
@@ -17,7 +15,8 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class PlayerStatus implements Status{
 
     protected String username;
-    protected KillShootTrack killShootTrack;
+    protected String playerID;
+    protected PlayerBoardStatus killShootTrack;
     protected Color playerColor;
     protected int[] ammoOwned;
     protected Map<WeaponCard, Boolean> weaponsOwned;
@@ -26,13 +25,14 @@ public class PlayerStatus implements Status{
     private CellStatus currentCell;
     protected int actionMode;
     protected boolean alive;
-    protected PlayBoard playBoard;
+    protected Board board;
 
 
 
     public PlayerStatus(String username) {
+        playerID = username;
         this.username = username;
-        this.killShootTrack = new KillShootTrack();
+        this.killShootTrack = new PlayerBoardStatus(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -69,9 +69,38 @@ public class PlayerStatus implements Status{
         return ammoOwned;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPlayerID() {
+        return playerID;
+    }
+
     public int getActionMode() {
         return actionMode;
     }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public Color getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public void setActionMode(int actionMode) {
+        this.actionMode = actionMode;
+    }
+
+    public void setMyScore(int myScore) {
+        this.myScore = myScore;
+    }
+
     @Override
     public String toString(){
         return "Username: " + username + "\n" + "color: " + playerColor+ "\n" + killShootTrack.toString() + "\n"

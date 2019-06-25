@@ -1,8 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import org.fusesource.jansi.Ansi;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,23 +8,23 @@ import java.util.Map;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class KillShootTrackStatus implements Status {
+public class PlayerBoardStatus implements Status {
 
-    private PlayerStatus playerStatus;
-    private ArrayList<Color> damageColorOnTrack;
-    private ArrayList<Color> markColorOnTrack;
+    protected PlayerStatus playerStatus;
+    protected ArrayList<Color> damageColorOnTrack;
+    protected ArrayList<Color> markColorOnTrack;
     protected Map<Color, Integer> playerScore;
     protected int numKillShoot; // 被射杀的次数
-    private int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
+    protected int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
 
-    public  KillShootTrackStatus(PlayerStatus playerStatus) {
+    public PlayerBoardStatus(PlayerStatus playerStatus) {
         this.playerStatus = playerStatus;
         this.damageColorOnTrack = new ArrayList<Color>();
         this.markColorOnTrack = new ArrayList<Color>();
         playerScore = new HashMap<>();
         beKilled = 0;
     }
-    public KillShootTrackStatus(){}
+    public PlayerBoardStatus(){}
 
     public int getNumKillShoot() {
         return numKillShoot;
@@ -44,6 +42,13 @@ public class KillShootTrackStatus implements Status {
         return beKilled;
     }
 
+    public Map<Color, Integer> getPlayerScore() {
+        return playerScore;
+    }
+
+    public PlayerStatus getPlayerStatus() {
+        return playerStatus;
+    }
 
     @Override
     public String toString(){

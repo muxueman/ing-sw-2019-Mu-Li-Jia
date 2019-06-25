@@ -55,22 +55,27 @@ public class ActionGrab {
         return true;
     }
 
-    public void pickWeaponCrad(Player player, int position){
+    public boolean pickWeaponCrad(Player player, int position){
 
         WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard(position);
-        int[] ammoCost = weaponCard.getBasicammoCost();
-        int i = 1;
-        while(i < 3){
-            i++;
-            switch(ammoCost[i-1]){
-                case 0: continue;
-                case 1: player.consumeAmmo(AmmoColor.RED); break;
-                case 2: player.consumeAmmo(AmmoColor.BLUE); break;
-                case 3: player.consumeAmmo(AmmoColor.YELLOW); break;
+        if(checkPlayerAmmoAvailable(weaponCard, player)){
+            int[] ammoCost = weaponCard.getBasicammoCost();
+            int i = 1;
+            while(i < 3){
+                i++;
+                switch(ammoCost[i-1]){
+                    case 0: continue;
+                    case 1: player.consumeAmmo(AmmoColor.RED); break;
+                    case 2: player.consumeAmmo(AmmoColor.BLUE); break;
+                    case 3: player.consumeAmmo(AmmoColor.YELLOW); break;
+                }
             }
+            ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
+            player.getPlayBoard().getPickedCell().add(player.getCurrentCell());
+            return true;
         }
-        ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
-        player.getPlayBoard().getPickedCell().add(player.getCurrentCell());
+        else return false;
+
     }
 
     /*

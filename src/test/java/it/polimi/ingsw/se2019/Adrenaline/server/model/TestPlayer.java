@@ -1,20 +1,18 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 //import sun.jvm.hotspot.debugger.win32.coff.TestParser;
 
-import static org.junit.Assert.*;
 
 public class TestPlayer {
 
     Player testPlayer = new Player("JIA");
-    KillShootTrack testKillShootTrack = new KillShootTrack(testPlayer);
-    PlayBoard testPlayBoard = new PlayBoard(5);
+    PlayerBoard testKillShootTrack = new PlayerBoard(testPlayer);
+    Board testBoard = new Board(5);
     int testMode = 2;
 
     public void testName() {
@@ -61,8 +59,8 @@ public class TestPlayer {
     }
     @Test
     public void testPlayerSet(){
-        testPlayer.setPlayBoard(testPlayBoard);
-        testPlayer.setCurrentCell(testPlayBoard.getMap().getAllCells().get(0));
+        testPlayer.setPlayBoard(testBoard);
+        testPlayer.setCurrentCell(testBoard.getMap().getAllCells().get(0));
         testPlayer.getCurrentCell();
     }
     @Test
@@ -89,7 +87,7 @@ public class TestPlayer {
         testScore.put(Color.GREEN, 2);
         testScore.put(Color.WHITE, 4);
         killedPlayer.getKillShootTrack().setPlayerScore(testScore);
-        testScore.get(testPlayer.playerColor);
+        testScore.get(testPlayer.getPlayerColor());
         testPlayer.countMyScore(killedPlayer);
     }
     @Test
@@ -99,6 +97,6 @@ public class TestPlayer {
 
     @Test
     public void setTestKillShootTrack(){
-       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayer().getUserName());
+       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayerStatus().getUsername());
     }
 }

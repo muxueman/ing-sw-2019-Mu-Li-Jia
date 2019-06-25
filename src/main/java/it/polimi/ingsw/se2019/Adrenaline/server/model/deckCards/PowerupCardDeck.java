@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class PowerupCardDeck {
@@ -20,7 +21,6 @@ public class PowerupCardDeck {
 
         ppCards = new ArrayList<>();
 
-
         try {
             Gson gson = new Gson();
             reader = new BufferedReader(new FileReader("src/main/resource/json/PowerupCard.json"));
@@ -31,7 +31,7 @@ public class PowerupCardDeck {
 
             for (JsonElement powerupCardElement : powerupCardArray) {
 
-                PowerupCard powerupCardReaded = gson.fromJson(powerupCardElement.toString(),PowerupCard.class);
+                PowerupCard powerupCardReaded = gson.fromJson(powerupCardElement.toString(), PowerupCard.class);
                 ppCards.add(powerupCardReaded);
 
             }
@@ -49,9 +49,11 @@ public class PowerupCardDeck {
                 }
             }
         }
-
-
+        ppCards.addAll(ppCards);
+        ppCards.addAll(ppCards);
+        Collections.shuffle(ppCards);
     }
+
 
     @Override
     public String toString() {

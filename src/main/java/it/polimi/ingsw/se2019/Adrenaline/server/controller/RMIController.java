@@ -111,7 +111,7 @@ public class RMIController implements GameServerInterface, ServerController {
                 if (isActive()) {
                     setActive(false);
                     lobby.disconnect(RMIController.this, matchController);
-                    //playBoard.disconnect(RMIController.this, matchController);
+                    //board.disconnect(RMIController.this, matchController);
                 }
                 this.cancel();
             }

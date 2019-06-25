@@ -8,7 +8,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.updates.MapUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayBoard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
@@ -44,7 +44,7 @@ public class MatchController {
     private int selectedKill;
     private int selectedMapInt;
 
-    private PlayBoard playBoard;
+    private Board playBoard;
 
     private TurnHandler turnHandler;
     private boolean started;
@@ -151,10 +151,23 @@ public class MatchController {
                 }
             }
             Logger.getGlobal().log(Level.INFO,"chose the kill number: {0} ", selectedKill);
+            playBoard = new Board(selectedMap);
+            playBoard.setNumKillShoot(selectedKill);
+            addPlayersToBoard(playBoard);
+            Logger.getGlobal().log(Level.INFO,"board is initialized ");
             for (ClientInterface c : clients.values()){
                 chooseKillEach(c);
             }
         }
+    }
+    //this is used to add all players in the board, and asign each a color to start
+    public void addPlayersToBoard(Board playBoard){
+        for(ClientInterface key : players.keySet()){
+//            System.out.println(players.get(key));
+            playBoard.addPlayers(players.get(key));
+//            players.get(key).setPlayerColor();
+        }
+        playBoard.setPlayers(playBoard.getAllPlayers());
     }
     public int getSelectedKill(){return this.selectedKill;}
 
@@ -166,8 +179,8 @@ public class MatchController {
     }
 
     protected void chooseKillEach(ClientInterface client) throws RemoteException {
-        //Player player = players.get(client);
-        //playBoard.setNumKillShoot(selectedKill);
+//        Player player = players.get(client);
+//        playBoard.setNumKillShoot(selectedKill);
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEKILL",selectedKill);
         client.updateStatus(serverMessage);
     }

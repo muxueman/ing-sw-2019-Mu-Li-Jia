@@ -1,6 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.KillShootTrack;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 
 import java.util.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;

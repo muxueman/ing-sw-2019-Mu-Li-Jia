@@ -1,10 +1,9 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
+
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
@@ -12,14 +11,10 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 public class Player extends PlayerStatus {
-    protected String playerID;
-    protected Color playerColor;
     private String userName;
-    protected int myScore;
     private Cell currentCell;
-    protected int actionMode;
-    protected boolean alive;
-    protected PlayBoard playBoard;
+    private String playerID;
+    private PlayerBoard killShootTrack;
 
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
@@ -29,13 +24,14 @@ public class Player extends PlayerStatus {
     //constructor
     public Player(String userName) {
         super(userName);
+        this.killShootTrack = new PlayerBoard(this);
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setPlayBoard(PlayBoard playBoard) { this.playBoard = playBoard; }
+    public void setPlayBoard(Board board) { this.board = board; }
     public void setActionMode(int mode){
         actionMode = mode;
     }
@@ -66,7 +62,7 @@ public class Player extends PlayerStatus {
         return ammoOwned;
     }
 
-    public PlayBoard getPlayBoard() { return playBoard; }
+    public Board getPlayBoard() { return board; }
 
     public Map<WeaponCard, Boolean> getWeaponsOwned() {
         return weaponsOwned;
@@ -210,7 +206,7 @@ public class Player extends PlayerStatus {
                 "YELLOW ammo" + ammoOwned[2];
     }
 
-    public KillShootTrack getKillShootTrack(){
+    public PlayerBoard getKillShootTrack(){
         return this.killShootTrack;
     }
 
@@ -221,6 +217,7 @@ public class Player extends PlayerStatus {
         + "ActionMode: " + actionMode + "\n"
         +"MyScore: " + myScore;
     }
+
     public void recover(){
         alive = true;
         killShootTrack.recover();

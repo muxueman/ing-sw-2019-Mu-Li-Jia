@@ -2,68 +2,63 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCardDeck;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCardDeck;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 import java.util.*;
 
 
-public class PlayBoard {
+public class Board extends BoardStatus{
 
-    private ArrayList<Player> allPlayers;
-    private int[] numDamageOnSkullBoard;
-    private Color[] colorDamageOnSkullBoard; //与num一一对应
-    private Player currentPlayer;
+//    private Player currentPlayer;
     private Map map;
-    private int numKillShoot; //记录射杀的总数 即玩家设定的 一局死多少人后结束
-    private int killTurn;// 记录本场第几次的射杀
-    private int firstPlayer; //
-    private boolean firenzyTriggerd;
-    private WeaponCardDeck weaponCardDeck;
+    private int firstPlayer;
     private ArrayList<Cell> pickedCell;
     // constructor
-    public PlayBoard(Map map, ArrayList<Player> allPlayers) {
-        this.map = map;
-        this.allPlayers = allPlayers;
-        this.numKillShoot = 5; //默认玩五局 玩家可再修改 选择 5-8 局
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-        killTurn = 0;
-        setCurrentPlayer();
-        firenzyTriggerd = false;
-        for(Player player : this.allPlayers){
-            player.setPlayBoard(this);
-        }
-        weaponCardDeck = new WeaponCardDeck();
-        pickedCell = new ArrayList<>();
-        pickedCell.addAll(map.getAllCells());
-        reloadCardOnBoard();
-    }
+
     //overload only for test
-    public PlayBoard(int numKillShoot) {
-        map = new MapA();
-        map.initialMap();
-        this.allPlayers = new ArrayList<>();
-        this.numKillShoot = numKillShoot;
+    public Board(int numKillShoot) {
+        super(numKillShoot);
+        allPlayers = new ArrayList<>();
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
-        killTurn = 0;
-        firenzyTriggerd = false;
         pickedCell = new ArrayList<>();
-
+        firstPlayer = 0;
     }
-
+    public Board(ArrayList<Player> allPlayers){
+        super(allPlayers);
+        numDamageOnSkullBoard = new int[numKillShoot];
+        colorDamageOnSkullBoard = new Color[numKillShoot];
+        pickedCell = new ArrayList<>();
+        firstPlayer = 0;
+    }
+    public Board(Map map){
+        super(map);
+        numDamageOnSkullBoard = new int[numKillShoot];
+        colorDamageOnSkullBoard = new Color[numKillShoot];
+        pickedCell = new ArrayList<>();
+        firstPlayer = 0;
+    }
+    public void setMap(Map map) {
+        this.map = map;
+        map.initialMap();
+    }
 
     public void addPlayers(Player player){
         allPlayers.add(player);
     }
+    public void addAllPlayers(ArrayList<Player> players) {allPlayers.addAll(players);}
 
     public Player findPlayerByColor (Color playerColor){
         int i = 0;
-        while(allPlayers.get(i).playerColor != playerColor){
+        while(allPlayers.get(i).getPlayerColor() != playerColor){
             i++;
             if(i == allPlayers.size()){
                 //not exists this player
@@ -73,15 +68,10 @@ public class PlayBoard {
         return allPlayers.get(i);
     }
     //生成0到玩家数量-1的随机数， 只决定第一个玩家
-    public Player setCurrentPlayer(){
-        this.firstPlayer = (int)(System.currentTimeMillis()%(allPlayers.size()));
-        currentPlayer = allPlayers.get(firstPlayer);
-        return currentPlayer;
-    }
-    public Player setCurrentPlayer(Player player){
-        currentPlayer = player;
-        return currentPlayer;
-    }
+
+//    public void setCurrentPlayer(Player player){
+//        currentPlayer = player;
+//    }
     //返回下一个玩家 不改变 当前玩家
     public Player nextPlayer(Player currentPlayer){
         int playerTurn = allPlayers.indexOf(currentPlayer);
@@ -95,7 +85,7 @@ public class PlayBoard {
         boolean playerDie = false;
         while(index < allPlayers.size()){
             if(index != allPlayers.indexOf(currentPlayer)){
-                if(!allPlayers.get(index).alive){
+                if(!allPlayers.get(index).isAlive()){
                     killTurn++;
                     numDamageOnSkullBoard[killTurn-1] =                                                                                                                             allPlayers.get(index).getKillShootTrack().getBeKilled();
                     colorDamageOnSkullBoard[killTurn-1] = currentPlayer.getPlayerColor();
@@ -200,11 +190,6 @@ public class PlayBoard {
             }
         }
     }
-    public void setNumKillShoot(int numKillShoot) {
-        this.numKillShoot = numKillShoot;
-        //当玩家设定的局数不在5-8内 提示重新设置
-
-    }
 
 
     public void reloadCardOnBoard(){
@@ -214,6 +199,25 @@ public class PlayBoard {
             i++;
         }
         pickedCell.clear();
+    }
+    public ArrayList<PowerupCard> extractTwoPowerup(){
+        ArrayList<PowerupCard> twoPowerupCard = new ArrayList<>();
+        if(powerupCardDeck.ppCards.size()<1){
+            powerupCardDeck = new PowerupCardDeck();
+        }
+        twoPowerupCard.add(powerupCardDeck.ppCards.get(0));
+        powerupCardDeck.ppCards.remove(0);
+        twoPowerupCard.add(powerupCardDeck.ppCards.get(0));
+        powerupCardDeck.ppCards.remove(0);
+        return twoPowerupCard;
+    }
+    public PowerupCard extractOnePowerupcard(){
+        if(powerupCardDeck.ppCards.size() == 0){
+            powerupCardDeck = new PowerupCardDeck();
+        }
+        PowerupCard powerupCard =  powerupCardDeck.ppCards.get(0);
+        powerupCardDeck.ppCards.remove(0);
+        return powerupCard;
     }
 
 
@@ -241,9 +245,6 @@ public class PlayBoard {
     }
 
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
 
     public ArrayList<Cell> getPickedCell() {
         return pickedCell;
