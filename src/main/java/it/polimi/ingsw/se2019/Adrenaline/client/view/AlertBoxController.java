@@ -70,13 +70,17 @@ public class AlertBoxController extends GUIController {
     @FXML
     private ImageView imgFour;
 
-    public void initialize() {
+
+
+    public void initialize(){
         addDraggableNode(root);
-        closeButton.setOnAction(event -> {
-            Stage stage = (Stage) root.getScene().getWindow();
+        closeButton.setOnAction( event ->  {
+            Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
         });
     }
+
+
 
     public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
         closeButton.setOnAction(event -> {
@@ -206,10 +210,6 @@ public class AlertBoxController extends GUIController {
 
 
 
-    @Override
-    protected void close(AnchorPane anchorPane) {
-
-    }
 
 
 

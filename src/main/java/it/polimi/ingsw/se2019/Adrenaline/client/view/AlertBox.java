@@ -29,6 +29,46 @@ public class AlertBox {
 
     }
 
+    public static void displaychioceMap(MatchViewController matchViewController) {
+        try {
+            Stage window = new Stage();
+            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/alertBox/choiceMap.fxml"));
+            Parent root = loader.load();
+            Scene initialScene = new Scene(root);
+            AlertBoxController controller = loader.getController();
+            controller.setLabelOne("Choice One Map");
+            controller.setImgOne( event ->
+                    Platform.runLater( ()-> {
+                        matchViewController.notify("1");
+                        window.close();
+                    })
+            );
+
+            controller.setImgTwo( event ->
+                    Platform.runLater( ()-> {
+                        matchViewController.notify("2");
+                        window.close();
+                    })
+            );
+            controller.setImgThree( event ->
+                    Platform.runLater( ()-> {
+                        matchViewController.notify("3");
+                        window.close();
+                    })
+            );
+            controller.setImgFour( event ->
+                    Platform.runLater( ()-> {
+                        matchViewController.notify("4");
+                        window.close();
+                    })
+            );
+
+            setWindow(window,initialScene);
+        } catch (IOException e) {
+            Logger.getGlobal().warning(e.getCause().toString());
+        }
+    }
+
     private static void displayChoice(MatchViewController matchViewController, String buttonOne, String buttonTwo) {
         try {
             Stage window = new Stage();

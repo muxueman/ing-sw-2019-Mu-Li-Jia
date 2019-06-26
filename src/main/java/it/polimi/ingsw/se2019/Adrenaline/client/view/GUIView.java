@@ -2,8 +2,6 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 
-import java.util.List;
-
 /**
  *
  * The GUIView Class represent the Gui View and it
@@ -28,16 +26,8 @@ public class GUIView extends View{
 
 
 
-    /**
-     * The setGuiController method is used to set the gui controller.
-     *
-     * @param guiController the actual guiController.
-     */
 
-    public void setGuiController(GUIController guiController) {
-        this.guiController = guiController;
-        guiController.setGuiView(this);
-    }
+
 
 
     protected void notify(String message) {
@@ -52,24 +42,44 @@ public class GUIView extends View{
         guiController.guiPlay(playing);
     }
 
+
     @Override
     public void showMessage(String message) {
+        guiController.showMessage(message);
 
     }
 
     @Override
     public void reportError(String error) {
+        guiController.reportError(error);
 
     }
 
-    @Override
-    public InitialViewController getGuiController() {
-        return null;
-    }
+
 
     @Override
     public void update(ModelUpdate message) {
+        guiController.update(message);
+    }
 
+    public void setGuiController(GUIController guiController) {
+        this.guiController = guiController;
+        guiController.setGuiView(this);
+    }
+
+    @Override
+    public void nextView(boolean next){
+        guiController.nextView(next);
+    }
+
+    @Override
+    public void setCancelImage(){
+        guiController.guiSetCancelImage();
+    }
+
+
+    public GUIController getGuiController() {
+        return guiController;
     }
 
 

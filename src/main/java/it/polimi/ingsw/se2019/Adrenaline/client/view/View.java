@@ -21,13 +21,18 @@ public abstract class View extends Observable<String> implements Observer<ModelU
     //public void showStatus(Status status) {
         // doesn't need to do anything, only used by CLIView
     //}
-    public void nextView(boolean wpc) {
+    public void nextView(boolean next) {
         // doesn't need to do anything, only used by GUIView
     }
 
-    public abstract InitialViewController getGuiController();
 
     public void showStatus(Status status){
+
+    }
+    public void setCancelImage() {
+        // doesn't need to do anything, only used by GUIView
+    }
+    public void launchTimer(){
 
     }
 

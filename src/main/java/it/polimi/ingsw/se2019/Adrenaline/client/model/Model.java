@@ -19,6 +19,8 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         boardStatus = new BoardStatus(5);
         nextUpdate = new ModelUpdate(boardStatus);
     }
+
+
     private void pingUpdate() {
         notify(new ModelUpdate(boardStatus));
     }

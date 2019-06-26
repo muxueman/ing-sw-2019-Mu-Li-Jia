@@ -1,7 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,12 +15,30 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public abstract class GUIController {
+
     protected GUIView guiView = null;
     private double initialX = 0;
     private double initialY = 0;
 
     protected BoardStatus boardStatus;
 
+
+    public void addDraggableNode(final Node node) {
+
+        node.setOnMousePressed(me -> {
+            if (me.getButton() != MouseButton.MIDDLE) {
+                initialX = me.getSceneX();
+                initialY = me.getSceneY();
+            }
+        });
+
+        node.setOnMouseDragged(me -> {
+            if (me.getButton() != MouseButton.MIDDLE) {
+                node.getScene().getWindow().setX(me.getScreenX() - initialX);
+                node.getScene().getWindow().setY(me.getScreenY() - initialY);
+            }
+        });
+    }
 
 
 
@@ -29,16 +48,15 @@ public abstract class GUIController {
      *
      * @param root         the root of the scene.
      * @param fxmlFileName the path of the fxml file.
-     * @param cssFileName  the path of the css file.
+     *
      */
 
-    protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, String cssFileName, GUIController controller) {
+    protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, GUIController controller) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             loader.setController(controller);
             Parent secondView = loader.load();
             Scene newScene = new Scene(secondView);
-            newScene.getStylesheets().add(cssFileName);
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setWidth(1024);
             stage.setHeight(624);
@@ -70,6 +88,10 @@ public abstract class GUIController {
     public void reportError(String error) {
 
     }
+    public void guiSetCancelImage() {
+        // only used by MatchViewController
+    }
+
 
 
 
@@ -80,6 +102,7 @@ public abstract class GUIController {
      */
 
     public void setGuiView(GUIView guiView) {
+
         this.guiView = guiView;
     }
 
@@ -102,54 +125,7 @@ public abstract class GUIController {
         // only used by MatchViewController
     }
 
-    /**
-     * The guiValue method is used to get the value needed for a toolcard.
-     */
 
-    public void guiValue() {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiNumber method is used to get the number needed for a toolcard.
-     */
-
-    public void guiNumber() {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiChoice method is used to get a choice needed for a toolcard.
-     */
-
-    public void guiChoice() {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiRoundTrack method is used active the DiceStorege.
-     */
-
-    public void guiRoundTrack() {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The guiSetCancelImage method is used to disable or not the cancel image.
-     */
-
-    public void guiSetCancelImage() {
-        // only used by MatchViewController
-    }
-
-    /**
-     * The getCardText method is used to get the complete description
-     * of the card.
-     *
-     * @param name        card's name.
-     * @param description card's description.
-     * @return a complete description.
-     */
 
     private String getCardText(String name, String description) {
         return "Name: " + name + "\nDescription: \n" + description;
@@ -176,10 +152,21 @@ public abstract class GUIController {
         guiView.notify(message);
     }
 
-
-    protected void setInit() {
+    protected void close(AnchorPane anchorPane) {
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        stage.close();
+        guiView.notify("CANCEL");
+        guiView.notify("PASS");
+        System.exit(0);
     }
 
-    protected abstract void close(AnchorPane anchorPane);
+    public void update(ModelUpdate message) {
+        this.boardStatus = message.getBoardStatus();
+    }
+
+
+
+
+
 
 }

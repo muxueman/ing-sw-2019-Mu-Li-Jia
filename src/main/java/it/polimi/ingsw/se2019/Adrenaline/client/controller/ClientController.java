@@ -76,8 +76,9 @@ public class ClientController implements ClientInterface, Observer<String> {
         view.reportError(error);
     }
     public void sendError(String error) throws RemoteException{};
-    public void nextView(boolean wpc) {
-        view.nextView(wpc);
+
+    public void nextView(boolean next) {
+        view.nextView(next);
     }
 
     @Override

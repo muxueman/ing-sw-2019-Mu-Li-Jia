@@ -143,7 +143,7 @@ public class InitialViewController extends GUIController {
      */
 
     @Override
-    public void nextView(boolean wpc) {
+    public void nextView(boolean next) {
         if(!player) {
             Platform.runLater(() -> {
                 errorText.setText("");
@@ -158,8 +158,7 @@ public class InitialViewController extends GUIController {
             });
         } else {
             Platform.runLater( () -> {
-                switchSceneSameStage(root, "/scenes/gameMap.fxml", "/scenes/matchViewStyle.css",
-                        new MatchViewController(boardStatus, wpc));
+                switchSceneSameStage(root, "/scenes/gameMap.fxml", new MatchViewController(boardStatus, next));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
             });
         }
@@ -167,14 +166,8 @@ public class InitialViewController extends GUIController {
 
 
 
-    @Override
-    protected void close(AnchorPane anchorPane) {
-
-    }
-
     public void update(ModelUpdate message) {
         Platform.runLater(() -> guiView.getGuiController().update(message));
-
 
     }
 }

@@ -105,6 +105,7 @@ public class ModelUpdate {
      * @param boardStatus is the new status of the board.
      *
      */
+
     public void setBoardStatus(BoardStatus boardStatus) {
         this.boardStatus = boardStatus;
     }

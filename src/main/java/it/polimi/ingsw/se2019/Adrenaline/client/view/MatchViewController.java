@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -82,13 +83,9 @@ public class MatchViewController extends GUIController{
 
     }
 
-
-
-
-    @Override
-    protected void close(AnchorPane anchorPane) {
-
+    public void setImageDisable(Boolean bl){
     }
+
 
 
 
@@ -106,6 +103,12 @@ public class MatchViewController extends GUIController{
             Logger.getGlobal().warning(e.toString());
         }
 
+
+    }
+
+
+
+        public void setInit(){
 
     }
 
