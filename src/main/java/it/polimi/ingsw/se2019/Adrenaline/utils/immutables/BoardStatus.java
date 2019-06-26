@@ -43,6 +43,7 @@ public class BoardStatus implements Status {
         numKillShoot = 5;//default value
         killTurn = 0;
         firenzyTriggerd = false;
+        currentPlayer = allPlayers.get(0);
     }
 
     public BoardStatus(Map map){
@@ -62,14 +63,31 @@ public class BoardStatus implements Status {
             players.add((PlayerStatus)player);
         }
     }
+    public void updatePlayerStatus(){
+        int i = 0;
+        for(Player player: allPlayers){
+            players.remove(i);
+            players.add((PlayerStatus) player);
+        }
+    }
+
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public void setNumKillShoot(int numKillShoot) {
         BoardStatus.numKillShoot = numKillShoot;
     }
+
+    public ArrayList<Player> getAllPlayers() {
+        return allPlayers;
+    }
+
     public PlayerStatus getPlayer(String playerID) {
         for (PlayerStatus p : players) {
             if (p.getPlayerID().equals(playerID)) {
@@ -99,5 +117,12 @@ public class BoardStatus implements Status {
     public String toString(){
         return "map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd
                 + "\n" + "allplayer:" + players.get(0).toString();
+    }
+    public int[] getNumDamageOnSkullBoard() {
+        return numDamageOnSkullBoard;
+    }
+
+    public Color[] getColorDamageOnSkullBoard() {
+        return colorDamageOnSkullBoard;
     }
 }

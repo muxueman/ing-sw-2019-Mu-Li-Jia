@@ -51,6 +51,22 @@ public class Board extends BoardStatus{
         map.initialMap();
     }
 
+    public void setAllPlayerColor(){
+        ArrayList<Color> colorArrayList = new ArrayList<>();
+        colorArrayList.add(Color.YELLOW);
+        colorArrayList.add(Color.RED);
+        colorArrayList.add(Color.BLUE);
+        colorArrayList.add(Color.GREEN);
+        colorArrayList.add(Color.PINK);
+        colorArrayList.add(Color.WHITE);
+//        Collections.shuffle(colorArrayList);
+        int i = 0;
+        while(i < allPlayers.size()) {
+            allPlayers.get(i).setPlayerColor(colorArrayList.get(i));
+            i++;
+        }
+    }
+
     public void addPlayers(Player player){
         allPlayers.add(player);
     }
@@ -232,17 +248,6 @@ public class Board extends BoardStatus{
 
     public int getNumKillShoot() { return numKillShoot; }
 
-    public ArrayList<Player> getAllPlayers() {
-        return allPlayers;
-    }
-
-    public int[] getNumDamageOnSkullBoard() {
-        return numDamageOnSkullBoard;
-    }
-
-    public Color[] getColorDamageOnSkullBoard() {
-        return colorDamageOnSkullBoard;
-    }
 
 
 

@@ -17,6 +17,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.EndGameException;
 //import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -154,6 +155,7 @@ public class MatchController {
             playBoard = new Board(selectedMap);
             playBoard.setNumKillShoot(selectedKill);
             addPlayersToBoard(playBoard);
+            System.out.println(playBoard.toString() + "curretplay:" + playBoard.getCurrentPlayer());
             Logger.getGlobal().log(Level.INFO,"board is initialized ");
             for (ClientInterface c : clients.values()){
                 chooseKillEach(c);
@@ -161,13 +163,22 @@ public class MatchController {
         }
     }
     //this is used to add all players in the board, and asign each a color to start
+    // for each player, two powerupcard is given
     public void addPlayersToBoard(Board playBoard){
         for(ClientInterface key : players.keySet()){
-//            System.out.println(players.get(key));
             playBoard.addPlayers(players.get(key));
-//            players.get(key).setPlayerColor();
+            try{
+                players.get(key).addPowerupCard(playBoard.extractOnePowerupcard());
+                players.get(key).addPowerupCard(playBoard.extractOnePowerupcard());
+            }
+            catch (InvalidGrabException e){
+                Logger.getGlobal().warning("Invalid Grab ");
+            };
         }
-        playBoard.setPlayers(playBoard.getAllPlayers());
+        playBoard.setAllPlayerColor();
+        Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序
+        TurnHandler turnHandler = new TurnHandler(playBoard);
+        playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
     }
     public int getSelectedKill(){return this.selectedKill;}
 

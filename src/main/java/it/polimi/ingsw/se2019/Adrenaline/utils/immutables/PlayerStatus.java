@@ -22,7 +22,7 @@ public class PlayerStatus implements Status{
     protected Map<WeaponCard, Boolean> weaponsOwned;
     protected ArrayList<PowerupCard> powerupsOwned;
     protected int myScore;
-    private CellStatus currentCell;
+    protected CellStatus currentCell;
     protected int actionMode;
     protected boolean alive;
     protected Board board;
@@ -41,8 +41,6 @@ public class PlayerStatus implements Status{
         alive = true;
         //初始化所有的玩家,放入allPlayer
     }
-
-
 
     //不知道用法
     public Ansi toAnsi(){

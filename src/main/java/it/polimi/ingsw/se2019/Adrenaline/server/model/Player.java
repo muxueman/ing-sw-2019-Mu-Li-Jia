@@ -174,8 +174,7 @@ public class Player extends PlayerStatus {
 //            ammoOwned[index]++;
 //        }
     }
-    public void addPowerupCard() throws InvalidGrabException{
-        PowerupCard powerupCard = new PowerupCard();
+    public void addPowerupCard(PowerupCard powerupCard) throws InvalidGrabException{
         powerupsOwned.add(powerupCard);
         if(powerupsOwned.size() > 3) throw new InvalidGrabException(); // 最多三张powerup
     }

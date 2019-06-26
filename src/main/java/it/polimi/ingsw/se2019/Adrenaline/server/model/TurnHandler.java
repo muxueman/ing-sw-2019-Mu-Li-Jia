@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 public class TurnHandler {
     private List<Player> players;
     private List<Player> orderedPlayers;
+    private int turn;
 
 
     public TurnHandler(List<Player> players) {
@@ -14,12 +17,23 @@ public class TurnHandler {
         orderedPlayers = new ArrayList<>();
         createOrderedPlayers();
     }
+    public TurnHandler(BoardStatus playboard) {
+        orderedPlayers = playboard.getAllPlayers();
+        turn = 0;
+        playboard.setCurrentPlayer(playboard.getAllPlayers().get(turn));
+    }
 
     private void createOrderedPlayers() {
         List<Player> invertedList = new ArrayList<>(players);
         Collections.reverse(invertedList);
         orderedPlayers.addAll(players);
         orderedPlayers.addAll(invertedList);
+    }
+
+    public void changeTurn(BoardStatus board) {
+        this.turn++;
+        if(turn == board.getAllPlayers().size()) turn = 0;
+        board.setCurrentPlayer(board.getAllPlayers().get(turn));
     }
 
     public List<Player> getPlayers() {
@@ -47,6 +61,6 @@ public class TurnHandler {
      */
 
     public Player getCurrentPlayer() {
-        return orderedPlayers.get(0);
+        return orderedPlayers.get(turn);
     }
 }
