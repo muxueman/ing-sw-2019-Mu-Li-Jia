@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChoiceMapController extends GUIController{
@@ -27,20 +29,20 @@ public class ChoiceMapController extends GUIController{
     @FXML
     private Button closeButton;
     @FXML
-    private ImageView imgOne;
+    private Button mapAbutton;
     @FXML
-    private ImageView imgTwo;
+    private Button mapBbutton;
     @FXML
-    private ImageView imgThree;
+    private Button mapCbutton;
     @FXML
-    private ImageView imgFour;
+    private Button mapDbutton;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private TextArea textkillshootnum;
+    @FXML
+    private ImageView mapA;
 
-    private boolean next;
-
-    public ChoiceMapController(BoardStatus boardStatus, boolean next) {
-        this.boardStatus = boardStatus;
-        this.next = next;
-    }
 
 
 
@@ -57,21 +59,22 @@ public class ChoiceMapController extends GUIController{
 
 
 
-    public void setImgOne(EventHandler<MouseEvent> value) {
+    public void setMapAbutton(EventHandler<MouseEvent> value) {
+        mapA.setOnMouseClicked(value);
 
-        imgOne.setOnMouseClicked(value);
+        mapAbutton.setOnMouseClicked(value);
     }
 
-    public void setImgTwo(EventHandler<MouseEvent> value) {
+    public void setMapBbutton(EventHandler<MouseEvent> value) {
 
-        imgTwo.setOnMouseClicked(value);
+        mapBbutton.setOnMouseClicked(value);
     }
-    public void setImgThree(EventHandler<MouseEvent> value) {
+    public void setMapCbutton(EventHandler<MouseEvent> value) {
 
-        imgThree.setOnMouseClicked(value);
+        mapCbutton.setOnMouseClicked(value);
     }
-    public void setImgFour(EventHandler<MouseEvent> value) {
-        imgFour.setOnMouseClicked(value);
+    public void setMapDbutton(EventHandler<MouseEvent> value) {
+        mapDbutton.setOnMouseClicked(value);
     }
 
 
@@ -83,26 +86,27 @@ public class ChoiceMapController extends GUIController{
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             ChoiceMapController controller = loader.getController();
-            controller.setImgOne(event ->
+            controller.setMapAbutton(event ->
                     Platform.runLater(() -> {
-                        matchViewController.notify("1");
+                        //matchViewController.notify("1");
+                        Logger.getGlobal().info("1");
                         window.close();
                     })
             );
 
-            controller.setImgTwo(event ->
+            controller.setMapBbutton(event ->
                     Platform.runLater(() -> {
                         matchViewController.notify("2");
                         window.close();
                     })
             );
-            controller.setImgThree(event ->
+            controller.setMapCbutton(event ->
                     Platform.runLater(() -> {
                         matchViewController.notify("3");
                         window.close();
                     })
             );
-            controller.setImgFour(event ->
+            controller.setMapDbutton(event ->
                     Platform.runLater(() -> {
                         matchViewController.notify("4");
                         window.close();
@@ -121,6 +125,15 @@ public class ChoiceMapController extends GUIController{
         window.showAndWait();
 
     }
+
+
+
+
+
+
+
+
+
 
 
 

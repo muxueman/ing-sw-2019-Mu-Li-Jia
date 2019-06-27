@@ -5,12 +5,17 @@ import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -144,7 +149,6 @@ public class InitialViewController extends GUIController {
 
     @Override
     public void nextView(boolean next) {
-        Logger.getGlobal().log(Level.INFO, "next view...");
         if(!player) {
             Platform.runLater(() -> {
                 errorText.setText("");
@@ -160,7 +164,21 @@ public class InitialViewController extends GUIController {
         } else {
             Platform.runLater( () -> {
 
-                switchSceneSameStage(root, "/scenes/choiceMap.fxml",new ChoiceMapController(boardStatus,next));
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/choiceMap.fxml"));
+                    Parent secondView = loader.load();
+                    Scene newScene = new Scene(secondView);
+                    Stage stage = (Stage) root.getScene().getWindow();
+                    stage.setWidth(600);
+                    stage.setHeight(350);
+                    stage.centerOnScreen();
+                    stage.setScene(newScene);
+
+                    guiView.setGuiController(loader.getController());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    Logger.getGlobal().warning(e1.getCause().toString());
+                }
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
             });
         }

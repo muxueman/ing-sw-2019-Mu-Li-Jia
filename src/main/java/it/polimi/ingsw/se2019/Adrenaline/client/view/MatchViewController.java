@@ -84,11 +84,7 @@ public class MatchViewController extends GUIController{
     @FXML
     private Button closeButton;
 
-
     private boolean next;
-
-
-
 
     @FXML
     public void initialize() {
@@ -153,6 +149,8 @@ public class MatchViewController extends GUIController{
     public void setMap(){
 
     }
+
+
 
 
 

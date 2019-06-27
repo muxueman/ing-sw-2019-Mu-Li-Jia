@@ -2,14 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="350.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="350.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.se2019.Adrenaline.client.view.ChoiceMapController">
     <children>
-      <Label contentDisplay="CENTER" layoutX="132.0" layoutY="25.0" prefHeight="91.0" prefWidth="270.0" text="              ChoiceMap" textAlignment="CENTER" textFill="WHITE">
+      <Label contentDisplay="CENTER" layoutX="132.0" layoutY="25.0" prefHeight="58.0" prefWidth="251.0" text="              ChoiceMap" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -19,25 +20,36 @@
                 <Font size="14.0" />
             </font>
         </Button>
-      <ImageView fx:id="imgOne" fitHeight="100.0" fitWidth="120.0" layoutX="21.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mapA" fitHeight="100.0" fitWidth="120.0" layoutX="24.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_A.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgTwo" fitHeight="100.0" fitWidth="120.0" layoutX="161.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="mapAbutton" layoutX="55.0" layoutY="205.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="Map A" textFill="WHITE" />
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="164.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_B.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgThree" fitHeight="100.0" fitWidth="120.0" layoutX="301.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="304.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_C.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgFour" fitHeight="100.0" fitWidth="120.0" layoutX="441.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="100.0" fitWidth="120.0" layoutX="444.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../map/map_D.png" />
          </image>
       </ImageView>
+      <Label layoutX="30.0" layoutY="247.0" prefHeight="50.0" prefWidth="228.0" text="Choose killshootnum:" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="textkillshootnum" layoutX="245.0" layoutY="251.0" prefHeight="30.0" prefWidth="78.0" />
+      <Button fx:id="confirmButton" layoutX="395.0" layoutY="258.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="confirm" textFill="WHITE" />
+      <Button fx:id="mapDbutton" layoutX="475.0" layoutY="205.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="Map B" textFill="WHITE" />
+      <Button fx:id="mapCbutton" layoutX="335.0" layoutY="205.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="Map C" textFill="WHITE" />
+      <Button fx:id="mapBbutton" layoutX="195.0" layoutY="205.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="Map D" textFill="WHITE" />
     </children>
 </AnchorPane>
