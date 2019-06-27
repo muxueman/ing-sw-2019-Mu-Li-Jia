@@ -7,9 +7,17 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,7 +30,7 @@ import java.util.logging.Logger;
 public class MatchViewController extends GUIController{
 
     @FXML
-    private Pane root;
+    private AnchorPane root;
     @FXML
     private ImageView background;
     @FXML
@@ -70,20 +78,46 @@ public class MatchViewController extends GUIController{
     @FXML
     private GridPane action;
     @FXML
-    private Button endRound;
+    private Button endRoundButton;
     @FXML
-    private Button endTurn;
+    private Button endTurnButton;
+    @FXML
+    private Button closeButton;
 
+    private boolean next;
 
-    private boolean wpc;
-
-    public MatchViewController(BoardStatus boardStatus,boolean wpc){
-        this.boardStatus = boardStatus;
-        this.wpc = wpc;
+    @FXML
+    public void initialize() {
+        if (next) {
+            Platform.runLater(() -> newView(this));
+        }
+        addDraggableNode(root);
+        closeButton.setOnAction(event -> AlertBox.displayCloseRequest(this, root));
+        endTurnButton.setOnAction(event -> {
+            notify("PASS");
+            textMessege.setText("");
+        });
+        endRoundButton.setOnAction(event -> {
+            notify("PASS");
+            textMessege.setText("");
+        });
 
     }
 
-    public void setImageDisable(Boolean bl){
+    @FXML
+    private void newView(MatchViewController matchViewController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/gameMap.fxml"));
+            Stage window = new Stage();
+            Parent newRoot = loader.load();
+            Scene initialScene = new Scene(newRoot);
+            window.setScene(initialScene);
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setResizable(false);
+            window.showAndWait();
+        } catch (IOException e) {
+            Logger.getGlobal().warning(e.getCause().toString());
+        }
     }
 
 
@@ -107,10 +141,20 @@ public class MatchViewController extends GUIController{
     }
 
 
+    @Override
+    public void guiValue() {
+        Platform.runLater(() -> ChoiceMapController.displaychioceMap(this));
+    }
 
-        public void setInit(){
+    public void setMap(){
 
     }
+
+
+
+
+
+
 
 
 

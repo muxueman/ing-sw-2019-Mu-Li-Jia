@@ -82,5 +82,10 @@ public class GUIView extends View{
         return guiController;
     }
 
+    @Override
+    public void value(){
+        guiController.guiValue();
+    }
+
 
 }

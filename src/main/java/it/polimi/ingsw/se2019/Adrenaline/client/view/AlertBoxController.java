@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
@@ -61,14 +63,7 @@ public class AlertBoxController extends GUIController {
     private ChoiceBox<String> choiceBox;
     @FXML
     private Button newGameButton;
-    @FXML
-    private ImageView imgOne;
-    @FXML
-    private ImageView imgTwo;
-    @FXML
-    private ImageView imgThree;
-    @FXML
-    private ImageView imgFour;
+
 
 
 
@@ -194,19 +189,9 @@ public class AlertBoxController extends GUIController {
     }
 
 
-    public void setImgOne(EventHandler<MouseEvent> value) {
-        imgOne.setOnMouseClicked(value);
-    }
 
-    public void setImgTwo(EventHandler<MouseEvent> value) {
-        imgTwo.setOnMouseClicked(value);
-    }
-    public void setImgThree(EventHandler<MouseEvent> value) {
-        imgThree.setOnMouseClicked(value);
-    }
-    public void setImgFour(EventHandler<MouseEvent> value) {
-        imgFour.setOnMouseClicked(value);
-    }
+
+
 
 
 

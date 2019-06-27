@@ -10,16 +10,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Logger;
 
-public class AlertBox {
+public class AlertBox extends GUIController {
 
     private static final String REQUEST_ALERT = "/alertBox/requestAlert.fxml";
+    private boolean next;
 
-    private AlertBox() throws IllegalAccessException {
-        throw new IllegalAccessException("Utility class");
+    private AlertBox() {
+
+        throw new IllegalStateException("Utility class");
     }
+
 
     private static void setWindow(Stage window, Scene scene) {
         window.setScene(scene);
@@ -29,45 +31,6 @@ public class AlertBox {
 
     }
 
-    public static void displaychioceMap(MatchViewController matchViewController) {
-        try {
-            Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/alertBox/choiceMap.fxml"));
-            Parent root = loader.load();
-            Scene initialScene = new Scene(root);
-            AlertBoxController controller = loader.getController();
-            controller.setLabelOne("Choice One Map");
-            controller.setImgOne( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("1");
-                        window.close();
-                    })
-            );
-
-            controller.setImgTwo( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("2");
-                        window.close();
-                    })
-            );
-            controller.setImgThree( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("3");
-                        window.close();
-                    })
-            );
-            controller.setImgFour( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("4");
-                        window.close();
-                    })
-            );
-
-            setWindow(window,initialScene);
-        } catch (IOException e) {
-            Logger.getGlobal().warning(e.getCause().toString());
-        }
-    }
 
     private static void displayChoice(MatchViewController matchViewController, String buttonOne, String buttonTwo) {
         try {
@@ -93,7 +56,7 @@ public class AlertBox {
                                         window.close();
                                     }
                             ));
-            setWindow(window,initialScene);
+            setWindow(window, initialScene);
         } catch (IOException e) {
             Logger.getGlobal().warning(e.getCause().toString());
         }
@@ -144,22 +107,26 @@ public class AlertBox {
         }
     }
 
-    public static void displayEndGame(GUIController guiController, AnchorPane anchorPane, Player score,String username){
-        try{
+
+    public static void displayEndGame(GUIController guiController, AnchorPane anchorPane, Player score, String username) {
+        try {
             Stage window = new Stage();
-            FXMLLoader loader =  new FXMLLoader(AlertBox.class.getResource("/alertBox/endGameAlert.fxml"));
+            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/alertBox/endGameAlert.fxml"));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             AlertBoxController controller = loader.getController();
-            controller.setCloseButton(guiController,anchorPane);
+            controller.setCloseButton(guiController, anchorPane);
 
             controller.setNewGameButton(anchorPane);
-            controller.setLabelOne("Score: " +username);
+            controller.setLabelOne("Score: " + username);
 
-        }catch (IOException e){
+        } catch (IOException e) {
             Logger.getGlobal().warning(e.getCause().toString());
         }
     }
 
 
+
 }
+
+
