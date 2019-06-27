@@ -10,8 +10,7 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 public abstract class View extends Observable<String> implements Observer<ModelUpdate> {
 
-    public View() {
-    }
+
 
 
     //show the Ranking with scores
@@ -33,6 +32,10 @@ public abstract class View extends Observable<String> implements Observer<ModelU
         // doesn't need to do anything, only used by GUIView
     }
     public void launchTimer(){
+
+    }
+
+    public void value(){
 
     }
 

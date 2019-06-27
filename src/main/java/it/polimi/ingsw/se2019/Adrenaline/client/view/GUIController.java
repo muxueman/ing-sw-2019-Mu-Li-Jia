@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class GUIController {
@@ -52,21 +54,25 @@ public abstract class GUIController {
      */
 
     protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, GUIController controller) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             loader.setController(controller);
             Parent secondView = loader.load();
             Scene newScene = new Scene(secondView);
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setWidth(1024);
-            stage.setHeight(624);
+            stage.setWidth(600);
+            stage.setHeight(350);
             stage.centerOnScreen();
             stage.setScene(newScene);
+
             guiView.setGuiController(controller);
         } catch (IOException e1) {
+            e1.printStackTrace();
             Logger.getGlobal().warning(e1.getCause().toString());
         }
     }
+
 
 
 
@@ -139,7 +145,7 @@ public abstract class GUIController {
      *
      */
 
-    public void nextView(boolean wpc) {
+    public void nextView(boolean next) {
 
     }
     /**
@@ -163,6 +169,12 @@ public abstract class GUIController {
     public void update(ModelUpdate message) {
         this.boardStatus = message.getBoardStatus();
     }
+
+    public void guiValue() {
+        // only used by MatchViewController
+    }
+
+
 
 
 

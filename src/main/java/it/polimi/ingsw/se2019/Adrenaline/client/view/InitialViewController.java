@@ -144,6 +144,7 @@ public class InitialViewController extends GUIController {
 
     @Override
     public void nextView(boolean next) {
+        Logger.getGlobal().log(Level.INFO, "next view...");
         if(!player) {
             Platform.runLater(() -> {
                 errorText.setText("");
@@ -158,7 +159,8 @@ public class InitialViewController extends GUIController {
             });
         } else {
             Platform.runLater( () -> {
-                switchSceneSameStage(root, "/scenes/gameMap.fxml", new MatchViewController(boardStatus, next));
+
+                switchSceneSameStage(root, "/scenes/choiceMap.fxml",new ChoiceMapController(boardStatus,next));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
             });
         }

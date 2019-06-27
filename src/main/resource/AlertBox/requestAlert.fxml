@@ -12,12 +12,12 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Label fx:id="labelOne" alignment="CENTER" layoutX="18.0" layoutY="52.0" prefHeight="55.0" prefWidth="296.0" style="-fx-background-color: white;" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label layoutX="60.0" layoutY="42.0" prefHeight="51.0" prefWidth="198.0" text="    Are you sure?" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font size="19.0" />
          </font>
       </Label>
-      <Button fx:id="buttonOne" layoutX="78.0" layoutY="122.0" mnemonicParsing="false" text="Yes" />
+      <Button fx:id="buttonOne" layoutX="60.0" layoutY="122.0" mnemonicParsing="false" text="Yes" />
       <Button fx:id="buttonTwo" layoutX="191.0" layoutY="122.0" mnemonicParsing="false" text="No" />
    </children>
 </AnchorPane>
