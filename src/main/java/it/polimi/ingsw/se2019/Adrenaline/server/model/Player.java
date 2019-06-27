@@ -8,12 +8,13 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 public class Player extends PlayerStatus {
-    private String userName;
-    private Cell currentCell;
-    private String playerID;
+//    private String userName;
+//    private Cell currentCell;
+//    private String playerID;
     private PlayerBoard killShootTrack;
 
     /*mode = 0 three walk/one walk+ pick/shoot
@@ -28,19 +29,17 @@ public class Player extends PlayerStatus {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public void setPlayBoard(Board board) { this.board = board; }
     public void setActionMode(int mode){
         actionMode = mode;
     }
-    public void setName(String name){
-        this.userName = name;
-    }
     public void setPlayerColor(Color color){
         playerColor = color;
     }
+
     public void setCurrentCell(Cell cell){
         this.getCurrentCell().removePlayer(this);
         this.currentCell = cell;
@@ -54,9 +53,6 @@ public class Player extends PlayerStatus {
         return playerColor;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
     public int[] getAmmoOwned() {
         return ammoOwned;
@@ -80,10 +76,6 @@ public class Player extends PlayerStatus {
         return actionMode;
     }
 
-    @Override
-    public Cell getCurrentCell() {
-        return currentCell;
-    }
 
     public void setAlive(boolean alive) { this.alive = alive; }
 
@@ -95,9 +87,6 @@ public class Player extends PlayerStatus {
         this.killShootTrack.beAttacked(shooter, damage, mark);
     }
 
-    public boolean isReady() {
-        return userName != null;
-    }
 
     /*
         //装载ammo
@@ -176,12 +165,22 @@ public class Player extends PlayerStatus {
     }
     public void addPowerupCard(PowerupCard powerupCard) throws InvalidGrabException{
         powerupsOwned.add(powerupCard);
-        if(powerupsOwned.size() > 3) throw new InvalidGrabException(); // 最多三张powerup
+        if(powerupsOwned.size() > 3) {
+            while(powerupsOwned.size() > 3){
+                powerupsOwned.remove(powerupsOwned.size()-1);
+            }
+            throw new InvalidGrabException(); // 最多三张powerup
+
+        }
     }
-    public void addWeaponCard() throws InvalidGrabException{
-        WeaponCard weaponCard = new WeaponCard();
+    public void addWeaponCard(WeaponCard weaponCard) throws InvalidGrabException{
         weaponsOwned.put(weaponCard, true);
-        if(weaponsOwned.size() > 3) throw new InvalidGrabException();
+        if(weaponsOwned.size() > 3) {
+            while (weaponsOwned.size() > 3){
+                weaponsOwned.remove(weaponsOwned.size()-1);
+            }
+            throw new InvalidGrabException();
+        }
     }
 
     public void countMyScore(Player diedPlayer){
@@ -208,10 +207,12 @@ public class Player extends PlayerStatus {
     public PlayerBoard getKillShootTrack(){
         return this.killShootTrack;
     }
-
+    public PlayerBoardStatus getKillShootTrackStatus(){
+        return (PlayerBoardStatus)this.killShootTrack;
+    }
     @Override
     public String toString() {
-        return "Player: " + userName + "\n"
+        return "Player: " + username + "\n"
         + "Color: " + playerColor + "\n"
         + "ActionMode: " + actionMode + "\n"
         +"MyScore: " + myScore;
@@ -250,7 +251,16 @@ public class Player extends PlayerStatus {
         weaponsOwned.put(weaponCard, true);
         return true;
     }
+    public void dropWeapon(WeaponCard weaponCard){
+        weaponsOwned.remove(weaponCard);
+    }
 
+    public PlayerStatus getPlayerStatus(){
+        return (PlayerStatus) this;
+    }
+    public String getUserName() {
+        return super.getUsername();
+    }
 //    public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
 ////        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
 ////        int i = 0;

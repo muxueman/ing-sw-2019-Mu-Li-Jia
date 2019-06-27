@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.CellStatus;
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 public abstract class Cell extends CellStatus {
 
 
-
+    protected Cell[] adjacentCells;
+    protected int type;
+    protected Color cellColor;
     //constructor
     public Cell(int cellID) {
         super(cellID);
@@ -35,12 +38,7 @@ public abstract class Cell extends CellStatus {
     }
 
     //change players inside a cell
-    public void addPlayer(Player player){
-        this.cellPlayers.add(player);
-    }
-    public void removePlayer(Player player){
-        this.cellPlayers.remove(player);
-    }
+
 
     //get values of cell
     public int getCellID() {
@@ -56,7 +54,7 @@ public abstract class Cell extends CellStatus {
         return this.adjacentCells;
     }
     public int getType() { return type; }
-    public abstract void reload();
+    public abstract void reload(Board board);
 
     //overload
     //get the cell from a specific direction

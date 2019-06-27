@@ -1,8 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCardDeck;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import org.fusesource.jansi.Ansi;
 
@@ -13,15 +13,18 @@ public class BoardStatus implements Status {
 
     protected int[] numDamageOnSkullBoard;
     protected Color[] colorDamageOnSkullBoard; //与num一一对应
-    protected Player currentPlayer;
-    protected PlayerStatus thisPlayer;
+    protected Player currentPlayer; //希望用turnhandler.getCurrentPlauyer
+    protected PlayerStatus thisPlayer; //目前没用
     protected static int numKillShoot;
     protected int killTurn;
     protected boolean firenzyTriggerd;
     protected ArrayList<Player> allPlayers;
     protected Map map;
-    private List<PlayerStatus> players;
+    private List<PlayerStatus> players;  //目前没用
     protected PowerupCardDeck powerupCardDeck;
+    protected WeaponCardDeck weaponCardDeck;
+    protected AmmotileCardDeck ammotileCardDeck;
+//    protected TurnHandler turnHandler;
     //记录第几次的射杀
 
     private boolean started;
@@ -35,6 +38,8 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         powerupCardDeck = new PowerupCardDeck();
+        weaponCardDeck = new WeaponCardDeck();
+        ammotileCardDeck = new AmmotileCardDeck();
     }
 
     //construct a board with all players
@@ -44,17 +49,20 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         currentPlayer = allPlayers.get(0);
+//        turnHandler = new TurnHandler(this);
     }
 
     public BoardStatus(Map map){
-        allPlayers = new ArrayList<>();
         this.map = map;
         map.initialMap();
+        allPlayers = new ArrayList<>();
         currentPlayer = null;
         killTurn = 0;
         firenzyTriggerd = false;
         players = new ArrayList<>();
         powerupCardDeck = new PowerupCardDeck();
+        ammotileCardDeck = new AmmotileCardDeck();
+        weaponCardDeck = new WeaponCardDeck();
     }
 
 
@@ -80,8 +88,12 @@ public class BoardStatus implements Status {
         return currentPlayer;
     }
 
+
     public void setNumKillShoot(int numKillShoot) {
+
         BoardStatus.numKillShoot = numKillShoot;
+        numDamageOnSkullBoard = new int[numKillShoot];
+        colorDamageOnSkullBoard = new Color[numKillShoot];
     }
 
     public ArrayList<Player> getAllPlayers() {
@@ -96,6 +108,17 @@ public class BoardStatus implements Status {
         }
         return null;
     }
+
+    public PlayerStatus getPlayerStatus(String playerID) {
+        for (Player p : allPlayers) {
+            if (p.getPlayerID().equals(playerID)) {
+                return (PlayerStatus) p;
+            }
+        }
+        return null;
+    }
+
+
     public boolean updatePlayer(PlayerStatus newPlayerStatus) {
         PlayerStatus player = getPlayer(newPlayerStatus.getPlayerID());
         if (player == null) {

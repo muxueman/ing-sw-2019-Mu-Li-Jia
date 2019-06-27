@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import java.util.ArrayList;
 import java.util.*;
@@ -40,12 +41,11 @@ public class GenerationCell extends Cell {
     }
 
     @Override
-    public void reload() {
+    public void reload(Board board) {
         int i = 0;
         while(i<3){
             if(containedWeapon[i] == null){
-                WeaponCard newWeapon = new WeaponCard();
-                containedWeapon[i] = newWeapon;
+                containedWeapon[i] = board.extractWeapon();
                 break;
             }
             else i++;

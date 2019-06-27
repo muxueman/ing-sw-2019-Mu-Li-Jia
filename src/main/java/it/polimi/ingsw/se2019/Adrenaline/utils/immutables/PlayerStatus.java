@@ -2,8 +2,10 @@ package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
@@ -16,13 +18,13 @@ public class PlayerStatus implements Status{
 
     protected String username;
     protected String playerID;
-    protected PlayerBoardStatus killShootTrack;
+    protected PlayerBoard killShootTrack;
     protected Color playerColor;
     protected int[] ammoOwned;
     protected Map<WeaponCard, Boolean> weaponsOwned;
     protected ArrayList<PowerupCard> powerupsOwned;
     protected int myScore;
-    protected CellStatus currentCell;
+    protected Cell currentCell;
     protected int actionMode;
     protected boolean alive;
     protected Board board;
@@ -32,7 +34,7 @@ public class PlayerStatus implements Status{
     public PlayerStatus(String username) {
         playerID = username;
         this.username = username;
-        this.killShootTrack = new PlayerBoardStatus(this);
+        this.killShootTrack = new PlayerBoard(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -41,6 +43,7 @@ public class PlayerStatus implements Status{
         alive = true;
         //初始化所有的玩家,放入allPlayer
     }
+//    public PlayerStatus(String username, )
 
     //不知道用法
     public Ansi toAnsi(){
@@ -59,7 +62,7 @@ public class PlayerStatus implements Status{
         return weaponsOwned;
     }
 
-    public CellStatus getCurrentCell() {
+    public CellStatus getCurrentCellStatus() {
         return currentCell;
     }
 
@@ -97,6 +100,18 @@ public class PlayerStatus implements Status{
 
     public void setMyScore(int myScore) {
         this.myScore = myScore;
+    }
+
+    public PlayerBoardStatus getKillShootTrack(){
+        return killShootTrack;
+    }
+
+    public boolean isReady() {
+        return username != null;
+    }
+
+    public Cell getCurrentCell() {
+        return currentCell;
     }
 
     @Override

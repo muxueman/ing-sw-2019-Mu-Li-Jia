@@ -6,6 +6,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 
 import java.util.ArrayList;
 /**
@@ -56,7 +57,6 @@ public class ActionGrab {
     }
 
     public boolean pickWeaponCrad(Player player, int position){
-
         WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard(position);
         if(checkPlayerAmmoAvailable(weaponCard, player)){
             int[] ammoCost = weaponCard.getBasicammoCost();
@@ -70,12 +70,18 @@ public class ActionGrab {
                     case 3: player.consumeAmmo(AmmoColor.YELLOW); break;
                 }
             }
+            try {
+                player.addWeaponCard(weaponCard);
+            }
+            catch (InvalidGrabException e){
+                System.out.println("you have more than 3 weapons");
+                return false;
+            }
             ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
             player.getPlayBoard().getPickedCell().add(player.getCurrentCell());
             return true;
         }
         else return false;
-
     }
 
     /*

@@ -98,7 +98,7 @@ public class MatchController {
     }
 
     public synchronized void setPlayer(String username, ClientInterface client) {
-        boolean taken = players.entrySet().stream().map(Map.Entry::getValue).map(Player::getUserName)
+        boolean taken = players.entrySet().stream().map(Map.Entry::getValue).map(Player::getUsername)
                 .anyMatch(un -> un != null && un.equals(username));
         if (!taken) {
             players.get(client).setUserName(username);
@@ -152,9 +152,9 @@ public class MatchController {
                 }
             }
             Logger.getGlobal().log(Level.INFO,"chose the kill number: {0} ", selectedKill);
-            playBoard = new Board(selectedMap);
-            playBoard.setNumKillShoot(selectedKill);
-            addPlayersToBoard(playBoard);
+            playBoard = new Board(selectedMap);  // new board is created
+            playBoard.setNumKillShoot(selectedKill); //selected numkillshoot is set
+            addPlayersToBoard(playBoard);// add all players on the board, incluing giving each player color and two powerup card
             System.out.println(playBoard.toString() + "curretplay:" + playBoard.getCurrentPlayer());
             Logger.getGlobal().log(Level.INFO,"board is initialized ");
             for (ClientInterface c : clients.values()){
@@ -162,14 +162,13 @@ public class MatchController {
             }
         }
     }
-    //this is used to add all players in the board, and asign each a color to start
-    // for each player, two powerupcard is given
+
     public void addPlayersToBoard(Board playBoard){
         for(ClientInterface key : players.keySet()){
             playBoard.addPlayers(players.get(key));
             try{
-                players.get(key).addPowerupCard(playBoard.extractOnePowerupcard());
-                players.get(key).addPowerupCard(playBoard.extractOnePowerupcard());
+                players.get(key).addPowerupCard(playBoard.extractPowerupcard());
+                players.get(key).addPowerupCard(playBoard.extractPowerupcard());
             }
             catch (InvalidGrabException e){
                 Logger.getGlobal().warning("Invalid Grab ");
@@ -396,7 +395,7 @@ public class MatchController {
             }
         } catch (RemoteException e) {
             Logger.getGlobal().warning("There has been a connection error from player "
-                    + players.get(client).getUserName());
+                    + players.get(client).getUsername());
         }
     }
     private void updateCurrentPlayer(ServerMessage serverMessage) {

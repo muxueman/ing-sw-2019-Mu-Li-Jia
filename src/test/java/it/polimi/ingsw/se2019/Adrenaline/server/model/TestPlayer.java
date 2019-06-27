@@ -16,7 +16,7 @@ public class TestPlayer {
     int testMode = 2;
 
     public void testName() {
-        testPlayer.setName("jiamoxin");
+        testPlayer.setUserName("jiamoxin");
         System.out.println("test nickname: " + testPlayer.getUserName());
     }
 

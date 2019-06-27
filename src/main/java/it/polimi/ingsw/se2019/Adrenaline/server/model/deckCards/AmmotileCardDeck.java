@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class AmmotileCardDeck {
@@ -48,7 +49,9 @@ public class AmmotileCardDeck {
                 }
             }
         }
-
+        atCards.addAll(atCards);
+        atCards.addAll(atCards);
+        Collections.shuffle(atCards);
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.Map;
 public class PlayerBoard extends PlayerBoardStatus {
 
     private int turn;
-    protected Map<Color, Integer> playerScore;
+//    protected Map<Color, Integer> playerScore;
     private static int[] scoreTable = {8,6,4,2,2,1};
     private static int maxiDamageOnTrack = 12;
 
@@ -23,7 +23,7 @@ public class PlayerBoard extends PlayerBoardStatus {
     public PlayerBoard(PlayerStatus player) {
         super(player);
         turn = 0;
-        numKillShoot = 0;
+//        numKillShoot = 0;
     }
     //overload for test
     public PlayerBoard() {
@@ -40,7 +40,7 @@ public class PlayerBoard extends PlayerBoardStatus {
     }
 
     //检查是否已有该玩家的Mark
-    public void addMarkToDamage(Player shooter){
+    public void addMarkToDamage(PlayerStatus shooter){
         int index = 0;
         while(index < markColorOnTrack.size()){
             if(shooter.getPlayerColor() == markColorOnTrack.get((index))){
@@ -53,7 +53,7 @@ public class PlayerBoard extends PlayerBoardStatus {
     }
 
     //先增加原有的mark到damage， 增加新的damage， 增加新的Mark， 检查是否已经被打死，若打死的话 先清除多余的damage，检查是否被overkill, 超杀给shooter加mark
-    public int beAttacked (Player shooter, int damageNum, int markNum ) {
+    public int beAttacked (PlayerStatus shooter, int damageNum, int markNum ) {
         addMarkToDamage(shooter);
         while(damageNum >0) {
             this.damageColorOnTrack.add(shooter.getPlayerColor());
@@ -94,8 +94,8 @@ public class PlayerBoard extends PlayerBoardStatus {
         return beKilled;
     }
 
-    public void overkillMark(Player shooter) {
-        shooter.getKillShootTrack().markColorOnTrack.add(playerStatus.getPlayerColor());
+    public void overkillMark(PlayerStatus shooter) {
+        shooter.getKillShootTrack().getMarkColorOnTrack().add(playerStatus.getPlayerColor());
     }
     //count damage num of each color on the track, then add score.
     private Map countDamageOnTrack() {
@@ -185,7 +185,7 @@ public class PlayerBoard extends PlayerBoardStatus {
         beKilled = 0;
     }
     //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤  由存有所有玩家的类来调用
-    public void addPlayerScore(Player player){
+    public void addPlayerScore(PlayerStatus player){
         for (Color key : playerScore.keySet()){
             if(player.getPlayerColor() == key){
                 int score = player.getMyScore();

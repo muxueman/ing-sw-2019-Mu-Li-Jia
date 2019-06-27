@@ -22,6 +22,7 @@ public class PlayerBoardStatus implements Status {
         this.damageColorOnTrack = new ArrayList<Color>();
         this.markColorOnTrack = new ArrayList<Color>();
         playerScore = new HashMap<>();
+        numKillShoot = 0;
         beKilled = 0;
     }
     public PlayerBoardStatus(){}

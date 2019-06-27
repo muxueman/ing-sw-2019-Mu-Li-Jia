@@ -49,8 +49,8 @@ public class PowerupCardDeck {
                 }
             }
         }
-        ppCards.addAll(ppCards);
-        ppCards.addAll(ppCards);
+        ppCards.addAll(ppCards);  // 每张卡有两张
+        ppCards.addAll(ppCards);  // 每张卡有四张
         Collections.shuffle(ppCards);
     }
 

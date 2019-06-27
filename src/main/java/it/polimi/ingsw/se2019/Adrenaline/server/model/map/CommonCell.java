@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import com.sun.org.glassfish.gmbal.AMXMetadata;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import java.util.ArrayList;
 /**
@@ -26,8 +27,8 @@ public class CommonCell extends Cell {
     }
 
     @Override
-    public void reload(){
-        ammotileInCell = new AmmotileCard();
+    public void reload(Board board){
+        ammotileInCell = board.extractAmmotile();
     }
 }
 

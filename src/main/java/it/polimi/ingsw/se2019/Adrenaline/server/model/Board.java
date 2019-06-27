@@ -2,12 +2,10 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCardDeck;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCardDeck;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
@@ -18,7 +16,7 @@ import java.util.*;
 public class Board extends BoardStatus{
 
 //    private Player currentPlayer;
-    private Map map;
+//    private Map map;
     private int firstPlayer;
     private ArrayList<Cell> pickedCell;
     // constructor
@@ -39,12 +37,14 @@ public class Board extends BoardStatus{
         pickedCell = new ArrayList<>();
         firstPlayer = 0;
     }
+    // this is used in controller
     public Board(Map map){
         super(map);
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();
         firstPlayer = 0;
+        initialCardsOnBoard();
     }
     public void setMap(Map map) {
         this.map = map;
@@ -70,15 +70,13 @@ public class Board extends BoardStatus{
     public void addPlayers(Player player){
         allPlayers.add(player);
     }
-    public void addAllPlayers(ArrayList<Player> players) {allPlayers.addAll(players);}
 
     public Player findPlayerByColor (Color playerColor){
         int i = 0;
         while(allPlayers.get(i).getPlayerColor() != playerColor){
             i++;
             if(i == allPlayers.size()){
-                //not exists this player
-                break;
+                return null;
             }
         }
         return allPlayers.get(i);
@@ -103,11 +101,11 @@ public class Board extends BoardStatus{
             if(index != allPlayers.indexOf(currentPlayer)){
                 if(!allPlayers.get(index).isAlive()){
                     killTurn++;
-                    numDamageOnSkullBoard[killTurn-1] =                                                                                                                             allPlayers.get(index).getKillShootTrack().getBeKilled();
+                    numDamageOnSkullBoard[killTurn-1] =  allPlayers.get(index).getKillShootTrack().getBeKilled();                                                                                                                           allPlayers.get(index).getKillShootTrack().getBeKilled();
                     colorDamageOnSkullBoard[killTurn-1] = currentPlayer.getPlayerColor();
                     playerDie = true;
                     addScoreFromKST(allPlayers.get(index));
-                    System.out.println(allPlayers.get(index).getKillShootTrack().playerScore);
+                    System.out.println(allPlayers.get(index).getKillShootTrack().getPlayerScore());
                     allPlayers.get(index).recover();
                     break;
                 }
@@ -189,7 +187,7 @@ public class Board extends BoardStatus{
     }
     // 某玩家被杀后 其余玩家给自己增加计分板上的得分
     public void addScoreFromKST(Player diedPlayer){
-        for(Color playerColor: diedPlayer.getKillShootTrack().playerScore.keySet()){
+        for(Color playerColor: diedPlayer.getKillShootTrack().getPlayerScore().keySet()){
             findPlayerByColor(playerColor).countMyScore(diedPlayer);
         }
     }
@@ -206,34 +204,44 @@ public class Board extends BoardStatus{
             }
         }
     }
+    public void initialCardsOnBoard(){
+        pickedCell.addAll(map.getAllCells());
+        reloadCardOnBoard();
+    }
 
 
     public void reloadCardOnBoard(){
         int i = 0;
         while(i < pickedCell.size()){
-            pickedCell.get(i).reload();
+            pickedCell.get(i).reload(this);
             i++;
         }
         pickedCell.clear();
     }
-    public ArrayList<PowerupCard> extractTwoPowerup(){
-        ArrayList<PowerupCard> twoPowerupCard = new ArrayList<>();
-        if(powerupCardDeck.ppCards.size()<1){
-            powerupCardDeck = new PowerupCardDeck();
-        }
-        twoPowerupCard.add(powerupCardDeck.ppCards.get(0));
-        powerupCardDeck.ppCards.remove(0);
-        twoPowerupCard.add(powerupCardDeck.ppCards.get(0));
-        powerupCardDeck.ppCards.remove(0);
-        return twoPowerupCard;
-    }
-    public PowerupCard extractOnePowerupcard(){
+
+    public PowerupCard extractPowerupcard(){
         if(powerupCardDeck.ppCards.size() == 0){
             powerupCardDeck = new PowerupCardDeck();
         }
-        PowerupCard powerupCard =  powerupCardDeck.ppCards.get(0);
+        PowerupCard powerupCard = powerupCardDeck.ppCards.get(0);
         powerupCardDeck.ppCards.remove(0);
         return powerupCard;
+    }
+    public WeaponCard extractWeapon(){
+        if(weaponCardDeck.weaponCards.size() == 0){
+            weaponCardDeck = new WeaponCardDeck();
+        }
+        WeaponCard weaponCard = weaponCardDeck.weaponCards.get(0);
+        weaponCardDeck.weaponCards.remove(0);
+        return weaponCard;
+    }
+    public AmmotileCard extractAmmotile(){
+        if(ammotileCardDeck.atCards.size() == 0){
+            ammotileCardDeck = new AmmotileCardDeck();
+        }
+        AmmotileCard ammotileCard = ammotileCardDeck.atCards.get(0);
+        ammotileCardDeck.atCards.remove(0);
+        return ammotileCard;
     }
 
 
@@ -245,10 +253,12 @@ public class Board extends BoardStatus{
 
     public Map getMap() { return map; }
 
+    public void turnNextPlayer(){
+        setCurrentPlayer(nextPlayer(currentPlayer));
+    }
+
 
     public int getNumKillShoot() { return numKillShoot; }
-
-
 
 
     public ArrayList<Cell> getPickedCell() {

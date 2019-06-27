@@ -30,6 +30,7 @@ public abstract class Map {
         BLUECells = new ArrayList<>();
         WHITECells = new ArrayList<>();
         PINKCells = new ArrayList<>();
+        initialMap();
     }
 
     /**
@@ -65,7 +66,7 @@ public abstract class Map {
     //get map info
     public String getMapInfo(){
         return this.mapInfo;
-    }   
+    }
 
     //comparison of cells, same room/color
     public Boolean checkWithinRoom(Cell cellA, Cell cellB){
@@ -236,5 +237,45 @@ public abstract class Map {
         return getAvailableOneWalkCell(Y).contains(X);
     }
 
-
+    public Cell getGenerationCellByColor(Color cellColor){
+        switch (cellColor){
+            case YELLOW: {
+                for(Cell c : YELLOWCells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+            case BLUE:{
+                for(Cell c : BLUECells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+            case RED:{
+                for(Cell c : REDCells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+            case WHITE: {
+                for(Cell c : WHITECells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+            case PINK:{
+                for(Cell c : PINKCells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+            case GREEN:{
+                for(Cell c : GREENCells){
+                    if(c.getType() == 0) continue;
+                    else return c;
+                } break;
+            }
+        }
+        return null;
+    }
 }
