@@ -20,22 +20,15 @@ public class GenerationCell extends Cell {
        //generation cell type = 1
        this.type = 1;
        containedWeapon = new WeaponCard[3];
-       initialWeapon();
-
-    }
-    public void initialWeapon(){
-        WeaponCard leftCard = new WeaponCard();
-        WeaponCard middelCard = new WeaponCard();
-        WeaponCard rightCard = new WeaponCard();
-        containedWeapon[0] = leftCard;
-        containedWeapon[1] = middelCard;
-        containedWeapon[2] = rightCard;
     }
 
+
+    @Override
     public WeaponCard[] getWeaponCard(){
         return containedWeapon;
     }
     //position = 0 represent the most left card, position = 1,represent the middle, position = 2 represent the right most
+    @Override
     public WeaponCard getWeaponCard(int cardPosition) {
         return containedWeapon[cardPosition];
     }
@@ -46,7 +39,7 @@ public class GenerationCell extends Cell {
         while(i<3){
             if(containedWeapon[i] == null){
                 containedWeapon[i] = board.extractWeapon();
-                break;
+                i++;
             }
             else i++;
         }

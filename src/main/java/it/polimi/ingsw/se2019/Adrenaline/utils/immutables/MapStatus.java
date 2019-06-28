@@ -6,6 +6,7 @@ import org.fusesource.jansi.Ansi;
 import java.util.ArrayList;
 
 import static org.fusesource.jansi.Ansi.ansi;
+//so far no use
 
 public class MapStatus implements Status {
     protected ArrayList<Cell> allCells;

@@ -25,7 +25,7 @@ public class ActionGrab {
         while(i < 3) {
             i++;
             switch (ammoOnCard[i-1]){
-                case 0: PowerupCard powerupCard = new PowerupCard(); player.getPowerupsOwned().add(powerupCard); break;
+                case 0: if(player.getPowerupsOwned().size() == 3) break; else player.addPowerupCard();
                 case 1: player.fillAmmo(AmmoColor.RED); break;
                 case 2: player.fillAmmo(AmmoColor.BLUE); break;
                 case 3: player.fillAmmo(AmmoColor.YELLOW); break;
@@ -43,13 +43,13 @@ public class ActionGrab {
             switch (ammoCost[i-1]){
                 case 0: continue;
                 case 1:
-                    if(player.getAmmoOwned()[1] > 0) continue;
+                    if(player.getAmmoOwned()[0] > 0) continue;
                     else return false;
                 case 2:
-                    if(player.getAmmoOwned()[2] > 0) continue;
+                    if(player.getAmmoOwned()[1] > 0) continue;
                     else return false;
                 case 3:
-                    if(player.getAmmoOwned()[3] > 0) continue;
+                    if(player.getAmmoOwned()[2] > 0) continue;
                     else return false;
             }
         }
@@ -74,7 +74,7 @@ public class ActionGrab {
                 player.addWeaponCard(weaponCard);
             }
             catch (InvalidGrabException e){
-                System.out.println("you have more than 3 weapons");
+                System.out.println(e);
                 return false;
             }
             ((GenerationCell) player.getCurrentCell()).weaponTaken(position);

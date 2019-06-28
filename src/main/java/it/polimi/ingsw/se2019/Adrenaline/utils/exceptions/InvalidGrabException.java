@@ -7,10 +7,10 @@ package it.polimi.ingsw.se2019.Adrenaline.utils.exceptions;
 public class InvalidGrabException extends Exception{
 
     public InvalidGrabException() {
-        super("cannot grab");
+        super("cannot grab,");
     }
 
     public InvalidGrabException(String message) {
-        super("cannot grab, due to " + message);
+        super("cannot grab, you have more than 3 " + message);
     }
 }

@@ -1,8 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionGrab;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionShoot;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 //import sun.jvm.hotspot.debugger.win32.coff.TestParser;
@@ -12,7 +17,8 @@ public class TestPlayer {
 
     Player testPlayer = new Player("JIA");
     PlayerBoard testKillShootTrack = new PlayerBoard(testPlayer);
-    Board testBoard = new Board(5);
+    it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map = new MapD();
+    Board testBoard = new Board(map);
     int testMode = 2;
 
     public void testName() {
@@ -98,5 +104,23 @@ public class TestPlayer {
     @Test
     public void setTestKillShootTrack(){
        System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayerStatus().getUsername());
+    }
+    @Test
+    public void testAction(){
+        testBoard.initialCardsOnBoard();
+        //generation cell
+        testPlayer.setPlayBoard(testBoard);
+        testBoard.getMap().getAllCells().get(2).getWeaponCard(2).getBasicammoCost();
+        testPlayer.setEnterCellByColor("yellow");
+        testPlayer.setCurrentCell(testPlayer.getPlayBoard().getMap().getAllCells().get(2));
+        System.out.println(testPlayer.getCurrentCell().getWeaponCard(1).getCardName());
+//        testPlayer.getCurrentCell().getWeaponCard(1).getBasicammoCost();
+        ActionGrab action = new ActionGrab();
+        ActionShoot shoot = new ActionShoot();
+//        shoot.payAmmoForOtherMode(testPlayer, );
+        action.pickWeaponCrad(testPlayer, 1);
+        System.out.println(testPlayer.getAmmoOwned()[0]);
+        System.out.println(testPlayer.getAmmoOwned()[1]);
+        System.out.println(testPlayer.getAmmoOwned()[2]);
     }
 }

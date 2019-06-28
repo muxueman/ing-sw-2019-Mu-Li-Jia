@@ -106,7 +106,7 @@ public class ActionShoot{
         return shootable;
     }
 // after click shoot, all the target will add damage / mark on their killshoottrack
-    public void dealBasicDamageToTarget(Player shooter, ArrayList<Player> target, WeaponCard weaponCard) {
+    protected void dealBasicDamageToTarget(Player shooter, ArrayList<Player> target, WeaponCard weaponCard) {
         boolean shoot = false;
         int i = 0;
         if (weaponCard.getCardName() == "FURANCE") {
@@ -296,18 +296,18 @@ public class ActionShoot{
         return done;
     }
 
-    public ArrayList<Player> getTargetsYouCanSee(Player shooter){
+    protected ArrayList<Player> getTargetsYouCanSee(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getAllVisibleCells(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
 
-    public ArrayList<Player> getVortexTarget(Player shooter){
+    private ArrayList<Player> getVortexTarget(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getVisibleCellsWithoutYourCell(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
-    public ArrayList<Player> getTargetsFromRoomYouCanSeeButNotYouAreIn(Player shooter){
+    protected ArrayList<Player> getTargetsFromRoomYouCanSeeButNotYouAreIn(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         int cellIndex = 0;
         int playerIndex = 0;
@@ -323,29 +323,29 @@ public class ActionShoot{
         }
         return getTargetFromCell(cellOfTargets);
     }
-    public ArrayList<Player> getTargetVisibleTwoCellsAway(Player shooter){
+    protected ArrayList<Player> getTargetVisibleTwoCellsAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getVisibleTwoAwayCells(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
     //get targets from visible cells but at least one cell away
-    public ArrayList<Player> getTargetVisibleOneCellAway(Player shooter){
+    protected ArrayList<Player> getTargetVisibleOneCellAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getVisibleCellsWithoutYourCell(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
     //hget targets from one move away cell
-    public ArrayList<Player> getTargetOneCellAway(Player shooter){
+    protected ArrayList<Player> getTargetOneCellAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getAvailableOneWalkCell(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
-    public ArrayList<Player> getTargetInYourCell(Player shooter){
+    protected ArrayList<Player> getTargetInYourCell(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets.add(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
-    public ArrayList<Player> getTargetCardinal(Player shooter){
+    protected ArrayList<Player> getTargetCardinal(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         Player shooter1 = shooter;
         int i = 0;
@@ -369,12 +369,12 @@ public class ActionShoot{
         return  targetsInVision;
     }
 
-    public void dealDamageMarkToTarget(Player shooter, int damage, int mark, Player target){
+    protected void dealDamageMarkToTarget(Player shooter, int damage, int mark, Player target){
         target.getKillShootTrack().beAttacked(shooter, damage, mark);
     }
 
 
-    public boolean payAmmoForAtherMode(Player shooter, AmmoColor color){
+    protected boolean payAmmoForAtherMode(Player shooter, AmmoColor color){
         boolean available = false;
         switch (color){
             case RED: if(shooter.getAmmoOwned()[0]>0){
@@ -392,7 +392,7 @@ public class ActionShoot{
         }
         return available;
     }
-    public boolean payAmmoForAtherModeWithNum(Player shooter, AmmoColor color, int num){
+    protected boolean payAmmoForAtherModeWithNum(Player shooter, AmmoColor color, int num){
         boolean available = false;
         switch (color){
             case RED: if(shooter.getAmmoOwned()[0]> num-1){
@@ -473,7 +473,7 @@ public class ActionShoot{
         // catch cannotMoveException;
     }
 
-    public void dealDamageToEveryoneInCell(Player shooter, int damage, int mark, Player target){
+    protected void dealDamageToEveryoneInCell(Player shooter, int damage, int mark, Player target){
         ArrayList<Player> targets = new ArrayList<>();
         targets.addAll(target.getCurrentCell().getCellPlayers());
         int i = 0;
@@ -481,7 +481,7 @@ public class ActionShoot{
             dealDamageMarkToTarget(shooter, damage, mark, targets.get(i));
         }
     }
-    public void dealDamageToAllPlayerOneMoveAway(Player shooter, int damage, int mark){
+    protected void dealDamageToAllPlayerOneMoveAway(Player shooter, int damage, int mark){
         ArrayList<Player> targets = new ArrayList<>();
         int direction = 0;
         while(direction < 4){

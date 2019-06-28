@@ -10,6 +10,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+import javafx.scene.SnapshotParametersBuilder;
 
 public class Player extends PlayerStatus {
 //    private String userName;
@@ -44,6 +45,21 @@ public class Player extends PlayerStatus {
         this.getCurrentCell().removePlayer(this);
         this.currentCell = cell;
         cell.addPlayer(this);
+    }
+    public void setEnterCellByColor(String color) {
+        Color c = Color.RED; // just for initialize;
+        switch (color) {
+            case "red":
+                c = Color.RED;
+                break;
+            case "yellow":
+                c = Color.YELLOW;
+                break;
+            case "blue":
+                c = Color.BLUE;
+                break;
+        }
+        currentCell = board.getMap().getGenerationCellByColor(c);
     }
 
     public String getPlayerID() {
@@ -163,15 +179,19 @@ public class Player extends PlayerStatus {
 //            ammoOwned[index]++;
 //        }
     }
+
     public void addPowerupCard(PowerupCard powerupCard) throws InvalidGrabException{
         powerupsOwned.add(powerupCard);
         if(powerupsOwned.size() > 3) {
             while(powerupsOwned.size() > 3){
                 powerupsOwned.remove(powerupsOwned.size()-1);
             }
-            throw new InvalidGrabException(); // 最多三张powerup
-
+            throw new InvalidGrabException("powerup"); // 最多三张powerup
         }
+    }
+
+    public void addPowerupCard(){
+        powerupsOwned.add(getPlayBoard().extractPowerupcard());
     }
     public void addWeaponCard(WeaponCard weaponCard) throws InvalidGrabException{
         weaponsOwned.put(weaponCard, true);
@@ -179,7 +199,7 @@ public class Player extends PlayerStatus {
             while (weaponsOwned.size() > 3){
                 weaponsOwned.remove(weaponsOwned.size()-1);
             }
-            throw new InvalidGrabException();
+            throw new InvalidGrabException("weapon");
         }
     }
 
@@ -253,6 +273,22 @@ public class Player extends PlayerStatus {
     }
     public void dropWeapon(WeaponCard weaponCard){
         weaponsOwned.remove(weaponCard);
+    }
+
+    public WeaponCard getWeaponFromName(String weaponName){
+        for(WeaponCard w : weaponsOwned.keySet()){
+            if(w.getCardName() == weaponName){
+                return w;
+            }
+            else continue;
+        }
+        return null;
+    }
+    public PowerupCard getPowerupFromName(String powerupName){
+        for(PowerupCard p : powerupsOwned){
+            if(p.getCardName() == powerupName) return p;
+        }
+        return null;
     }
 
     public PlayerStatus getPlayerStatus(){

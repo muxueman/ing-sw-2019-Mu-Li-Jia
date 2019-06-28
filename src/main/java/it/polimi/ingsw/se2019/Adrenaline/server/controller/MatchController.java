@@ -166,6 +166,7 @@ public class MatchController {
     public void addPlayersToBoard(Board playBoard){
         for(ClientInterface key : players.keySet()){
             playBoard.addPlayers(players.get(key));
+            players.get(key).setPlayBoard(playBoard);
             try{
                 players.get(key).addPowerupCard(playBoard.extractPowerupcard());
                 players.get(key).addPowerupCard(playBoard.extractPowerupcard());

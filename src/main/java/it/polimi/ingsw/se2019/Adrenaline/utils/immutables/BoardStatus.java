@@ -23,9 +23,7 @@ public class BoardStatus implements Status {
     protected ArrayList<Player> allPlayers;
     protected Map map;
     private List<PlayerStatus> players;  //目前没用
-    protected PowerupCardDeck powerupCardDeck;
-    protected WeaponCardDeck weaponCardDeck;
-    protected AmmotileCardDeck ammotileCardDeck;
+
 //    protected TurnHandler turnHandler;
     //记录第几次的射杀
 
@@ -39,9 +37,6 @@ public class BoardStatus implements Status {
         numKillShoot = skull;
         killTurn = 0;
         firenzyTriggerd = false;
-        powerupCardDeck = new PowerupCardDeck();
-        weaponCardDeck = new WeaponCardDeck();
-        ammotileCardDeck = new AmmotileCardDeck();
     }
 
     //construct a board with all players
@@ -62,9 +57,7 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         players = new ArrayList<>();
-        powerupCardDeck = new PowerupCardDeck();
-        ammotileCardDeck = new AmmotileCardDeck();
-        weaponCardDeck = new WeaponCardDeck();
+
     }
 
 

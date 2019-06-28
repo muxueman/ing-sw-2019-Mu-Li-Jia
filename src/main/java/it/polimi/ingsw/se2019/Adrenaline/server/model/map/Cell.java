@@ -3,6 +3,8 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.CellStatus;
 
 import java.util.ArrayList;
@@ -102,5 +104,14 @@ public abstract class Cell extends CellStatus {
             default:
                 return null; //better solution??? not regular
         }
+    }
+    public AmmotileCard getAmmotileCard(){
+        return null;
+    }
+    public WeaponCard[] getWeaponCard(){
+        return null;
+    }
+    public WeaponCard getWeaponCard(int cardPosition) {
+        return null;
     }
 }

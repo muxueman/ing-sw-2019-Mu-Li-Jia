@@ -7,6 +7,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
@@ -19,6 +20,9 @@ public class Board extends BoardStatus{
 //    private Map map;
     private int firstPlayer;
     private ArrayList<Cell> pickedCell;
+    protected PowerupCardDeck powerupCardDeck;
+    protected WeaponCardDeck weaponCardDeck;
+    protected AmmotileCardDeck ammotileCardDeck;
     // constructor
 
     //overload only for test
@@ -29,6 +33,9 @@ public class Board extends BoardStatus{
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();
         firstPlayer = 0;
+        powerupCardDeck = new PowerupCardDeck();
+        weaponCardDeck = new WeaponCardDeck();
+        ammotileCardDeck = new AmmotileCardDeck();
     }
     public Board(ArrayList<Player> allPlayers){
         super(allPlayers);
@@ -44,6 +51,9 @@ public class Board extends BoardStatus{
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();
         firstPlayer = 0;
+        powerupCardDeck = new PowerupCardDeck();
+        ammotileCardDeck = new AmmotileCardDeck();
+        weaponCardDeck = new WeaponCardDeck();
         initialCardsOnBoard();
     }
     public void setMap(Map map) {
@@ -244,6 +254,14 @@ public class Board extends BoardStatus{
         return ammotileCard;
     }
 
+    public Player getNameFromPlayer(String playerName) throws InvalidNameException {
+        for(Player p : allPlayers){
+            if(p.getUsername() == playerName){
+                return p;
+            }
+        }
+        throw new InvalidNameException();
+    }
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 

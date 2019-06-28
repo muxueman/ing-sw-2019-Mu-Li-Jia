@@ -7,7 +7,7 @@ import org.junit.Test;
 
 
 public class WeaponCardTest {
-
+    WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
     WeaponCard weaponCard = new WeaponCard();
 
     @Before
@@ -119,8 +119,12 @@ public class WeaponCardTest {
     @Test
     public void readWeaponCardTest() {
 
-      //  WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
+        WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
       //  System.out.println(weaponCardDeck.toString());
 
+    }
+    @Test
+    public void testWeapondeck(){
+        System.out.println(weaponCardDeck.weaponCards.get(0));
     }
 }

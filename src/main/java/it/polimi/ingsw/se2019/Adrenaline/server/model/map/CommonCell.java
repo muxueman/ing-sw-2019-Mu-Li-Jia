@@ -16,6 +16,7 @@ public class CommonCell extends Cell {
         this.type = 0;
         ammotileInCell = new AmmotileCard();
     }
+    @Override
     public AmmotileCard getAmmotileCard(){
         return ammotileInCell;
     }
