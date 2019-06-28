@@ -27,6 +27,8 @@ public class TestPlayBoard {
         testBoard.addPlayers(testShooter);
         testBoard.addPlayers(testPlayer);
         testBoard.addPlayers(testPlayer2);
+        System.out.println("currenttest"+testBoard.getCurrentPlayer());
+
         testBoard.setAllPlayerColor();
         testBoard.setCurrentPlayer(testShooter);
         testBoard.turnNextPlayer();

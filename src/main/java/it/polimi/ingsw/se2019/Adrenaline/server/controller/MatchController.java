@@ -176,7 +176,7 @@ public class MatchController {
         }
         playBoard.setAllPlayerColor();
         Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序
-        TurnHandler turnHandler = new TurnHandler(playBoard);
+        TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
         playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
     }
     public int getSelectedKill(){return this.selectedKill;}

@@ -9,6 +9,8 @@ import org.fusesource.jansi.Ansi;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 public class BoardStatus implements Status {
 
     protected int[] numDamageOnSkullBoard;
@@ -140,6 +142,10 @@ public class BoardStatus implements Status {
     public String toString(){
         return "map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd
                 + "\n" + "allplayer:" + players.get(0).toString();
+    }
+    @Override
+    public Ansi toAnsi(){
+        return ansi().a("map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
     }
     public int[] getNumDamageOnSkullBoard() {
         return numDamageOnSkullBoard;

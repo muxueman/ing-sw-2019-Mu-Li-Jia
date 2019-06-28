@@ -11,11 +11,21 @@ public class PowerupCard {
     private int[] damageDeal;
     private String effect;
     private String note;
+    private String Color;
 
     public String getCardName(){
 
         return cardName;
     }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String color) {
+        Color = color;
+    }
+
     public void setCardName(String cardName){
 
         this.cardName = cardName;
