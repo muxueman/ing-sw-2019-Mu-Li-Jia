@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
@@ -59,6 +61,27 @@ public class AlertBoxController extends GUIController {
     private ChoiceBox<String> choiceBox;
     @FXML
     private Button newGameButton;
+    @FXML
+    private Button mapAbutton;
+    @FXML
+    private Button mapBbutton;
+    @FXML
+    private Button mapCbutton;
+    @FXML
+    private Button mapDbutton;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private TextArea textkillshootnum;
+    @FXML
+    private ImageView mapA;
+    @FXML
+    private ImageView mapB;
+    @FXML
+    private ImageView mapC;
+    @FXML
+    private ImageView mapD;
+
 
 
 
@@ -183,6 +206,24 @@ public class AlertBoxController extends GUIController {
         fifthScore.setText(Integer.toString(player.getMyScore()));
         fifthScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
     }
+
+    public void setMapA(EventHandler<MouseEvent> value) {
+        mapA.setOnMouseClicked(value);
+    }
+
+    public void setMapB(EventHandler<MouseEvent> value) {
+        mapB.setOnMouseClicked(value);
+    }
+
+    public void setMapC(EventHandler<MouseEvent> value) {
+        mapC.setOnMouseClicked(value);
+    }
+
+    public void setMapD(EventHandler<MouseEvent> value) {
+        mapD.setOnMouseClicked(value);
+    }
+
+
 
 
 

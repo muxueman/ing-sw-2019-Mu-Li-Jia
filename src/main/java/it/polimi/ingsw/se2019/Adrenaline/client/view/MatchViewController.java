@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,7 +69,7 @@ public class MatchViewController extends GUIController{
     private Button closeButton;
 
     private boolean next;
-    private static final String gameMap = "/fxml/gameMap.fxml";
+    public static final String gameMap = "/fxml/gameMap.fxml";
 
 
     @FXML
@@ -126,16 +127,37 @@ public class MatchViewController extends GUIController{
     }
 
 
-//    @Override
-//    public void guiValue() {
-//        Platform.runLater(() -> ChoiceMapController.displaychioceMap(this));
-//    }
-
-
-
-    public void setMap(){
+    @Override
+    public void guiValue() {
+        Platform.runLater(() -> AlertBox.choiceMap(this));
 
     }
+
+    
+    @Override
+    public void update(ModelUpdate message) {
+        boardStatus = message.getBoardStatus();
+        if (boardStatus!= null) {
+            Platform.runLater( () -> {
+//                setDraftPoolSpace(boardStatus.getDraftPool(), draftPoolSpace);
+//                setRoundTrackSpace(boardStatus.getRoundTrack(), roundTrackSpace);
+//                setToolCards(boardStatus.getToolCards());
+//                setTable(boardStatus);
+//                setActualPlayer(boardStatus);
+//                setAdditional(boardStatus.getAdditional());
+//                textArea.setText("Token to reconnect: " + boardStatus.getReconnectionToken());
+            });
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Platform.runLater(() -> {
+            textMessege.setText(message.split("\n")[0]);
+        });
+    }
+
+
 
 
 
