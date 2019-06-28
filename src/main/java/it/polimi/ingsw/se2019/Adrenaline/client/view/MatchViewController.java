@@ -1,40 +1,23 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
-import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class MatchViewController extends GUIController{
 
     @FXML
     private AnchorPane root;
-    @FXML
-    private ImageView background;
-    @FXML
-    private ImageView map;
     @FXML
     private GridPane weaponR;
     @FXML
@@ -85,6 +68,8 @@ public class MatchViewController extends GUIController{
     private Button closeButton;
 
     private boolean next;
+    private static final String gameMap = "/fxml/gameMap.fxml";
+
 
     @FXML
     public void initialize() {
@@ -105,9 +90,9 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML
-    private void newView(MatchViewController matchViewController) {
+   public static void newView(GUIController guiController) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/gameMap.fxml"));
+            FXMLLoader loader = new FXMLLoader(MatchViewController.class.getResource(gameMap));
             Stage window = new Stage();
             Parent newRoot = loader.load();
             Scene initialScene = new Scene(newRoot);
@@ -125,7 +110,7 @@ public class MatchViewController extends GUIController{
 
     public void showPlayer() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/playerBoard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
 
@@ -141,10 +126,12 @@ public class MatchViewController extends GUIController{
     }
 
 
-    @Override
-    public void guiValue() {
-        Platform.runLater(() -> ChoiceMapController.displaychioceMap(this));
-    }
+//    @Override
+//    public void guiValue() {
+//        Platform.runLater(() -> ChoiceMapController.displaychioceMap(this));
+//    }
+
+
 
     public void setMap(){
 

@@ -29,7 +29,7 @@ public class GUIView extends View{
 
 
 
-
+    @Override
     protected void notify(String message) {
         super.notify(message);
     }

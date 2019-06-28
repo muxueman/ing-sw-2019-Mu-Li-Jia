@@ -165,7 +165,7 @@ public class InitialViewController extends GUIController {
             Platform.runLater( () -> {
 
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/choiceMap.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceMap.fxml"));
                     Parent secondView = loader.load();
                     Scene newScene = new Scene(secondView);
                     Stage stage = (Stage) root.getScene().getWindow();

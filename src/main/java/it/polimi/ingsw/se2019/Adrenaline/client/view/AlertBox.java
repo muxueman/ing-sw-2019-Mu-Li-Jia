@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class AlertBox extends GUIController {
 
-    private static final String REQUEST_ALERT = "/alertBox/requestAlert.fxml";
+    private static final String REQUEST_ALERT = "/fxml/requestAlert.fxml";
     private boolean next;
 
     private AlertBox() {
@@ -90,7 +90,7 @@ public class AlertBox extends GUIController {
     public static void displaySettings() {
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/alertBox/choicePlayer.fxml"));
+            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/fxml/choicePlayer.fxml"));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             AlertBoxController controller = loader.getController();
@@ -111,7 +111,7 @@ public class AlertBox extends GUIController {
     public static void displayEndGame(GUIController guiController, AnchorPane anchorPane, Player score, String username) {
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/alertBox/endGameAlert.fxml"));
+            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/fxml/endGameAlert.fxml"));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             AlertBoxController controller = loader.getController();

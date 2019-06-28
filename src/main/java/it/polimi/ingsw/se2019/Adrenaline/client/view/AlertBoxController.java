@@ -3,7 +3,6 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
@@ -93,7 +89,7 @@ public class AlertBoxController extends GUIController {
             secondStage.close();
             Platform.runLater(() -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/initialView.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/initialView.fxml"));
                     Stage primaryStage = new Stage();
                     Parent newRoot = loader.load();
                     primaryStage.setTitle("Adrenalina");

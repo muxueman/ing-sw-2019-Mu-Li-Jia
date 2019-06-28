@@ -39,7 +39,7 @@ public class ClientGui extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/initialView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/initialView.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Adrenalina");
         Scene initialScene = new Scene(root);
