@@ -41,7 +41,7 @@ public class MapB extends Map{
         allCells.add(cell3);
         BLUECells.add(cell3);
 
-        Cell cell4 = null;
+        Cell cell4 = new CommonCell(4);
         allCells.add(cell4);
 
         Cell cell5 = new GenerationCell(5);

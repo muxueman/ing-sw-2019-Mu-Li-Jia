@@ -49,7 +49,7 @@ public class BoardStatus implements Status {
         reconnectionToken = "";
         this.map = map;
         allPlayers = new ArrayList<>();
-
+        players = new ArrayList<>();
     }
     //constructor
     public BoardStatus(){
@@ -61,7 +61,7 @@ public class BoardStatus implements Status {
         reconnectionToken = "";
         this.map = map;
         allPlayers = new ArrayList<>();
-
+        players = new ArrayList<>();
     }
     public void setMap(Map map){
         this.map = map;
@@ -149,8 +149,9 @@ public class BoardStatus implements Status {
     }
     @Override
     public String toString(){
-        return "map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd
-                + "\n" + "allplayer:" + players.get(0).toString();
+//        return "map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd;
+//                + "\n" + "allplayer:" + players.get(0).toString();
+        return "board";
     }
     @Override
     public Ansi toAnsi(){

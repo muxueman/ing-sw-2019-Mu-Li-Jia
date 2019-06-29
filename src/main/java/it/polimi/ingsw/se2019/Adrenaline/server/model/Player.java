@@ -17,6 +17,7 @@ public class Player extends PlayerStatus {
 //    private Cell currentCell;
 //    private String playerID;
     private PlayerBoard killShootTrack;
+    private WeaponCard weaponInUse;
 
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
@@ -163,9 +164,9 @@ public class Player extends PlayerStatus {
             case BLUE: ammoOwned[1]--; index = 1; break;
             case YELLOW: ammoOwned[2]--; index = 2; break;
         }
-//        while(ammoOwned[index] <0) {
-//            ammoOwned[index]++;
-//        }
+        while(ammoOwned[index] <0) {
+            ammoOwned[index]++;
+        }
     }
     //overload
     public void consumeAmmo(AmmoColor ammoColor, int num){
@@ -250,6 +251,29 @@ public class Player extends PlayerStatus {
         }
         return availableWeapons;
     }
+
+
+    public void useWeapon(String weaponName){
+        for(WeaponCard weaponCard : weaponsOwned.keySet()){
+            if(weaponCard.getCardName() == weaponName){
+                weaponsOwned.put(weaponCard, false);
+                weaponInUse = weaponCard;
+            }
+        }
+    }
+    public void useWeapon(WeaponCard weapon){
+        for(WeaponCard weaponCard : weaponsOwned.keySet()){
+            if(weapon == weaponCard) {
+                weaponsOwned.put(weaponCard, false);
+                weaponInUse = weaponCard;
+            }
+        }
+    }
+
+    public WeaponCard getWeaponInUse() {
+        return weaponInUse;
+    }
+
     public boolean reloadWeapon(WeaponCard weaponCard){
         int[] ammoCost = weaponCard.getBasicammoCost();
         int i = 0;
