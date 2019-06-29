@@ -1,7 +1,7 @@
 {"powerupCardDeck" :
 [
   {
-    "cardName": "TARGETINE SCOPE",
+    "cardName": "TARGETINE SCOPE RED",
     "image": "/weapons/AD_powerups_IT_.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
@@ -10,7 +10,7 @@
     "Color": "red"
   },
   {
-    "cardName": "TARGETINE SCOPE",
+    "cardName": "TARGETINE SCOPE YELLOW",
     "image": "/weapons/AD_powerups_IT_.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
@@ -19,7 +19,7 @@
     "Color": "yellow"
   },
   {
-    "cardName": "TARGETINE SCOPE",
+    "cardName": "TARGETINE SCOPE BLUE",
     "image": "/weapons/AD_powerups_IT_.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
@@ -28,7 +28,7 @@
     "Color": "blue"
   },
   {
-    "cardName": "NEWTON",
+    "cardName": "NEWTON RED",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -36,7 +36,7 @@
     "Color": "red"
   },
   {
-    "cardName": "NEWTON",
+    "cardName": "NEWTON YELLOW",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -44,7 +44,7 @@
     "Color": "yellow"
   },
   {
-    "cardName": "NEWTON",
+    "cardName": "NEWTON BLUE",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -52,7 +52,7 @@
     "Color": "blue"
   },
   {
-    "cardName": "TAGBACK GRENADE",
+    "cardName": "TAGBACK GRENADE RED",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -60,7 +60,7 @@
     "Color": "red"
   },
   {
-    "cardName": "TAGBACK GRENADE",
+    "cardName": "TAGBACK GRENADE YELLOW",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -68,7 +68,7 @@
     "Color": "yellow"
   },
   {
-    "cardName": "TAGBACK GRENADE",
+    "cardName": "TAGBACK GRENADE BLUE",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -76,7 +76,7 @@
     "Color": "blue"
   },
   {
-    "cardName": "TELEPORTER",
+    "cardName": "TELEPORTER RED",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
@@ -84,7 +84,7 @@
     "Color": "red"
   },
   {
-    "cardName": "TELEPORTER",
+    "cardName": "TELEPORTER YELLOW",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
@@ -92,7 +92,7 @@
     "Color": "yellow"
   },
   {
-    "cardName": "TELEPORTER",
+    "cardName": "TELEPORTER BLUE",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",

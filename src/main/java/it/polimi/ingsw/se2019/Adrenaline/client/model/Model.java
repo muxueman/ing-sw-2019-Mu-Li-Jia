@@ -4,6 +4,8 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.TokenStatus;
 
@@ -40,17 +42,15 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
     }
 
 
-    @Override
-    public void updateMap(Map selectedMap) {
-        nextUpdate.addStatusUpdate(boardStatus);
-    }
+
     @Override
     public void updatePlayboard(BoardStatus boardStatus){
-
+        nextUpdate.addStatusUpdate(boardStatus);
     };
 
     @Override
     public void updatePlayer(PlayerStatus playerStatus){
+        nextUpdate.addStatusUpdate(playerStatus);
 
     };
 
