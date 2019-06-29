@@ -40,21 +40,27 @@ public class WaitingResponseState extends ControllerState{
                 nextState = new NonPlayingState(clientController);
                 Logger.getGlobal().info("next state: nonplaying state");
                 return super.updateStatus(serverMessage);
+            case("FIGURE"):
+                String figureColor = String.valueOf(serverMessage.getSubParameter());
+                String messageColor = "your color of figure " + figureColor;
+                clientController.sendMessage(messageColor);
+                return this;
             case("CHOOSEMAP"):
                 String finalMap = String.valueOf(serverMessage.getParm());
                 String messageMap = "the map of this match: " + finalMap;
                 clientController.sendMessage(messageMap);
-                return nextState(false,true).initState();
+                return nextState(false,true);
             case("CHOOSEKILL"):
                 String finalKill = String.valueOf(serverMessage.getParm());
                 String messageKill = "the kill number of this match: " + finalKill;
                 clientController.sendMessage(messageKill);
-                return new SpawnLocationState(clientController);
+                return (new SpawnLocationState(clientController)).initState();
 //                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
 
                 default:
+
                     return nextState(false,true);
-                    //return this;
+
         }
     }
     @Override

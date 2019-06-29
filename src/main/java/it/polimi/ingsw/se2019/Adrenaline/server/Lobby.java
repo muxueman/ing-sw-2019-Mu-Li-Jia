@@ -60,6 +60,7 @@ public class Lobby {
         clientInterfaces.put(controller, client);
     }
 
+    //connect client with username/token to lobby
     public boolean connect(ServerController serverController, ClientInterface client, String token) throws RemoteException {
         if (token.length() == 73) {
             String[] ids = token.split("_");
@@ -101,6 +102,8 @@ public class Lobby {
         usernames.remove(clientInterface);
     }
 
+    //***************************************** start match time part ***********************************
+
     //另一个线程，等待用户连接游戏，3人游戏开始，否则 2 人 ，需要改进
     private class Queue extends Thread {
 
@@ -135,7 +138,7 @@ public class Lobby {
             }
         }
 
-        //计时1000秒
+        //计时1000秒,等待1000 否则就直接开始start match
         private void startTimer() {
             timer.scheduleAtFixedRate(new StartGameTask(seconds), 0, 1000);
         }
@@ -158,6 +161,13 @@ public class Lobby {
         private StartGameTask(int seconds) { this.seconds = seconds; }
     }
 
+    private void closeTimer() {
+        timer.cancel();
+        timer = new Timer();
+        queue.resetTimer();
+    }
+
+    //***************************************** start match time part end ***********************************
 
     //entry set 返回此映射中包含的映射关系的 Set 视图。
     private synchronized void startMatch() {
@@ -179,10 +189,13 @@ public class Lobby {
                 playingClients.add(client);
             }
         }
+        //如果已经成功加入到一个match，则从这里删除以便重新计算 queue
         for (ClientInterface c : playingClients) {
             remove(c);
         }
         currentMatch.startWhenReady();
+
+        //为下一个桌面做准备
         createMatch();
         closeTimer();
     }
@@ -194,9 +207,5 @@ public class Lobby {
     }
 
 
-    private void closeTimer() {
-        timer.cancel();
-        timer = new Timer();
-        queue.resetTimer();
-    }
+
 }

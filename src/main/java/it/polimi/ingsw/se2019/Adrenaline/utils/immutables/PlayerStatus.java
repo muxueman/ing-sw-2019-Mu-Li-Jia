@@ -28,12 +28,29 @@ public class PlayerStatus implements Status{
     protected int actionMode;
     protected boolean alive;
     protected Board board;
+    protected int favorTokens;
 
 
 
-    public PlayerStatus(String username) {
-        playerID = username;
+    public PlayerStatus(String playerID) {
+        this.playerID = playerID;//改动
+        this.username = null;
+        this.killShootTrack = new PlayerBoard(this);
+        ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
+        weaponsOwned = new HashMap<>();
+        powerupsOwned = new ArrayList<>();
+        actionMode = 0;
+        myScore = 0;
+        alive = true;
+        favorTokens = 0;
+        //初始化所有的玩家,放入allPlayer
+    }
+
+
+    public PlayerStatus(String playerID,String username, int favorTokens) {
+        this.playerID = playerID;
         this.username = username;
+        this.favorTokens = favorTokens;
         this.killShootTrack = new PlayerBoard(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
@@ -43,6 +60,8 @@ public class PlayerStatus implements Status{
         alive = true;
         //初始化所有的玩家,放入allPlayer
     }
+
+
 //    public PlayerStatus(String username, )
 
     //不知道用法

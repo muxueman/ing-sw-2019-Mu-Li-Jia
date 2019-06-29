@@ -20,6 +20,7 @@ public class PlayerSetupState implements GameServerInterface {
         Logger.getGlobal().log(Level.INFO,"player set up state....");
     }
 
+    //update the "username" from client message
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
 
         if (lobby.connect(serverController, client, message.getTextMove())) {

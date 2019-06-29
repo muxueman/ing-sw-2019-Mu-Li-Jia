@@ -1,12 +1,18 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller;
 
+/**
+ * The MatchController deals with a specific match
+ * @author Xueman Mu
+ */
+
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.updates.MapUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PlayerStatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.TokenUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
@@ -81,8 +87,10 @@ public class MatchController {
         return !notReady;
     }
 
+    //************************************* initial part ****************************************
+
     //add the player to the match
-    public synchronized void addClient(ClientInterface client, ServerController controller) {
+    public synchronized void addClient(ClientInterface client, ServerController controller){
         if (isNotFull()) {
             //shuffle the colors
             Collections.shuffle(colors);
@@ -94,6 +102,8 @@ public class MatchController {
             controllers.put(player, controller);
             clients.put(player, client);
             figures.put(client, color);
+//            ServerMessage serverMessage = new ServerMessage(false,"FIGURE", color.toString());
+//            client.updateStatus(serverMessage);
         }
     }
 
@@ -102,7 +112,48 @@ public class MatchController {
                 .anyMatch(un -> un != null && un.equals(username));
         if (!taken) {
             players.get(client).setUserName(username);
-            Logger.getGlobal().log(Level.INFO,"New player: {0}", username);
+        }
+    }
+
+    // start match
+    public void startWhenReady() {
+        (new MatchStarter()).start();
+    }
+
+    private class MatchStarter extends Thread {
+
+        private boolean active = true;
+        @Override
+        public void run() {
+            while (active) {
+                if (isReady()) {
+                    startMatch();
+                    active = false;
+                }
+            }
+        }
+    }
+
+    //输入用户名之后从这里开始一个match,并且update player->clientController.updateStatus(server Message)
+    private synchronized void startMatch() {
+        //如果开始的人数少于三人
+        if (players.size() < 2) {
+            endGame(true);
+            return;
+        }
+        if (turnHandler == null) {
+            started = true;
+            List<Player> definitivePlayers = new ArrayList<>();
+            players.forEach((client, player) -> definitivePlayers.add(player));
+            turnHandler = new TurnHandler(definitivePlayers);
+            //  refreshDraftPool();
+            currentPlayer = turnHandler.getCurrentPlayer();
+            //refreshControllerStates();
+            //client: from waiting state to next state map select
+            updateAll(new PlayMessage());
+            updateCurrentPlayer(new PlayMessage());
+            closeTimer();
+            startTimer();
         }
     }
 
@@ -126,16 +177,13 @@ public class MatchController {
                     }
                 }
             }
-            if (selectedMap != null){
-                Logger.getGlobal().log(Level.INFO,"chose the map : {0} ", selectedMap);
+            if (selectedMapInt != 0 ){
+                Logger.getGlobal().log(Level.INFO,"chose the map : {0} ", selectedMapInt);
                 for (ClientInterface c : clients.values()){
-                    chooseMapEach(c, selectedMap);
+                    chooseMapEach(c);
                 }
             }
         }
-    }
-    public it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map getSelectedMap(){
-        return this.selectedMap;
     }
 
     public void chooseKill(int selectKill) throws RemoteException{
@@ -152,17 +200,23 @@ public class MatchController {
                 }
             }
             Logger.getGlobal().log(Level.INFO,"chose the kill number: {0} ", selectedKill);
-            playBoard = new Board(selectedMap);  // new board is created
-            playBoard.setNumKillShoot(selectedKill); //selected numkillshoot is set
-            addPlayersToBoard(playBoard);// add all players on the board, incluing giving each player color and two powerup card
-            System.out.println(playBoard.toString() + "curretplay:" + playBoard.getCurrentPlayer());
-            Logger.getGlobal().log(Level.INFO,"board is initialized ");
+
             for (ClientInterface c : clients.values()){
                 chooseKillEach(c);
+                initPlayer(c);
             }
+            initPlayBoard();
         }
     }
 
+    //initial playBoard with map, Numkill, players
+    protected void initPlayBoard(){
+        playBoard = new Board(selectedMap);
+        playBoard.setNumKillShoot(selectedKill);
+        addPlayersToBoard(playBoard);
+    }
+
+    // add all players on the board, including giving each player color and two powerUp card
     public void addPlayersToBoard(Board playBoard){
         for(ClientInterface key : players.keySet()){
             playBoard.addPlayers(players.get(key));
@@ -172,7 +226,7 @@ public class MatchController {
                 players.get(key).addPowerupCard(playBoard.extractPowerupcard());
             }
             catch (InvalidGrabException e){
-                Logger.getGlobal().warning("Invalid Grab ");
+                Logger.getGlobal().warning("Invalid Powerup Grab ");
             };
         }
         playBoard.setAllPlayerColor();
@@ -180,18 +234,15 @@ public class MatchController {
         TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
         playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
     }
-    public int getSelectedKill(){return this.selectedKill;}
 
-    protected void chooseMapEach(ClientInterface client, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) throws RemoteException{
-        //Player player = players.get(client);
-        //playBoard.setMap(map);
+    //send map result ot each client
+    protected void chooseMapEach(ClientInterface client) throws RemoteException{
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEMAP",selectedMapInt);
         client.updateStatus(serverMessage);
     }
 
+    //send kill result to each client
     protected void chooseKillEach(ClientInterface client) throws RemoteException {
-//        Player player = players.get(client);
-//        playBoard.setNumKillShoot(selectedKill);
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEKILL",selectedKill);
         client.updateStatus(serverMessage);
     }
@@ -212,33 +263,13 @@ public class MatchController {
         return num;
     }
 
-    public void startWhenReady() {
-        Logger.getGlobal().log(Level.INFO,"ready to start a match ");
-        (new MatchStarter()).start();
-    }
-
-    private class MatchStarter extends Thread {
-
-        private boolean active = true;
-
-        @Override
-        public void run() {
-            while (active) {
-                if (isReady()) {
-                    startMatch();
-                    active = false;
-                }
-            }
-        }
-    }
-
-
     synchronized void initPlayer(ClientInterface client) {
-        Logger.getGlobal().log(Level.INFO,"ready to init a player ");
         Player player = players.get(client);
+        Color playerColor = figures.get(client);
+        Logger.getGlobal().log(Level.INFO,"init a player{0}",player.getPlayerID());
         String reconnectionToken = matchID + "_" + player.getPlayerID();
         ServerMessage serverMessage = new ServerMessage(false, "This is your map :");
-//        serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
+        serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
 //        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(player.getPrivateObjectiveCard()));
 //        serverMessage.addStatusUpdate(new PublicObjectiveUpdate(publicObjectiveCards));
 //        List<ToolCardStatus> toolCardStatuses = new ArrayList<>();
@@ -248,7 +279,7 @@ public class MatchController {
 //        serverMessage.addStatusUpdate(new ToolCardsUpdate(toolCardStatuses));
 //        serverMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
 //        serverMessage.addStatusUpdate(new RoundTrackUpdate(roundTrack.getStatus()));
-//        serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
+        serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
         updateClient(client, serverMessage);
         List<Player> readyPlayers = new ArrayList<>();
         players.values().forEach(p -> {
@@ -259,34 +290,13 @@ public class MatchController {
         if (!readyPlayers.isEmpty()) {
             ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
             for (Player p : readyPlayers) {
-                //opponentsMessage.addStatusUpdate(new PlayerStatusUpdate());
+                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
             }
             updateClient(client, opponentsMessage);
         }
     }
 
-    //输入用户名之后从这里开始一个match,并且update player->clientController.updateStatus(server Message)
-    private synchronized void startMatch() {
-        //如果开始的人数少于三人
-        Logger.getGlobal().log(Level.INFO,"start a match for match controller");
-        if (players.size() < 3) {
-            endGame(true);
-            return;
-        }
-        if (turnHandler == null) {
-            started = true;
-            List<Player> definitivePlayers = new ArrayList<>();
-            players.forEach((client, player) -> definitivePlayers.add(player));
-            turnHandler = new TurnHandler(definitivePlayers);
-//            refreshDraftPool();
-            currentPlayer = turnHandler.getCurrentPlayer();
-            //refreshControllerStates();
-            updateAll(new PlayMessage());
-            updateCurrentPlayer(new PlayMessage());
-            closeTimer();
-            startTimer();
-        }
-    }
+
 
     //change state between playing state and non playing state
     private synchronized void refreshControllerStates() {
@@ -308,7 +318,6 @@ public class MatchController {
         //refreshDraftPool();
         //}
     }
-
 
     private void endGame(boolean lessPlayer) {
         ErrorMessage endGameMessage = new ErrorMessage("ENDGAME");
@@ -370,13 +379,11 @@ public class MatchController {
         timer = new Timer();
     }
     private void updateAll(ServerMessage serverMessage) {
-        Logger.getGlobal().log(Level.INFO,"updateAll {0} ", serverMessage);
         for (ClientInterface client : clients.values()) {
             updateClient(client, serverMessage);
         }
     }
     private void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {
-        Logger.getGlobal().log(Level.INFO,"updateAll {0} with Bifunction ", serverMessage);
         for (Map.Entry<Player, ClientInterface> entry : clients.entrySet()) {
             Player player = entry.getKey();
             ClientInterface client = entry.getValue();
@@ -385,7 +392,6 @@ public class MatchController {
             }
         }
     }
-
 
     //update client from the server part
     private void updateClient(ClientInterface client, ServerMessage serverMessage) {
@@ -422,9 +428,9 @@ public class MatchController {
     }
 
     synchronized void nextTurn() {
-//        try {
-//            ServerMessage serverMessage = new PlayMessage();
-//            UpdateMessage updateMessage = new UpdateMessage(currentPlayer.getUsername() + " passed the turn.");
+        try {
+            ServerMessage serverMessage = new PlayMessage();
+            UpdateMessage updateMessage = new UpdateMessage(currentPlayer.getUsername() + " passed the turn.");
 //            Die chosenDie = currentPlayer.resetMoves();
 //            draftPool.returnDie(chosenDie);
 //            if (chosenDie != null) {
@@ -433,25 +439,24 @@ public class MatchController {
 //                serverMessage.setMessage("You put back the chosen die.");
 //                updateMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
 //            }
-//            updateCurrentPlayer(serverMessage);
-//            updateAll(updateMessage, (p, c) -> !p.equals(currentPlayer));
-//            nextPlayer();
-//            boolean found = false;
-//            while (!found) {
-//                if (controllers.get(currentPlayer).isActive()) {
-//                    found = true;
-//                } else {
-//                    nextPlayer();
-//                }
-//            }
-//            refreshControllerStates();
-//            updateCurrentPlayer(new PlayMessage());
-//            closeTimer();
-//            startTimer();
-//        } catch (EndGameException e) {
-//            endGame(false);
-//        }
-//    }
+            updateCurrentPlayer(serverMessage);
+            updateAll(updateMessage, (p, c) -> !p.equals(currentPlayer));
+            nextPlayer();
+            boolean found = false;
+            while (!found) {
+                if (controllers.get(currentPlayer).isActive()) {
+                    found = true;
+                } else {
+                    nextPlayer();
+                }
+            }
+            refreshControllerStates();
+            updateCurrentPlayer(new PlayMessage());
+            closeTimer();
+            startTimer();
+        } catch (EndGameException e) {
+            endGame(false);
+        }
     }
 
     //reconnect, 更新player的新的接口和控制器
@@ -503,7 +508,6 @@ public class MatchController {
             controllers.remove(player);
             clients.remove(player);
             players.remove(client);
-//            windowPatternCards.addAll(distributedWindowPatternCards.get(client));
 //            distributedWindowPatternCards.remove(client);
 //            colors.add(distributedPrivateObjectiveCards.get(client));
 //            distributedPrivateObjectiveCards.remove(client);

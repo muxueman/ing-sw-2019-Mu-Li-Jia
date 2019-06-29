@@ -24,6 +24,8 @@ public class BoardStatus implements Status {
     protected Map map;
     private List<PlayerStatus> players;  //目前没用
 
+    private String reconnectionToken;
+
 //    protected TurnHandler turnHandler;
     //记录第几次的射杀
 
@@ -37,6 +39,8 @@ public class BoardStatus implements Status {
         numKillShoot = skull;
         killTurn = 0;
         firenzyTriggerd = false;
+        reconnectionToken = "";
+
     }
 
     //construct a board with all players
@@ -46,6 +50,7 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         currentPlayer = allPlayers.get(0);
+        reconnectionToken = "";
 //        turnHandler = new TurnHandler(this);
     }
 
@@ -74,6 +79,11 @@ public class BoardStatus implements Status {
         }
     }
 
+    public void setReconnectionToken(String token) {
+        reconnectionToken = token;
+    }
+
+    public String getReconnectionToken() { return reconnectionToken;}
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;

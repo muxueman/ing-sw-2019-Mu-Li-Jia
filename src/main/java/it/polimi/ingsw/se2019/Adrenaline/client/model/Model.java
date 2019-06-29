@@ -5,6 +5,7 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.TokenStatus;
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
@@ -52,5 +53,11 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
     public void updatePlayer(PlayerStatus playerStatus){
 
     };
+
+    @Override
+    public void updateReconnectionToken(TokenStatus token) {
+        boardStatus.setReconnectionToken(token.getToken());
+        nextUpdate.addStatusUpdate(token);
+    }
 
 }

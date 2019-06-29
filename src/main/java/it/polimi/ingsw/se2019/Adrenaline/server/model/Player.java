@@ -317,4 +317,17 @@ public class Player extends PlayerStatus {
 ////        }
 //        return true;
 //    }
+
+    /**
+     *
+     * The getStatus method is used to get the immutable
+     * copy of the player.
+     *
+     * @return a PlayerStatus object that represents a immutable copy of the player.
+     *
+     */
+
+    public PlayerStatus getStatus() {
+        return new PlayerStatus(playerID, username, favorTokens);
+    }
 }
