@@ -13,64 +13,49 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class BoardStatus implements Status {
 
+    //与num一一对应
     protected int[] numDamageOnSkullBoard;
-    protected Color[] colorDamageOnSkullBoard; //与num一一对应
+    protected Color[] colorDamageOnSkullBoard;
+
+
     protected Player currentPlayer; //希望用turnhandler.getCurrentPlauyer
-    protected PlayerStatus thisPlayer; //目前没用
+    protected PlayerStatus thisPlayer;
     protected static int numKillShoot;
     protected int killTurn;
     protected boolean firenzyTriggerd;
+
     protected ArrayList<Player> allPlayers;
+    private List<PlayerStatus> players;
+
     protected Map map;
-    private List<PlayerStatus> players;  //目前没用
+    protected int mapInt;
 
+    private AdditionalStatus additional;
     private String reconnectionToken;
-
 //    protected TurnHandler turnHandler;
     //记录第几次的射杀
 
     private boolean started;
 
-    /**
-     * The constructor initializes all the attributes.
-     */
-    public BoardStatus(int skull){
+    //constructor
+    public BoardStatus(Map map,int skull){
         currentPlayer = null;
+        additional = null;
         numKillShoot = skull;
         killTurn = 0;
         firenzyTriggerd = false;
         reconnectionToken = "";
-
-    }
-
-    //construct a board with all players
-    public BoardStatus(ArrayList<Player> allPlayers){
-        this.allPlayers = allPlayers;
-        numKillShoot = 5;//default value
-        killTurn = 0;
-        firenzyTriggerd = false;
-        currentPlayer = allPlayers.get(0);
-        reconnectionToken = "";
-//        turnHandler = new TurnHandler(this);
-    }
-
-    public BoardStatus(Map map){
         this.map = map;
-        map.initialMap();
         allPlayers = new ArrayList<>();
-        currentPlayer = null;
-        killTurn = 0;
-        firenzyTriggerd = false;
-        players = new ArrayList<>();
 
     }
-
 
     public void setPlayers(ArrayList<Player> allPlayers) {
         for(Player player: allPlayers){
             players.add((PlayerStatus)player);
         }
     }
+    //不懂
     public void updatePlayerStatus(){
         int i = 0;
         for(Player player: allPlayers){
@@ -93,6 +78,9 @@ public class BoardStatus implements Status {
         return currentPlayer;
     }
 
+    public void updateAdditional(AdditionalStatus additionalStatus) {
+        additional = additionalStatus;
+    }
 
     public void setNumKillShoot(int numKillShoot) {
 
@@ -105,15 +93,7 @@ public class BoardStatus implements Status {
         return allPlayers;
     }
 
-    public PlayerStatus getPlayer(String playerID) {
-        for (PlayerStatus p : players) {
-            if (p.getPlayerID().equals(playerID)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
+    //return the status of a player
     public PlayerStatus getPlayerStatus(String playerID) {
         for (Player p : allPlayers) {
             if (p.getPlayerID().equals(playerID)) {
@@ -124,8 +104,9 @@ public class BoardStatus implements Status {
     }
 
 
+    //permits to update the status of a player.
     public boolean updatePlayer(PlayerStatus newPlayerStatus) {
-        PlayerStatus player = getPlayer(newPlayerStatus.getPlayerID());
+        PlayerStatus player = getPlayerStatus(newPlayerStatus.getPlayerID());
         if (player == null) {
             players.add(newPlayerStatus);
             if (thisPlayer == null) {

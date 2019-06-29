@@ -2,12 +2,8 @@ package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.TokenStatus;
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
@@ -18,17 +14,24 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         boardStatus = null;
         nextUpdate = new ModelUpdate();
     }
-    public void initModel() {
-        boardStatus = new BoardStatus(5);
+
+    public BoardStatus getBoardStatus() {
+        return boardStatus;
+    }
+
+    //init model with
+    public void initModel(Map map, int skull ) {
+        boardStatus = new BoardStatus(map, skull);
         nextUpdate = new ModelUpdate(boardStatus);
     }
 
 
+    //notifies the View telling that nothing has changed from the previous state (possibly useful for GUI)
     private void pingUpdate() {
         notify(new ModelUpdate(boardStatus));
     }
 
-
+    //notifies the View
     @Override
     public void pingUpdate(String message) {
         if (nextUpdate.isEmpty() && !message.equals("")) {
@@ -49,9 +52,12 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
     };
 
     @Override
+    //update the local model.
     public void updatePlayer(PlayerStatus playerStatus){
-        nextUpdate.addStatusUpdate(playerStatus);
-
+        if (boardStatus.updatePlayer(playerStatus)) {
+            nextUpdate.addStatusUpdate(playerStatus);
+            nextUpdate.setBoardStatus(boardStatus);
+        }
     };
 
     @Override
@@ -60,4 +66,9 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         nextUpdate.addStatusUpdate(token);
     }
 
+    @Override
+    public void updateAdditional(AdditionalStatus additionalStatus) {
+        boardStatus.updateAdditional(additionalStatus);
+        nextUpdate.addStatusUpdate(additionalStatus);
+    }
 }
