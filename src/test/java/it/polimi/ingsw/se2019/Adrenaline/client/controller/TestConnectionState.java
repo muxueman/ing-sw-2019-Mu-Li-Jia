@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.ConnectionState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLIView;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 

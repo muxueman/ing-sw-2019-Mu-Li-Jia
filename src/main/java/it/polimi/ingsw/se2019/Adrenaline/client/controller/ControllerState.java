@@ -1,5 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.EndGameState;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.NonPlayingState;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.WaitingResponseState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 

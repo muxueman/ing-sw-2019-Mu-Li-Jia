@@ -1,14 +1,13 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-
-import java.util.List;
 
 //first player select a map
-public class SelectMapState extends ControllerState{
+public class SelectMapState extends ControllerState {
 
     private int selectedMap;
 

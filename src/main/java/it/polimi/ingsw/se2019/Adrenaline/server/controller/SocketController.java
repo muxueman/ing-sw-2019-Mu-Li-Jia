@@ -10,7 +10,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayerSetupState;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

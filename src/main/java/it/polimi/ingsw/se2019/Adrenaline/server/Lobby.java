@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.ChooseMapState;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.ChooseMapState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import org.json.simple.JSONArray;

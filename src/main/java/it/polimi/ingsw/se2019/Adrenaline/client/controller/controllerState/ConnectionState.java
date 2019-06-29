@@ -1,8 +1,10 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 
-public class ConnectionState extends ControllerState{
+public class ConnectionState extends ControllerState {
 
     private int selectedConnection; // 1 for RMI, 2 for Socket
     private String host;
