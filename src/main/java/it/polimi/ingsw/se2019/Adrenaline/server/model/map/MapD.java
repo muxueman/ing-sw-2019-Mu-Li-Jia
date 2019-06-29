@@ -41,7 +41,7 @@ public class MapD extends Map{
         BLUECells.add(cell3);
 
         Cell cell4 = new CommonCell(4);
-        cell4.setCellColor(Color.RED);
+        cell4.setCellColor(Color.GREEN);
         allCells.add(cell4);
         REDCells.add(cell4);
 
@@ -97,8 +97,8 @@ public class MapD extends Map{
         setAdjacentCells(5, 10, 0, 0, cell9);
         setAdjacentCells(6, 11, 0, 9, cell10);
         setAdjacentCells(7, 12, 0, 10, cell11);
-        setAdjacentCells(8, 0, 0, 10, cell12);
+        setAdjacentCells(8, 0, 0, 11, cell12);
 
-        this.notDoor = new int[][]{{4,5}, {5,6}};
+        this.notDoor = new int[][]{{5,6}, {6,7}};
     }
 }

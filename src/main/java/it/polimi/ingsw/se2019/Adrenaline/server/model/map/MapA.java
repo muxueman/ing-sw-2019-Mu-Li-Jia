@@ -54,7 +54,7 @@ public class MapA extends Map{
         REDCells.add(cell6);
 
         Cell cell7 = new CommonCell(7);
-        cell7.setCellColor(Color.PINK);
+        cell7.setCellColor(Color.RED);
         allCells.add(cell7);
         PINKCells.add(cell7);
 
@@ -70,7 +70,7 @@ public class MapA extends Map{
         allCells.add(cell10);
         WHITECells.add(cell10);
 
-        Cell cell11 = new GenerationCell(11);
+        Cell cell11 = new CommonCell(11);
         cell11.setCellColor(Color.WHITE);
         allCells.add(cell11);
         YELLOWCells.add(cell11);
@@ -83,14 +83,14 @@ public class MapA extends Map{
         setAdjacentCells(0, 0, 0, 0, cell0);
         setAdjacentCells(0, 2, 4, 0, cell1);
         setAdjacentCells(0, 3, 5, 1, cell2);
-        setAdjacentCells(0, 0, 6, 2, cell3);
-        setAdjacentCells(1, 5, 0, 0, cell5);
-        setAdjacentCells(2, 6, 8, 4, cell6);
-        setAdjacentCells(3, 7, 9, 5, cell7);
-        setAdjacentCells(0, 0, 10, 6, cell7);
-        setAdjacentCells(5, 9, 0, 0, cell10);
-        setAdjacentCells(6, 10, 0, 8, cell9);
-        setAdjacentCells(7, 0, 0, 9, cell12);
+        setAdjacentCells(0, 0, 7, 2, cell3);
+        setAdjacentCells(1, 6, 0, 0, cell5);
+        setAdjacentCells(2, 7, 10, 5, cell6);
+        setAdjacentCells(3, 8, 11, 6, cell7);
+        setAdjacentCells(0, 0, 12, 7, cell8);
+        setAdjacentCells(6, 11, 0, 0, cell10);
+        setAdjacentCells(7, 12, 0, 10, cell11);
+        setAdjacentCells(8, 0, 0, 11, cell12);
 
         this.notDoor = new int[][]{{2,6}, {7,11}};
     }

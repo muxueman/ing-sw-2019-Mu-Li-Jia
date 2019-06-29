@@ -44,7 +44,7 @@ public class MapB extends Map{
         Cell cell4 = null;
 
         Cell cell5 = new GenerationCell(5);
-        cell5.setCellColor(Color.BLUE);
+        cell5.setCellColor(Color.RED);
         allCells.add(cell5);
         REDCells.add(cell5);
 
@@ -84,17 +84,17 @@ public class MapB extends Map{
         YELLOWCells.add(cell12);
 
         setAdjacentCells(0, 0, 0, 0, cell0);
-        setAdjacentCells(0, 2, 4, 0, cell1);
-        setAdjacentCells(0, 3, 5, 1, cell2);
-        setAdjacentCells(0, 0, 6, 2, cell3);
-        setAdjacentCells(1, 5, 8, 0, cell5);
-        setAdjacentCells(2, 6, 9, 4, cell6);
-        setAdjacentCells(3, 7, 10, 5, cell7);
-        setAdjacentCells(0, 0, 11, 6, cell7);
-        setAdjacentCells(4, 9, 0, 0, cell9);
-        setAdjacentCells(5, 10, 0, 8, cell10);
+        setAdjacentCells(0, 2, 5, 0, cell1);
+        setAdjacentCells(0, 3, 6, 1, cell2);
+        setAdjacentCells(0, 0, 7, 2, cell3);
+        setAdjacentCells(1, 6, 9, 0, cell5);
+        setAdjacentCells(2, 7, 10, 5, cell6);
+        setAdjacentCells(3, 8, 11, 6, cell7);
+        setAdjacentCells(0, 0, 12, 7, cell8);
+        setAdjacentCells(5, 10, 0, 0, cell9);
         setAdjacentCells(6, 11, 0, 9, cell10);
-        setAdjacentCells(7, 0, 0, 10, cell12);
+        setAdjacentCells(7, 12, 0, 10, cell11);
+        setAdjacentCells(8, 0, 0, 11, cell12);
 
         this.notDoor = new int[][] {{5,6},{7,11}};
     }    
