@@ -30,7 +30,6 @@ public class SpawnLocationState extends ControllerState{
             if (intMessage > 0 && intMessage <= powerupCards.size()) {
                 ClientMessage clientMessage = new ClientMessage("SPAWNLOCATION", intMessage);
                 clientController.sendToServer(clientMessage);
-                //model>>>update>>>>>
                 return new WaitingResponseState(clientController, new NonPlayingState(clientController));
             }
             clientController.reportError("Not a valid choice!");

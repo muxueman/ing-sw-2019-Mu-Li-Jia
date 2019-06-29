@@ -1,9 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+
+import java.util.List;
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
@@ -60,6 +64,21 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         }
     };
 
+    @Override
+    public void updateOptionalPowerupCards(List<PowerupCard> powerupCards) {
+        boardStatus.setOptionalPowerupCards(powerupCards);
+        for (PowerupCard p : powerupCards) {
+            nextUpdate.addStatusUpdate(p);
+        }
+    }
+
+    @Override
+    public void updateOptionalWeaponCards(List<WeaponCard> weaponCards) {
+        boardStatus.setOptionalWeaponCards(weaponCards);
+        for (WeaponCard w : weaponCards) {
+            nextUpdate.addStatusUpdate(w);
+        }
+    }
     @Override
     public void updateReconnectionToken(TokenStatus token) {
         boardStatus.setReconnectionToken(token.getToken());

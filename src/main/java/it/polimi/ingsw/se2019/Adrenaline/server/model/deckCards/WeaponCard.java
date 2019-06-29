@@ -1,12 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class WeaponCard {
+public class WeaponCard implements Status {
 
 
     private String cardName;
@@ -113,6 +114,21 @@ public class WeaponCard {
                 ", specialEffect=" + Arrays.toString(specialEffect) +
                 ", notes='" + notes + '\'' +
                 '}';
+    }
+
+    public Ansi toAnsi() {
+        Ansi ansi = new Ansi().a("WeaponCard{" +
+                "cardName='" + cardName + '\'' +
+                ", basicammoCost=" + Arrays.toString(basicammoCost) +
+                ", damageVision=" + damageVision +
+                ", damageDeal=" + Arrays.toString(damageDeal) +
+                ", basicEffect='" + basicEffect + '\'' +
+                ", specialEffectName=" + Arrays.toString(specialEffectName) +
+                ", specialAmmoCost=" + Arrays.toString(specialAmmoCost) +
+                ", specialEffect=" + Arrays.toString(specialEffect) +
+                ", notes='" + notes + '\'' +
+                '}');
+        return ansi;
     }
 
 

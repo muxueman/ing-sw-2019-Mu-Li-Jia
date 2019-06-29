@@ -17,6 +17,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
@@ -523,5 +524,13 @@ public class MatchController {
             }
         });
         return number[0];
+    }
+
+
+    public List<PowerupCard> getChoosablePowerupCards(ClientInterface client) {
+        List<List<PowerupCard>> temp = new ArrayList<>();
+        List<PowerupCard> choosableWindowPatternCards = new ArrayList<>();
+        // todo: get the initial powerup cards
+        return choosableWindowPatternCards;
     }
 }

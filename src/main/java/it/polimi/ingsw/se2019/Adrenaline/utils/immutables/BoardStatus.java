@@ -17,6 +17,8 @@ public class BoardStatus implements Status {
     protected int[] numDamageOnSkullBoard;
     protected Color[] colorDamageOnSkullBoard;
 
+    private List<PowerupCard> optionalPowerupCards;
+    private List<WeaponCard> optionalWeaponCards;
 
     protected Player currentPlayer; //希望用turnhandler.getCurrentPlauyer
     protected PlayerStatus thisPlayer;
@@ -49,6 +51,27 @@ public class BoardStatus implements Status {
         allPlayers = new ArrayList<>();
 
     }
+    //constructor
+    public BoardStatus(){
+        currentPlayer = null;
+        additional = null;
+        numKillShoot = 5;
+        killTurn = 0;
+        firenzyTriggerd = false;
+        reconnectionToken = "";
+        this.map = map;
+        allPlayers = new ArrayList<>();
+
+    }
+    public void setMap(Map map){
+        this.map = map;
+    }
+    public void setNumKillShoot(int numKillShoot) {
+
+        BoardStatus.numKillShoot = numKillShoot;
+        numDamageOnSkullBoard = new int[numKillShoot];
+        colorDamageOnSkullBoard = new Color[numKillShoot];
+    }
 
     public void setPlayers(ArrayList<Player> allPlayers) {
         for(Player player: allPlayers){
@@ -62,6 +85,13 @@ public class BoardStatus implements Status {
             players.remove(i);
             players.add((PlayerStatus) player);
         }
+    }
+
+    public void setOptionalPowerupCards(List<PowerupCard> optionalPowerupCards) {
+        this.optionalPowerupCards = optionalPowerupCards;
+    }
+    public void setOptionalWeaponCards(List<WeaponCard> optionalWeaponCards) {
+        this.optionalWeaponCards = optionalWeaponCards;
     }
 
     public void setReconnectionToken(String token) {
@@ -82,12 +112,7 @@ public class BoardStatus implements Status {
         additional = additionalStatus;
     }
 
-    public void setNumKillShoot(int numKillShoot) {
 
-        BoardStatus.numKillShoot = numKillShoot;
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-    }
 
     public ArrayList<Player> getAllPlayers() {
         return allPlayers;

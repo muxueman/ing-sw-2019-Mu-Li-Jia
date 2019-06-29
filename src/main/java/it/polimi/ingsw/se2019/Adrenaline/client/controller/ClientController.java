@@ -32,7 +32,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         this.view = view;
         this.gameServer = null;
         model = new Model();
-        model.initModel();
+        model.initModel(null, 0);
         view.register(this);
         model.register(view);
         playing = false;
