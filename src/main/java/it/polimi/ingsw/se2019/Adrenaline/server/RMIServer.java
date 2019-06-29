@@ -28,11 +28,12 @@ public class RMIServer implements RMIServerInterface {
         RMIController rmiController = new RMIController(server.getLobby(), client);
         try {
             //if port num = 0, an anonymous port is chosen
-            GameServerInterface gameServer = (GameServerInterface) UnicastRemoteObject.exportObject((Remote) rmiController, 0);
-            addClient(client);
+            GameServerInterface gameServer = (GameServerInterface) UnicastRemoteObject.exportObject(rmiController, 0);
+            addClient(client,rmiController);
             System.out.println("a client added with a RMI controller");
             return gameServer;
         } catch (RemoteException e) {
+            e.printStackTrace();
             Logger.getGlobal().warning(e.getMessage());
             return null;
         }

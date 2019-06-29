@@ -32,7 +32,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         this.view = view;
         this.gameServer = null;
         model = new Model();
-        model.initModel(null, 0);
+        model.initModel(null, 0); //todo: set map and skill is important
         view.register(this);
         model.register(view);
         playing = false;
@@ -112,7 +112,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     private boolean connectToRMI(String host, int port) {
         try {
             RMIServerInterface rmiServer = (RMIServerInterface) Naming.lookup("//" + host + ":" + port + "/Server");
-            ClientInterface client = (ClientInterface) UnicastRemoteObject.exportObject(this, 1099);
+            ClientInterface client = (ClientInterface) UnicastRemoteObject.exportObject(this, 0);
             GameServerInterface thisGameServer = rmiServer.addClient(client);
             if (thisGameServer == null) {
                 return false;
@@ -122,6 +122,7 @@ public class ClientController implements ClientInterface, Observer<String> {
             reportError("Wrong host or port, retry!");
             return false;
         } catch (NotBoundException | RemoteException e) {
+            e.printStackTrace();
             reportError("An RMI related error, try again.");
             return false;
         } catch (Exception e) {

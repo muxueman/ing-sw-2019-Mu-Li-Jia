@@ -511,7 +511,7 @@ public class MatchController {
             players.remove(client);
 //            distributedWindowPatternCards.remove(client);
 //            colors.add(distributedPrivateObjectiveCards.get(client));
-//            distributedPrivateObjectiveCards.remove(client);
+//            distributedPrivateObjectiveCards.remove(client);      从
         }
     }
 
