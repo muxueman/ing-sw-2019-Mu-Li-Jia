@@ -11,7 +11,7 @@ public class MapUpdate implements StatusUpdate {
     Map map;
     @Override
     public void updateStatus(UpdatableModel model) {
-        model.updateMap(map);
+//        model.updateMap(map);
     }
 
 

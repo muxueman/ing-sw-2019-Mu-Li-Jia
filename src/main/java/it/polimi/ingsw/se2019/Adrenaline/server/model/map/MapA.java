@@ -21,6 +21,10 @@ public class MapA extends Map{
         this.mapInfo = "Great for 3 or 4 players!";
         this.allCells = new ArrayList<Cell>();
 
+
+        Cell cell0 = new CommonCell(0);
+        allCells.add(cell0);
+        REDCells.add(cell0);
                 
         Cell cell1 = new CommonCell(1);
         cell1.setCellColor(Color.BLUE);
@@ -76,7 +80,7 @@ public class MapA extends Map{
         allCells.add(cell12);
         YELLOWCells.add(cell12);
 
-
+        setAdjacentCells(0, 0, 0, 0, cell0);
         setAdjacentCells(0, 2, 4, 0, cell1);
         setAdjacentCells(0, 3, 5, 1, cell2);
         setAdjacentCells(0, 0, 6, 2, cell3);

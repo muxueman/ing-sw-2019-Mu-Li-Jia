@@ -212,7 +212,7 @@ public class MatchController {
 
     //initial playBoard with map, Numkill, players
     protected void initPlayBoard(){
-        playBoard = new Board(selectedMap);
+        playBoard = new Board(selectedMap, selectedKill);
         playBoard.setNumKillShoot(selectedKill);
         addPlayersToBoard(playBoard);
     }

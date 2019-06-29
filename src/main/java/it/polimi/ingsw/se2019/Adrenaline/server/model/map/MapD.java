@@ -19,8 +19,12 @@ public class MapD extends Map{
     public void initialMap(){
         this.totalCellNum = 12;
         this.mapInfo = "Great for 4 or 5 players!";
+
         this.allCells = new ArrayList<Cell>();
-        
+        Cell cell0 = new CommonCell(0);
+        allCells.add(cell0);
+        REDCells.add(cell0);
+
         Cell cell1 = new CommonCell(1);
         cell1.setCellColor(Color.RED);
         allCells.add(cell1);
@@ -81,7 +85,7 @@ public class MapD extends Map{
         allCells.add(cell12);
         YELLOWCells.add(cell12);
 
-
+        setAdjacentCells(0, 0, 0, 0, cell0);
         setAdjacentCells(0, 2, 5, 0, cell1);
         setAdjacentCells(0, 3, 6, 1, cell2);
         setAdjacentCells(0, 4, 7, 2, cell3);

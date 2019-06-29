@@ -27,7 +27,6 @@ public class Board extends BoardStatus{
 
     //overload only for test
     public Board(int numKillShoot) {
-        super(numKillShoot);
         allPlayers = new ArrayList<>();
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
@@ -37,16 +36,9 @@ public class Board extends BoardStatus{
         weaponCardDeck = new WeaponCardDeck();
         ammotileCardDeck = new AmmotileCardDeck();
     }
-    public Board(ArrayList<Player> allPlayers){
-        super(allPlayers);
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-        pickedCell = new ArrayList<>();
-        firstPlayer = 0;
-    }
     // this is used in controller
-    public Board(Map map){
-        super(map);
+    public Board(Map map, int skull){
+        super(map,skull);
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();

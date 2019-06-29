@@ -18,7 +18,7 @@ public class TestPlayer {
     Player testPlayer = new Player("JIA");
     PlayerBoard testKillShootTrack = new PlayerBoard(testPlayer);
     it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map = new MapD();
-    Board testBoard = new Board(map);
+    Board testBoard = new Board(map, 5);
     int testMode = 2;
 
     public void testName() {

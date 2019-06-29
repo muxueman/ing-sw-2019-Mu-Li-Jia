@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class TestPlayBoard {
 
     Map testMap = new MapA();
-
-    Board testBoard = new Board(testMap);
+    int skull = 5;
+    Board testBoard = new Board(testMap, skull);
     Player testShooter = new Player("jia");
     Player testPlayer = new Player("li");
     Player testPlayer2 = new Player("mu");
