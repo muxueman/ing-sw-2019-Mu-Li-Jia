@@ -42,6 +42,7 @@ public class MapA extends Map{
         BLUECells.add(cell3);
 
         Cell cell4 = null;
+        allCells.add(cell4);
 
         Cell cell5 = new GenerationCell(5);
         cell5.setCellColor(Color.RED);
@@ -64,6 +65,7 @@ public class MapA extends Map{
         YELLOWCells.add(cell8);
 
         Cell cell9 = null;
+        allCells.add(cell9);
 
         Cell cell10 = new CommonCell(10);
         cell10.setCellColor(Color.WHITE);
