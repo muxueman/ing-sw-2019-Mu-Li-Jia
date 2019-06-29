@@ -1,8 +1,9 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.controller;
+package it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 
 import java.util.List;
 

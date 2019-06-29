@@ -1,25 +1,21 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.ChooseKillState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class GrabState extends ControllerState{
+public class GrabState extends ControllerState {
 
     private ServerController serverController;
     private MatchController matchController;
     private ArrayList<String> previousActions;
     private int currentCell;
 
-    public GrabState(ClientController controller,  ArrayList<String> previousActions) {
+    public GrabState(ClientController controller, ArrayList<String> previousActions) {
         super(controller, "please select the cards...");
         this.serverController = serverController;
         this.matchController = serverController.getMatch();

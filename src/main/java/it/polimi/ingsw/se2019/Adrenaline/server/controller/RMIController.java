@@ -10,6 +10,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayerSetupState;
 
 import java.rmi.RemoteException;
 import java.util.Timer;

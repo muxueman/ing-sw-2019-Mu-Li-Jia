@@ -13,6 +13,8 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PlayerStatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.TokenUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.NonPlayingState;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
@@ -428,7 +430,7 @@ public class MatchController {
 
     }
 
-    synchronized void nextTurn() {
+    public synchronized void nextTurn() {
         try {
             ServerMessage serverMessage = new PlayMessage();
             UpdateMessage updateMessage = new UpdateMessage(currentPlayer.getUsername() + " passed the turn.");

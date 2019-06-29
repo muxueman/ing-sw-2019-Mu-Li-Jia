@@ -1,12 +1,14 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 import java.util.ArrayList;
 
-public class ShootState extends ControllerState{
+public class ShootState extends ControllerState {
 
     private ServerController serverController;
     private MatchController matchController;

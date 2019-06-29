@@ -1,9 +1,10 @@
-package it.polimi.ingsw.se2019.Adrenaline.server.controller;
+package it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
 import java.rmi.RemoteException;
 import java.util.logging.Level;

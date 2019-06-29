@@ -1,8 +1,11 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
+
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 
 import java.util.ArrayList;
 
-public class NonPlayingState extends ControllerState{
+public class NonPlayingState extends ControllerState {
 
     //constructor,"You passed the turn to the next player."
     public NonPlayingState(ClientController clientController){

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.ConnectionState;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.network.*;
@@ -63,7 +64,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         view.showMessage(message);
     }
     //send clientMessage to a server
-    protected void sendToServer(ClientMessage message) {
+    public void sendToServer(ClientMessage message) {
         try {
             gameServer.update(message, this);
         } catch (RemoteException e) {

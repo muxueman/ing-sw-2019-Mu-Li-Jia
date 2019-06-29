@@ -1,5 +1,7 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
@@ -7,7 +9,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpawnLocationState extends ControllerState{
+public class SpawnLocationState extends ControllerState {
 
     private List<PowerupCard> powerupCards;
 

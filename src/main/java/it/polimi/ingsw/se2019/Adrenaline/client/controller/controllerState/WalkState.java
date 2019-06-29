@@ -1,18 +1,20 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.controller;
+package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
 import java.util.ArrayList;
 
-public class WalkState extends ControllerState{
+public class WalkState extends ControllerState {
     private ServerController serverController;
     private MatchController matchController;
     private ArrayList<String> previousActions;
     private int currentCell;
 
-    public WalkState(ClientController controller,  ArrayList<String> previousActions) {
+    public WalkState(ClientController controller, ArrayList<String> previousActions) {
         super(controller, "please select walk direction: 1.up 2.right 3.down 4.left");
         this.serverController = serverController;
         this.matchController = serverController.getMatch();
