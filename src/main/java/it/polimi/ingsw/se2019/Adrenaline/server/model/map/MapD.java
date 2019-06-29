@@ -93,10 +93,10 @@ public class MapD extends Map{
         setAdjacentCells(1, 6, 9, 0, cell5);
         setAdjacentCells(2, 7, 10, 5, cell6);
         setAdjacentCells(3, 8, 11, 6, cell7);
-        //setAdjacentCells(4, 0, 12, 7, cell8);
+        setAdjacentCells(4, 0, 12, 7, cell8);
         setAdjacentCells(5, 10, 0, 0, cell9);
         setAdjacentCells(6, 11, 0, 9, cell10);
-        //setAdjacentCells(7, 12, 0, 10, cell11);
+        setAdjacentCells(7, 12, 0, 10, cell11);
         setAdjacentCells(8, 0, 0, 10, cell12);
 
         this.notDoor = new int[][]{{4,5}, {5,6}};
