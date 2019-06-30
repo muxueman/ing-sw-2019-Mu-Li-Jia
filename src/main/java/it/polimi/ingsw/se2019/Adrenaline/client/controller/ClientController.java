@@ -41,7 +41,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         state = new ConnectionState(this).initState();
     }
     //get value
-    protected View getView() {
+    public View getView() {
         return view;
     }
     protected Model getModel() {

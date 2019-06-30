@@ -2,7 +2,9 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.GUIView;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ViewMessage;
 
 import java.util.logging.Logger;
 
@@ -50,12 +52,21 @@ public class WaitingResponseState extends ControllerState {
             case("CHOOSEMAP"):
                 String finalMap = String.valueOf(serverMessage.getParm());
                 String messageMap = "the map of this match: " + finalMap;
-                clientController.sendMessage(messageMap);
+                ViewMessage messageVM = new ViewMessage(messageMap, finalMap);
+                if (clientController.getView() instanceof GUIView){
+                    clientController.sendMessage(messageVM.getParmS());
+                }
+                else clientController.sendMessage(messageMap);
                 return nextState(false,true);
             case("CHOOSEKILL"):
                 String finalKill = String.valueOf(serverMessage.getParm());
                 String messageKill = "the kill number of this match: " + finalKill;
-                clientController.sendMessage(messageKill);
+                ViewMessage messageVK = new ViewMessage(messageKill, finalKill);
+                if (clientController.getView() instanceof GUIView){
+                    clientController.sendMessage(messageVK.getParmS());
+                }
+                else clientController.sendMessage(messageKill);
+
                 return (new SpawnLocationState(clientController)).initState();
 //                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
 
