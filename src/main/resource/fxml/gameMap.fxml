@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -1213,5 +1214,11 @@
       <Label fx:id="player2Name" layoutX="663.0" layoutY="234.0" prefHeight="26.0" prefWidth="57.0" style="-fx-border-color: white;" textFill="WHITE" />
       <Label fx:id="player3Name" layoutX="663.0" layoutY="396.0" prefHeight="26.0" prefWidth="57.0" style="-fx-border-color: white;" textFill="WHITE" />
       <Label fx:id="player4Name" layoutX="663.0" layoutY="558.0" prefHeight="26.0" prefWidth="57.0" style="-fx-border-color: white;" textFill="WHITE" />
+      <Label layoutX="566.0" layoutY="467.0" prefHeight="22.0" prefWidth="51.0" style="-fx-border-color: white;" text="  Timer" textAlignment="CENTER" textFill="WHITE" />
+      <Label fx:id="timerLabel" layoutX="566.0" layoutY="488.0" prefHeight="35.0" prefWidth="51.0" style="-fx-border-color: white;" text="    0" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -73,13 +73,13 @@ public class ChoiceMapController extends GUIController{
 
     }
 
-    public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
-        closeButton.setOnAction(event -> {
-            Stage stage = (Stage) root.getScene().getWindow();
-            guiController.close(anchorPane);
-            stage.close();
-        });
-    }
+//    public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
+//        closeButton.setOnAction(event -> {
+//            Stage stage = (Stage) root.getScene().getWindow();
+//            guiController.close(anchorPane);
+//            stage.close();
+//        });
+//    }
 
 
 
