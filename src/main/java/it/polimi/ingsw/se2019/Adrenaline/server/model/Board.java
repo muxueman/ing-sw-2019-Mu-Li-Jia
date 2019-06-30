@@ -71,6 +71,7 @@ public class Board extends BoardStatus{
 
     public void addPlayers(Player player){
         allPlayers.add(player);
+        player.setPlayBoard(this);
     }
 
     public Player findPlayerByColor (Color playerColor){
