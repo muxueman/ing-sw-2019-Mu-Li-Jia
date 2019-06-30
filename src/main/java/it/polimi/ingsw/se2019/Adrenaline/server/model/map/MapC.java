@@ -65,7 +65,7 @@ public class MapC extends Map{
         allCells.add(cell8);
         YELLOWCells.add(cell8);
 
-        Cell cell9 = null;
+        Cell cell9 = new CommonCell(0);
         allCells.add(cell9);
 
         Cell cell10 = new CommonCell(10);

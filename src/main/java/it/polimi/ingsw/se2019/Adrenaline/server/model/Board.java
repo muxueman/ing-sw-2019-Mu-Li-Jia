@@ -274,4 +274,9 @@ public class Board extends BoardStatus{
     public ArrayList<Cell> getPickedCell() {
         return pickedCell;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

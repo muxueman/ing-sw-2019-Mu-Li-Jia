@@ -1,13 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 public class TestPlayBoard {
 
-    Map testMap = new MapA();
+    Map testMap = new MapB();
     int skull = 5;
     Board testBoard = new Board(testMap, skull);
     Player testShooter = new Player("jia");
@@ -23,11 +24,13 @@ public class TestPlayBoard {
 //        testBoard.getKillTurn();
     }
 
+    @Test
     public void addPlayerTest(){
         testBoard.addPlayers(testShooter);
         testBoard.addPlayers(testPlayer);
         testBoard.addPlayers(testPlayer2);
         System.out.println("currenttest"+testBoard.getCurrentPlayer());
+        testBoard.setPlayers(testBoard.getAllPlayers());
 
         testBoard.setAllPlayerColor();
         testBoard.setCurrentPlayer(testShooter);
@@ -47,9 +50,9 @@ public class TestPlayBoard {
 
     @Test
     public void testPlayerOnBoard() {
-        setTestInfo();
         addPlayerTest();
         System.out.println(testBoard.getMap());
+
 //        testMap.initialMap();
 //        Board testBoard2 = new Board(testMap);
 //        testBoard2.setMap(testMap);

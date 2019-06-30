@@ -116,7 +116,6 @@ public class TestPlayer {
         System.out.println(testPlayer.getCurrentCell().getWeaponCard(1).getCardName());
 //        testPlayer.getCurrentCell().getWeaponCard(1).getBasicammoCost();
         ActionGrab action = new ActionGrab();
-        ActionShoot shoot = new ActionShoot();
 //        shoot.payAmmoForOtherMode(testPlayer, );
         action.pickWeaponCrad(testPlayer, 1);
         System.out.println(testPlayer.getAmmoOwned()[0]);
