@@ -49,9 +49,7 @@ public abstract class Cell extends CellStatus {
     public Color getCellColor() {
         return this.cellColor;
     }
-    public ArrayList<Player> getCellPlayers(){
-        return this.cellPlayers;
-    }
+
     public Cell[] getAdjacentCells(){
         return this.adjacentCells;
     }
@@ -82,6 +80,7 @@ public abstract class Cell extends CellStatus {
                 return null; //better solution??? not regular
         }
     }
+
     //@overload
     public Cell getNextCell(int direction) {
         switch(direction) {

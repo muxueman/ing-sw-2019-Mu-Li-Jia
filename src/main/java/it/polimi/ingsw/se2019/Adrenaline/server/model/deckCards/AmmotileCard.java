@@ -1,11 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
+import org.fusesource.jansi.Ansi;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 
-public class AmmotileCard {
+public class AmmotileCard implements Status {
 
     public int numAmmotileCard;
     public int[] ammoColor;
@@ -47,6 +50,15 @@ public class AmmotileCard {
                 ", ammoColor=" + Arrays.toString(ammoColor) +
                 ", totalnumCard=" + totalnumCard +
                 '}';
+    }
+
+    public Ansi toAnsi() {
+        Ansi ansi = new Ansi().a("AmmotileCard{" +
+                "numAmmotileCard=" + numAmmotileCard +
+                ", ammoColor=" + Arrays.toString(ammoColor) +
+                ", totalnumCard=" + totalnumCard +
+                '}');
+        return ansi;
     }
 }
 

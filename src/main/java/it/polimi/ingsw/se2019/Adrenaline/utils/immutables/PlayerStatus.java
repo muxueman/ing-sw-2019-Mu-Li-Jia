@@ -11,6 +11,7 @@ import org.fusesource.jansi.Ansi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -18,21 +19,19 @@ public class PlayerStatus implements Status{
 
     protected String username;
     protected String playerID;
-    protected PlayerBoard killShootTrack;
+    protected PlayerBoardStatus killShootTrack;
     protected Color playerColor;
     protected int[] ammoOwned;
     protected Map<WeaponCard, Boolean> weaponsOwned;
     protected ArrayList<PowerupCard> powerupsOwned;
     protected int myScore;
-    protected Cell currentCell;
+    protected CellStatus currentCell;
     protected int actionMode;
     protected boolean alive;
-    protected Board board;
+    protected BoardStatus board;
     protected int favorTokens;
-    protected String mapInfo;
 
-
-
+    //constructor
     public PlayerStatus(String playerID) {
         this.playerID = playerID;//改动
         this.username = null;
@@ -47,7 +46,7 @@ public class PlayerStatus implements Status{
         //初始化所有的玩家,放入allPlayer
     }
 
-    public PlayerStatus(String playerID,String username, int favorTokens) {
+    public PlayerStatus(String playerID, String username, int favorTokens) {
         this.playerID = playerID;
         this.username = username;
         this.favorTokens = favorTokens;
@@ -61,17 +60,18 @@ public class PlayerStatus implements Status{
         //初始化所有的玩家,放入allPlayer
     }
 
-    public Ansi toAnsi(){
-        return ansi().a("Username: " + username + "\n color: " + playerColor + "\n" + killShootTrack.toAnsi().a("\n"));
-    }
+
+    //***************************************** getter and setter *****************************
 
     public int getMyScore() {
         return myScore;
     }
 
-    public ArrayList<PowerupCard> getPowerupsOwned() {
-        return powerupsOwned;
-    }
+    public BoardStatus getBoard() { return board; }
+
+    public int getFavorTokens() { return favorTokens; }
+
+    public ArrayList<PowerupCard> getPowerupsOwned() { return powerupsOwned; }
 
     public Map<WeaponCard, Boolean> getWeaponsOwned() {
         return weaponsOwned;
@@ -104,8 +104,17 @@ public class PlayerStatus implements Status{
     public Color getPlayerColor() {
         return playerColor;
     }
-    public void setPlayerColor() {
 
+    public boolean isReady() {
+        return username != null;
+    }
+
+    public CellStatus getCurrentCell() {
+        return currentCell;
+    }
+
+    public PlayerBoardStatus getKillShootTrack(){
+        return killShootTrack;
     }
 
     public void setAlive(boolean alive) {
@@ -120,16 +129,44 @@ public class PlayerStatus implements Status{
         this.myScore = myScore;
     }
 
-    public PlayerBoardStatus getKillShootTrack(){
-        return killShootTrack;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public boolean isReady() {
-        return username != null;
+    public void setPlayerID(String playerID) {
+        this.playerID = playerID;
     }
 
-    public Cell getCurrentCell() {
-        return currentCell;
+    public void setKillShootTrack(PlayerBoardStatus killShootTrack) {
+        this.killShootTrack = killShootTrack;
+    }
+
+    public void setPlayerColor(Color playerColor) {
+        this.playerColor = playerColor;
+    }
+
+    public void setAmmoOwned(int[] ammoOwned) {
+        this.ammoOwned = ammoOwned;
+    }
+
+    public void setWeaponsOwned(Map<WeaponCard, Boolean> weaponsOwned) {
+        this.weaponsOwned = weaponsOwned;
+    }
+
+    public void setPowerupsOwned(ArrayList<PowerupCard> powerupsOwned) {
+        this.powerupsOwned = powerupsOwned;
+    }
+
+    public void setCurrentCell(Cell currentCell) {
+        this.currentCell = currentCell;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setFavorTokens(int favorTokens) {
+        this.favorTokens = favorTokens;
     }
 
     @Override
@@ -139,5 +176,21 @@ public class PlayerStatus implements Status{
                 + weaponsOwned + "\n" + "powerup you have:" + "\n";
     }
 
+    public Ansi toAnsi(){
+        return ansi().a("Username: " + username + "\n color: " + playerColor + "\n" + killShootTrack.toAnsi().a("\n"));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerStatus playerStatus = (PlayerStatus) o;
+        return getPlayerID().equals(playerStatus.getPlayerID());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPlayerID());
+    }
 }
 
