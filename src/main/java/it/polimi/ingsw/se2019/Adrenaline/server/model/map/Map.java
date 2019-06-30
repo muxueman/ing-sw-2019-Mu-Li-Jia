@@ -2,17 +2,17 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import java.util.ArrayList;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
 
 /**
  *4 types of maps, a map contains several rooms, a room contains several cells
  *@author Xueman Mu
  */
 
-public abstract class Map {
+public abstract class Map extends MapStatus {
 
-    protected ArrayList<Cell> allCells;
+
     protected int totalCellNum;
-    protected String mapInfo;
     protected int[][] notDoor;
     protected ArrayList<Cell> YELLOWCells;
     protected ArrayList<Cell> REDCells;
@@ -63,11 +63,6 @@ public abstract class Map {
         cell.setAdjacentCells(allCells.get(up), allCells.get(right), allCells.get(down), allCells.get(left));
     }
 
-    //get map info
-    public String getMapInfo(){
-        return this.mapInfo;
-    }
-
     //comparison of cells, same room/color
     public Boolean checkWithinRoom(Cell cellA, Cell cellB){
         return (cellA.getCellColor() == cellB.getCellColor());
@@ -106,9 +101,6 @@ public abstract class Map {
         }
     }
 
-    public ArrayList<Cell> getAllCells(){
-        return allCells;
-    }
     //@Overload
     //get cells within rooms, which means all cells from same color
     public ArrayList<Cell> getCellsWithinRoom(Color color){

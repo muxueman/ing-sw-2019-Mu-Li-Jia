@@ -20,16 +20,14 @@ public class BoardStatus implements Status {
     private List<PowerupCard> optionalPowerupCards;
     private List<WeaponCard> optionalWeaponCards;
 
-    protected Player currentPlayer; //希望用turnhandler.getCurrentPlauyer
-    protected PlayerStatus thisPlayer;
+    protected PlayerStatus currentPlayer;
     protected static int numKillShoot;
     protected int killTurn;
     protected boolean firenzyTriggerd;
 
-    protected ArrayList<Player> allPlayers;
     private List<PlayerStatus> players;
 
-    protected Map map;
+    protected MapStatus map;
     protected int mapInt;
 
     private AdditionalStatus additional;
@@ -48,7 +46,6 @@ public class BoardStatus implements Status {
         firenzyTriggerd = false;
         reconnectionToken = "";
         this.map = map;
-        allPlayers = new ArrayList<>();
         players = new ArrayList<>();
     }
     //constructor
@@ -60,8 +57,7 @@ public class BoardStatus implements Status {
         firenzyTriggerd = false;
         reconnectionToken = "";
         this.map = map;
-        allPlayers = new ArrayList<>();
-        players = new ArrayList<>();
+        players = null;
     }
     public void setMap(Map map){
         this.map = map;
@@ -73,15 +69,15 @@ public class BoardStatus implements Status {
         colorDamageOnSkullBoard = new Color[numKillShoot];
     }
 
-    public void setPlayers(ArrayList<Player> allPlayers) {
-        for(Player player: allPlayers){
+    public void setPlayers(List<PlayerStatus> players) {
+        for(PlayerStatus player: players){
             players.add((PlayerStatus)player);
         }
     }
     //不懂
     public void updatePlayerStatus(){
         int i = 0;
-        for(Player player: allPlayers){
+        for(PlayerStatus player: players){
             players.remove(i);
             players.add((PlayerStatus) player);
         }
@@ -104,7 +100,7 @@ public class BoardStatus implements Status {
         this.currentPlayer = currentPlayer;
     }
 
-    public Player getCurrentPlayer() {
+    public PlayerStatus getCurrentPlayer() {
         return currentPlayer;
     }
 
@@ -114,13 +110,13 @@ public class BoardStatus implements Status {
 
 
 
-    public ArrayList<Player> getAllPlayers() {
-        return allPlayers;
+    public List<PlayerStatus> getPlayerList() {
+        return players;
     }
 
     //return the status of a player
     public PlayerStatus getPlayerStatus(String playerID) {
-        for (Player p : allPlayers) {
+        for (PlayerStatus p : players) {
             if (p.getPlayerID().equals(playerID)) {
                 return (PlayerStatus) p;
             }
@@ -134,15 +130,15 @@ public class BoardStatus implements Status {
         PlayerStatus player = getPlayerStatus(newPlayerStatus.getPlayerID());
         if (player == null) {
             players.add(newPlayerStatus);
-            if (thisPlayer == null) {
-                thisPlayer = newPlayerStatus;
+            if (currentPlayer == null) {
+                currentPlayer = newPlayerStatus;
             }
         } else {
             int playerIndex = players.indexOf(player);
             players.remove(playerIndex);
             players.add(playerIndex, newPlayerStatus);
-            if (newPlayerStatus.equals(thisPlayer)) {
-                thisPlayer = newPlayerStatus;
+            if (newPlayerStatus.equals(currentPlayer)) {
+                currentPlayer = newPlayerStatus;
             }
         }
         return true;
@@ -153,6 +149,7 @@ public class BoardStatus implements Status {
 //                + "\n" + "allplayer:" + players.get(0).toString();
         return "board";
     }
+
     @Override
     public Ansi toAnsi(){
         return ansi().a("map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);

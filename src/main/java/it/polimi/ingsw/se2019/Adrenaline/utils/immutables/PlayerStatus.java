@@ -29,6 +29,7 @@ public class PlayerStatus implements Status{
     protected boolean alive;
     protected Board board;
     protected int favorTokens;
+    protected String mapInfo;
 
 
 
