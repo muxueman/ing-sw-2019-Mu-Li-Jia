@@ -4,6 +4,8 @@ import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PowerupCardUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
+import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 
 import java.rmi.RemoteException;

@@ -46,7 +46,6 @@ public class PlayerStatus implements Status{
         //初始化所有的玩家,放入allPlayer
     }
 
-
     public PlayerStatus(String playerID,String username, int favorTokens) {
         this.playerID = playerID;
         this.username = username;
@@ -61,10 +60,6 @@ public class PlayerStatus implements Status{
         //初始化所有的玩家,放入allPlayer
     }
 
-
-//    public PlayerStatus(String username, )
-
-    //不知道用法
     public Ansi toAnsi(){
         return ansi().a("Username: " + username + "\n color: " + playerColor + "\n" + killShootTrack.toAnsi().a("\n"));
     }

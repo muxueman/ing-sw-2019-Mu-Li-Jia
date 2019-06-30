@@ -15,7 +15,7 @@ public class PlayerSetupState implements GameServerInterface {
     private ServerController serverController;
     private Lobby lobby;
 
-    PlayerSetupState(ServerController serverController, Lobby lobby) {
+    public PlayerSetupState(ServerController serverController, Lobby lobby) {
         this.serverController = serverController;
         this.lobby = lobby;
         Logger.getGlobal().log(Level.INFO,"player set up state....");
