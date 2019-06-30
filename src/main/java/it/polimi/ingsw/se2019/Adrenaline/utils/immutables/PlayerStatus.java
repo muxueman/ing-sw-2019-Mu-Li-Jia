@@ -104,6 +104,9 @@ public class PlayerStatus implements Status{
     public Color getPlayerColor() {
         return playerColor;
     }
+    public void setPlayerColor() {
+
+    }
 
     public void setAlive(boolean alive) {
         this.alive = alive;

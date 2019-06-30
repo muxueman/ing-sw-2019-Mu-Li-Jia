@@ -261,11 +261,11 @@ public class Board extends BoardStatus{
 
     public int getFirstPlayer() { return firstPlayer; }
 
-    public Map getMap() { return map; }
+    //public Map getMap() { return map; }
 
-    public void turnNextPlayer(){
-        setCurrentPlayer(nextPlayer(currentPlayer));
-    }
+    //public void turnNextPlayer(){
+     //   setCurrentPlayer(nextPlayer(currentPlayer));
+    //}
 
 
     public int getNumKillShoot() { return numKillShoot; }

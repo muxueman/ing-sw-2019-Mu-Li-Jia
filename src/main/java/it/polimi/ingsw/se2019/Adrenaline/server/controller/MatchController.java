@@ -233,9 +233,9 @@ public class MatchController {
             };
         }
         playBoard.setAllPlayerColor();
-        Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序
+        Collections.shuffle(playBoard.getPlayerList());//打乱allplayer 顺序
         TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
-        playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
+        playBoard.setPlayers(playBoard.getPlayerList()); // 存入status
     }
 
     //send map result ot each client

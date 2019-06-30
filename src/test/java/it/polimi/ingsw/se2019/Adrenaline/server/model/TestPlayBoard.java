@@ -30,15 +30,15 @@ public class TestPlayBoard {
         testBoard.addPlayers(testPlayer);
         testBoard.addPlayers(testPlayer2);
         System.out.println("currenttest"+testBoard.getCurrentPlayer());
-        testBoard.setPlayers(testBoard.getAllPlayers());
+        //testBoard.setPlayers(testBoard.getAllPlayers());
 
         testBoard.setAllPlayerColor();
         testBoard.setCurrentPlayer(testShooter);
-        testBoard.turnNextPlayer();
-        testBoard.turnNextPlayer();
+        //testBoard.turnNextPlayer();
+        //testBoard.turnNextPlayer();
         testBoard.changefirenzyMode();
         System.out.println(testBoard.getCurrentPlayer());
-        testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
+        //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
         System.out.println(testBoard.getCurrentPlayer());
         for(Player p : testBoard.getAllPlayers()){
             System.out.println(p.getUserName());

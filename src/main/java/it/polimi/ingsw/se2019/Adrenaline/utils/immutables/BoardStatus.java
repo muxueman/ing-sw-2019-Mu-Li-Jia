@@ -25,9 +25,10 @@ public class BoardStatus implements Status {
     protected int killTurn;
     protected boolean firenzyTriggerd;
 
-    private List<PlayerStatus> players;
+    protected List<PlayerStatus> players;
+    protected List<Player> allPlayers;
 
-    protected MapStatus map;
+    protected Map map;
     protected int mapInt;
 
     private AdditionalStatus additional;
@@ -104,12 +105,13 @@ public class BoardStatus implements Status {
         return currentPlayer;
     }
 
+    public Map getMap(){return map;}
     public void updateAdditional(AdditionalStatus additionalStatus) {
         additional = additionalStatus;
     }
 
 
-
+    public List<Player> getAllPlayers(){return allPlayers;}
     public List<PlayerStatus> getPlayerList() {
         return players;
     }
