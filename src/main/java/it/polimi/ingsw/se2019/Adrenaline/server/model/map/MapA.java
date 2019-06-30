@@ -83,8 +83,8 @@ public class MapA extends Map{
         YELLOWCells.add(cell12);
 
         setAdjacentCells(0, 0, 0, 0, cell0);
-        setAdjacentCells(0, 2, 4, 0, cell1);
-        setAdjacentCells(0, 3, 5, 1, cell2);
+        setAdjacentCells(0, 2, 5, 0, cell1);
+        setAdjacentCells(0, 3, 6, 1, cell2);
         setAdjacentCells(0, 0, 7, 2, cell3);
         setAdjacentCells(1, 6, 0, 0, cell5);
         setAdjacentCells(2, 7, 10, 5, cell6);
