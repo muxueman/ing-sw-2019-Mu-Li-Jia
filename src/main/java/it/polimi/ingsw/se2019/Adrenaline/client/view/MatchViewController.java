@@ -1,13 +1,17 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +23,8 @@ public class MatchViewController extends GUIController{
 
     @FXML
     private AnchorPane root;
+    @FXML
+    private ImageView map;
     @FXML
     private GridPane weaponR;
     @FXML
@@ -44,15 +50,25 @@ public class MatchViewController extends GUIController{
     @FXML
     private Button cancelButton;
     @FXML
-    private TextArea selfScore;
+    private Label selfPlayerScore;
     @FXML
-    private TextArea player1Score;
+    private Label selfPlayerName;
     @FXML
-    private TextArea player2Score;
+    private Label player1Name;
     @FXML
-    private TextArea player3Score;
+    private Label player2Name;
     @FXML
-    private TextArea player4Score;
+    private Label player3Name;
+    @FXML
+    private Label player4Name;
+    @FXML
+    private Label player1Score;
+    @FXML
+    private Label player2Score;
+    @FXML
+    private Label player3Score;
+    @FXML
+    private Label player4Score;
     @FXML
     private HBox ammotile;
     @FXML
@@ -69,17 +85,28 @@ public class MatchViewController extends GUIController{
     private Button closeButton;
 
     private boolean next;
-    public static final String gameMap = "/fxml/gameMap.fxml";
+
+    public MatchViewController(BoardStatus boardStatus,boolean next){
+        this.boardStatus = boardStatus;
+        this.next = next;
+    }
+
+    public static final String chioceMap = "/fxml/choiceMap.fxml";
+
+
 
 
     @FXML
     public void initialize() {
         if (next) {
-            Platform.runLater(() -> newView(this));
+            Platform.runLater(() -> choiceMapView(this));
         }
         addDraggableNode(root);
-        closeButton.setOnAction(event -> AlertBox.displayCloseRequest(this, root));
-        endTurnButton.setOnAction(event -> {
+        closeButton.setOnAction( event ->  {
+            AlertBox.displayCloseRequest(this,root);
+            Stage stage = (Stage)root.getScene().getWindow();
+            stage.close();
+        });        endTurnButton.setOnAction(event -> {
             notify("PASS");
             textMessege.setText("");
         });
@@ -91,9 +118,12 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML
-   public static void newView(GUIController guiController) {
+    private void choiceMapView(MatchViewController matchViewController) {
         try {
-            FXMLLoader loader = new FXMLLoader(MatchViewController.class.getResource(gameMap));
+            ChoiceMapController choiceMapController = new ChoiceMapController(boardStatus, matchViewController);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceMap.fxml"));
+            loader.setController(choiceMapController);
             Stage window = new Stage();
             Parent newRoot = loader.load();
             Scene initialScene = new Scene(newRoot);
@@ -106,6 +136,17 @@ public class MatchViewController extends GUIController{
         }
     }
 
+    @FXML
+    public void setInit() {
+
+    }
+
+    @FXML
+    public void switchMap(){
+    }
+
+
+
 
 
 
@@ -115,9 +156,9 @@ public class MatchViewController extends GUIController{
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
 
-            /*
-            selfPlayer.getChildren().add(anchorPane):
-             */
+
+            selfPlayer.getChildren().add(anchorPane);
+
 
         } catch (IOException e) {
             Logger.getGlobal().warning(e.toString());
@@ -127,25 +168,15 @@ public class MatchViewController extends GUIController{
     }
 
 
-    @Override
-    public void guiValue() {
-        Platform.runLater(() -> AlertBox.choiceMap(this));
 
-    }
 
-    
+
     @Override
     public void update(ModelUpdate message) {
         boardStatus = message.getBoardStatus();
         if (boardStatus!= null) {
             Platform.runLater( () -> {
-//                setDraftPoolSpace(boardStatus.getDraftPool(), draftPoolSpace);
-//                setRoundTrackSpace(boardStatus.getRoundTrack(), roundTrackSpace);
-//                setToolCards(boardStatus.getToolCards());
-//                setTable(boardStatus);
-//                setActualPlayer(boardStatus);
-//                setAdditional(boardStatus.getAdditional());
-//                textArea.setText("Token to reconnect: " + boardStatus.getReconnectionToken());
+
             });
         }
     }
@@ -155,7 +186,25 @@ public class MatchViewController extends GUIController{
         Platform.runLater(() -> {
             textMessege.setText(message.split("\n")[0]);
         });
+
+
+        switch(message) {
+            case "1" :
+                map.setImage(new Image("/map/map_A.png"));
+            case "2" :
+                map.setImage(new Image("/map/map_B.png"));
+            case "3" :
+                map.setImage(new Image("/map/map_C.png"));
+            case "4" :
+                map.setImage(new Image("/map/map_D.png"));
+
+        }
     }
+
+
+
+
+
 
 
 

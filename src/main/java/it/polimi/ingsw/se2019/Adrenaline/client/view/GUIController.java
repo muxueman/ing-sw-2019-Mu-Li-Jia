@@ -4,6 +4,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -54,25 +55,27 @@ public abstract class GUIController {
      */
 
 
-//    protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, GUIController controller) {
-//
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-//            loader.setController(controller);
-//            Parent secondView = loader.load();
-//            Scene newScene = new Scene(secondView);
-//            Stage stage = (Stage) root.getScene().getWindow();
-//            stage.setWidth(600);
-//            stage.setHeight(350);
-//            stage.centerOnScreen();
-//            stage.setScene(newScene);
-//
-//            guiView.setGuiController(controller);
-//        } catch (IOException e1) {
-//            e1.printStackTrace();
-//            Logger.getGlobal().warning(e1.getCause().toString());
-//        }
-//    }
+
+
+    protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, GUIController controller) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            loader.setController(controller);
+            Parent secondView = loader.load();
+            Scene newScene = new Scene(secondView);
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setWidth(1300);
+            stage.setHeight(800);
+            stage.centerOnScreen();
+            stage.setScene(newScene);
+
+            guiView.setGuiController(controller);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            Logger.getGlobal().warning(e1.getCause().toString());
+        }
+    }
 
 
 
@@ -179,6 +182,8 @@ public abstract class GUIController {
     public void guiValue() {
         // only used by MatchViewController
     }
+
+
 
 
 

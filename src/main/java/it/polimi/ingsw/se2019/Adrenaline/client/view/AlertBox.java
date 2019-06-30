@@ -125,44 +125,6 @@ public class AlertBox extends GUIController {
         }
     }
 
-    public static void choiceMap(MatchViewController matchViewController) {
-        try {
-            Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/fxml/choiceMap.fxml"));
-            Parent root = loader.load();
-            Scene initialScene = new Scene(root);
-            AlertBoxController controller = loader.getController();
-            controller.setMapA( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("1");
-                        window.close();
-                    })
-            );
-
-            controller.setMapB( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("2");
-                        window.close();
-                    })
-            );
-            controller.setMapC( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("3");
-                        window.close();
-                    })
-            );
-            controller.setMapD( event ->
-                    Platform.runLater( ()-> {
-                        matchViewController.notify("4");
-                        window.close();
-                    })
-            );
-
-            setWindow(window,initialScene);
-        } catch (IOException e) {
-            Logger.getGlobal().warning(e.getCause().toString());
-        }
-    }
 
 
 

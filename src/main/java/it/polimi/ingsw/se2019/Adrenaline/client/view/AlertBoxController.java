@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,27 +62,9 @@ public class AlertBoxController extends GUIController {
     private ChoiceBox<String> choiceBox;
     @FXML
     private Button newGameButton;
-    @FXML
-    private Button mapAbutton;
-    @FXML
-    private Button mapBbutton;
-    @FXML
-    private Button mapCbutton;
-    @FXML
-    private Button mapDbutton;
-    @FXML
-    private Button confirmButton;
-    @FXML
-    private TextArea textkillshootnum;
-    @FXML
-    private ImageView mapA;
-    @FXML
-    private ImageView mapB;
-    @FXML
-    private ImageView mapC;
-    @FXML
-    private ImageView mapD;
 
+
+    private boolean next;
 
 
 
@@ -205,22 +188,6 @@ public class AlertBoxController extends GUIController {
         fifthP.setText(player.getUserName());
         fifthScore.setText(Integer.toString(player.getMyScore()));
         fifthScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
-    }
-
-    public void setMapA(EventHandler<MouseEvent> value) {
-        mapA.setOnMouseClicked(value);
-    }
-
-    public void setMapB(EventHandler<MouseEvent> value) {
-        mapB.setOnMouseClicked(value);
-    }
-
-    public void setMapC(EventHandler<MouseEvent> value) {
-        mapC.setOnMouseClicked(value);
-    }
-
-    public void setMapD(EventHandler<MouseEvent> value) {
-        mapD.setOnMouseClicked(value);
     }
 
 

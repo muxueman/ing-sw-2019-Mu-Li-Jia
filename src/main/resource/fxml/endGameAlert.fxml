@@ -68,7 +68,7 @@
             <Font name="Arial Black" size="13.0" />
          </font>
       </Label>
-      <TextArea fx:id="textArea" editable="false" layoutX="315.0" layoutY="129.0" prefHeight="132.0" prefWidth="177.0" style="-fx-background-color: transparent;" visible="false" />
+      <TextArea fx:id="textArea" editable="false" layoutX="340.0" layoutY="129.0" prefHeight="167.0" prefWidth="231.0" style="-fx-background-color: transparent;" visible="false" />
       <Button fx:id="newGameButton" layoutX="392.0" layoutY="324.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="84.0" text="NEWGAME">
          <font>
             <Font size="11.0" />
