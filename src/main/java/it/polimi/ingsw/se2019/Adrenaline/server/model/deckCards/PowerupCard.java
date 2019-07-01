@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
+import javafx.scene.image.Image;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class PowerupCard implements Status {
     private String effect;
     private String note;
     private String Color;
+    private String image;
 
     public String getCardName(){
 
@@ -69,11 +71,18 @@ public class PowerupCard implements Status {
 
         this.note = note;
     }
+    public String getImage(String image){
+        return image;
+    }
+    public void setImage(String image){
+        this.image = image;
+    }
 
     @Override
     public String toString() {
         return "PowerupCard{" +
                 "cardName='" + cardName + '\'' +
+                "image" + image +'\'' +
                 ", ammoCost='" + ammoCost + '\'' +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
                 ", effect='" + effect + '\'' +
@@ -85,6 +94,7 @@ public class PowerupCard implements Status {
     public Ansi toAnsi() {
         Ansi ansi = new Ansi().a("PowerupCard{" +
                 "cardName='" + cardName + '\'' +
+                "image" + image +'\'' +
                 ", ammoCost='" + ammoCost + '\'' +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
                 ", effect='" + effect + '\'' +

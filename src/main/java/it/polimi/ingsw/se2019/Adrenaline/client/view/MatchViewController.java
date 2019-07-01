@@ -1,6 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,6 +35,12 @@ public class MatchViewController extends GUIController{
     @FXML
     private ImageView map;
     @FXML
+    private GridPane visibleCell;
+    @FXML
+    private GridPane playerPosition;
+    @FXML
+    private GridPane pickAmmoCard;
+    @FXML
     private GridPane weaponR;
     @FXML
     private GridPane weaponB;
@@ -40,6 +48,8 @@ public class MatchViewController extends GUIController{
     private GridPane weaponY;
     @FXML
     private AnchorPane selfPlayer;
+    @FXML
+    private VBox vboxPlayer;
     @FXML
     private AnchorPane player1;
     @FXML
@@ -92,8 +102,11 @@ public class MatchViewController extends GUIController{
     private Button closeButton;
     @FXML
     private Label timerLabel;
+    @FXML
+    private Label killShootNum;
 
     private boolean next;
+    private boolean position = false;
 
     private Timeline timeline;
     private Integer timeSeconds;
@@ -104,6 +117,10 @@ public class MatchViewController extends GUIController{
     }
 
     public static final String chioceMap = "/fxml/choiceMap.fxml";
+    protected static final String WeaponR_Path = "/weapons red/";
+    protected static final String WeaponB_Path = "/weapons blue/";
+    protected static final String WeaponY_Path = "/weapons yellow/";
+
 
     @FXML
     @Override
@@ -163,12 +180,28 @@ public class MatchViewController extends GUIController{
         });
         endTurnButton.setOnAction(event -> {
             notify("PASS");
+            if(timeline!=null) timeline.stop();
+            timerLabel.setText("00");
+            endTurnButton.setVisible(false);
             textMessege.setText("");
         });
         endRoundButton.setOnAction(event -> {
             notify("PASS");
+            if(timeline!=null) timeline.stop();
+            timerLabel.setText("00");
+            endRoundButton.setVisible(false);
             textMessege.setText("");
         });
+
+    }
+
+    @FXML
+    public void setPlayerInfo(){
+
+
+    }
+
+    private void setPowerupCards(BoardStatus boardStatus){
 
     }
 
@@ -196,20 +229,46 @@ public class MatchViewController extends GUIController{
 
     }
 
+    @FXML
+    private void choosePlayerPosition(int i,GridPane playerPosition){
+        if(!position){
+
+        }
+    }
+
+    @FXML
+    public void setWeaponRCard(GenerationCell generationR){
+        for (int i = 0; i < weaponR.getChildren().size(); i++){
+            ((ImageView)weaponR.getChildren().get(i)).setImage(new Image(WeaponR_Path + generationR.getWeaponCard(i) + ".png"));
+        }
+    }
+    @FXML
+    public void setWeaponBCard(GenerationCell generationB){
+        for (int i = 0; i < weaponB.getChildren().size(); i++){
+            ((ImageView)weaponB.getChildren().get(i)).setImage(new Image(WeaponB_Path + generationB.getWeaponCard(i) + ".png"));
+        }
+    }
+    @FXML
+    public void setWeaponYCard(GenerationCell generationY){
+        for (int i = 0; i < weaponY.getChildren().size(); i++){
+            ((ImageView)weaponY.getChildren().get(i)).setImage(new Image(WeaponY_Path + generationY.getWeaponCard(i) + ".png"));
+        }
+    }
 
 
 
 
 
 
-    public void showPlayer() {
+
+    public void showPlayer(int i ,VBox vboxPlayer) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
 
 
-            selfPlayer.getChildren().add(anchorPane);
+            player1.getChildren().add(anchorPane);
 
 
         } catch (IOException e) {
@@ -218,9 +277,6 @@ public class MatchViewController extends GUIController{
 
 
     }
-
-
-
 
 
     @Override
@@ -232,6 +288,9 @@ public class MatchViewController extends GUIController{
             });
         }
     }
+
+
+
 
     @Override
     public void showMessage(String message) {
@@ -248,10 +307,25 @@ public class MatchViewController extends GUIController{
                 map.setImage(new Image("/map/map_C.png")); break;
             case "4" :
                 map.setImage(new Image("/map/map_D.png")); break;
+            case "5" :
+                killShootNum.setText("5"); break;
+            case "6" :
+                killShootNum.setText("6"); break;
+            case "7" :
+                killShootNum.setText("7"); break;
+            case "8" :
+                killShootNum.setText("8"); break;
+
 
         }
 
 
+    }
+
+    @Override
+    public void showRanking(Player myscore) {
+        String username = boardStatus.getCurrentPlayer().getUsername();
+        Platform.runLater(() -> AlertBox.displayEndGame(this, root,myscore, username));
     }
 
 

@@ -2,10 +2,13 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.util.logging.Logger;
 
 public class ChoiceMapController extends GUIController{
 
@@ -32,6 +35,8 @@ public class ChoiceMapController extends GUIController{
     private Button closeButton;
 
     private MatchViewController matchViewController;
+    private boolean close = false;
+
 
     public ChoiceMapController(BoardStatus boardStatus,MatchViewController matchViewController){
         this.boardStatus = boardStatus;
@@ -40,30 +45,22 @@ public class ChoiceMapController extends GUIController{
 
     public void initialize(){
 
-        checkMap(matchViewController);
-        getKillshootnum(matchViewController);
-        boardStatus = null;
-        matchViewController.setInit();
         addDraggableNode(root);
         closeButton.setOnAction( event ->  {
             Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
         });
-
-    }
-
-    public void getKillshootnum(MatchViewController matchViewController){
-
-        Button5.setOnAction(event -> matchViewController.notify("5"));
-        Button6.setOnAction(event -> matchViewController.notify("6"));
-        Button7.setOnAction(event -> matchViewController.notify("7"));
-        Button8.setOnAction(event -> matchViewController.notify("8"));
+        checkMap(matchViewController);
+        Button5.setOnMouseClicked(event -> checkChoice(5));
+        Button6.setOnMouseClicked(event -> checkChoice(6));
+        Button7.setOnMouseClicked(event -> checkChoice(7));
+        Button8.setOnMouseClicked(event -> checkChoice(8));
 
 
 
     }
 
-    public void checkMap(MatchViewController matchViewController){
+    public void checkMap(MatchViewController matchViewController) {
 
         mapAbutton.setOnAction(event -> matchViewController.notify("1"));
         mapBbutton.setOnAction(event -> matchViewController.notify("2"));
@@ -72,14 +69,20 @@ public class ChoiceMapController extends GUIController{
 
 
     }
+    private void checkChoice(int killshootnum) {
+        if (killshootnum >=5 && killshootnum <= 8) {
+            matchViewController.notify(Integer.toString(killshootnum));
+            matchViewController.setInit();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+        } else {
+            Logger.getGlobal().warning("It's null!");
+        }
+    }
 
-//    public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
-//        closeButton.setOnAction(event -> {
-//            Stage stage = (Stage) root.getScene().getWindow();
-//            guiController.close(anchorPane);
-//            stage.close();
-//        });
-//    }
+
+
+
 
 
 

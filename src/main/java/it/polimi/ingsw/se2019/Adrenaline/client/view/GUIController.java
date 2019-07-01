@@ -183,6 +183,10 @@ public abstract class GUIController {
         // only used by MatchViewController
     }
 
+    public void showRanking(Player myscore) {
+        //Implemented only by MatchViewController
+    }
+
 
 
 

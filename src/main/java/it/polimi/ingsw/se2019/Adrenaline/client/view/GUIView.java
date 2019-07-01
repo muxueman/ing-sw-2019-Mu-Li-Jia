@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 /**
  *
@@ -85,6 +86,10 @@ public class GUIView extends View{
     @Override
     public void value(){
         guiController.guiValue();
+    }
+
+    public void showRanking(Player myscore) {
+        guiController.showRanking(myscore);
     }
 
 

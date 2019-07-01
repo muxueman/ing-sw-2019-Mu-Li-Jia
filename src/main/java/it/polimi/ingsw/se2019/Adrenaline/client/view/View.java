@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 
 import java.util.*;
@@ -38,6 +39,7 @@ public abstract class View extends Observable<String> implements Observer<ModelU
     public void value(){
 
     }
+
 
 
 }

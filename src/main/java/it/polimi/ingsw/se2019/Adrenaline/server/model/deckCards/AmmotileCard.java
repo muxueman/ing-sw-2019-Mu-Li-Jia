@@ -13,6 +13,7 @@ public class AmmotileCard implements Status {
     public int numAmmotileCard;
     public int[] ammoColor;
     public int totalnumCard;
+    public String image;
 
     public int getNumAmmotileCard(){
 
@@ -40,6 +41,14 @@ public class AmmotileCard implements Status {
 
         this.totalnumCard = totalnumCard;
     }
+    public String getImage(String image){
+        return image;
+    }
+    public void setImage(String image){
+        this.image = image;
+    }
+
+
 
 
 
@@ -47,6 +56,7 @@ public class AmmotileCard implements Status {
     public String toString() {
         return "AmmotileCard{" +
                 "numAmmotileCard=" + numAmmotileCard +
+                "image" + image +
                 ", ammoColor=" + Arrays.toString(ammoColor) +
                 ", totalnumCard=" + totalnumCard +
                 '}';
@@ -55,6 +65,7 @@ public class AmmotileCard implements Status {
     public Ansi toAnsi() {
         Ansi ansi = new Ansi().a("AmmotileCard{" +
                 "numAmmotileCard=" + numAmmotileCard +
+                "image" + image +
                 ", ammoColor=" + Arrays.toString(ammoColor) +
                 ", totalnumCard=" + totalnumCard +
                 '}');

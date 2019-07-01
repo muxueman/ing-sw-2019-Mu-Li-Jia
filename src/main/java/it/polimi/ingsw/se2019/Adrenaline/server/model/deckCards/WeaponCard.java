@@ -12,13 +12,32 @@ public class WeaponCard implements Status {
 
     private String cardName;
     private int[] basicammoCost;
-    private int damageVision;
+    private int basicDamageVision;
     private int[] damageDeal;
     private String basicEffect;
     private String[] specialEffectName;
     private int[]specialAmmoCost;
     private String[] specialEffect;
     private String notes;
+    private int weaponType;
+    private int effectDamageVison;
+    private String image;
+
+    public int getEffectDamageVison() {
+        return effectDamageVison;
+    }
+
+    public void setEffectDamageVison(int effectDamageVison) {
+        this.effectDamageVison = effectDamageVison;
+    }
+
+    public int getWeaponType() {
+        return weaponType;
+    }
+
+    public void setWeaponType(int weaponType) {
+        this.weaponType = weaponType;
+    }
 
     public String getCardName(){
 
@@ -38,13 +57,12 @@ public class WeaponCard implements Status {
         this.basicammoCost = basicammoCost;
     }
 
-    public int getDamageVision(){
-
-        return damageVision;
+    public void setBasicDamageVision(int basicDamageVision) {
+        this.basicDamageVision = basicDamageVision;
     }
-    public void setDamageVision(int damageVision){
 
-        this.damageVision = damageVision;
+    public int getBasicDamageVision() {
+        return basicDamageVision;
     }
 
     public int[] getDamageDeal(){
@@ -100,13 +118,19 @@ public class WeaponCard implements Status {
 
         this.notes = notes;
     }
+    public String getImage(String image){
+        return image;
+    }
+    public void setImage(String image){
+        this.image = image;
+    }
 
     @Override
     public String toString() {
         return "WeaponCard{" +
                 "cardName='" + cardName + '\'' +
                 ", basicammoCost=" + Arrays.toString(basicammoCost) +
-                ", damageVision=" + damageVision +
+                ", damageVision=" + basicDamageVision +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
                 ", basicEffect='" + basicEffect + '\'' +
                 ", specialEffectName=" + Arrays.toString(specialEffectName) +
@@ -120,7 +144,7 @@ public class WeaponCard implements Status {
         Ansi ansi = new Ansi().a("WeaponCard{" +
                 "cardName='" + cardName + '\'' +
                 ", basicammoCost=" + Arrays.toString(basicammoCost) +
-                ", damageVision=" + damageVision +
+                ", damageVision=" + basicDamageVision +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
                 ", basicEffect='" + basicEffect + '\'' +
                 ", specialEffectName=" + Arrays.toString(specialEffectName) +
@@ -133,6 +157,3 @@ public class WeaponCard implements Status {
 
 
 }
-
-
-

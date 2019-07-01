@@ -2,61 +2,73 @@
   "ammotileCardDeck" : [
     {
       "numAmmotileCard": 1,
+      "image": "/ammo/AD_ammo_042.png",
       "ammoColor": [3, 2, 2],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 2,
+      "image": "/ammo/AD_ammo_043.png",
       "ammoColor": [3, 1, 1],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 3,
+      "image": "/ammo/AD_ammo_044.png",
       "ammoColor": [1, 2, 2],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 4,
+      "image": "/ammo/AD_ammo_045.png",
       "ammoColor": [1, 3, 3],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 5,
+      "image": "/ammo/AD_ammo_046.png",
       "ammoColor": [2, 3, 3],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 6,
+      "image": "/ammo/AD_ammo_047.png",
       "ammoColor": [2, 1, 1],
       "totalnumCard": 3
     },
     {
       "numAmmotileCard": 7,
+      "image": "/ammo/AD_ammo_0420.png",
       "ammoColor": [0, 3, 3],
       "totalnumCard": 2
     },
     {
       "numAmmotileCard": 8,
+      "image": "/ammo/AD_ammo_0421.png",
       "ammoColor": [0, 1, 1],
       "totalnumCard": 2
     },
     {
       "numAmmotileCard": 9,
+      "image": "/ammo/AD_ammo_0422.png",
       "ammoColor": [0, 2, 2],
       "totalnumCard": 2
     },
     {
       "numAmmotileCard": 10,
+      "image": "/ammo/AD_ammo_0423.png",
       "ammoColor": [0, 3, 1],
       "totalnumCard": 4
     },
     {
       "numAmmotileCard": 11,
+      "image": "/ammo/AD_ammo_0424.png",
       "ammoColor": [0, 3, 2],
       "totalnumCard": 4
     },
     {
       "numAmmotileCard": 12,
+      "image": "/ammo/AD_ammo_0425.png",
       "ammoColor": [0, 1, 2],
       "totalnumCard": 4
     }
