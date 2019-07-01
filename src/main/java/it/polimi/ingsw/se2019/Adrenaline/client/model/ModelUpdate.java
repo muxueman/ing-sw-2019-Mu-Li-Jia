@@ -1,7 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.ClientStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 import java.util.ArrayList;

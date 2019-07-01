@@ -5,13 +5,17 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.NotEnoughAmmosException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+import javafx.scene.control.SliderBuilder;
 import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 import sun.security.krb5.internal.PAData;
 
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -21,10 +25,160 @@ import java.util.Map;
 public class ActionShoot{
 
     private Player  shooter;
+    private WeaponCard weaponCard;
     private ArrayList<Player> targetBasic;
+    private ArrayList<Player> targetAttacked;
     private ArrayList<Player> targetSecond;
 
-  // this is be used to check the num of target is not more than the maximum
+    public ActionShoot(Player shooter) {
+        this.shooter = shooter;
+        this.weaponCard = shooter.getWeaponInUse();
+        targetBasic = new ArrayList<>();
+        targetAttacked = new ArrayList<>();
+        targetSecond = new ArrayList<>();
+    }
+
+    public int checkWeaponType(){
+        if(weaponCard.getType() == 0) return 0; //check your target
+        else return 1; // select you shoot mode, basic or advance?
+    }
+
+    public ArrayList<Player> getTargetBasic(){
+        return targetBasic;
+    }
+
+    public ArrayList<Player> getTargetSecond() {
+        return targetSecond;
+    }
+
+    protected ArrayList<Player> findTargetBasic() {
+        switch (weaponCard.getCardName()){
+            case "LOCK RIFLE": targetBasic.addAll(getTargetsYouCanSee(shooter));break;
+            case "ELECTROSCYTHE": targetBasic.addAll(getTargetInYourCell(shooter)); break;
+            case "MACHINE GUN": targetBasic.addAll(getTargetsYouCanSee(shooter));break;
+//            case "TRACTOR BEAM": targetBasic.addAll()
+            case "T.H.O.R": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
+//            case "VORTEX CANNON":; break;
+//            case "PLASMA GUN": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
+//            case "FURANCE": targetBasic.addAll(getTargetsFromRoomYouCanSeeButNotYouAreIn(shooter)) break;
+//            case "HEATSEKER": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
+//            case "WHISPER": targetBasic.addAll(getTargetVisibleTwoCellsAway(shooter)); break;
+//            case "HELLION": targetBasic.addAll(getTargetOneCellAway(shooter)); break;
+//            case "FLAMETHROWER": if(target.size() <= 2) shootable = true; break;
+//            case "ZX-2": if(target.size() == 1) shootable = true; break;
+//            case "GRENA DE LAUNCHER": if(target.size() == 1)  shootable = true; break;
+//            case "SHOTGUN":  if(target.size() == 1) shootable = true; break;
+//            case "ROCKET LAUNCHER": if(target.size() == 1) shootable = true; break;
+//            case "POWER GLOVE": if(target.size() == 1) shootable = true; break;
+//            case "RAILGUN": if(target.size() == 1) shootable = true; break;
+//            case "SHOCKWAVE": if(target.size() <= 3) shootable = true; break;
+//            case "CYBERBLADE": if(target.size() == 1) shootable = true; break;
+//            case "SLEDGEHAMMER": if(target.size() == 1) shootable = true; break;
+        }
+        return targetBasic;
+    }
+
+
+    protected ArrayList<Player> getTargetsArrayFromName(String names){
+        ArrayList<Player> selectedPlayer = new ArrayList<>();
+        for(Player p : shooter.getPlayBoard().getAllPlayers()){
+            if(names.contains(p.getUserName()))
+             selectedPlayer.add(p);
+        }
+        return selectedPlayer;
+    }
+
+    public boolean checkIfInputValid(String names) throws InvalidNameException{
+        if(getTargetBasic().size() == 0 || weaponCard.getBasicDamageVision() == 0){
+            dealBasicDamageToTarget(targetBasic);
+            return true; // dont do anything
+        }
+        boolean check = true;
+        for(Player p : getTargetsArrayFromName(names)){
+            if(getTargetBasic().contains(p)) continue;
+            else {
+                check = false;
+                throw new InvalidNameException();
+            }
+        }
+        if(getTargetsArrayFromName(names).size() != weaponCard.getBasicDamageVision()) {
+            check = false;
+            throw new InvalidNameException();
+        }
+        if(check){
+            targetAttacked.addAll(getTargetsArrayFromName(names));
+            dealBasicDamageToTarget(targetAttacked);
+        }
+        return check;
+    }
+    public boolean checkIfInputValidSecond(String names) throws InvalidNameException{
+        if(targetSecond.size() == 0 || weaponCard.getEffectDamageVison() == 0) {
+            dealSideEffectDamageToTarget(targetSecond);
+            return true;
+        }
+        boolean check = true;
+        for(Player p : getTargetsArrayFromName(names)){
+            if(getTargetSecond().contains(p)) continue;
+            else {
+                check = false;
+                throw new InvalidNameException();
+            }
+        }
+        if(getTargetsArrayFromName(names).size() != weaponCard.getBasicDamageVision()) {
+            check = false;
+            throw new InvalidNameException();
+        }
+        if(check){
+            dealSideEffectDamageToTarget(getTargetsArrayFromName(names));
+        }
+        return check;
+    }
+    // consume ammo for side effect, give available target,
+
+    public String getTargetNameBasic(){
+        String targetString = "Targets: ";
+        switch (weaponCard.getCardName()){
+            case "LOCK RIFLE": ;targetString += transferFromPlayerToString(findTargetBasic());
+            targetString += "\n" + "type in the name of ONE target"; break;
+            case "ELECTROSCYTHE": targetString += transferFromPlayerToString(findTargetBasic());
+            targetString += "\n" + "you dont have to choose a target, deal damage to them?"; break;
+            case "MACHINE GUN": targetString += transferFromPlayerToString(findTargetBasic());
+                targetString += "type in the name of ONE or TWO target";break;
+        }
+        if(getTargetBasic().size() == 0) targetString += "\n" + "nobody to shoot,";
+        return targetString;
+    }
+    public String getTargetNameWithSideEffect(){
+        if(targetBasic.size() == 0){
+            return "nobody to shoot";
+        }
+        String secondTargetName = "Second Target:" + "\n";
+        targetSecond.addAll(targetBasic);
+        switch (weaponCard.getCardName()){
+            case "LOCK RIFLE": targetSecond.remove(targetAttacked.get(0));
+                secondTargetName += transferFromPlayerToString(targetSecond);
+            case "ELECTROSCYTHE":  secondTargetName += transferFromPlayerToString(targetSecond);
+        }
+        return secondTargetName;
+    }
+
+    public String transferFromPlayerToString(ArrayList<Player> targetBasic){
+        String targetName = "";
+        for(Player p : targetBasic) {
+            targetName += p.getUsername();
+            targetName += "\t";
+        }
+        return targetName;
+    }
+    // this is be used to check the num of target is not more than the maximum
+
+
+    public Player getTargetFromName(String name){
+        for(Player p : shooter.getPlayBoard().getAllPlayers()){
+            if(p.getUsername() == name) return p;
+        }
+        return null;
+    }
 
     public boolean checkBasicTargetNum(ArrayList<Player> target, WeaponCard weaponCard){
         boolean shootable = false;
@@ -106,7 +260,19 @@ public class ActionShoot{
         return shootable;
     }
 // after click shoot, all the target will add damage / mark on their killshoottrack
-    protected void dealBasicDamageToTarget(Player shooter, ArrayList<Player> target, WeaponCard weaponCard) {
+
+
+//    public void dealBasicDamageToTarget(String name){
+//       Player target = getTargetFromName(name);
+//       switch (weaponCard.getCardName()){
+//           case "LOCK RIFLE": dealDamageMarkToTarget(shooter, 2, 1, target);
+//       }
+//       targetAttacked.add(target);
+//    }
+
+
+    protected void dealBasicDamageToTarget(ArrayList<Player> target) {
+        if(target.size() == 0) return;
         boolean shoot = false;
         int i = 0;
         if (weaponCard.getCardName() == "FURANCE") {
@@ -118,7 +284,87 @@ public class ActionShoot{
                 case "LOCK RIFLE":
                     dealDamageMarkToTarget(shooter, 2, 1, target.get(i));
                     break;
-//                case "ELECTROSCYTHE": dealDamageMarkToTarget(shooter, );
+                case "ELECTROSCYTHE": dealDamageMarkToTarget(shooter, 1,0, target.get(i));
+                    break;
+                case "MACHINE GUN":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "TRACTOR BEAM":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "T.H.O.R":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "VORTEX CANNON":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "PLASMA GUN":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "FURANCE":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "HEATSEKER":
+                    dealDamageMarkToTarget(shooter, 3, 0, target.get(i));
+                    break;
+                case "WHISPER":
+                    dealDamageMarkToTarget(shooter, 3, 1, target.get(i));
+                    break;
+                case "HELLION":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    int j = 0;
+                    while (j < target.get(i).getCurrentCell().getCellPlayers().size()) {
+                        dealDamageMarkToTarget(shooter, 0, 1, target.get(i).getCurrentCell().getCellPlayers().get(j));
+                        j++;
+                    }
+                    break;
+
+                case "FLAMETHROWER":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "ZX-2":
+                    dealDamageMarkToTarget(shooter, 1, 2, target.get(i));
+                    break;
+                case "GRENA DE LAUNCHER":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "SHOTGUN":
+                    dealDamageMarkToTarget(shooter, 3, 1, target.get(i));
+                    break;
+                case "ROCKET LAUNCHER":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "POWER GLOVE":
+                    moveTarget(shooter, shooter.getPlayBoard().getMap().getDirectionFromCellToCell(shooter.getCurrentCell(), target.get(i).getCurrentCell()));
+                    dealDamageMarkToTarget(shooter, 1, 2, target.get(i));
+                case "RAILGUN":
+                    dealDamageMarkToTarget(shooter, 3, 0, target.get(i));
+                    break;
+                case "SHOCKWAVE":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "CYBERBLADE":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "SLEDGEHAMMER":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+            }
+            i++;
+        }
+
+    }
+
+    public void dealSideEffectDamageToTarget(ArrayList<Player> target){
+        int i = 0;
+        while (i < target.size()) {
+            switch (weaponCard.getCardName()) {
+                case "LOCK RIFLE":
+                    dealDamageMarkToTarget(shooter, 0, 1, target.get(i));
+                    break;
+                case "ELECTROSCYTHE":
+                    dealDamageMarkToTarget(shooter, 2,0, target.get(i));
+                    break;
                 case "MACHINE GUN":
                     dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
                     break;
@@ -296,10 +542,23 @@ public class ActionShoot{
         return done;
     }
 
-    protected ArrayList<Player> getTargetsYouCanSee(Player shooter){
+    public ArrayList<Player> getTargetsYouCanSee(Player shooter){
+        ArrayList<Cell> cells = new ArrayList<>();
+        cells= shooter.getPlayBoard().getMap().getAllVisibleCells(shooter.getCurrentCell());
+        //去重
+        return getTargetFromCell(getCleanCellArray(cells));
+    }
+
+    public ArrayList<Cell> getCleanCellArray(ArrayList<Cell> cells){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
-        cellOfTargets = shooter.getPlayBoard().getMap().getAllVisibleCells(shooter.getCurrentCell());
-        return getTargetFromCell(cellOfTargets);
+        cells.stream().forEach(
+                p ->{
+                    if(!cellOfTargets.contains(p)){
+                        cellOfTargets.add(p);
+                    }
+                }
+        );
+        return cellOfTargets;
     }
 
     private ArrayList<Player> getVortexTarget(Player shooter){
@@ -359,13 +618,10 @@ public class ActionShoot{
         ArrayList<Player> targetsInVision = new ArrayList<>();
         int cellIndex = 0;
         int playerIndex = 0;
-        while(cellIndex < cellOfTargets.size()) {
-            while(playerIndex  < cellOfTargets.get(cellIndex).getCellPlayers().size()){
-                targetsInVision.add(cellOfTargets.get(cellIndex).getCellPlayers().get(playerIndex));
-                playerIndex++;
-            }
-            cellIndex++;
+        for(Cell c : cellOfTargets){
+            targetsInVision.addAll(c.getCellPlayers());
         }
+        targetsInVision.remove(shooter); // 攻击对象不包括shooter.
         return  targetsInVision;
     }
 
@@ -392,36 +648,9 @@ public class ActionShoot{
         }
         return available;
     }
-    protected boolean payAmmoForAtherModeWithNum(Player shooter, AmmoColor color, int num){
-        boolean available = false;
-        switch (color){
-            case RED: if(shooter.getAmmoOwned()[0]> num-1){
-                available = true;
-                while(num > 0){
-                    shooter.consumeAmmo(AmmoColor.RED);
-                    num--;
-                }
-            }break;
-            case BLUE: if(shooter.getAmmoOwned()[1]> num-1) {
-                available = true;
-                while(num > 0){
-                    shooter.consumeAmmo(AmmoColor.BLUE);
-                    num--;
-                }
-            } break;
-            case YELLOW: if(shooter.getAmmoOwned()[2]> num-1) {
-                available = true;
-                while (num > 0) {
-                    shooter.consumeAmmo(AmmoColor.BLUE);
-                    num--;
-                }
-                break;
-            }
-        }
-        return available;
-    }
 
-    public boolean payAmmoForOtherMode (Player shooter, WeaponCard weaponCard){
+
+    public boolean payAmmoForOtherMode() throws NotEnoughAmmosException{
         boolean paid = false;
         switch(weaponCard.getCardName()){
             case "LOCK RIFLE": paid = payAmmoForAtherMode(shooter, AmmoColor.RED); break;
@@ -447,7 +676,8 @@ public class ActionShoot{
             case "CYBERBLADE":  paid = true; break;
             case "SLEDGEHAMMER":  paid = payAmmoForAtherMode(shooter,  AmmoColor.RED); break;
         }
-        return paid;
+        if(!paid) throw new NotEnoughAmmosException();
+        else return paid;
     }
     public boolean payAmmoForThirdSideEffect(Player shooter, WeaponCard weaponCard){
         boolean paid = false;
@@ -493,4 +723,16 @@ public class ActionShoot{
             dealDamageMarkToTarget(shooter, damage, mark, targets.get(i));
         }
     }
+    public ArrayList<Player> getTargetAttacked() {
+        return targetAttacked;
+    }
+
+    public void endShoot(){
+        targetBasic.clear();
+        targetSecond.clear();
+        targetAttacked.clear();
+    }
+
 }
+
+

@@ -51,7 +51,7 @@ public class Player implements Status {
     }
     public Player(String playerID) {
         this.playerID = playerID;
-        this.username = null;
+        this.username = playerID;
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -93,6 +93,7 @@ public class Player implements Status {
                 break;
         }
         currentCell = board.getMap().getGenerationCellByColor(c);
+        currentCell.addPlayer(this);
     }
 
     public String getPlayerID() {
@@ -383,10 +384,10 @@ public class Player implements Status {
 
     @Override
     public String toString(){
-        return "Username: " + username + "\n" + "color: " + playerColor+ "\n" + "ActionMode: " + actionMode + "\n"
-                +"MyScore: " + myScore + killShootTrack.toString() + "\n" + "Your current Cell:" + currentCell + "\n"
-                + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
-                + weaponsOwned + "\n" + "powerup you have:" + "\n";
+        return "Username: " + username + "\n" + "color: " + playerColor+ "\n" + "ActionMode: " + actionMode + "\n";
+//                +"MyScore: " + myScore + killShootTrack.toString() + "\n" + "Your current Cell:" + currentCell + "\n"
+//                + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
+//                + weaponsOwned + "\n" + "powerup you have:" + "\n";
     }
 
     public Ansi toAnsi(){

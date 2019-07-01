@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import org.fusesource.jansi.Ansi;
 
@@ -33,7 +34,7 @@ public class GenerationCell extends Cell {
     public WeaponCard getWeaponCard(int cardPosition) {
         return containedWeapon[cardPosition];
     }
-
+    public AmmotileCard getAmmotileCard(){ return null; }
     @Override
     public void reload(Board board) {
         int i = 0;
@@ -54,6 +55,7 @@ public class GenerationCell extends Cell {
     }
     @Override
     public String toString(){
-        return "cell players:" + cellPlayers.toString() ;
+        return "cell players:";
+//                + cellPlayers.toString() ;
     }
 }

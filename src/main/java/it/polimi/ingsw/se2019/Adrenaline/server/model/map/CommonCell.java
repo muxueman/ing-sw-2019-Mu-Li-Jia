@@ -4,6 +4,7 @@ import com.sun.org.apache.xerces.internal.util.Status;
 import com.sun.org.glassfish.gmbal.AMXMetadata;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class CommonCell extends Cell {
     public void setAmmotileInCell(AmmotileCard ammotileInCell) { this.ammotileInCell = ammotileInCell;}
     public AmmotileCard getAmmotileCard(){
         return ammotileInCell;
+    }
+    public WeaponCard[] getWeaponCard(){
+        return null;
     }
     public void removeAmmotileCard(){
         ammotileInCell = null;

@@ -5,7 +5,6 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.CellStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 import java.util.ArrayList;
@@ -83,6 +82,8 @@ public abstract class Cell implements Status {
         this.cellPlayers.remove(player);
     }
 
+    public abstract AmmotileCard getAmmotileCard();
+    public abstract WeaponCard[] getWeaponCard();
     //overload
     //get the cell from a specific direction
     public Cell getNextCell(String direction) {
