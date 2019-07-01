@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
 
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 /**
@@ -15,15 +16,15 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
 public class PlayerStatusUpdate implements StatusUpdate {
 
-    private PlayerStatus playerStatus;
+    private Player player;
 
     public PlayerStatusUpdate(PlayerStatus playerStatus) {
-        this.playerStatus = playerStatus;
+        this.player = player;
     }
 
     @Override
     //The updateStatus function is used to update the client-side status
     public void updateStatus(UpdatableModel model) {
-        model.updatePlayer(playerStatus);
+        //model.updatePlayer(player);
     }
 }

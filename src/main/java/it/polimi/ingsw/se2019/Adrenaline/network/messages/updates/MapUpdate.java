@@ -6,13 +6,13 @@ package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
  */
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 
 public class MapUpdate implements StatusUpdate {
 
-    MapStatus map;
+    Map map;
 
-    public MapUpdate(MapStatus map){
+    public MapUpdate(Map map){
         this.map = map;
     }
     @Override

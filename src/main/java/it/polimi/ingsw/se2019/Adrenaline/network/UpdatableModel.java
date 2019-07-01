@@ -19,8 +19,8 @@ public interface UpdatableModel {
      */
 
     void pingUpdate(String message);
-
-    void updatePlayer(PlayerStatus playerStatus);
+    //void updatePlayer(PlayerStatus playerStatus);
+    void updateMap(Map map);
 
     //void updateDraftPool(DraftPoolStatus draftPool);
 
@@ -32,9 +32,9 @@ public interface UpdatableModel {
 
     //void updatePrivateObjectiveCard(PrivateObjectiveCard privateObjectiveCard);
 
-    void updateAdditional(AdditionalStatus additionalStatus);
+    //void updateAdditional(AdditionalStatus additionalStatus);
 
     //void updateChoosablePatterns(List<WindowPatternCard> windowPatternCards);
 
-    void updateReconnectionToken(TokenStatus token);
+    //void updateReconnectionToken(TokenStatus token);
 }

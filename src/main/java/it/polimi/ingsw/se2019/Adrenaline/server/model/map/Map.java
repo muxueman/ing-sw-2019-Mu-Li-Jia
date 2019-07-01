@@ -1,8 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import java.util.ArrayList;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 /**

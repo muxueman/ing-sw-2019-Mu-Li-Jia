@@ -1,168 +1,173 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.TurnHandler;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class BoardStatus implements Status {
 
     //与num一一对应
-    protected int[] numDamageOnSkullBoard;
-    protected Color[] colorDamageOnSkullBoard;
+    private int[] numDamageOnSkullBoard;
+    private Color[] colorDamageOnSkullBoard;
 
-    private List<PowerupCard> optionalPowerupCards;
-    private List<WeaponCard> optionalWeaponCards;
+    private int mapID;
+    private int numKillShoot;
+    private boolean firenzyTriggerd;
 
-    protected PlayerStatus currentPlayer;
-    protected static int numKillShoot;
-    protected int killTurn;
-    protected boolean firenzyTriggerd;
+    private PlayerStatus currentPlayer; //update player
+    private List<PlayerStatus> allPlayers;
+    private Map<String, String> usernames; //id, username
 
-    protected List<PlayerStatus> players;
-    protected List<Player> allPlayers;
-
-    protected MapStatus map;
+    private Map<Integer, Cell> allCells; // update map
+    private Map<Integer, AmmotileCard> ammotilesInCell;// update map
+    private Map<Integer, WeaponCard[]> weaponsInCell;// update map
+    private Map<Integer, List<PlayerStatus>> playersInCell;
+    private Map<PlayerStatus, Integer> positions;
 
     private AdditionalStatus additional;
     private String reconnectionToken;
-//    protected TurnHandler turnHandler;
-    //记录第几次的射杀
-
     private boolean started;
 
     //constructor
-    public BoardStatus(Map map,int skull){
-        currentPlayer = null;
-        additional = null;
-        numKillShoot = skull;
-        killTurn = 0;
-        firenzyTriggerd = false;
-        reconnectionToken = "";
-        //this.map = map;
-        players = new ArrayList<>();
-    }
-    //constructor
-    public BoardStatus(){
-        currentPlayer = null;
-        additional = null;
-        numKillShoot = 5;
-        killTurn = 0;
-        firenzyTriggerd = false;
-        reconnectionToken = "";
-        this.map = null;
-        players = null;
+       public BoardStatus() {
+        this.numDamageOnSkullBoard = null;
+        this.colorDamageOnSkullBoard = null;
+        this.mapID = 1;
+        this.numKillShoot = 5;
+        this.firenzyTriggerd = false;
+        this.currentPlayer = null;
+        this.allPlayers = new ArrayList<>();
+        this.usernames = new HashMap<>();
+        this.allCells = new HashMap<>();
+        this.ammotilesInCell = new HashMap<>();
+        this.weaponsInCell = new HashMap<>();
+        this.playersInCell = new HashMap<>();
+        this.positions = new HashMap<>();
+        this.additional = null;
+        this.reconnectionToken = "";
+        this.started = false;
     }
 
-    public void setMap(MapStatus map){
-        this.map = map;
-    }
-    public MapStatus getMap(){return map;}
-
-    public void setNumKillShoot(int numKillShoot) {
-
-        BoardStatus.numKillShoot = numKillShoot;
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-    }
-
-    public void setPlayers(List<PlayerStatus> players) {
-        for(PlayerStatus player: players){
-            players.add((PlayerStatus)player);
-        }
-    }
-    //不懂
-    public void updatePlayerStatus(){
-        int i = 0;
-        for(PlayerStatus player: players){
-            players.remove(i);
-            players.add((PlayerStatus) player);
-        }
+    //constructor from controller
+    public BoardStatus(int mapID, int numKillShoot) {
+        this.numDamageOnSkullBoard = null;
+        this.colorDamageOnSkullBoard = null;
+        this.mapID = mapID;
+        this.numKillShoot = numKillShoot;
+        this.firenzyTriggerd = false;
+        this.currentPlayer = null;
+        this.allPlayers = new ArrayList<>();
+        this.usernames = new HashMap<>();
+        this.allCells = new HashMap<>();
+        this.ammotilesInCell = new HashMap<>();
+        this.weaponsInCell = new HashMap<>();
+        this.playersInCell = new HashMap<>();
+        this.positions = new HashMap<>();
+        this.additional = null;
+        this.reconnectionToken = "";
+        this.started = false;
     }
 
-    public void setOptionalPowerupCards(List<PowerupCard> optionalPowerupCards) {
-        this.optionalPowerupCards = optionalPowerupCards;
+    public BoardStatus(Board board,int mapID, int numKillShoot) {
+        this.numDamageOnSkullBoard = null;
+        this.colorDamageOnSkullBoard = null;
+        this.mapID = mapID;
+        this.numKillShoot = numKillShoot;
+        this.firenzyTriggerd = false;
+        this.currentPlayer = null;
+        this.allPlayers = new ArrayList<>();
+        this.usernames = new HashMap<>();
+        this.allCells = new HashMap<>();
+        this.ammotilesInCell = new HashMap<>();
+        this.weaponsInCell = new HashMap<>();
+        this.playersInCell = new HashMap<>();
+        this.positions = new HashMap<>();
+        this.additional = null;
+        this.reconnectionToken = "";
+        this.started = false;
     }
-    public void setOptionalWeaponCards(List<WeaponCard> optionalWeaponCards) {
-        this.optionalWeaponCards = optionalWeaponCards;
+    public int[] getNumDamageOnSkullBoard() {
+        return numDamageOnSkullBoard;
     }
-
-    public void setReconnectionToken(String token) {
-        reconnectionToken = token;
+    public Color[] getColorDamageOnSkullBoard() {
+        return colorDamageOnSkullBoard;
     }
-
+    public PlayerStatus getCurrentPlayer() { return currentPlayer; }
+    public List<PlayerStatus> getAllPlayers() { return allPlayers; }
+    public Map<Integer, Cell> getAllCells() { return allCells; }
+    public Map<Integer, AmmotileCard> getAmmotilesInCell() { return ammotilesInCell; }
+    public Map<Integer, WeaponCard[]> getWeaponsInCell() { return weaponsInCell; }
+    public Map<PlayerStatus, Integer> getPositions() { return positions; }
     public String getReconnectionToken() { return reconnectionToken;}
 
-//    public void setCurrentPlayer(Player currentPlayer) {
-//        this.currentPlayer = currentPlayer;
-//    }
-
-    public PlayerStatus getCurrentPlayer() {
-        return currentPlayer;
+    //更新map里面包含的内容
+    public boolean updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map){
+           ArrayList<Cell> cells = map.getAllCells();
+           for (Cell c: cells){
+               if (c.getCellID() != 0){
+                   allCells.put(c.getCellID(),c);
+                   if (c.getAmmotileCard() != null){
+                       ammotilesInCell.put(c.getCellID(),c.getAmmotileCard());
+                   }
+                   if (c.getWeaponCard() != null){
+                       weaponsInCell.put(c.getCellID(),c.getWeaponCard());
+                   }
+               }
+           }
+           return true;
     }
 
-
-    public void updateAdditional(AdditionalStatus additionalStatus) {
-        additional = additionalStatus;
-    }
-
-
-    public List<Player> getAllPlayers(){return allPlayers;}
-    public List<PlayerStatus> getPlayerList() {
-        return players;
-    }
-
-    //return the status of a player
-    public PlayerStatus getPlayerStatus(String playerID) {
-        for (PlayerStatus p : players) {
+    //找到player类在这里的映射PlayerStatus
+    public PlayerStatus getPlayer(String playerID) {
+        for (PlayerStatus p : allPlayers) {
             if (p.getPlayerID().equals(playerID)) {
-                return (PlayerStatus) p;
+                return p;
             }
         }
         return null;
     }
 
-
-    //permits to update the status of a player.
-    public boolean updatePlayer(PlayerStatus newPlayerStatus) {
-        PlayerStatus player = getPlayerStatus(newPlayerStatus.getPlayerID());
+    //更新一个player
+    public boolean updatePlayer(Player newPlayerStatus){
+        PlayerStatus newPlayer = new PlayerStatus(newPlayerStatus);
+        PlayerStatus player = getPlayer(newPlayer.getPlayerID());
         if (player == null) {
-            players.add(newPlayerStatus);
+            allPlayers.add(newPlayer);
             if (currentPlayer == null) {
-                currentPlayer = newPlayerStatus;
+                currentPlayer = newPlayer;
             }
-        } else {
-            int playerIndex = players.indexOf(player);
-            players.remove(playerIndex);
-            players.add(playerIndex, newPlayerStatus);
-            if (newPlayerStatus.equals(currentPlayer)) {
-                currentPlayer = newPlayerStatus;
+        }else{
+            int playerIndex = allPlayers.indexOf(player);
+            allPlayers.remove(playerIndex);
+            allPlayers.add(playerIndex, newPlayer);
+            if (newPlayer.getPlayerID().equals(currentPlayer.getPlayerID())) {
+                currentPlayer = newPlayer;
             }
         }
         return true;
     }
+
+
+
     @Override
     public String toString(){
-//        return "map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd;
-//                + "\n" + "allplayer:" + players.get(0).toString();
-        return "board";
+        return "BoardStatus:\n " + "map id: " + mapID + "\n" + "numkill: " + numKillShoot+ "\n" +
+                "firenzy:" + firenzyTriggerd + "\n" + "allplayer:" +allPlayers + "\n" + "current player:" +currentPlayer;
     }
 
     @Override
     public Ansi toAnsi(){
-        return ansi().a("map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
-    }
-    public int[] getNumDamageOnSkullBoard() {
-        return numDamageOnSkullBoard;
-    }
-
-    public Color[] getColorDamageOnSkullBoard() {
-        return colorDamageOnSkullBoard;
+        return ansi().a("BoardStatus:\n " + "map id: " + mapID + "\n" + "numkill: " + numKillShoot+ "\n" +
+                "firenzy:" + firenzyTriggerd + "\n" + "allplayer:" +allPlayers + "\n" + "current player:" +currentPlayer);
     }
 }
