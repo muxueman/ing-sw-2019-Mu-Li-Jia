@@ -33,7 +33,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         this.view = view;
         this.gameServer = null;
         model = new Model();
-        model.initModel(null, 0); //todo: set map and skill is important
+        //model.initModel(null, 0); //todo: set map and skill is important
         view.register(this);
         model.register(view);
         playing = false;

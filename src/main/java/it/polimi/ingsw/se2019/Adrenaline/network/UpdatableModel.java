@@ -13,14 +13,28 @@ import java.util.List;
 
 public interface UpdatableModel {
 
-    void pingUpdate(String message);
-    void updateMap(Map map);
-    void updateBoard(Board board);
-    void updatePlayerBoard(PlayerBoard playerBoard);
-    void updatePlayer(Player player);
-//    void updateReconnectionToken(TokenStatus token);
-//    void updateAdditional(AdditionalStatus additionalStatus);
-//    void updateOptionalPowerupCards(List<PowerupCard> powerupCardsCards);
-//    void updateOptionalWeaponCards(List<WeaponCard> weaponCards);
-}
+    /**
+     * The pingUpdate method notifies the View telling that nothing
+     * has changed from the previous state (possibly useful for GUI).
+     */
 
+    void pingUpdate(String message);
+
+    void updatePlayer(PlayerStatus playerStatus);
+
+    //void updateDraftPool(DraftPoolStatus draftPool);
+
+    //void updateRoundTrack(RoundTrackStatus roundTrack);
+
+    //void updatePublicObjectiveCards(List<PublicObjectiveCard> publicObjectiveCards);
+
+    //void updateToolCards(List<ToolCardStatus> toolCards);
+
+    //void updatePrivateObjectiveCard(PrivateObjectiveCard privateObjectiveCard);
+
+    void updateAdditional(AdditionalStatus additionalStatus);
+
+    //void updateChoosablePatterns(List<WindowPatternCard> windowPatternCards);
+
+    void updateReconnectionToken(TokenStatus token);
+}

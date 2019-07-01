@@ -29,6 +29,6 @@ public class WeaponCardUpdate implements StatusUpdate {
 
     @Override
     public void updateStatus(UpdatableModel model) {
-        model.updateOptionalWeaponCards(weaponCards);
+        //model.updateOptionalWeaponCards(weaponCards);
     }
 }

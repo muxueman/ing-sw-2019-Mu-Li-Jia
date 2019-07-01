@@ -29,6 +29,6 @@ public class PowerupCardUpdate implements StatusUpdate {
 
     @Override
     public void updateStatus(UpdatableModel model) {
-        model.updateOptionalPowerupCards(powerupCards);
+        //odel.updateOptionalPowerupCards(powerupCards);
     }
 }
