@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.HashMap;
 
 public class TestPlayerBoard {
-
+/*
     Board testBoard = new Board(5);
     Player testShooter = new Player("JIA");
     Player testPlayer = new Player("MO");
@@ -120,4 +120,6 @@ public class TestPlayerBoard {
     public void getDamageColorOnTrack() {
 //        testKillShootTrack.toString();
     }
+
+ */
 }

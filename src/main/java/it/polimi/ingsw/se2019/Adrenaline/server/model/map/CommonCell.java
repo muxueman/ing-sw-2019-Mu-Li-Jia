@@ -1,22 +1,30 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
+import com.sun.org.apache.xerces.internal.util.Status;
 import com.sun.org.glassfish.gmbal.AMXMetadata;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
+import org.fusesource.jansi.Ansi;
+
 import java.util.ArrayList;
+
+import static org.fusesource.jansi.Ansi.ansi;
+
 /**
  *subclass common cell
  *@author Xueman Mu
  */
 
 public class CommonCell extends Cell {
+
     private AmmotileCard ammotileInCell;
     public CommonCell(int cellID) {
         super(cellID);
         this.type = 0;
         ammotileInCell = new AmmotileCard();
     }
-    @Override
+
+    public void setAmmotileInCell(AmmotileCard ammotileInCell) { this.ammotileInCell = ammotileInCell;}
     public AmmotileCard getAmmotileCard(){
         return ammotileInCell;
     }
@@ -30,6 +38,14 @@ public class CommonCell extends Cell {
     @Override
     public void reload(Board board){
         ammotileInCell = board.extractAmmotile();
+    }
+    @Override
+    public Ansi toAnsi(){
+        return ansi().a("cell players:" + cellPlayers.toString());
+    }
+    @Override
+    public String toString(){
+        return "cell players:" + cellPlayers.toString() ;
     }
 }
 

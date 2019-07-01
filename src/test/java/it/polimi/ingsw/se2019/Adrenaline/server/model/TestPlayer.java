@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 public class TestPlayer {
-
+/*
     Player testPlayer = new Player("JIA");
     PlayerBoard testKillShootTrack = new PlayerBoard(testPlayer);
     it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map = new MapD();
@@ -122,4 +122,6 @@ public class TestPlayer {
         System.out.println(testPlayer.getAmmoOwned()[1]);
         System.out.println(testPlayer.getAmmoOwned()[2]);
     }
+
+ */
 }

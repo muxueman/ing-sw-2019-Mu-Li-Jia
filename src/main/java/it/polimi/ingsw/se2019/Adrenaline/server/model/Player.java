@@ -2,31 +2,63 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerBoardStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
-import javafx.scene.SnapshotParametersBuilder;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
+import org.fusesource.jansi.Ansi;
 
-public class Player extends PlayerStatus {
-//    private String userName;
-//    private Cell currentCell;
-//    private String playerID;
+import static org.fusesource.jansi.Ansi.ansi;
+
+public class Player implements Status {
+
+
+    private Cell currentCell;
     private PlayerBoard killShootTrack;
     private WeaponCard weaponInUse;
-
+    private Board board;
+    private String username;
+    private String playerID;
+    private Color playerColor;
+    private int[] ammoOwned;
+    private Map<WeaponCard, Boolean> weaponsOwned;
+    private ArrayList<PowerupCard> powerupsOwned;
+    private int myScore;
+    private int actionMode;
+    private boolean alive;
+    private int favorTokens;
     /*mode = 0 three walk/one walk+ pick/shoot
     // mode = 1  two walk+pick
     mode = 1 walk+shoott
     */
 
     //constructor
-    public Player(String userName) {
-        super(userName);
+    public Player(String playerID, String username, int favorTokens) {
+        this.playerID = playerID;
+        this.username = username;
+        ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
+        weaponsOwned = new HashMap<>();
+        powerupsOwned = new ArrayList<>();
+        actionMode = 0;
+        myScore = 0;
+        alive = true;
+        favorTokens = 0;
+        this.killShootTrack = new PlayerBoard(this);
+    }
+    public Player(String playerID) {
+        this.playerID = playerID;
+        this.username = null;
+        ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
+        weaponsOwned = new HashMap<>();
+        powerupsOwned = new ArrayList<>();
+        actionMode = 0;
+        myScore = 0;
+        alive = true;
+        favorTokens = 0;
         this.killShootTrack = new PlayerBoard(this);
     }
 
@@ -69,8 +101,12 @@ public class Player extends PlayerStatus {
     public Color getPlayerColor() {
         return playerColor;
     }
-
-
+    public Cell getCurrentCell() {
+        return currentCell;
+    }
+    public void setMyScore(int myScore) {
+        this.myScore = myScore;
+    }
     public int[] getAmmoOwned() {
         return ammoOwned;
     }
@@ -79,6 +115,14 @@ public class Player extends PlayerStatus {
 
     public Map<WeaponCard, Boolean> getWeaponsOwned() {
         return weaponsOwned;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public int getFavorTokens() {
+        return favorTokens;
     }
 
     public ArrayList<PowerupCard> getPowerupsOwned() {
@@ -104,6 +148,9 @@ public class Player extends PlayerStatus {
         this.killShootTrack.beAttacked(shooter, damage, mark);
     }
 
+    public String getUsername() {
+        return username;
+    }
 
     /*
         //装载ammo
@@ -228,21 +275,15 @@ public class Player extends PlayerStatus {
     public PlayerBoard getKillShootTrack(){
         return this.killShootTrack;
     }
-    public PlayerBoardStatus getKillShootTrackStatus(){
-        return (PlayerBoardStatus)this.killShootTrack;
-    }
-    @Override
-    public String toString() {
-        return "Player: " + username + "\n"
-        + "Color: " + playerColor + "\n"
-        + "ActionMode: " + actionMode + "\n"
-        +"MyScore: " + myScore;
-    }
 
     public void recover(){
         alive = true;
         killShootTrack.recover();
     }
+    public boolean isReady() {
+        return username != null;
+    }
+
     public ArrayList<WeaponCard> getAvailableWeapon(){
         ArrayList<WeaponCard>availableWeapons = new ArrayList<>();
         for (WeaponCard key : weaponsOwned.keySet()){
@@ -315,12 +356,10 @@ public class Player extends PlayerStatus {
         return null;
     }
 
-    public PlayerStatus getPlayerStatus(){
-        return (PlayerStatus) this;
-    }
     public String getUserName() {
-        return super.getUsername();
+        return this.username;
     }
+
 //    public boolean payExtraAmmoForSideEffect(WeaponCard weaponCard){
 ////        ArrayList<Integer> extraAmmoCost = weaponCard.getSpecialAmmoCost();
 ////        int i = 0;
@@ -342,16 +381,15 @@ public class Player extends PlayerStatus {
 //        return true;
 //    }
 
-    /**
-     *
-     * The getStatus method is used to get the immutable
-     * copy of the player.
-     *
-     * @return a PlayerStatus object that represents a immutable copy of the player.
-     *
-     */
+    @Override
+    public String toString(){
+        return "Username: " + username + "\n" + "color: " + playerColor+ "\n" + "ActionMode: " + actionMode + "\n"
+                +"MyScore: " + myScore + killShootTrack.toString() + "\n" + "Your current Cell:" + currentCell + "\n"
+                + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
+                + weaponsOwned + "\n" + "powerup you have:" + "\n";
+    }
 
-    public PlayerStatus getStatus() {
-        return new PlayerStatus(playerID, username, favorTokens);
+    public Ansi toAnsi(){
+        return ansi().a("Username: " + username + "\n color: " + playerColor + "\n" + killShootTrack.toAnsi().a("\n"));
     }
 }

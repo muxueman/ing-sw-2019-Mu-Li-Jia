@@ -28,8 +28,7 @@ public class BoardStatus implements Status {
     protected List<PlayerStatus> players;
     protected List<Player> allPlayers;
 
-    protected Map map;
-    protected int mapInt;
+    protected MapStatus map;
 
     private AdditionalStatus additional;
     private String reconnectionToken;
@@ -46,7 +45,7 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         reconnectionToken = "";
-        this.map = map;
+        //this.map = map;
         players = new ArrayList<>();
     }
     //constructor
@@ -57,12 +56,15 @@ public class BoardStatus implements Status {
         killTurn = 0;
         firenzyTriggerd = false;
         reconnectionToken = "";
-        this.map = map;
+        this.map = null;
         players = null;
     }
-    public void setMap(Map map){
+
+    public void setMap(MapStatus map){
         this.map = map;
     }
+    public MapStatus getMap(){return map;}
+
     public void setNumKillShoot(int numKillShoot) {
 
         BoardStatus.numKillShoot = numKillShoot;
@@ -97,15 +99,15 @@ public class BoardStatus implements Status {
 
     public String getReconnectionToken() { return reconnectionToken;}
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
+//    public void setCurrentPlayer(Player currentPlayer) {
+//        this.currentPlayer = currentPlayer;
+//    }
 
     public PlayerStatus getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public Map getMap(){return map;}
+
     public void updateAdditional(AdditionalStatus additionalStatus) {
         additional = additionalStatus;
     }
@@ -154,7 +156,7 @@ public class BoardStatus implements Status {
 
     @Override
     public Ansi toAnsi(){
-        return ansi().a("map: " + map.getMapInfo() + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
+        return ansi().a("map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
     }
     public int[] getNumDamageOnSkullBoard() {
         return numDamageOnSkullBoard;

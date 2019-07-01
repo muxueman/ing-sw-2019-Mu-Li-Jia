@@ -11,7 +11,6 @@ public enum AmmoColor {
     private AmmoColor(String ammoColor){
 		this.ammoColor = ammoColor;
     }
-    
     public String getAmmoColor(){
 		return this.ammoColor;
 	}

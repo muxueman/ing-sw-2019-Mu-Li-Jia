@@ -233,9 +233,9 @@ public class MatchController {
             };
         }
         playBoard.setAllPlayerColor();
-        Collections.shuffle(playBoard.getPlayerList());//打乱allplayer 顺序
+        Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序
         TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
-        playBoard.setPlayers(playBoard.getPlayerList()); // 存入status
+        //playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
     }
 
     //send map result ot each client
@@ -272,7 +272,7 @@ public class MatchController {
         Logger.getGlobal().log(Level.INFO,"init a player{0}",player.getPlayerID());
         String reconnectionToken = matchID + "_" + player.getPlayerID();
         ServerMessage serverMessage = new ServerMessage(false, "This is your map :");
-        serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
+        //serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
 //        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(player.getPrivateObjectiveCard()));
 //        serverMessage.addStatusUpdate(new PublicObjectiveUpdate(publicObjectiveCards));
 //        List<ToolCardStatus> toolCardStatuses = new ArrayList<>();
@@ -293,7 +293,7 @@ public class MatchController {
         if (!readyPlayers.isEmpty()) {
             ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
             for (Player p : readyPlayers) {
-                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
+                //opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
             }
             updateClient(client, opponentsMessage);
         }

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class TestPlayBoard {
-
+/*
     Map testMap = new MapB();
     int skull = 5;
     Board testBoard = new Board(testMap, skull);
@@ -115,5 +115,5 @@ public class TestPlayBoard {
 //        System.out.println(testShooter.getActionMode());
     }
 
-
+*/
 }

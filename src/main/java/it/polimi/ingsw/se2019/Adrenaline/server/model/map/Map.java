@@ -3,15 +3,17 @@ import java.util.ArrayList;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 /**
  *4 types of maps, a map contains several rooms, a room contains several cells
  *@author Xueman Mu
  */
 
-public abstract class Map extends MapStatus {
+public abstract class Map implements Status {
 
-
+    protected ArrayList<Cell> allCells;
+    protected String mapInfo;
     protected int totalCellNum;
     protected int[][] notDoor;
     protected ArrayList<Cell> YELLOWCells;
@@ -56,7 +58,12 @@ public abstract class Map extends MapStatus {
 
     //abstract method to initial different kind of map
     public abstract void initialMap();
-
+    public String getMapInfo(){
+        return this.mapInfo;
+    }
+    public ArrayList<Cell> getAllCells(){
+        return this.allCells;
+    }
     //overload
     //set adjacent cells for a specific cell
     public void setAdjacentCells(int up, int right, int down, int left, Cell cell){

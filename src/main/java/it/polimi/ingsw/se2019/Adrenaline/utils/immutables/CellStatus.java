@@ -10,10 +10,10 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class CellStatus implements Status {
 
-    protected int cellID;
-    protected ArrayList<PlayerStatus> cellPlayers;
-    protected AmmotileCard ammotileCard;
-    protected WeaponCard[] weaponCards;
+    private int cellID;
+    private ArrayList<PlayerStatus> cellPlayers;
+    private AmmotileCard ammotileCard;
+    private WeaponCard[] weaponCards;
     //to identify the cell is which kind;( instance of )/ id = 3,5,12 are generationCell
 
     public CellStatus(int cellID) {

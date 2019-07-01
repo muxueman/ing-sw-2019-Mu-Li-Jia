@@ -17,25 +17,25 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class PlayerStatus implements Status{
 
-    protected String username;
-    protected String playerID;
-    protected PlayerBoardStatus killShootTrack;
-    protected Color playerColor;
-    protected int[] ammoOwned;
-    protected Map<WeaponCard, Boolean> weaponsOwned;
-    protected ArrayList<PowerupCard> powerupsOwned;
-    protected int myScore;
-    protected CellStatus currentCell;
-    protected int actionMode;
-    protected boolean alive;
+    private String username;
+    private String playerID;
+    private PlayerBoardStatus killShootTrack;
+    private Color playerColor;
+    private int[] ammoOwned;
+    private Map<WeaponCard, Boolean> weaponsOwned;
+    private ArrayList<PowerupCard> powerupsOwned;
+    private int myScore;
+    private CellStatus currentCell;
+    private int actionMode;
+    private boolean alive;
     protected BoardStatus board;
-    protected int favorTokens;
+    private int favorTokens;
 
     //constructor
     public PlayerStatus(String playerID) {
         this.playerID = playerID;//改动
         this.username = null;
-        this.killShootTrack = new PlayerBoard(this);
+        //this.killShootTrack = new PlayerBoard(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -50,7 +50,7 @@ public class PlayerStatus implements Status{
         this.playerID = playerID;
         this.username = username;
         this.favorTokens = favorTokens;
-        this.killShootTrack = new PlayerBoard(this);
+        //this.killShootTrack = new PlayerBoard(this);
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -157,13 +157,13 @@ public class PlayerStatus implements Status{
         this.powerupsOwned = powerupsOwned;
     }
 
-    public void setCurrentCell(Cell currentCell) {
-        this.currentCell = currentCell;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
+//    public void setCurrentCell(Cell currentCell) {
+//        this.currentCell = currentCell;
+//    }
+//
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
 
     public void setFavorTokens(int favorTokens) {
         this.favorTokens = favorTokens;

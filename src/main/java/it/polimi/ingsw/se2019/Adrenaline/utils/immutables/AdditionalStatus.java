@@ -4,12 +4,6 @@ import org.fusesource.jansi.Ansi;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-/**
- *
- * The AdditionalStatus class represents an additional status of an entity of the game.
- * @author Riccardo Nembrini
- *
- */
 public class AdditionalStatus implements Status {
 
     private String message;

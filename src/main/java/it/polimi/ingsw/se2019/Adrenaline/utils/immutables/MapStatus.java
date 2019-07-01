@@ -9,20 +9,14 @@ import java.util.ArrayList;
 import static org.fusesource.jansi.Ansi.ansi;
 //so far no use
 
-public class MapStatus implements Status {
+public class MapStatus implements Status{
 
-    protected ArrayList<Cell> allCells;
-    protected String mapInfo;
+    private ArrayList<Cell> allCells;
 
     public MapStatus(){
     }
     public ArrayList<Cell> getAllCells(){
         return this.allCells;
-    }
-
-    //get map info
-    public String getMapInfo(){
-        return this.mapInfo;
     }
 
     public Ansi toAnsi(){

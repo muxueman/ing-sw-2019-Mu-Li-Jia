@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
@@ -9,34 +11,34 @@ import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 
 import java.util.List;
 
-public class Model extends Observable<ModelUpdate> implements UpdatableModel {
+public class Model extends Observable<ModelUpdate> {
 
-    private BoardStatus boardStatus;
+    private ClientStatus clientStatus;
     private ModelUpdate nextUpdate;
 
     public Model() {
-        boardStatus = null;
+        clientStatus = null;
         nextUpdate = new ModelUpdate();
     }
 
-    public BoardStatus getBoardStatus() {
-        return boardStatus;
+    public ClientStatus getClientStatus() {
+        return clientStatus;
     }
 
     //init model with
     public void initModel(Map map, int skull ) {
-        boardStatus = new BoardStatus(map, skull);
-        nextUpdate = new ModelUpdate(boardStatus);
+        clientStatus = new ClientStatus();
+        nextUpdate = new ModelUpdate(clientStatus);
     }
 
 
     //notifies the View telling that nothing has changed from the previous state (possibly useful for GUI)
     private void pingUpdate() {
-        notify(new ModelUpdate(boardStatus));
+        notify(new ModelUpdate(clientStatus));
     }
 
     //notifies the View
-    @Override
+    
     public void pingUpdate(String message) {
         if (nextUpdate.isEmpty() && !message.equals("")) {
             nextUpdate.setMessage("Nothing has changed!");
@@ -44,23 +46,36 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         } else {
             nextUpdate.setMessage(message);
             notify(nextUpdate);
-            nextUpdate = new ModelUpdate(boardStatus);
+            nextUpdate = new ModelUpdate(clientStatus);
         }
     }
 
-
+/*
 
     @Override
-    public void updatePlayboard(BoardStatus boardStatus){
-        nextUpdate.addStatusUpdate(boardStatus);
+    public void updateClientStatus(ClientStatus clientStatus){
+        nextUpdate.addStatusUpdate(clientStatus);
     };
 
     @Override
+    public void updateMap(Map map){
+        clientStatus.setMap(map);
+        nextUpdate.addStatusUpdate(map);
+        nextUpdate.setClientStatus(clientStatus);
+    }
+
+    @Override
+    public void updateBoard(Board board){
+        clientStatus.setBoard(board);
+        nextUpdate.addStatusUpdate(board);
+        nextUpdate.setClientStatus(clientStatus);
+    }
+    @Override
     //update the local model.
-    public void updatePlayer(PlayerStatus playerStatus){
-        if (boardStatus.updatePlayer(playerStatus)) {
-            nextUpdate.addStatusUpdate(playerStatus);
-            nextUpdate.setBoardStatus(boardStatus);
+    public void updatePlayer(Player player){
+        if (clientStatus.updatePlayer(player)) {
+            nextUpdate.addStatusUpdate(player);
+            nextUpdate.setClientStatus(clientStatus);
         }
     };
 
@@ -79,6 +94,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
             nextUpdate.addStatusUpdate(w);
         }
     }
+
     @Override
     public void updateReconnectionToken(TokenStatus token) {
         boardStatus.setReconnectionToken(token.getToken());
@@ -90,4 +106,5 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         boardStatus.updateAdditional(additionalStatus);
         nextUpdate.addStatusUpdate(additionalStatus);
     }
+    */
 }

@@ -1,6 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
+import org.fusesource.jansi.Ansi;
+
 import java.util.ArrayList;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 /**
  *MapD better for 4 or 5 players
@@ -100,5 +104,14 @@ public class MapD extends Map{
         setAdjacentCells(8, 0, 0, 11, cell12);
 
         this.notDoor = new int[][]{{5,6}, {6,7}};
+    }
+
+    @Override
+    public Ansi toAnsi(){
+        return ansi().a("Map cells:" + allCells.toString());
+    }
+    @Override
+    public String toString(){
+        return "map cells:" + allCells.toString() ;
     }
 }

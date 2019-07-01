@@ -6,39 +6,40 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
+import org.fusesource.jansi.Ansi;
 
 import java.util.*;
 
+import static org.fusesource.jansi.Ansi.ansi;
 
-public class Board extends BoardStatus{
+public class Board implements Status {
 
-//    private Player currentPlayer;
-//    private Map map;
+    private Player currentPlayer;
+    private Map map;
     private int firstPlayer;
     private ArrayList<Cell> pickedCell;
-    protected PowerupCardDeck powerupCardDeck;
-    protected WeaponCardDeck weaponCardDeck;
-    protected AmmotileCardDeck ammotileCardDeck;
-    // constructor
+    private PowerupCardDeck powerupCardDeck;
+    private WeaponCardDeck weaponCardDeck;
+    private AmmotileCardDeck ammotileCardDeck;
+    private static int numKillShoot;
+    private int killTurn;
+    private boolean firenzyTriggerd;
+    private ArrayList<Player> allPlayers;
+    //与num一一对应
+    private int[] numDamageOnSkullBoard;
+    private Color[] colorDamageOnSkullBoard;
+    private String reconnectionToken;
 
-    //overload only for test
-    public Board(int numKillShoot) {
-        allPlayers = new ArrayList<>();
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-        pickedCell = new ArrayList<>();
-        firstPlayer = 0;
-        powerupCardDeck = new PowerupCardDeck();
-        weaponCardDeck = new WeaponCardDeck();
-        ammotileCardDeck = new AmmotileCardDeck();
-    }
+    // constructor
     // this is used in controller
     public Board(Map map, int skull){
-        super(map,skull);
+        numKillShoot = skull;
+        killTurn = 0;
+        firenzyTriggerd = false;
+        reconnectionToken = "";
+        this.map = map;
         numDamageOnSkullBoard = new int[numKillShoot];
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();
@@ -46,11 +47,18 @@ public class Board extends BoardStatus{
         powerupCardDeck = new PowerupCardDeck();
         ammotileCardDeck = new AmmotileCardDeck();
         weaponCardDeck = new WeaponCardDeck();
+        allPlayers = new ArrayList<>();
         initialCardsOnBoard();
     }
     public void setMap(Map map) {
         this.map = map;
         map.initialMap();
+    }
+
+    public void setNumKillShoot(int numKillShoot) {
+        numKillShoot = numKillShoot;
+        numDamageOnSkullBoard = new int[numKillShoot];
+        colorDamageOnSkullBoard = new Color[numKillShoot];
     }
 
     public void setAllPlayerColor(){
@@ -89,6 +97,7 @@ public class Board extends BoardStatus{
 //    public void setCurrentPlayer(Player player){
 //        currentPlayer = player;
 //    }
+
     //返回下一个玩家 不改变 当前玩家
     public Player nextPlayer(Player currentPlayer){
         int playerTurn = allPlayers.indexOf(currentPlayer);
@@ -212,7 +221,15 @@ public class Board extends BoardStatus{
         reloadCardOnBoard();
     }
 
-
+    public void setPlayers(ArrayList<Player> players) {
+        for(Player player: players){
+            players.add((Player)player);
+        }
+    }
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+    public List<Player> getAllPlayers(){return allPlayers;}
     public void reloadCardOnBoard(){
         int i = 0;
         while(i < pickedCell.size()){
@@ -262,7 +279,7 @@ public class Board extends BoardStatus{
 
     public int getFirstPlayer() { return firstPlayer; }
 
-    //public Map getMap() { return map; }
+    public Map getMap() { return map; }
 
     //public void turnNextPlayer(){
      //   setCurrentPlayer(nextPlayer(currentPlayer));
@@ -277,7 +294,11 @@ public class Board extends BoardStatus{
     }
 
     @Override
-    public String toString() {
-        return super.toString();
+    public Ansi toAnsi(){
+        return ansi().a("map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
+    }
+    @Override
+    public String toString(){
+        return "map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd ;
     }
 }

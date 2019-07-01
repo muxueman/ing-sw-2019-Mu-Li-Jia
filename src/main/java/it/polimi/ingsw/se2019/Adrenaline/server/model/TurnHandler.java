@@ -17,7 +17,7 @@ public class TurnHandler {
         orderedPlayers = new ArrayList<>();
         createOrderedPlayers();
     }
-    public TurnHandler(BoardStatus playboard) {
+    public TurnHandler(Board playboard) {
         orderedPlayers = playboard.getAllPlayers();
         turn = 0;
         playboard.setCurrentPlayer(playboard.getAllPlayers().get(turn));
@@ -30,7 +30,7 @@ public class TurnHandler {
         orderedPlayers.addAll(invertedList);
     }
 
-    public void changeTurn(BoardStatus board) {
+    public void changeTurn(Board board) {
         this.turn++;
         if(turn == board.getAllPlayers().size()) turn = 0;
         board.setCurrentPlayer(board.getAllPlayers().get(turn));

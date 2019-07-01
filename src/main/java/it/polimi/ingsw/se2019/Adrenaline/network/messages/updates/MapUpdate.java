@@ -1,17 +1,23 @@
 package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
-
+/**
+ * Update the client-side status of the map.
+ * It's sent from the server to the client.
+ * @author Xueman Mu
+ */
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
-
-import java.util.List;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.MapStatus;
 
 public class MapUpdate implements StatusUpdate {
 
-    Map map;
+    MapStatus map;
+
+    public MapUpdate(MapStatus map){
+        this.map = map;
+    }
     @Override
     public void updateStatus(UpdatableModel model) {
-//        model.updateMap(map);
+        model.updateMap(map);
     }
 
 

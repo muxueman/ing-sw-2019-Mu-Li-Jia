@@ -10,12 +10,12 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class PlayerBoardStatus implements Status {
 
-    protected PlayerStatus playerStatus;
-    protected ArrayList<Color> damageColorOnTrack;
-    protected ArrayList<Color> markColorOnTrack;
-    protected Map<Color, Integer> playerScore;
-    protected int numKillShoot; // 被射杀的次数
-    protected int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
+    private PlayerStatus playerStatus;
+    private ArrayList<Color> damageColorOnTrack;
+    private ArrayList<Color> markColorOnTrack;
+    private Map<Color, Integer> playerScore;
+    private int numKillShoot; // 被射杀的次数
+    private int beKilled; // 0 没有被杀， 1 被杀， 2 被超杀
 
     public PlayerBoardStatus(PlayerStatus playerStatus) {
         this.playerStatus = playerStatus;
