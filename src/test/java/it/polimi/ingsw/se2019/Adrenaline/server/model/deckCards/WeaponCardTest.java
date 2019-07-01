@@ -50,9 +50,9 @@ public class WeaponCardTest {
     @Test
     public void testDamageVision() {
 
-        weaponCard.setDamageVision(12);
-        System.out.println("damageVision:" + weaponCard.getDamageVision());
-        Assert.assertEquals(12, weaponCard.getDamageVision());
+        weaponCard.setBasicDamageVision(12);
+        System.out.println("damageVision:" + weaponCard.getBasicDamageVision());
+        Assert.assertEquals(12, weaponCard.getBasicDamageVision());
     }
 
     @Test

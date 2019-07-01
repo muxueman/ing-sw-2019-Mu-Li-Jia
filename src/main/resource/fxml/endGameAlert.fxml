@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.se2019.Adrenaline.client.view.AlertBoxController">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.AlertBoxController">
    <children>
       <Button fx:id="closeButton" layoutX="181.0" layoutY="324.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="131.0" text="ENDGAME">
          <font>

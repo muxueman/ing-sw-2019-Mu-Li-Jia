@@ -1,7 +1,6 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import javafx.animation.KeyFrame;
@@ -322,11 +321,6 @@ public class MatchViewController extends GUIController{
 
     }
 
-    @Override
-    public void showRanking(Player myscore) {
-        String username = boardStatus.getCurrentPlayer().getUsername();
-        Platform.runLater(() -> AlertBox.displayEndGame(this, root,myscore, username));
-    }
 
 
 

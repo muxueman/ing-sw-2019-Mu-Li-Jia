@@ -1,6 +1,7 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 
 /**
@@ -12,7 +13,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
  * @author Li xuejing
  */
 
-public class GUIView extends View{
+public class GUIView extends View {
 
     private GUIController guiController = null;
 

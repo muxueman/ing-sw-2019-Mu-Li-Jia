@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import javafx.application.Platform;

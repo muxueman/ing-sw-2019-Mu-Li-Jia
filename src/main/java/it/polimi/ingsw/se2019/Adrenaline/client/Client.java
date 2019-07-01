@@ -4,7 +4,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLIView;
-import it.polimi.ingsw.se2019.Adrenaline.client.view.ClientGui;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.ClientGui;
 import javafx.application.Application;
 
 import java.util.Scanner;

@@ -1,10 +1,9 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class GUIController {

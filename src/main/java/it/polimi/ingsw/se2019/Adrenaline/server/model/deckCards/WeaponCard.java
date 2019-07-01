@@ -31,7 +31,7 @@ public class WeaponCard implements Status {
         this.effectDamageVison = effectDamageVison;
     }
 
-    public int getWeaponType() {
+    public int getType() {
         return weaponType;
     }
 
