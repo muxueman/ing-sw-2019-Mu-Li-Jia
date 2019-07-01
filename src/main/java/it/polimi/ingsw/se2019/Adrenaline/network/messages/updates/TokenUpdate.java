@@ -14,6 +14,6 @@ public class TokenUpdate implements StatusUpdate {
 
     @Override
     public void updateStatus(UpdatableModel model) {
-        //model.updateReconnectionToken(token);
+        model.updateReconnectionToken(token);
     }
 }

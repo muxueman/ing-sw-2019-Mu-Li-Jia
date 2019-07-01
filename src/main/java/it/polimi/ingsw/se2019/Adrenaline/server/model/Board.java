@@ -82,6 +82,7 @@ public class Board implements Status {
         player.setPlayBoard(this);
     }
 
+    public ArrayList<Player> getAllPlayers() {return this.allPlayers;}
     public Player findPlayerByColor (Color playerColor){
         int i = 0;
         while(allPlayers.get(i).getPlayerColor() != playerColor){
@@ -229,7 +230,7 @@ public class Board implements Status {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
-    public List<Player> getAllPlayers(){return allPlayers;}
+
     public void reloadCardOnBoard(){
         int i = 0;
         while(i < pickedCell.size()){
@@ -271,6 +272,14 @@ public class Board implements Status {
             }
         }
         throw new InvalidNameException();
+    }
+
+    public int[] getNumDamageOnSkullBoard() {
+        return numDamageOnSkullBoard;
+    }
+
+    public Color[] getColorDamageOnSkullBoard() {
+        return colorDamageOnSkullBoard;
     }
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }

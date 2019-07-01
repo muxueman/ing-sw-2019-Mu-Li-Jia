@@ -19,22 +19,10 @@ public interface UpdatableModel {
      */
 
     void pingUpdate(String message);
-    //void updatePlayer(PlayerStatus playerStatus);
+    void updatePlayer(Player player);
     void updateMap(Map map);
-
-    //void updateDraftPool(DraftPoolStatus draftPool);
-
-    //void updateRoundTrack(RoundTrackStatus roundTrack);
-
-    //void updatePublicObjectiveCards(List<PublicObjectiveCard> publicObjectiveCards);
-
-    //void updateToolCards(List<ToolCardStatus> toolCards);
-
-    //void updatePrivateObjectiveCard(PrivateObjectiveCard privateObjectiveCard);
-
-    //void updateAdditional(AdditionalStatus additionalStatus);
-
-    //void updateChoosablePatterns(List<WindowPatternCard> windowPatternCards);
-
-    //void updateReconnectionToken(TokenStatus token);
+    void updateSkull(Board board);
+    void updateAllPlayers(Board board);
+    void updateAdditional(AdditionalStatus additionalStatus);
+    void updateReconnectionToken(TokenStatus token);
 }

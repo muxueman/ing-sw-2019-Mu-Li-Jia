@@ -1,11 +1,4 @@
 package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
-
-import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
-
-import java.util.List;
-
 /**
  *
  * The PowerupCardUpdate object is used to update the client-side status of the powerupCards.
@@ -13,6 +6,11 @@ import java.util.List;
  *
  * @author Xueman Mu
  */
+import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+
+import java.util.List;
 
 
 public class PowerupCardUpdate implements StatusUpdate {

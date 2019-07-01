@@ -1,18 +1,16 @@
 package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
-
+/**
+ *Player Status from client-side point of view, contains all data needed for view (client)
+ *@author Xueman Mu
+ */
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import org.fusesource.jansi.Ansi;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -25,7 +23,7 @@ public class PlayerStatus implements Status{
     private Map<WeaponCard, Boolean> weaponsOwned;
     private ArrayList<PowerupCard> powerupsOwned;
     private int myScore;
-    private int currentCell;
+    //private int currentCell;
     private int actionMode;
     private int favorTokens;
     private ArrayList<Color> damageColorOnTrack;
@@ -42,7 +40,7 @@ public class PlayerStatus implements Status{
         weaponsOwned = player.getWeaponsOwned();
         powerupsOwned = player.getPowerupsOwned();
         myScore = player.getMyScore();
-        currentCell = player.getCurrentCell().getCellID();
+        //currentCell = player.getCurrentCell().getCellID();
         actionMode = player.getActionMode();
         favorTokens = player.getFavorTokens();
         damageColorOnTrack = player.getKillShootTrack().getDamageColorOnTrack();
@@ -53,11 +51,15 @@ public class PlayerStatus implements Status{
     public String getPlayerID(){
         return this.playerID;
     }
+    public String getUsername(){
+        return this.username;
+    }
+
 
     @Override
     public String toString(){
         return "Username: " + username + "\n" + "color: " + playerColor+ "\n"
-                + "Your current Cell:" + currentCell + "\n" + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
+                + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
                 + weaponsOwned + "\n" + "powerup you have:" + "\n";
     }
 

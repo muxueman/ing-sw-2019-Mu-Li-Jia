@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
@@ -57,13 +59,13 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
     }
 
 
-//    @Override
-//    public void updatePlayer(PlayerStatus playerStatus) {
-//        if (boardStatus.updatePlayer(playerStatus)) {
-//            nextUpdate.addStatusUpdate(playerStatus);
-//            nextUpdate.setBoardStatus(boardStatus);
-//        }
-//    }
+    @Override
+    public void updatePlayer(Player player) {
+        if (boardStatus.updatePlayer(player)) {
+            nextUpdate.addStatusUpdate(player);
+            nextUpdate.setBoardStatus(boardStatus);
+        }
+    }
 
     @Override
     public void updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
@@ -73,23 +75,31 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
         }
     }
 
-//    /**
-//     *
-//     * The updatePlayer method is used to update the local model.
-//     * @param additionalStatus is a new additional status to update.
-//     *
-//     */
-//    @Override
-//    public void updateAdditional(AdditionalStatus additionalStatus) {
-//        boardStatus.updateAdditional(additionalStatus);
-//        nextUpdate.addStatusUpdate(additionalStatus);
-//    }
-//
-//
-//
-//    @Override
-//    public void updateReconnectionToken(TokenStatus token) {
-//        boardStatus.setReconnectionToken(token.getToken());
-//        nextUpdate.addStatusUpdate(token);
-//    }
+    @Override
+    public void updateAllPlayers(Board board){
+        if(boardStatus.updatePlayers(board)){
+            nextUpdate.addStatusUpdate(board);
+            nextUpdate.setBoardStatus(boardStatus);
+        }
+    }
+
+    @Override
+    public void updateSkull(Board board){
+        if(boardStatus.updateDamageSkullBoard(board)){
+            nextUpdate.addStatusUpdate(board);
+            nextUpdate.setBoardStatus(boardStatus);
+        }
+    }
+
+    @Override
+    public void updateAdditional(AdditionalStatus additionalStatus) {
+        boardStatus.updateAdditional(additionalStatus);
+        nextUpdate.addStatusUpdate(additionalStatus);
+    }
+
+    @Override
+    public void updateReconnectionToken(TokenStatus token) {
+        boardStatus.setReconnectionToken(token.getToken());
+        nextUpdate.addStatusUpdate(token);
+    }
 }
