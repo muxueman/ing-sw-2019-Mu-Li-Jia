@@ -54,6 +54,7 @@ public class GenerationCell extends Cell {
     }
     @Override
     public String toString(){
-        return "cell players:" + cellPlayers.toString() ;
+        return "cell players:";
+//                + cellPlayers.toString() ;
     }
 }
