@@ -84,7 +84,6 @@ public class BoardStatus implements Status {
         this.additional = null;
         this.reconnectionToken = "";
         this.started = false;
-
     }
 
     public int[] getNumDamageOnSkullBoard() {

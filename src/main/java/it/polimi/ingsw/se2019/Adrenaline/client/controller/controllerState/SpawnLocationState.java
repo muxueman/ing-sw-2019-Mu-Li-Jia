@@ -2,6 +2,8 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowPowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
@@ -18,31 +20,24 @@ public class SpawnLocationState extends ControllerState {
     public SpawnLocationState(ClientController controller) {
         super(controller, "Here are the set up power up cards: (please select and discard this one as generate color):");
         powerupCards = clientController.getModel().getBoardStatus().getPlayer(clientController.getPlayerID()).getPowerupsOwned();
-        for (PowerupCard p : powerupCards){
-            clientController.sendMessage(p.getCardName());
-        }
+        new ShowPowerupCard(powerupCards);
 
     }
 
-
     @Override
     public ControllerState update(String message) {
-        int intMessage;
-        try {
-            intMessage = Integer.parseInt(message);
-        } catch (NumberFormatException e) {
-            intMessage = -1;
-        }
-        if (powerupCards.isEmpty()) {
-            if (intMessage > 0 && intMessage <= powerupCards.size()) {
-                ClientMessage clientMessage = new ClientMessage("SPAWNLOCATION", intMessage);
+
+        for (PowerupCard p: powerupCards) {
+            if (p.getCardName().equalsIgnoreCase(message)) {
+                ClientMessage clientMessage = new ClientMessage("SPAWNLOCATION", p.getCardName());
                 clientController.sendToServer(clientMessage);
+
+                //TODO: 更新model里面player的位置
                 return new WaitingResponseState(clientController, new NonPlayingState(clientController));
+
             }
-            clientController.reportError("Not a valid choice!");
-        } else {
-            clientController.reportError("Wait the powerup cards!");
         }
+        clientController.reportError("Wait the powerup cards!");
         return initState();
     }
 

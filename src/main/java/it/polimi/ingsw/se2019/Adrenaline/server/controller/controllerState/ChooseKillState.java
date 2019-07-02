@@ -35,7 +35,7 @@ public class ChooseKillState implements GameServerInterface {
             matchController.chooseKill(message.getMainParam());
             //matchController.initPlayer(client);
             //在选择所有玩家选择完kill并更新之后再initPlayer;
-            return new WaitingForMatchState();
+            return new SpawnLocationState(serverController,client);
         }
         client.sendError("Can't choose the map!");
         return this;

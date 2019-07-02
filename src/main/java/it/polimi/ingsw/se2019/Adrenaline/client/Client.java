@@ -3,14 +3,12 @@ package it.polimi.ingsw.se2019.Adrenaline.client;
 //represent a client
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
-import it.polimi.ingsw.se2019.Adrenaline.client.view.CLIView;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.CLIView;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.ClientGui;
 import javafx.application.Application;
-import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
+
 import java.util.Scanner;
 
-import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Client {

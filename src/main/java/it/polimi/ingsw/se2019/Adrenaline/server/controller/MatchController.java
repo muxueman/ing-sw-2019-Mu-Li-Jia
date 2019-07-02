@@ -175,6 +175,7 @@ public class MatchController {
         }
         if (numMap() == clients.size()){
             Integer maxCount = Collections.max(selectedMaps.values());
+
             for (Integer i : selectedMaps.keySet()) {
                 if (selectedMaps.get(i) == maxCount) {
                     selectedMapInt = i;
@@ -301,9 +302,11 @@ public class MatchController {
         return num;
     }
 
-
-
-
+    //drop a powerupcard in a SpawnLocation State
+    public void spawnLocationDrop(String powerupName,ClientInterface clientInterface){
+        players.get(clientInterface).dropPowerupAndGoNewCell(powerupName);
+        Logger.getGlobal().log(Level.INFO,"dropPowerupAndGoNewCell {0} successful! ", powerupName);
+    }
 
     //change state between playing state and non playing state
     private synchronized void refreshControllerStates() {

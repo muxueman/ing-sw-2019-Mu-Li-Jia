@@ -1,6 +1,7 @@
-package it.polimi.ingsw.se2019.Adrenaline.client.view;
+package it.polimi.ingsw.se2019.Adrenaline.client.view.CLI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
 
