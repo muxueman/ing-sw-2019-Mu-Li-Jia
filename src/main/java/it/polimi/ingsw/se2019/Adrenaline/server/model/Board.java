@@ -270,6 +270,13 @@ public class Board implements Status {
 
     public Map getMap() { return map; }
 
+    public Cell getCellFromID(int cellID){
+        for(Cell c : map.getAllCells()){
+            if(cellID == c.getCellID()) return c;
+        }
+        return null;
+    }
+
     //public void turnNextPlayer(){
      //   setCurrentPlayer(nextPlayer(currentPlayer));
     //}
