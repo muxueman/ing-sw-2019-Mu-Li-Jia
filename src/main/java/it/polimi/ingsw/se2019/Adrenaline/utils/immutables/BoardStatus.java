@@ -161,6 +161,34 @@ public class BoardStatus implements Status {
         this.started = started;
     }
 
+    public static int getMapID() {
+        return mapID;
+    }
+
+    public static int getNumKillShoot() {
+        return numKillShoot;
+    }
+
+    public boolean isFirenzyTriggerd() {
+        return firenzyTriggerd;
+    }
+
+    public Map<String, PlayerStatus> getPlayers() {
+        return players;
+    }
+
+    public Map<String, String> getUsernames() {
+        return usernames;
+    }
+
+    public AdditionalStatus getAdditional() {
+        return additional;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
     //更新map里面包含的内容
     public boolean updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map){
            ArrayList<Cell> cells = map.getAllCells();
