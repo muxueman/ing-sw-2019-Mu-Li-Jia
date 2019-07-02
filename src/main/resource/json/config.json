@@ -1,3 +1,4 @@
 {
-  "timer": [{"seconds": "90"}]
+  "timer": [{"seconds": "90"}],
+  "ammo color": ["1 red, 2 blue, 3 yellow"]
 }
