@@ -31,6 +31,46 @@ public class PlayerStatus implements Status{
     private int numKilled; // 被射杀的次数
 
 
+    public Color getPlayerColor() {
+        return playerColor;
+    }
+
+    public int[] getAmmoOwned() {
+        return ammoOwned;
+    }
+
+    public Map<WeaponCard, Boolean> getWeaponsOwned() {
+        return weaponsOwned;
+    }
+
+    public ArrayList<PowerupCard> getPowerupsOwned() {
+        return powerupsOwned;
+    }
+
+    public int getMyScore() {
+        return myScore;
+    }
+
+    public int getActionMode() {
+        return actionMode;
+    }
+
+    public int getFavorTokens() {
+        return favorTokens;
+    }
+
+    public ArrayList<Color> getDamageColorOnTrack() {
+        return damageColorOnTrack;
+    }
+
+    public ArrayList<Color> getMarkColorOnTrack() {
+        return markColorOnTrack;
+    }
+
+    public int getNumKilled() {
+        return numKilled;
+    }
+
     //constructor from update a player
     public PlayerStatus(Player player){
         username = player.getUsername();
@@ -54,6 +94,7 @@ public class PlayerStatus implements Status{
     public String getUsername(){
         return this.username;
     }
+
 
 
     @Override
