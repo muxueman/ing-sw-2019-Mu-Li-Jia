@@ -2,7 +2,7 @@
 [
   {
     "cardName": "VORTEX CANNON",
-    "image": "Cannone Vortex red",
+    "image": "Cannone_Vortex_red",
     "basicammoCost": [1, 2, 0, 1],
     "damageVision": 12,
     "damageDeal": [0, 2, 1],
@@ -14,7 +14,7 @@
   },
   {
     "cardName": "LOCK RIFLE",
-    "image": "Distruttore blue",
+    "image": "Distruttore_blue",
     "basicammoCost": [2, 2, 0, 1],
     "damageVision": 12,
     "damageDeal": [0, 2, 1],
@@ -26,7 +26,7 @@
   },
   {
     "cardName": "ELECTROSCYTHE",
-    "image": "Falce Protonica blue",
+    "image": "Falce_Protonica_blue",
     "basicammoCost": [2, 0, 0, 1],
     "weaponType": 1,
     "damageVision": 0,
@@ -40,7 +40,7 @@
   },
   {
     "cardName": "MACHINE GUN",
-    "image": "Mitragliatrice blue",
+    "image": "Mitragliatrice_blue",
     "basicammoCost": [2, 1, 0, 2],
     "damageVision": 21,
     "damageDeal": [0, 1, 0],
@@ -52,7 +52,7 @@
   },
   {
     "cardName": "TRACTOR BEAM",
-    "image": "Raggio Traente blue",
+    "image": "Raggio_Traente_blue",
     "basicammoCost": [2, 0, 0, 1],
     "damageVision": 0,
     "damageDeal": [0 ,0 ,0],
@@ -64,7 +64,7 @@
   },
   {
     "cardName": "T.H.O.R.",
-    "image": "Torpedine blue.png",
+    "image": "Torpedine_blue.png",
     "basicammoCost": [2, 1, 0, 2],
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
@@ -76,7 +76,7 @@
   },
   {
     "cardName": "FURNACE",
-    "image": "Vulcanizzatore red",
+    "image": "Vulcanizzatore_red",
     "basicammoCost": [1, 2, 0, 1],
     "damageVision": 0,
     "damageDeal": [0 , 0, 0],
@@ -88,7 +88,7 @@
   },
   {
     "cardName": "PLASMA GUN",
-    "image": "Fucile Al Plasma blue",
+    "image": "Fucile_Al_Plasma_blue",
     "basicammoCost": [2, 3, 0, 2],
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
@@ -100,7 +100,7 @@
   },
   {
     "cardName": "HEATSEEKER",
-    "image": "Razzo Termico red",
+    "image": "Razzo_Termico_red",
     "basicammoCost": [1, 1, 3, 0],
     "damageVision": 13,
     "damageDeal": [0, 3, 0],
@@ -112,7 +112,7 @@
   },
   {
     "cardName": "WHISPER",
-    "image": "Fucile Di Precisione blue",
+    "image": "Fucile_Di_Precisione_blue",
     "basicammoCost": [2, 2, 3, 0],
     "damageVision": 13,
     "damageDeal": [0, 3, 1],
@@ -124,7 +124,7 @@
   },
   {
     "cardName": "HELLION",
-    "image": "Raggio Solare red",
+    "image": "Raggio_Solare_red",
     "basicammoCost": [1, 3, 0, 1],
     "damageVision": 11,
     "damageDeal": [0, 1, 1],
@@ -136,7 +136,7 @@
   },
   {
     "cardName": "FLAMETHROWER",
-    "image": "Lanciafiamme red",
+    "image": "Lanciafiamme_red",
     "basicammoCost": [1, 0, 0, 1],
     "damageVision": 0,
     "damageDeal": [0 ,0 , 0],
@@ -150,7 +150,7 @@
   },
   {
     "cardName": "ZX-2",
-    "image": "ZX-2",
+    "image": "ZX-2_yellow",
     "basicammoCost": [3, 1, 0, 1],
     "damageVision": 11,
     "damageDeal": [0, 1, 2],
@@ -162,7 +162,7 @@
   },
   {
     "cardName": "GRENADE LAUNCHER",
-    "image": "Lanciagranate red",
+    "image": "Lanciagranate_red",
     "basicammoCost": [1, 0, 0, 1],
     "damageVision": 11,
     "damageDeal": [0, 1, 0],
@@ -174,7 +174,7 @@
   },
   {
     "cardName": "SHOTGUN",
-    "image": "Fucile A Pompa yellow",
+    "image": "Fucile_A_Pompa_yellow",
     "basicammoCost": [3, 3, 0, 1],
     "damageVision": 13,
     "damageDeal": [0, 3, 0],
@@ -186,7 +186,7 @@
   },
   {
     "cardName": "ROCKET LAUNCHER",
-    "image": "Lanciarazzi red",
+    "image": "Lanciarazzi_red",
     "basicammoCost": [1, 1, 0, 2],
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
@@ -198,7 +198,7 @@
   },
   {
     "cardName": "POWER GLOVE",
-    "image": "Cyberguanto yellow",
+    "image": "Cyberguanto_yellow",
     "basicammoCost": [3, 2, 0, 1],
     "damageVision": 0,
     "damageDeal": [0 , 0, 0],
@@ -210,7 +210,7 @@
   },
   {
     "cardName": "RAILGUN",
-    "image": "Fucile Laser yellow",
+    "image": "Fucile_Laser_yellow",
     "basicammoCost": [3, 3, 2, 1],
     "damageVision": 13,
     "damageDeal": [0, 3, 0],
@@ -222,7 +222,7 @@
   },
   {
     "cardName": "SHOUKWAVE",
-    "image": "Onda D'urto yellow",
+    "image": "Onda_D'urto_yellow",
     "basicammoCost": [3, 0, 0, 1],
     "damageVision": 31,
     "damageDeal": [0, 1, 0],
@@ -234,7 +234,7 @@
   },
   {
     "cardName": "CYBERBLADE",
-    "image": "Spada Fotonica yellow",
+    "image": "Spada_Fotonica_yellow",
     "basicammoCost": [3, 1, 0, 2],
     "damageVision": 12,
     "damageDeal": [0, 2, 0],
@@ -246,7 +246,7 @@
   },
   {
     "cardName": "SLEDGEHAMMER",
-    "image": "Martello Ionica yellow",
+    "image": "Martello_Ionica_yellow",
     "basicammoCost": [2, 0, 0, 1],
     "damageVision": 12,
     "damageDeal": [0, 2, 0],

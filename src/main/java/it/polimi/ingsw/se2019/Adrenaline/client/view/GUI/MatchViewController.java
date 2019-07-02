@@ -1,8 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -23,7 +23,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -46,7 +49,7 @@ public class MatchViewController extends GUIController{
     @FXML
     private GridPane weaponY;
     @FXML
-    private AnchorPane selfPlayer;
+    private ImageView selfPlayer;
     @FXML
     private VBox vboxPlayer;
     @FXML
@@ -102,7 +105,10 @@ public class MatchViewController extends GUIController{
     @FXML
     private Label timerLabel;
     @FXML
-    private Label killShootNum;
+    private TextArea killshootnum;
+    @FXML
+    private TextArea errorArea;
+
 
     private boolean next;
     private boolean position = false;
@@ -116,9 +122,9 @@ public class MatchViewController extends GUIController{
     }
 
     public static final String chioceMap = "/fxml/choiceMap.fxml";
-    protected static final String WeaponR_Path = "/weapons red/";
-    protected static final String WeaponB_Path = "/weapons blue/";
-    protected static final String WeaponY_Path = "/weapons yellow/";
+    protected static final String WeaponR_Path = "/weapons_red/";
+    protected static final String WeaponB_Path = "/weapons_blue/";
+    protected static final String WeaponY_Path = "/weapons_yellow/";
 
 
     @FXML
@@ -193,6 +199,17 @@ public class MatchViewController extends GUIController{
         });
 
     }
+    //add selfPlayerBlood every blood have their own color represente the damage
+    @FXML
+    public void setSelfBlood(PlayerStatus player){
+        for (int i = 0;i < player.getDamageColorOnTrack().size();i++ ){
+            switch (player.getDamageColorOnTrack().get(i).getColor()){
+                case "yellow" :
+
+
+            }
+        }
+    }
 
     @FXML
     public void setPlayerInfo(){
@@ -229,6 +246,19 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML
+    public void setGameMapTable(BoardStatus boardStatus){
+        List<PlayerStatus> playerList = new ArrayList<>(boardStatus.getAllPlayers());
+        playerList.remove(boardStatus.getCurrentPlayer());
+        for (int i = 0; i < playerList.size(); i++){
+            switch (i){
+                case 0:
+                    selfPlayer.setImage(new Image("/playerBoard/playerBoard_yellow"));
+            }
+
+        }
+    }
+
+    @FXML
     private void choosePlayerPosition(int i,GridPane playerPosition){
         if(!position){
 
@@ -236,22 +266,27 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML
-    public void setWeaponRCard(GenerationCell generationR){
+    public void setWeaponRCard(PlayerStatus weaponRCard){
         for (int i = 0; i < weaponR.getChildren().size(); i++){
-            ((ImageView)weaponR.getChildren().get(i)).setImage(new Image(WeaponR_Path + generationR.getWeaponCard(i) + ".png"));
+            ((ImageView)weaponR.getChildren().get(i)).setImage(new Image(WeaponR_Path + weaponRCard.getWeaponsOwned() + ".png"));
         }
     }
     @FXML
-    public void setWeaponBCard(GenerationCell generationB){
+    public void setWeaponBCard(PlayerStatus weaponBCard,GridPane weaponB){
         for (int i = 0; i < weaponB.getChildren().size(); i++){
-            ((ImageView)weaponB.getChildren().get(i)).setImage(new Image(WeaponB_Path + generationB.getWeaponCard(i) + ".png"));
+            ((ImageView)weaponB.getChildren().get(i)).setImage(new Image(WeaponB_Path + weaponBCard.getWeaponsOwned() + ".png"));
         }
     }
     @FXML
-    public void setWeaponYCard(GenerationCell generationY){
+    public void setWeaponYCard(PlayerStatus weaponYCard){
         for (int i = 0; i < weaponY.getChildren().size(); i++){
-            ((ImageView)weaponY.getChildren().get(i)).setImage(new Image(WeaponY_Path + generationY.getWeaponCard(i) + ".png"));
+            ((ImageView)weaponY.getChildren().get(i)).setImage(new Image(WeaponY_Path + weaponYCard.getWeaponsOwned() + ".png"));
         }
+    }
+
+    @FXML
+    public void setAmmoCardInMap(){
+
     }
 
 
@@ -265,9 +300,10 @@ public class MatchViewController extends GUIController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
-
-
             player1.getChildren().add(anchorPane);
+            player2.getChildren().add(anchorPane);
+            player3.getChildren().add(anchorPane);
+            player4.getChildren().add(anchorPane);
 
 
         } catch (IOException e) {
@@ -280,9 +316,9 @@ public class MatchViewController extends GUIController{
 
     @Override
     public void update(ModelUpdate message) {
-        boardStatus = message.getBoardStatus();
         if (boardStatus!= null) {
             Platform.runLater( () -> {
+//                setWeaponBCard(boardStatus.getWeaponsInCell().get(3),weaponB);
 
             });
         }
@@ -307,18 +343,25 @@ public class MatchViewController extends GUIController{
             case "4" :
                 map.setImage(new Image("/map/map_D.png")); break;
             case "5" :
-                killShootNum.setText("5"); break;
+                killshootnum.setText("Killshootnum:5"); break;
             case "6" :
-                killShootNum.setText("6"); break;
+                killshootnum.setText("Killshootnum:6"); break;
             case "7" :
-                killShootNum.setText("7"); break;
+                killshootnum.setText("Killshootnum:7"); break;
             case "8" :
-                killShootNum.setText("8"); break;
+                killshootnum.setText("Killshootnum:8"); break;
 
 
         }
 
 
+    }
+
+    @Override
+    public void reportError(String error) {
+        Platform.runLater(() -> {
+            errorArea.setText(error);
+        });
     }
 
 

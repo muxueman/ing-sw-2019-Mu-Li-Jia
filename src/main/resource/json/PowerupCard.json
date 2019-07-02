@@ -2,7 +2,7 @@
 [
   {
     "cardName": "TARGETINE SCOPE RED",
-    "image": "/powerups/Mirino red.png",
+    "image": "/powerups/Mirino_red.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
     "effect": "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage. ",
@@ -11,7 +11,7 @@
   },
   {
     "cardName": "TARGETINE SCOPE YELLOW",
-    "image": "/powerups/Mirino yellow.png",
+    "image": "/powerups/Mirino_yellow.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
     "effect": "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage. ",
@@ -20,7 +20,7 @@
   },
   {
     "cardName": "TARGETINE SCOPE BLUE",
-    "image": "/powerups/Mirino blue.png",
+    "image": "/powerups/Mirino_blue.png",
     "ammoCost": "Choose 1 ammo(anyone)",
     "damageDeal": [0, 1, 0],
     "effect": "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage. ",
@@ -29,7 +29,7 @@
   },
   {
     "cardName": "NEWTON RED",
-    "image": "/powerups/Newton red.png",
+    "image": "/powerups/Newton_red.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -38,7 +38,7 @@
   },
   {
     "cardName": "NEWTON YELLOW",
-    "image": "/powerups/Newton yellow.png",
+    "image": "/powerups/Newton_yellow.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -47,7 +47,7 @@
   },
   {
     "cardName": "NEWTON BLUE",
-    "image": "/powerups/Newton blue.png",
+    "image": "/powerups/Newton_blue.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Choose any other player's figure and move it 1 or 2 squares in one direction.  ",
@@ -56,7 +56,7 @@
   },
   {
     "cardName": "TAGBACK GRENADE RED",
-    "image": "/powerups/Granata venom red.png",
+    "image": "/powerups/Granata_venom_red.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -65,7 +65,7 @@
   },
   {
     "cardName": "TAGBACK GRENADE YELLOW",
-    "image": "/powerups/Granata venom yellow.png",
+    "image": "/powerups/Granata_venom_yellow.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -74,7 +74,7 @@
   },
   {
     "cardName": "TAGBACK GRENADE BLUE",
-    "image": "/powerups/Granata venom blue.png",
+    "image": "/powerups/Granata_venom_blue.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 1],
     "effect": "You may play this card when you receive damage from a player you can see. Give that player 1 mark.",
@@ -83,7 +83,7 @@
   },
   {
     "cardName": "TELEPORTER RED",
-    "image": "/powerups/Teletrasporto red.png",
+    "image": "/powerups/Teletrasporto_red.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
@@ -92,7 +92,7 @@
   },
   {
     "cardName": "TELEPORTER YELLOW",
-    "image": "/powerups/Teletrasporto yellow.png",
+    "image": "/powerups/Teletrasporto_yellow.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",
@@ -101,7 +101,7 @@
   },
   {
     "cardName": "TELEPORTER BLUE",
-    "image": "/powerups/Teletrasporto blue.png",
+    "image": "/powerups/Teletrasporto_blue.png",
     "ammoCost": "null",
     "damageDeal": [0, 0, 0],
     "effect": "You may play this card on your turn before or after any action. Pick up your figure and set it down on any square of the board.",

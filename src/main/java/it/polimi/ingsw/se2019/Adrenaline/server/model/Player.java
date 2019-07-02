@@ -387,7 +387,7 @@ public class Player implements Status {
     @Override
     public String toString(){
         return "Username: " + username + "\n" + "color: " + playerColor+ "\n" + "ActionMode: " + actionMode + "\n";
-//                +"MyScore: " + myScore + killShootTrack.toString() + "\n" + "Your current Cell:" + currentCell + "\n"
+//                +"MyScore: " + myScore + playerBoard.toString() + "\n" + "Your current Cell:" + currentCell + "\n"
 //                + "Ammo you owned: " + ammoOwned + "\n" + "weapon you have:"
 //                + weaponsOwned + "\n" + "powerup you have:" + "\n";
     }

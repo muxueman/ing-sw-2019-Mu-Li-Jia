@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="135.0" fitWidth="543.0">
          <image>
-            <Image url="@../killShootTrack/killShootTrack_final_yellow.png" />
+            <Image url="@../playerBoard/playerBoard_final_yellow.png" />
          </image>
       </ImageView>
       <GridPane fx:id="selfBlood" layoutX="57.0" layoutY="47.0" prefHeight="41.0" prefWidth="370.0">
@@ -35,62 +35,62 @@
          <children>
             <ImageView fitHeight="35.0" fitWidth="25.0">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" layoutX="10.0" layoutY="13.0" GridPane.columnIndex="1">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="2">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="3">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="4">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="5">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="6">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="7">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="8">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="9">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="10">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="11">
                <image>
-                  <Image url="@../killShootTrack/yellow.png" />
+                  <Image url="@../playerBoard/yellow.png" />
                </image>
             </ImageView>
          </children>
@@ -135,22 +135,22 @@
          <children>
             <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../killShootTrack/redSkull.png" />
+                  <Image url="@../playerBoard/redSkull.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../killShootTrack/redSkull.png" />
+                  <Image url="@../playerBoard/redSkull.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../killShootTrack/redSkull.png" />
+                  <Image url="@../playerBoard/redSkull.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../killShootTrack/redSkull.png" />
+                  <Image url="@../playerBoard/redSkull.png" />
                </image>
             </ImageView>
          </children>
