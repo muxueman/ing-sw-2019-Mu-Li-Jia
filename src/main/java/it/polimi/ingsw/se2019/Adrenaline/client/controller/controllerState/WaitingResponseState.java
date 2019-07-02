@@ -51,6 +51,12 @@ public class WaitingResponseState extends ControllerState {
                 String messageColor = "your color of figure " + figureColor;
                 clientController.sendMessage(messageColor);
                 return this;
+            case("ID"):
+                String ID = String.valueOf(serverMessage.getSubParameter());
+                String messageID = "your ID " + ID;
+                clientController.setPlayerID(ID);
+                clientController.sendMessage(messageID);
+                return this;
             case("CHOOSEMAP"):
                 String finalMap = String.valueOf(serverMessage.getParm());
                 String messageMap = "the map of this match: " + finalMap;
@@ -69,7 +75,8 @@ public class WaitingResponseState extends ControllerState {
                 }
                 else clientController.sendMessage(messageKill);
              //   return (new SpawnLocationState(clientController)).initState();
-                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
+             //   return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
+                return this;
 
             case("Already start the match!"):
                 List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
@@ -80,16 +87,15 @@ public class WaitingResponseState extends ControllerState {
                         statusUpdate.updateStatus(clientController.getModel());
                     }
                     clientController.getModel().pingUpdate(serverMessage.getMessage());
-                    clientController.sendMessage(serverMessage.getMessage());
+                    clientController.sendMessage("end of initial");
                 } else {
                     clientController.reportError("no response from server!");
                 }
+                return new SpawnLocationState(clientController);
 
-
-                return (new NonPlayingState(clientController)).initState();
                 default:
-
-                    return nextState(false,true);
+                    return super.updateStatus(serverMessage);
+                    //return nextState(false,true);
 
         }
     }

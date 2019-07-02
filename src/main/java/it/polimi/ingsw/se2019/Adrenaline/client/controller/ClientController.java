@@ -24,7 +24,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     private Model model;
     private ControllerState state;
     private GameServerInterface gameServer;
-
+    private String playerID;
     private int actionMode;
     protected boolean playing;
 
@@ -33,7 +33,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         this.view = view;
         this.gameServer = null;
         model = new Model();
-        //model.initModel(null, 0); //todo: set map and skill is important
+        playerID = null;
         view.register(this);
         model.register(view);
         playing = false;
@@ -58,7 +58,11 @@ public class ClientController implements ClientInterface, Observer<String> {
             this.gameServer = gameServer;
         }
     }
+    public void setPlayerID(String playerID){
+        this.playerID = playerID;
 
+    }
+    public String getPlayerID(){return playerID;}
     //send message to the view
     public void sendMessage(String message) {
         view.showMessage(message);

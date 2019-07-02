@@ -5,6 +5,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
+import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
@@ -29,6 +30,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.EndGameException;
 //import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -91,6 +93,9 @@ public class MatchController {
                 .anyMatch(player -> !player.isReady());
         return !notReady;
     }
+    public String getPlayerID(ClientInterface clientInterface){
+        return players.get(clientInterface).getPlayerID();
+    }
 
     //************************************* initial part ****************************************
 
@@ -108,8 +113,7 @@ public class MatchController {
             clients.put(player, client);
             figures.put(client, color);
             players.get(client).setPlayerColor(color);
-//            ServerMessage serverMessage = new ServerMessage(false,"FIGURE", color.toString());
-//            client.updateStatus(serverMessage);
+
         }
     }
 
@@ -151,6 +155,7 @@ public class MatchController {
             started = true;
             List<Player> definitivePlayers = new ArrayList<>();
             players.forEach((client, player) -> definitivePlayers.add(player));
+            Logger.getGlobal().log(Level.INFO,"start a match eventually");
             turnHandler = new TurnHandler(definitivePlayers);
             //  refreshDraftPool();
             currentPlayer = turnHandler.getCurrentPlayer();
@@ -245,6 +250,8 @@ public class MatchController {
         Logger.getGlobal().log(Level.INFO,"init a player{0}",player.getPlayerID());
         String reconnectionToken = matchID + "_" + player.getPlayerID();
         Logger.getGlobal().log(Level.INFO,"reconnectionToken: {0}",reconnectionToken);
+        ServerMessage serverMessageID = new ServerMessage(false,"ID", getPlayerID(client));
+        client.updateStatus(serverMessageID);
         ServerMessage serverMessage = new ServerMessage(false, "Already start the match!");
         serverMessage.addStatusUpdate(new BoardUpdate(playBoard));
         serverMessage.addStatusUpdate(new MapUpdate(playBoard.getMap()));

@@ -20,10 +20,10 @@ public class Board implements Status {
     private Map map;
     private int mapInt;
     private int firstPlayer;
-    private ArrayList<Cell> pickedCell;  //所有的房间，有没有被捡过的房间
-    private PowerupCardDeck powerupCardDeck;
-    private WeaponCardDeck weaponCardDeck;
-    private AmmotileCardDeck ammotileCardDeck;
+    private transient ArrayList<Cell> pickedCell;  //所有的房间，有没有被捡过的房间
+    private transient PowerupCardDeck powerupCardDeck;
+    private transient WeaponCardDeck weaponCardDeck;
+    private transient AmmotileCardDeck ammotileCardDeck;
     private static int numKillShoot;
     private int killTurn;
     private boolean firenzyTriggerd;
@@ -53,22 +53,6 @@ public class Board implements Status {
         currentPlayer = null;
         initialCardsOnBoard();
     }
-
-//    public void setAllPlayerColor(){
-//        ArrayList<Color> colorArrayList = new ArrayList<>();
-//        colorArrayList.add(Color.YELLOW);
-//        colorArrayList.add(Color.RED);
-//        colorArrayList.add(Color.BLUE);
-//        colorArrayList.add(Color.GREEN);
-//        colorArrayList.add(Color.PINK);
-//        colorArrayList.add(Color.WHITE);
-////        Collections.shuffle(colorArrayList);
-//        int i = 0;
-//        while(i < allPlayers.size()) {
-//            allPlayers.get(i).setPlayerColor(colorArrayList.get(i));
-//            i++;
-//        }
-//    }
 
     public void addPlayers(Player player){
         allPlayers.add(player);
