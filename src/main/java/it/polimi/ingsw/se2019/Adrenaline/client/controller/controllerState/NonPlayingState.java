@@ -10,12 +10,13 @@ public class NonPlayingState extends ControllerState {
     //constructor,"You passed the turn to the next player."
     public NonPlayingState(ClientController clientController){
         super(clientController, "non_playing state");
+        System.out.println("non playing State");
     }
 
     @Override
     public ControllerState initState() {
         //clientController.getView().play(false);
-        //clientController.playing = false;
+        clientController.setPlaying(false);
         return super.initState();
     }
     @Override

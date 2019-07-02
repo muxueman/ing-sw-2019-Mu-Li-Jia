@@ -6,6 +6,7 @@ import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowPowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 
@@ -31,10 +32,12 @@ public class SpawnLocationState extends ControllerState {
             if (p.getCardName().equalsIgnoreCase(message)) {
                 ClientMessage clientMessage = new ClientMessage("SPAWNLOCATION", p.getCardName());
                 clientController.sendToServer(clientMessage);
-
-                //TODO: 更新model里面player的位置
+//                switch (p.getColor()){
+//                    case "red": clientController.getModel().setPosition(clientController.getPlayerID(),5);break;
+//                    case "blue": clientController.getModel().setPosition(clientController.getPlayerID(), 3);break;
+//                    case "yellow": clientController.getModel().setPosition(clientController.getPlayerID(), 3);break;
+//                }
                 return new WaitingResponseState(clientController, new NonPlayingState(clientController));
-
             }
         }
         clientController.reportError("Wait the powerup cards!");

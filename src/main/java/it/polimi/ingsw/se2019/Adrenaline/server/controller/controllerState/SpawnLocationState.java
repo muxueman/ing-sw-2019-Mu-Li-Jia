@@ -35,9 +35,9 @@ public class SpawnLocationState implements GameServerInterface {
         this.serverController = serverController;
         matchController = serverController.getMatch();
         powerupCards = matchController.getChoosablePowerupCards(client);
-        ServerMessage serverMessage = new ServerMessage("CHOOSE", true, new PowerupCardUpdate(powerupCards));
-        client.updateStatus(new PlayMessage());
-        client.updateStatus(serverMessage);
+//        ServerMessage serverMessage = new ServerMessage("CHOOSE", true, new PowerupCardUpdate(powerupCards));
+//        client.updateStatus(new PlayMessage());
+//        client.updateStatus(serverMessage);
     }
 
     //the message from the Client and update the model.

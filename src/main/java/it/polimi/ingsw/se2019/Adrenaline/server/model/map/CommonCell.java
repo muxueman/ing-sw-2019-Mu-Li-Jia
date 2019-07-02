@@ -29,7 +29,7 @@ public class CommonCell extends Cell {
     public AmmotileCard getAmmotileCard(){
         return ammotileInCell;
     }
-    public WeaponCard[] getWeaponCard(){
+    public ArrayList<WeaponCard> getWeaponCard(){
         return null;
     }
     public void removeAmmotileCard(){

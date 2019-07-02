@@ -25,4 +25,5 @@ public interface UpdatableModel {
     void updateAllPlayers(Board board);
     void updateAdditional(AdditionalStatus additionalStatus);
     void updateReconnectionToken(TokenStatus token);
+    void updateSpawnLocation(Board board, Map map);
 }

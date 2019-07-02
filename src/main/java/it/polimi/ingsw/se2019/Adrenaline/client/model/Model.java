@@ -31,10 +31,10 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
         nextUpdate = new ModelUpdate(boardStatus);
     }
 
-//    public void initModel(int map, int numkillShoot) {
-//        boardStatus = new BoardStatus(map,numkillShoot);
-//        nextUpdate = new ModelUpdate(boardStatus);
-//    }
+    //from client-side to client-side
+    public void setPosition(String playerID, int position){
+        boardStatus.updatePlayerPosition(playerID, position);
+    }
 
     /**
      *
@@ -72,6 +72,14 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
             nextUpdate.addStatusUpdate(player);
             nextUpdate.setBoardStatus(boardStatus);
         }
+    }
+
+    @Override
+    public void updateSpawnLocation(Board board, Map map){
+        if(boardStatus.updateMap(map)){
+            nextUpdate.addStatusUpdate(map);
+        }
+        updateAllPlayers(board);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class ChooseKillState implements GameServerInterface {
         Logger.getGlobal().log(Level.INFO, "CHOOSEKILL: {0} ", message.getMainParam());
         if (message.getTextMove().equals("CHOOSEKILL")) {
             matchController.chooseKill(message.getMainParam());
-            //matchController.initPlayer(client);
+
             //在选择所有玩家选择完kill并更新之后再initPlayer;
             return new SpawnLocationState(serverController,client);
         }

@@ -83,7 +83,7 @@ public abstract class Cell implements Status {
     }
 
     public abstract AmmotileCard getAmmotileCard();
-    public abstract WeaponCard[] getWeaponCard();
+    public abstract ArrayList<WeaponCard> getWeaponCard();
     //overload
     //get the cell from a specific direction
     public Cell getNextCell(String direction) {

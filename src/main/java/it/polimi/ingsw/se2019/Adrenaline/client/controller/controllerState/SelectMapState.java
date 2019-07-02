@@ -13,8 +13,8 @@ public class SelectMapState extends ControllerState {
 
     public SelectMapState(ClientController clientController) {
 
-        super(clientController, "Please select a map: 1.A   2.B   3.C   4.D");
-        System.out.println("A:\n" + "\u001b[1;46m 1 " + "\u001b[1;46m 2 " + "\u001b[1;46m 3 " + "\u001b[1;48m   "
+        super(clientController, "Please select a map: 1.A   2.B   3.C   4.D\n");
+        message += ("A:\n" + "\u001b[1;46m 1 " + "\u001b[1;46m 2 " + "\u001b[1;46m 3 " + "\u001b[1;48m   "
                 + "\u001b[1;48m\n" + "\u001b[1;41m 5 " + "\u001b[1;41m 6 " + "\u001b[1;41m 7 " + "\u001b[1;43m 8 " + "\u001b[1;48m\n" + "\u001b[1;48m   "
                 + "\u001b[1;47m 10" + "\u001b[1;47m 11" + "\u001b[1;43m 12"+ "\u001b[1;48m\n" +
                 "B:\n" + "\u001b[1;41m 1 " + "\u001b[1;46m 2 " + "\u001b[1;46m 3 " + "\u001b[1;48m   "

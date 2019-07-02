@@ -36,9 +36,9 @@ public class BoardStatus implements Status {
 
     private Map<Integer, Cell> allCells; // update map
     private Map<Integer, AmmotileCard> ammotilesInCell;// update map
-    private Map<Integer, WeaponCard[]> weaponsInCell;// update map
+    private Map<Integer, ArrayList<WeaponCard>> weaponsInCell;// update map
     //private Map<Integer, List<PlayerStatus>> playersInCell; //update map
-    private Map<PlayerStatus, Integer> positions; //update map
+    private Map<String, Integer> positions; //<id, cellID> update map
 
     private AdditionalStatus additional;
     private String reconnectionToken;
@@ -96,8 +96,8 @@ public class BoardStatus implements Status {
     public List<PlayerStatus> getAllPlayers() { return allPlayers; }
     public Map<Integer, Cell> getAllCells() { return allCells; }
     public Map<Integer, AmmotileCard> getAmmotilesInCell() { return ammotilesInCell; }
-    public Map<Integer, WeaponCard[]> getWeaponsInCell() { return weaponsInCell; }
-    public Map<PlayerStatus, Integer> getPositions() { return positions; }
+    public Map<Integer, ArrayList<WeaponCard>> getWeaponsInCell() { return weaponsInCell; }
+    public Map<String, Integer> getPositions() { return positions; }
     public String getReconnectionToken() { return reconnectionToken;}
 
     public void setNumDamageOnSkullBoard(int[] numDamageOnSkullBoard) {
@@ -144,11 +144,11 @@ public class BoardStatus implements Status {
         this.ammotilesInCell = ammotilesInCell;
     }
 
-    public void setWeaponsInCell(Map<Integer, WeaponCard[]> weaponsInCell) {
+    public void setWeaponsInCell(Map<Integer, ArrayList<WeaponCard>> weaponsInCell) {
         this.weaponsInCell = weaponsInCell;
     }
 
-    public void setPositions(Map<PlayerStatus, Integer> positions) {
+    public void setPositions(Map<String, Integer> positions) {
         this.positions = positions;
     }
 
@@ -203,8 +203,7 @@ public class BoardStatus implements Status {
                    if (c.getCellPlayers() != null){
                        ArrayList<Player> celllplayers = c.getCellPlayers();
                        for (Player p: celllplayers){
-                           PlayerStatus pp = getPlayer(p.getPlayerID());
-                           positions.put(pp,c.getCellID());
+                           positions.put(p.getPlayerID(),c.getCellID());
                        }
                    }
                }
@@ -251,6 +250,11 @@ public class BoardStatus implements Status {
             updatePlayer(player);
         }
         return true;
+    }
+
+    //client-side update position of player
+    public void updatePlayerPosition(String playerID, int position){
+           positions.put(playerID, position);
     }
 
 

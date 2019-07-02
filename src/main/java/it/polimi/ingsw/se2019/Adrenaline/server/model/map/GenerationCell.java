@@ -17,38 +17,32 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class GenerationCell extends Cell {
 
-    //private ArrayList<WeaponCard> containedWeaponCard;
-    private WeaponCard[] containedWeapon;
+    private ArrayList<WeaponCard> containedWeapon;
 
     public GenerationCell(int cellID) {
        super(cellID);
        //generation cell type = 1
        this.type = 1;
-       containedWeapon = new WeaponCard[3];
+       containedWeapon = new ArrayList<>();
     }
 
-    public WeaponCard[] getWeaponCard(){
+    public ArrayList<WeaponCard> getWeaponCard(){
         return containedWeapon;
     }
     //position = 0 represent the most left card, position = 1,represent the middle, position = 2 represent the right most
-    public WeaponCard getWeaponCard(int cardPosition) {
-        return containedWeapon[cardPosition];
-    }
+    //public WeaponCard getWeaponCard(int cardPosition) {
+    //    return containedWeapon[cardPosition];
+    //}
     public AmmotileCard getAmmotileCard(){ return null; }
     @Override
     public void reload(Board board) {
-        int i = 0;
-        while(i<3){
-            if(containedWeapon[i] == null){
-                containedWeapon[i] = board.extractWeapon();
-                i++;
-            }
-            else i++;
+        while(containedWeapon.size()<3){
+        containedWeapon.add(board.extractWeapon());
         }
     }
-    public void weaponTaken(int cardPosition){
-        containedWeapon[cardPosition] = null;
-    }
+//    public void weaponTaken(int cardPosition){
+//        containedWeapon.get(cardPosition) = null;
+//    }
     @Override
     public Ansi toAnsi(){
         return ansi().a("cell players:" + cellPlayers.toString());

@@ -82,10 +82,16 @@ public class ClientController implements ClientInterface, Observer<String> {
     }
     public void sendError(String error) throws RemoteException{};
 
+    public boolean isPlaying() {
+        return playing;
+    }
+    public void setPlaying(boolean playing){
+        this.playing = playing;
+    }
+
     public void nextView(boolean next) {
         view.nextView(next);
     }
-
     @Override
     public synchronized void update(String message) {
         state = state.update(message);
@@ -94,6 +100,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     @Override
     public synchronized void updateStatus(ServerMessage serverMessage) {
         state = state.updateStatus(serverMessage);
+        System.out.println(serverMessage);
     }
     public void checkConnection() throws RemoteException{};
 

@@ -17,11 +17,12 @@ public class PlayingState extends ControllerState {
         super(clientController, "");
         this.actionMode = actionMode;
         clientMessage = new ClientMessage("ACTION", actionMode);
+        System.out.println("playing state!");
     }
 
     @Override
     public ControllerState initState(){
-        //
+        clientController.setPlaying(true);
         return super.initState();
     }
     @Override

@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.sun.org.apache.regexp.internal.REDebugCompiler;
@@ -52,10 +53,13 @@ public class Player implements Status {
     }
 
     public void dropPowerupAndGoNewCell(String powerupName){
-        for(PowerupCard p : powerupsOwned){
-            if(p.getCardName() == powerupName){
-                setEnterCellByColor(p.getColor());
-                powerupsOwned.remove(p);
+
+        Iterator<PowerupCard> iterator = powerupsOwned.iterator();
+        while (iterator.hasNext()){
+            PowerupCard next = iterator.next();
+            if(next.getCardName().equalsIgnoreCase(powerupName)){
+                setEnterCellByColor(next.getColor());
+                iterator.remove();
             }
         }
     }
@@ -63,7 +67,7 @@ public class Player implements Status {
     //match controller 每次在开始的时候initial player 用到的constructor
     public Player(String playerID) {
         this.playerID = playerID;
-        this.username = playerID;
+        this.username = null;
         ammoOwned = new int[] {3,3,3};//RED, BLUE, YELLOW
         weaponsOwned = new HashMap<>();
         powerupsOwned = new ArrayList<>();
@@ -77,7 +81,6 @@ public class Player implements Status {
     public void setUserName(String userName) {
         this.username = userName;
     }
-
     public void setPlayBoard(Board board) { this.board = board; }
     public void setActionMode(int mode){
         actionMode = mode;

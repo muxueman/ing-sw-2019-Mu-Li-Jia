@@ -12,10 +12,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.BoardUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.MapUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PlayerStatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.TokenUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.NonPlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
@@ -63,6 +60,7 @@ public class MatchController {
     private TurnHandler turnHandler;
     private boolean started;
     private Timer timer;
+    private int numSqawnAlready;
 
     public MatchController(String matchID) {
         this.matchID = matchID;
@@ -82,6 +80,7 @@ public class MatchController {
         started = false;
         turnHandler = null;
         timer = new Timer();
+        numSqawnAlready = 0;
     }
 
     public synchronized boolean isNotFull() {
@@ -152,16 +151,9 @@ public class MatchController {
         }
         if (turnHandler == null) {
             started = true;
-            List<Player> definitivePlayers = new ArrayList<>();
-            players.forEach((client, player) -> definitivePlayers.add(player));
             Logger.getGlobal().log(Level.INFO,"start a match eventually");
-            turnHandler = new TurnHandler(definitivePlayers);
-            //  refreshDraftPool();
-            currentPlayer = turnHandler.getCurrentPlayer();
-            //refreshControllerStates();
             //client: from waiting state to next state map select
-            updateAll(new PlayMessage());
-            updateCurrentPlayer(new PlayMessage());
+            updateAll(new ServerMessage());
             closeTimer();
             startTimer();
         }
@@ -256,22 +248,26 @@ public class MatchController {
         serverMessage.addStatusUpdate(new BoardUpdate(playBoard));
         serverMessage.addStatusUpdate(new MapUpdate(playBoard.getMap()));
         serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
-        //client.updateStatus(serverMessage);
         updateClient(client,serverMessage);
-        List<Player> readyPlayers = new ArrayList<>();
-        players.values().forEach(p -> {
-            if (p.isReady() && !p.equals(player)) {
-                readyPlayers.add(p);
-            }
-        });
         Logger.getGlobal().log(Level.INFO,"finish init of {0}",player.getPlayerID());
-//        if (!readyPlayers.isEmpty()) {
-//            ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
-//            for (Player p : readyPlayers) {
-//                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
-//            }
-//            updateClient(client, opponentsMessage);
-//        }
+        List<Player> readyPlayers = new ArrayList<>();
+        for (Player pl: players.values()){
+            players.values().forEach(p -> {
+                if (p.isReady() && !p.equals(pl)) {
+                    readyPlayers.add(p);
+                }
+            });
+        }
+        if (!readyPlayers.isEmpty()) {
+            String messageO = "ALl players in this match: ";
+            for (Player p : readyPlayers) {
+                messageO += p.getUserName() + "  ";
+            }
+            Logger.getGlobal().log(Level.INFO,"ready players ", messageO);
+            ServerMessage opponentsMessage = new ServerMessage(false, "OPPONENTS", messageO);
+            updateClient(client, opponentsMessage);
+        }
+
     }
 
     //send map result ot each client
@@ -303,13 +299,37 @@ public class MatchController {
     }
 
     //drop a powerupcard in a SpawnLocation State
-    public void spawnLocationDrop(String powerupName,ClientInterface clientInterface){
-        players.get(clientInterface).dropPowerupAndGoNewCell(powerupName);
+    public void spawnLocationDrop(String powerupName,ClientInterface client) throws RemoteException{
+        players.get(client).dropPowerupAndGoNewCell(powerupName);
+        numSqawnAlready += 1;
         Logger.getGlobal().log(Level.INFO,"dropPowerupAndGoNewCell {0} successful! ", powerupName);
+        if (numSqawnAlready == players.size()){
+            ServerMessage message = new ServerMessage(false, "SpawnLocation");
+            message.addStatusUpdate(new SpawnLocationUpdate(playBoard,playBoard.getMap()));
+            for (Player p: players.values()){
+                System.out.println(p.getUserName());
+                System.out.println(p.getCurrentCell().getCellID());
+                System.out.println(playBoard.getMap().getAllCells().get(3).getCellPlayers().size());
+                System.out.println(playBoard.getMap().getAllCells().get(5).getCellPlayers().size());
+                System.out.println(playBoard.getMap().getAllCells().get(12).getCellPlayers().size());
+            }
+            updateAll(message);
+            readyPlayers();
+        }
+    }
+
+    //update all players to ready
+    public void readyPlayers(){
+        List<Player> definitivePlayers = new ArrayList<>();
+        players.forEach((client, player) -> definitivePlayers.add(player));
+        turnHandler = new TurnHandler(definitivePlayers);
+        currentPlayer = turnHandler.getCurrentPlayer();
+        refreshControllerStates();
     }
 
     //change state between playing state and non playing state
     private synchronized void refreshControllerStates() {
+        Logger.getGlobal().log(Level.INFO,"start refresh controller state....");
         controllers.forEach((player, controller) -> {
             if (player.equals(currentPlayer)) {
                 Logger.getGlobal().log(Level.INFO,"current player next state: playing");
@@ -417,6 +437,7 @@ public class MatchController {
         }
     }
     private void updateCurrentPlayer(ServerMessage serverMessage) {
+        Logger.getGlobal().warning("current player {0} "+ currentPlayer.getUserName());
         ClientInterface client = clients.get(currentPlayer);
         updateClient(client, serverMessage);
     }
