@@ -41,11 +41,11 @@ public class CLIView extends View {
         print(message);
     }
     public void reportError(String error) {
-        showMessage("Error: " + error);
+        showMessage("\u001b[1;31mError: " + error);
     }
 
     private void print(Object object){
-        out.println(object);
+        out.println("\u001b[1;34m"+ object);
     }
 
 
@@ -64,9 +64,6 @@ public class CLIView extends View {
             }
         }
     }
-
-
-
 
 
 
