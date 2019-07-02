@@ -66,6 +66,8 @@ public abstract class Cell implements Status {
 
     public abstract void reload(Board board);
 
+    public WeaponCard getWeaponWithColor(Board board){return null;};
+
     public ArrayList<Player> getCellPlayers() {
         return this.cellPlayers;
     }

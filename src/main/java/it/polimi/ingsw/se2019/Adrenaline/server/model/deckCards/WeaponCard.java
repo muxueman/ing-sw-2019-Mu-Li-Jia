@@ -20,15 +20,24 @@ public class WeaponCard implements Status {
     private String[] specialEffect;
     private String notes;
     private int weaponType;
-    private int effectDamageVison;
+    private int effectDamageVision;
     private String image;
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public int getEffectDamageVison() {
-        return effectDamageVison;
+        return effectDamageVision;
     }
 
     public void setEffectDamageVison(int effectDamageVison) {
-        this.effectDamageVison = effectDamageVison;
+        this.effectDamageVision = effectDamageVison;
     }
 
     public int getType() {

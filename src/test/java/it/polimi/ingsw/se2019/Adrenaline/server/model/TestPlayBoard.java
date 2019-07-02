@@ -1,4 +1,5 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
@@ -7,17 +8,15 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class TestPlayBoard {
-/*
+
     Map testMap = new MapB();
     int skull = 5;
-    Board testBoard = new Board(testMap, skull);
+    Board testBoard = new Board(testMap, skull, 2);
     Player testShooter = new Player("jia");
     Player testPlayer = new Player("li");
     Player testPlayer2 = new Player("mu");
 
     public void setTestInfo() {
-        testBoard.setKillTurn(1);
-        testBoard.setNumKillShoot(5);
 //        Board testBoard2 = new Board(testMap, allPlayer);
 //        testBoard2.setNumKillShoot(6);
 //        testBoard.getNumKillShoot();
@@ -26,26 +25,27 @@ public class TestPlayBoard {
 
     @Test
     public void addPlayerTest(){
-        testBoard.addPlayers(testShooter);
-        testBoard.addPlayers(testPlayer);
-        testBoard.addPlayers(testPlayer2);
-        System.out.println("currenttest"+testBoard.getCurrentPlayer());
-        //testBoard.setPlayers(testBoard.getAllPlayers());
-
-        testBoard.setAllPlayerColor();
-        testBoard.setCurrentPlayer(testShooter);
-        //testBoard.turnNextPlayer();
-        //testBoard.turnNextPlayer();
-        testBoard.changefirenzyMode();
-        System.out.println(testBoard.getCurrentPlayer());
-        //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
-        System.out.println(testBoard.getCurrentPlayer());
-        for(Player p : testBoard.getAllPlayers()){
-            System.out.println(p.getUserName());
+//        testBoard.addPlayers(testShooter);
+//        testBoard.addPlayers(testPlayer);
+//        testBoard.addPlayers(testPlayer2);
+//        System.out.println("currenttest"+testBoard.getCurrentPlayer());
+//        //testBoard.setPlayers(testBoard.getAllPlayers());
+//        testBoard.setCurrentPlayer(testShooter);
+//        //testBoard.turnNextPlayer();
+//        //testBoard.turnNextPlayer();
+//        testBoard.changefirenzyMode();
+//        System.out.println(testBoard.getCurrentPlayer());
+//        //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
+//        System.out.println(testBoard.getCurrentPlayer());
+//        for(Player p : testBoard.getAllPlayers()){
+//            System.out.println(p.getUserName());
+//        }
+        for(Cell c : testBoard.getMap().getAllCells()){
+            System.out.println(c.getCellID());
         }
 
 
-
+/*
     }
 
     @Test
@@ -115,5 +115,5 @@ public class TestPlayBoard {
 //        System.out.println(testShooter.getActionMode());
     }
 
-*/
+*/}
 }

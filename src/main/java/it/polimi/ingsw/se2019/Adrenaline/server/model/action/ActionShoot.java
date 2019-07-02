@@ -60,10 +60,10 @@ public class ActionShoot implements Serializable {
             case "ELECTROSCYTHE": targetBasic.addAll(getTargetInYourCell(shooter)); break;
             case "MACHINE GUN": targetBasic.addAll(getTargetsYouCanSee(shooter));break;
 //            case "TRACTOR BEAM": targetBasic.addAll()
-            case "T.H.O.R": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
+            case "T.H.O.R.": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
 //            case "VORTEX CANNON":; break;
-//            case "PLASMA GUN": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
-//            case "FURANCE": targetBasic.addAll(getTargetsFromRoomYouCanSeeButNotYouAreIn(shooter)) break;
+            case "PLASMA GUN": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
+            case "FURANCE": targetBasic.addAll(getTargetsFromRoomYouCanSeeButNotYouAreIn(shooter)); break;
 //            case "HEATSEKER": targetBasic.addAll(getTargetsYouCanSee(shooter)); break;
 //            case "WHISPER": targetBasic.addAll(getTargetVisibleTwoCellsAway(shooter)); break;
 //            case "HELLION": targetBasic.addAll(getTargetOneCellAway(shooter)); break;
@@ -94,6 +94,8 @@ public class ActionShoot implements Serializable {
     public boolean checkIfInputValid(String names) throws InvalidNameException{
         if(getTargetBasic().size() == 0 || weaponCard.getBasicDamageVision() == 0){
             dealBasicDamageToTarget(targetBasic);
+            System.out.println(getTargetBasic().size());
+            System.out.println(weaponCard.getBasicDamageVision());
             return true; // dont do anything
         }
         boolean check = true;
@@ -133,15 +135,40 @@ public class ActionShoot implements Serializable {
         }
         if(check){
             dealSideEffectDamageToTarget(getTargetsArrayFromName(names));
+            targetAttacked.addAll(getTargetsArrayFromName(names));
         }
         return check;
     }
+    public boolean checkIfInputValidThird(String names) throws InvalidNameException{
+        if(targetSecond.size() == 0 || weaponCard.getEffectDamageVison() == 0) {
+            dealSideEffectDamageToTarget(targetSecond);
+            return true;
+        }
+        boolean check = true;
+        for(Player p : getTargetsArrayFromName(names)){
+            if(getTargetSecond().contains(p)) continue;
+            else {
+                check = false;
+                throw new InvalidNameException();
+            }
+        }
+        if(getTargetsArrayFromName(names).size() > weaponCard.getEffectDamageVison()) {
+            check = false;
+            throw new InvalidNameException();
+        }
+        if(check){
+            dealThirdSideEffectDamageToTarget(getTargetsArrayFromName(names));
+            targetAttacked.addAll(getTargetsArrayFromName(names));
+        }
+        return check;
+    }
+
     // consume ammo for side effect, give available target,
 
     public String getTargetNameBasic(){
         String targetString = "Targets: ";
         switch (weaponCard.getCardName()){
-            case "LOCK RIFLE": ;targetString += transferFromPlayerToString(findTargetBasic());
+            case "LOCK RIFLE": targetString += transferFromPlayerToString(findTargetBasic());
             targetString += "\n" + "type in the name of ONE target"; break;
             case "ELECTROSCYTHE": targetString += transferFromPlayerToString(findTargetBasic());
             targetString += "\n" + "you dont have to choose a target, deal damage to them?"; break;
@@ -149,6 +176,10 @@ public class ActionShoot implements Serializable {
                 targetString += "\n" + "type in the name of ONE or TWO target";break;
             case "T.H.O.R." : targetString += transferFromPlayerToString(findTargetBasic());
                 targetString += "\n" + "type in the name of ONE target";break;
+            case "PLASMA GUN":  targetString += transferFromPlayerToString(findTargetBasic());
+                targetString += "\n" + "type in the name of ONE target"; break;
+            case"FURNACE": targetString += transferFromPlayerToString(findTargetBasic());
+                targetString += "\n" + "type in the name of ONE target"; break;
         }
         if(getTargetBasic().size() == 0) targetString += "\n" + "nobody to shoot,";
         return targetString;
@@ -170,21 +201,27 @@ public class ActionShoot implements Serializable {
                 break;
             case "MACHINE GUN": secondTargetName += transferFromPlayerToString(targetAttacked);
                 break;
-
+            case "T.H.O.R.": targetSecond.clear(); targetSecond.addAll(getTargetsYouCanSee(targetAttacked.get(0)));
+                targetSecond.remove(shooter);
+                secondTargetName += transferFromPlayerToString(targetSecond);break;
         }
         return secondTargetName;
+
     }
 
-    public String getTargetWithThirdSideEffect(){
+
+    public String getTargetNameWithThirdSideEffect(){
         String thirdTargetName = "";
         switch (weaponCard.getCardName()){
             case "MACHINE GUN":targetSecond.clear();
                 for(Player p : targetBasic) {
-                    if (targetAttacked.contains(p)) targetSecond.remove(p);
+                    if (!targetAttacked.contains(p)) targetSecond.add(p);
                 }
                 thirdTargetName += transferFromPlayerToString(targetSecond);
                 break;
-            case "PLASMA GUN":
+            case "PLASMA GUN": break;
+            case "T.H.O.R.": targetSecond.clear();targetSecond.addAll(getTargetsYouCanSee(targetAttacked.get(targetAttacked.size()-1)));
+                thirdTargetName += transferFromPlayerToString(targetSecond);break;
 
         }
         return thirdTargetName;
@@ -235,7 +272,7 @@ public class ActionShoot implements Serializable {
             case "LOCK RIFLE": if(target.size() == 1) shootable = true; break;
             case "MACHINE GUN": if(target.size() <= 2) shootable = true; break;
             case "TRACTOR BEAM": if(target.size() == 1) shootable = true; break;
-            case "T.H.O.R": if(target.size()  == 1) shootable = true; break;
+            case "T.H.O.R.": if(target.size()  == 1) shootable = true; break;
             case "VORTEX CANNON": if(target.size() == 1) shootable = true; break;
             case "PLASMA GUN":  if(target.size() == 1) shootable = true; break;
             case "FURANCE": if(target.size() == 1) shootable = true; break;
@@ -287,7 +324,7 @@ public class ActionShoot implements Serializable {
                 case "LOCK RIFLE": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
                 case "MACHINE GUN": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
                 case "TRACTOR BEAM": if(getTargetVisibleTwoCellsAway(shooter).contains(target.get(i))) {shootable = true; } break;
-                case "T.H.O.R": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
+                case "T.H.O.R.": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
                 case "VORTEX CANNON": if(getVortexTarget(shooter).contains(target.get(i))) {shootable = true;} break;
                 case "PLASMA GUN": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
                 case "FURNACE": if(getTargetsFromRoomYouCanSeeButNotYouAreIn(shooter).contains(target.get(i))) {shootable = true; } break;
@@ -341,7 +378,7 @@ public class ActionShoot implements Serializable {
                 case "TRACTOR BEAM":
                     dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
                     break;
-                case "T.H.O.R":
+                case "T.H.O.R.":
                     dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
                     break;
                 case "VORTEX CANNON":
@@ -420,8 +457,8 @@ public class ActionShoot implements Serializable {
                 case "TRACTOR BEAM":
                     dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
                     break;
-                case "T.H.O.R":
-                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                case "T.H.O.R.":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
                     break;
                 case "VORTEX CANNON":
                     dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
@@ -475,6 +512,30 @@ public class ActionShoot implements Serializable {
                     dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
                     break;
                 case "SLEDGEHAMMER":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+            }
+            i++;
+        }
+    }
+
+    public void dealThirdSideEffectDamageToTarget(ArrayList<Player> target){
+        int i = 0;
+        while (i < target.size()) {
+            switch (weaponCard.getCardName()) {
+                case "MACHINE GUN":
+                    dealDamageMarkToTarget(shooter, 1, 0, target.get(i));
+                    break;
+                case "T.H.O.R.":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "PLASMA GUN":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "ROCKET LAUNCHER":
+                    dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
+                    break;
+                case "CYBERBLADE":
                     dealDamageMarkToTarget(shooter, 2, 0, target.get(i));
                     break;
             }
@@ -713,7 +774,7 @@ public class ActionShoot implements Serializable {
             case "MACHINE GUN": paid = payAmmoForAtherMode(shooter, AmmoColor.YELLOW); break;
             case "TRACTOR BEAM": paid = payAmmoForAtherMode(shooter, AmmoColor.RED);payAmmoForAtherMode(shooter, AmmoColor.YELLOW);
             break;
-            case "T.H.O.R": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE); break;
+            case "T.H.O.R.": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE); break;
             case "VORTEX CANNON": paid = payAmmoForAtherMode(shooter, AmmoColor.RED); break;
             case "PLASMA GUN": paid = true;  break;
             case "FURANCE": paid = true; break;
@@ -739,7 +800,7 @@ public class ActionShoot implements Serializable {
         boolean paid = false;
         switch(weaponCard.getCardName()){
             case "MACHINE GUN": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE); break;
-            case "T.H.O.R": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE); break;
+            case "T.H.O.R.": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE); break;
             case "PLASMA GUN": paid = payAmmoForAtherMode(shooter, AmmoColor.BLUE);  break;
             case "ROCKET LAUNCHER": paid = payAmmoForAtherMode(shooter,  AmmoColor.YELLOW); break;
             case "CYBERBLADE":  paid = payAmmoForAtherMode(shooter, AmmoColor.YELLOW);; break;

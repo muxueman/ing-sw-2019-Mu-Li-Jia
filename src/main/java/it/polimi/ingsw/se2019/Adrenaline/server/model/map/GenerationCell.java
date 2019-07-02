@@ -37,14 +37,26 @@ public class GenerationCell extends Cell {
     public AmmotileCard getAmmotileCard(){ return null; }
     @Override
     public void reload(Board board) {
+
         int i = 0;
         while(i<3){
             if(containedWeapon[i] == null){
-                containedWeapon[i] = board.extractWeapon();
+                containedWeapon[i] = getWeaponWithColor(board);
                 i++;
             }
             else i++;
         }
+    }
+
+    @Override
+    public WeaponCard getWeaponWithColor(Board board){
+        WeaponCard weaponCard = board.extractWeapon() ;
+        switch(this.cellID){
+            case 3:   weaponCard = board.extractWeaponWithColor("blue"); break;
+            case 5:   weaponCard = board.extractWeaponWithColor("red"); break;
+            case 12:  weaponCard = board.extractWeaponWithColor("yellow"); break;
+        }
+        return weaponCard;
     }
     public void weaponTaken(int cardPosition){
         containedWeapon[cardPosition] = null;
