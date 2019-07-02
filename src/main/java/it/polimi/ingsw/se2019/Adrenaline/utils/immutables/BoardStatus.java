@@ -101,6 +101,66 @@ public class BoardStatus implements Status {
     public Map<PlayerStatus, Integer> getPositions() { return positions; }
     public String getReconnectionToken() { return reconnectionToken;}
 
+    public void setNumDamageOnSkullBoard(int[] numDamageOnSkullBoard) {
+        this.numDamageOnSkullBoard = numDamageOnSkullBoard;
+    }
+
+    public void setColorDamageOnSkullBoard(Color[] colorDamageOnSkullBoard) {
+        this.colorDamageOnSkullBoard = colorDamageOnSkullBoard;
+    }
+
+    public static void setMapID(int mapID) {
+        BoardStatus.mapID = mapID;
+    }
+
+    public static void setNumKillShoot(int numKillShoot) {
+        BoardStatus.numKillShoot = numKillShoot;
+    }
+
+    public void setFirenzyTriggerd(boolean firenzyTriggerd) {
+        this.firenzyTriggerd = firenzyTriggerd;
+    }
+
+    public void setCurrentPlayer(PlayerStatus currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public void setAllPlayers(List<PlayerStatus> allPlayers) {
+        this.allPlayers = allPlayers;
+    }
+
+    public void setPlayers(Map<String, PlayerStatus> players) {
+        this.players = players;
+    }
+
+    public void setUsernames(Map<String, String> usernames) {
+        this.usernames = usernames;
+    }
+
+    public void setAllCells(Map<Integer, Cell> allCells) {
+        this.allCells = allCells;
+    }
+
+    public void setAmmotilesInCell(Map<Integer, AmmotileCard> ammotilesInCell) {
+        this.ammotilesInCell = ammotilesInCell;
+    }
+
+    public void setWeaponsInCell(Map<Integer, WeaponCard[]> weaponsInCell) {
+        this.weaponsInCell = weaponsInCell;
+    }
+
+    public void setPositions(Map<PlayerStatus, Integer> positions) {
+        this.positions = positions;
+    }
+
+    public void setAdditional(AdditionalStatus additional) {
+        this.additional = additional;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
     //更新map里面包含的内容
     public boolean updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map){
            ArrayList<Cell> cells = map.getAllCells();

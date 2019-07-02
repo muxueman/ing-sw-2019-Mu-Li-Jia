@@ -74,24 +74,20 @@ public class WaitingResponseState extends ControllerState {
                     clientController.sendMessage(messageVK.getParmS());
                 }
                 else clientController.sendMessage(messageKill);
-             //   return (new SpawnLocationState(clientController)).initState();
-             //   return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
                 return this;
-
             case("Already start the match!"):
                 List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
                 if (!statusUpdates.isEmpty()) {
-//                    WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
-//                    windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
                     for (StatusUpdate statusUpdate : statusUpdates) {
                         statusUpdate.updateStatus(clientController.getModel());
                     }
                     clientController.getModel().pingUpdate(serverMessage.getMessage());
-                    clientController.sendMessage("end of initial");
                 } else {
                     clientController.reportError("no response from server!");
                 }
-                return new SpawnLocationState(clientController);
+                return new SpawnLocationState(clientController).initState();
+
+
 
                 default:
                     return super.updateStatus(serverMessage);

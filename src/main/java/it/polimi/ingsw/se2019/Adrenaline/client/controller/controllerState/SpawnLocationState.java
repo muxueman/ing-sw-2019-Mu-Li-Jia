@@ -21,6 +21,7 @@ public class SpawnLocationState extends ControllerState {
         for (PowerupCard p : powerupCards){
             clientController.sendMessage(p.getCardName());
         }
+
     }
 
 

@@ -113,7 +113,6 @@ public class MatchController {
             clients.put(player, client);
             figures.put(client, color);
             players.get(client).setPlayerColor(color);
-
         }
     }
 

@@ -89,6 +89,7 @@ public class CommandLineTable {
     }
 
     public static void main(String[] args) {
+
         //test code
         CommandLineTable st = new CommandLineTable();
         //st.setRightAlign(true);//if true then cell text is right aligned
