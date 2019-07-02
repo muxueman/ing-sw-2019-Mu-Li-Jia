@@ -51,7 +51,7 @@ public class Player implements Status {
         this.killShootTrack = new PlayerBoard(this);
     }
 
-    public void DropPowerupAndGoNewCell(String powerupName){
+    public void dropPowerupAndGoNewCell(String powerupName){
         for(PowerupCard p : powerupsOwned){
             if(p.getCardName() == powerupName){
                 setEnterCellByColor(p.getColor());
