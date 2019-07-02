@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.org.apache.regexp.internal.REDebugCompiler;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
@@ -48,6 +49,15 @@ public class Player implements Status {
         alive = true;
         favorTokens = 0;
         this.killShootTrack = new PlayerBoard(this);
+    }
+
+    public void DropPowerupAndGoNewCell(String powerupName){
+        for(PowerupCard p : powerupsOwned){
+            if(p.getCardName() == powerupName){
+                setEnterCellByColor(p.getColor());
+                powerupsOwned.remove(p);
+            }
+        }
     }
 
     //match controller 每次在开始的时候initial player 用到的constructor
