@@ -12,6 +12,7 @@ import javafx.scene.control.SliderBuilder;
 import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 import sun.security.krb5.internal.PAData;
 
+import java.io.Serializable;
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import java.util.Map;
  *
  */
 
-public class ActionShoot{
+public class ActionShoot implements Serializable {
 
     private Player  shooter;
     private WeaponCard weaponCard;

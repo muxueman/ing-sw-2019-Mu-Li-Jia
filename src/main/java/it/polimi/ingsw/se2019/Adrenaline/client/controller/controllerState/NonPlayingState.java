@@ -9,7 +9,7 @@ public class NonPlayingState extends ControllerState {
 
     //constructor,"You passed the turn to the next player."
     public NonPlayingState(ClientController clientController){
-        super(clientController, "");
+        super(clientController, "non_playing state");
     }
 
     @Override

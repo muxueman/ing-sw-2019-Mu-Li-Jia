@@ -8,13 +8,14 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * interface ActionStrategy
  * @author Xueman Mu
  */
 
-public class ActionGrab {
+public class ActionGrab implements Serializable {
 
     //pick 之前 应由controller先判断player所在位置， 应该捡武器卡 或其他， 如果捡武器卡 应决定捡哪一张
 

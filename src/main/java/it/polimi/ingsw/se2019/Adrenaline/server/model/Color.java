@@ -1,11 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
+import java.io.Serializable;
+
 /**
  *the color of players and rooms
  *@author Xueman Mu
  */
 
-public enum Color {
+public enum Color implements Serializable {
     YELLOW("YELLOW"),
     GREEN("GREEN"),
     BLUE("BLUE"),

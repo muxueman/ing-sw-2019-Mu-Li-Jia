@@ -8,12 +8,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Lobby {
+public class Lobby implements Serializable {
 
     private Map<ClientInterface, Boolean> clients;
     private Map<ClientInterface, ServerController> controllers;

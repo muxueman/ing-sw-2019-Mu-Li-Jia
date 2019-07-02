@@ -87,6 +87,7 @@ public class SocketController implements ClientInterface, ServerController {
             out.flush();
         } catch (IOException e) {
             Logger.getGlobal().warning(e.getMessage());
+            e.printStackTrace();
         }
     }
 

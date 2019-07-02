@@ -4,15 +4,12 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class AmmotileCardDeck {
+public class AmmotileCardDeck implements Serializable {
 
 
     public ArrayList<AmmotileCard> atCards;
