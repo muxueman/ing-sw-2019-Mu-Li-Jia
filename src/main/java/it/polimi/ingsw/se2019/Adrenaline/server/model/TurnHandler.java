@@ -2,11 +2,12 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TurnHandler {
+public class TurnHandler implements Serializable {
     private List<Player> players;
     private List<Player> orderedPlayers;
     private int turn;

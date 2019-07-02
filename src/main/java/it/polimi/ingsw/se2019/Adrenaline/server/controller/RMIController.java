@@ -83,6 +83,7 @@ public class RMIController implements GameServerInterface, ServerController {
                 state = state.update(message, client);
             } catch (RemoteException e) {
                 Logger.getGlobal().warning("There has been a problem with a client.");
+                e.printStackTrace();
             }
         }
     }

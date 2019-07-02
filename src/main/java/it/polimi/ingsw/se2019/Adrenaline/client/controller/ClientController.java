@@ -44,7 +44,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     public View getView() {
         return view;
     }
-    protected Model getModel() {
+    public Model getModel() {
         return model;
     }
     protected ControllerState getState() {

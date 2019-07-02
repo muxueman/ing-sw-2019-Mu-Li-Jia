@@ -17,7 +17,7 @@ public interface UpdatableModel {
      * The pingUpdate method notifies the View telling that nothing
      * has changed from the previous state (possibly useful for GUI).
      */
-
+    void setBoardStatus(Board board);
     void pingUpdate(String message);
     void updatePlayer(Player player);
     void updateMap(Map map);

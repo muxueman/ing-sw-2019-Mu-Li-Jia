@@ -11,6 +11,8 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.BoardUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.MapUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PlayerStatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.TokenUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.NonPlayingState;
@@ -105,6 +107,7 @@ public class MatchController {
             controllers.put(player, controller);
             clients.put(player, client);
             figures.put(client, color);
+            players.get(client).setPlayerColor(color);
 //            ServerMessage serverMessage = new ServerMessage(false,"FIGURE", color.toString());
 //            client.updateStatus(serverMessage);
         }
@@ -203,20 +206,19 @@ public class MatchController {
                 }
             }
             Logger.getGlobal().log(Level.INFO,"chose the kill number: {0} ", selectedKill);
-
+            initPlayBoard();
             for (ClientInterface c : clients.values()){
                 chooseKillEach(c);
                 initPlayer(c);
             }
-            initPlayBoard();
         }
     }
 
     //initial playBoard with map, Numkill, players
     protected void initPlayBoard(){
-        playBoard = new Board(selectedMap, selectedKill);
-        playBoard.setNumKillShoot(selectedKill);
+        playBoard = new Board(selectedMap, selectedKill,selectedMapInt);
         addPlayersToBoard(playBoard);
+        Logger.getGlobal().log(Level.INFO,"init play board success!");
     }
 
     // add all players on the board, including giving each player color and two powerUp card
@@ -225,6 +227,7 @@ public class MatchController {
             playBoard.addPlayers(players.get(key));
             players.get(key).setPlayBoard(playBoard);
             try{
+                //每次都只取一个卡牌
                 players.get(key).addPowerupCard(playBoard.extractPowerupcard());
                 players.get(key).addPowerupCard(playBoard.extractPowerupcard());
             }
@@ -232,10 +235,36 @@ public class MatchController {
                 Logger.getGlobal().warning("Invalid Powerup Grab ");
             };
         }
-        playBoard.setAllPlayerColor();
-        Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序
-        TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
-        //playBoard.setPlayers(playBoard.getAllPlayers()); // 存入status
+        //Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序 这是个arrayList
+        //TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player
+    }
+
+    //初始化玩家并更新client-side status //update
+    synchronized void initPlayer(ClientInterface client) throws RemoteException{
+        Player player = players.get(client);
+        Logger.getGlobal().log(Level.INFO,"init a player{0}",player.getPlayerID());
+        String reconnectionToken = matchID + "_" + player.getPlayerID();
+        Logger.getGlobal().log(Level.INFO,"reconnectionToken: {0}",reconnectionToken);
+        ServerMessage serverMessage = new ServerMessage(false, "Already start the match!");
+        serverMessage.addStatusUpdate(new BoardUpdate(playBoard));
+        serverMessage.addStatusUpdate(new MapUpdate(playBoard.getMap()));
+        serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
+        //client.updateStatus(serverMessage);
+        updateClient(client,serverMessage);
+        List<Player> readyPlayers = new ArrayList<>();
+        players.values().forEach(p -> {
+            if (p.isReady() && !p.equals(player)) {
+                readyPlayers.add(p);
+            }
+        });
+        Logger.getGlobal().log(Level.INFO,"finish init of {0}",player.getPlayerID());
+//        if (!readyPlayers.isEmpty()) {
+//            ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
+//            for (Player p : readyPlayers) {
+//                opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
+//            }
+//            updateClient(client, opponentsMessage);
+//        }
     }
 
     //send map result ot each client
@@ -266,38 +295,7 @@ public class MatchController {
         return num;
     }
 
-    synchronized void initPlayer(ClientInterface client) {
-        Player player = players.get(client);
-        Color playerColor = figures.get(client);
-        Logger.getGlobal().log(Level.INFO,"init a player{0}",player.getPlayerID());
-        String reconnectionToken = matchID + "_" + player.getPlayerID();
-        ServerMessage serverMessage = new ServerMessage(false, "This is your map :");
-        //serverMessage.addStatusUpdate(new PlayerStatusUpdate(player.getStatus()));
-//        serverMessage.addStatusUpdate(new PrivateObjectiveUpdate(player.getPrivateObjectiveCard()));
-//        serverMessage.addStatusUpdate(new PublicObjectiveUpdate(publicObjectiveCards));
-//        List<ToolCardStatus> toolCardStatuses = new ArrayList<>();
-//        for (ToolCard toolCard : toolCards) {
-//            toolCardStatuses.add(toolCard.getStatus());
-//        }
-//        serverMessage.addStatusUpdate(new ToolCardsUpdate(toolCardStatuses));
-//        serverMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
-//        serverMessage.addStatusUpdate(new RoundTrackUpdate(roundTrack.getStatus()));
-        serverMessage.addStatusUpdate(new TokenUpdate(reconnectionToken));
-        updateClient(client, serverMessage);
-        List<Player> readyPlayers = new ArrayList<>();
-        players.values().forEach(p -> {
-            if (p.isReady() && !p.equals(player)) {
-                readyPlayers.add(p);
-            }
-        });
-        if (!readyPlayers.isEmpty()) {
-            ServerMessage opponentsMessage = new ServerMessage(false, "These are your current opponents:");
-            for (Player p : readyPlayers) {
-                //opponentsMessage.addStatusUpdate(new PlayerStatusUpdate(p));
-            }
-            updateClient(client, opponentsMessage);
-        }
-    }
+
 
 
 
@@ -406,6 +404,7 @@ public class MatchController {
         } catch (RemoteException e) {
             Logger.getGlobal().warning("There has been a connection error from player "
                     + players.get(client).getUsername());
+            e.printStackTrace();
         }
     }
     private void updateCurrentPlayer(ServerMessage serverMessage) {
@@ -463,7 +462,7 @@ public class MatchController {
     }
 
     //reconnect, 更新player的新的接口和控制器
-    public boolean reconnect(String id, ServerController serverController, ClientInterface client) {
+    public boolean reconnect(String id, ServerController serverController, ClientInterface client) throws RemoteException{
         Player player = null;
         ClientInterface clientInterface;
         for (Player p : players.values()) {

@@ -14,6 +14,7 @@ public class BoardUpdate implements StatusUpdate {
 
     @Override
     public void updateStatus(UpdatableModel model) {
+        model.setBoardStatus(board);
         model.updateAllPlayers(board);
     }
 }

@@ -6,6 +6,7 @@ package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 
@@ -30,7 +31,7 @@ public class BoardStatus implements Status {
 
     private PlayerStatus currentPlayer; //update player
     private List<PlayerStatus> allPlayers; //update board/player
-    private Map<String, PlayerStatus> players;
+    private Map<String, PlayerStatus> players; //<id, playerStatus> //update board/player
     private Map<String, String> usernames; //<id, username> update board/player
 
     private Map<Integer, Cell> allCells; // update map
@@ -44,12 +45,12 @@ public class BoardStatus implements Status {
     private boolean started;
 
     //constructor
-       public BoardStatus() {
-        this.numDamageOnSkullBoard = null;
-        this.colorDamageOnSkullBoard = null;
-        this.mapID = 1;
-        this.numKillShoot = 5;
-        this.firenzyTriggerd = false;
+       public BoardStatus(Board board) {
+        this.numDamageOnSkullBoard = board.getNumDamageOnSkullBoard();
+        this.colorDamageOnSkullBoard = board.getColorDamageOnSkullBoard();
+        this.mapID = board.getMapInt();
+        this.numKillShoot = board.getNumKillShoot();
+        this.firenzyTriggerd = board.triggerFirenzy();
         this.currentPlayer = null;
         this.allPlayers = new ArrayList<>();
         this.players = new HashMap<>();
@@ -83,6 +84,7 @@ public class BoardStatus implements Status {
         this.additional = null;
         this.reconnectionToken = "";
         this.started = false;
+
     }
 
     public int[] getNumDamageOnSkullBoard() {
@@ -164,7 +166,7 @@ public class BoardStatus implements Status {
         return true;
     }
 
-    //
+
     public boolean updateDamageSkullBoard(Board board){
         this.numDamageOnSkullBoard = board.getNumDamageOnSkullBoard();
         this.colorDamageOnSkullBoard = board.getColorDamageOnSkullBoard();

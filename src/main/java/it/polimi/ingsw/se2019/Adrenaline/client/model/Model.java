@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
@@ -23,11 +24,17 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
         return boardStatus;
     }
 
-
-    public void initModel(int map, int numkillShoot) {
-        boardStatus = new BoardStatus(map,numkillShoot);
+    @Override
+    //used for initial the board at the beginning
+    public void setBoardStatus(Board board){
+        boardStatus = new BoardStatus(board);
         nextUpdate = new ModelUpdate(boardStatus);
     }
+
+//    public void initModel(int map, int numkillShoot) {
+//        boardStatus = new BoardStatus(map,numkillShoot);
+//        nextUpdate = new ModelUpdate(boardStatus);
+//    }
 
     /**
      *

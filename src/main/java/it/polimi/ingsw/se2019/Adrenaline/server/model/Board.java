@@ -18,8 +18,9 @@ public class Board implements Status {
 
     private Player currentPlayer;
     private Map map;
+    private int mapInt;
     private int firstPlayer;
-    private ArrayList<Cell> pickedCell;
+    private ArrayList<Cell> pickedCell;  //所有的房间，有没有被捡过的房间
     private PowerupCardDeck powerupCardDeck;
     private WeaponCardDeck weaponCardDeck;
     private AmmotileCardDeck ammotileCardDeck;
@@ -34,7 +35,7 @@ public class Board implements Status {
 
     // constructor
     // this is used in controller
-    public Board(Map map, int skull){
+    public Board(Map map, int skull, int selectedMapInt){
         numKillShoot = skull;
         killTurn = 0;
         firenzyTriggerd = false;
@@ -44,43 +45,36 @@ public class Board implements Status {
         colorDamageOnSkullBoard = new Color[numKillShoot];
         pickedCell = new ArrayList<>();
         firstPlayer = 0;
+        mapInt = selectedMapInt;
         powerupCardDeck = new PowerupCardDeck();
         ammotileCardDeck = new AmmotileCardDeck();
         weaponCardDeck = new WeaponCardDeck();
         allPlayers = new ArrayList<>();
+        currentPlayer = null;
         initialCardsOnBoard();
     }
-    public void setMap(Map map) {
-        this.map = map;
-        map.initialMap();
-    }
 
-    public void setNumKillShoot(int numKillShoot) {
-        numKillShoot = numKillShoot;
-        numDamageOnSkullBoard = new int[numKillShoot];
-        colorDamageOnSkullBoard = new Color[numKillShoot];
-    }
-
-    public void setAllPlayerColor(){
-        ArrayList<Color> colorArrayList = new ArrayList<>();
-        colorArrayList.add(Color.YELLOW);
-        colorArrayList.add(Color.RED);
-        colorArrayList.add(Color.BLUE);
-        colorArrayList.add(Color.GREEN);
-        colorArrayList.add(Color.PINK);
-        colorArrayList.add(Color.WHITE);
-//        Collections.shuffle(colorArrayList);
-        int i = 0;
-        while(i < allPlayers.size()) {
-            allPlayers.get(i).setPlayerColor(colorArrayList.get(i));
-            i++;
-        }
-    }
+//    public void setAllPlayerColor(){
+//        ArrayList<Color> colorArrayList = new ArrayList<>();
+//        colorArrayList.add(Color.YELLOW);
+//        colorArrayList.add(Color.RED);
+//        colorArrayList.add(Color.BLUE);
+//        colorArrayList.add(Color.GREEN);
+//        colorArrayList.add(Color.PINK);
+//        colorArrayList.add(Color.WHITE);
+////        Collections.shuffle(colorArrayList);
+//        int i = 0;
+//        while(i < allPlayers.size()) {
+//            allPlayers.get(i).setPlayerColor(colorArrayList.get(i));
+//            i++;
+//        }
+//    }
 
     public void addPlayers(Player player){
         allPlayers.add(player);
         player.setPlayBoard(this);
     }
+    public Player getCurrentPlayer(){return currentPlayer;}
 
     public ArrayList<Player> getAllPlayers() {return this.allPlayers;}
     public Player findPlayerByColor (Color playerColor){
@@ -99,6 +93,7 @@ public class Board implements Status {
 //        currentPlayer = player;
 //    }
 
+    public int getMapInt(){return mapInt;}
     //返回下一个玩家 不改变 当前玩家
     public Player nextPlayer(Player currentPlayer){
         int playerTurn = allPlayers.indexOf(currentPlayer);
@@ -230,6 +225,7 @@ public class Board implements Status {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
+
 
     public void reloadCardOnBoard(){
         int i = 0;

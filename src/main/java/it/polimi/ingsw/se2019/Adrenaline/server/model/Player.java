@@ -49,6 +49,8 @@ public class Player implements Status {
         favorTokens = 0;
         this.killShootTrack = new PlayerBoard(this);
     }
+
+    //match controller 每次在开始的时候initial player 用到的constructor
     public Player(String playerID) {
         this.playerID = playerID;
         this.username = playerID;

@@ -4,8 +4,10 @@ import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.GUIView;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ViewMessage;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class WaitingResponseState extends ControllerState {
@@ -66,10 +68,25 @@ public class WaitingResponseState extends ControllerState {
                     clientController.sendMessage(messageVK.getParmS());
                 }
                 else clientController.sendMessage(messageKill);
+             //   return (new SpawnLocationState(clientController)).initState();
+                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
 
-                return (new SpawnLocationState(clientController)).initState();
-//                return new WaitingResponseState(clientController,new SpawnLocationState(clientController));
+            case("Already start the match!"):
+                List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
+                if (!statusUpdates.isEmpty()) {
+//                    WindowPatternUpdate windowPatternUpdate = (WindowPatternUpdate) statusUpdates.get(0);
+//                    windowPatternCards.addAll(windowPatternUpdate.getWindowPatternCards());
+                    for (StatusUpdate statusUpdate : statusUpdates) {
+                        statusUpdate.updateStatus(clientController.getModel());
+                    }
+                    clientController.getModel().pingUpdate(serverMessage.getMessage());
+                    clientController.sendMessage(serverMessage.getMessage());
+                } else {
+                    clientController.reportError("no response from server!");
+                }
 
+
+                return (new NonPlayingState(clientController)).initState();
                 default:
 
                     return nextState(false,true);
