@@ -236,6 +236,24 @@ public class Board implements Status {
         weaponCardDeck.weaponCards.remove(0);
         return weaponCard;
     }
+    public WeaponCard extractWeaponWithColor(String color){
+        WeaponCard weaponCard = new WeaponCard();
+        switch (color){
+            case "yellow": if(weaponCardDeck.yellowWeapons.size() == 0)
+                weaponCardDeck = new WeaponCardDeck();
+                weaponCard = weaponCardDeck.yellowWeapons.get(0);
+                weaponCardDeck.yellowWeapons.remove(0); break;
+            case "red": if(weaponCardDeck.redWeapons.size() == 0)
+                weaponCardDeck = new WeaponCardDeck();
+                weaponCard = weaponCardDeck.redWeapons.get(0);
+                weaponCardDeck.redWeapons.remove(0); break;
+            case"blue": if(weaponCardDeck.blueWeapons.size() == 0)
+                weaponCardDeck = new WeaponCardDeck();
+                weaponCard = weaponCardDeck.blueWeapons.get(0);
+                weaponCardDeck.blueWeapons.remove(0); break;
+        }
+        return weaponCard;
+    }
     public AmmotileCard extractAmmotile(){
         if(ammotileCardDeck.atCards.size() == 0){
             ammotileCardDeck = new AmmotileCardDeck();

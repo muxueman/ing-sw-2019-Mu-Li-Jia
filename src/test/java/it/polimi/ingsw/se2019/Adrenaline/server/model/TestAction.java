@@ -22,7 +22,7 @@ public class TestAction {
     Player target = new Player("mo");
     Player target2 = new Player("xin");
     Map map = new MapD();
-    Board board = new Board(map, 5);
+    Board board = new Board(map, 5, 1);
     ActionRun run = new ActionRun(player);
 
     public void setInfo() {
@@ -31,7 +31,9 @@ public class TestAction {
         board.addPlayers(target2);
 //        player.setPlayBoard(board);
 //        target.setPlayBoard(board);
-        board.setAllPlayerColor();
+        player.setPlayerColor(Color.YELLOW);
+        target2.setPlayerColor(Color.BLUE);
+        target.setPlayerColor(Color.RED);
         player.setEnterCellByColor("blue");
         target.setEnterCellByColor("blue");
         target2.setEnterCellByColor("yellow");
@@ -98,17 +100,44 @@ public class TestAction {
         ActionShoot shoot = new ActionShoot(player);
         System.out.println(player.getWeaponInUse().getCardName());
         System.out.println(shoot.getTargetNameBasic());
+//        System.out.println(shoot.getTargetBasic().get(0).getUserName());
+
         System.out.println("shooter cell" + player.getCurrentCell().getCellID());
         System.out.println("target cell" + target.getCurrentCell().getCellID());
         System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
         try{
 
+            shoot.checkIfInputValid("xin");
+            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+        System.out.println(shoot.getTargetNameWithSideEffect());
+        try{
             shoot.checkIfInputValidSecond("xin");
             System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
         }
         catch (InvalidNameException e){
             System.out.println(e);
         }
+        System.out.println("red:"+player.getAmmoOwned()[0]);
+        System.out.println("blue:"+player.getAmmoOwned()[1]);
+        System.out.println("yellow:"+player.getAmmoOwned()[2]);
+        try {
+            shoot.payAmmoForThirdSideEffect();
+             System.out.println("have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect()); // send to cli
+        } catch (NotEnoughAmmosException e) {
+            System.out.println(e);
+        }
+        try{
+            shoot.checkIfInputValidThird("xin");
+            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
+        }catch (InvalidNameException e) {
+            System.out.println(e);
+        }
+
 
     }
 
@@ -227,13 +256,13 @@ public void shootTest(){
                      if(inputFromCli == "yes"){
                          try {
                              shoot.payAmmoForThirdSideEffect();
-                             messageSendToCli ="have paid," + "\n" + shoot.getTargetNameWithSideEffect(); // send to cli
+                             messageSendToCli ="have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect(); // send to cli
                          } catch (NotEnoughAmmosException e) {
                              System.out.println(e);
                          }
 
                          try {
-                             if (shoot.checkIfInputValidSecond(inputFromCli)) {
+                             if (shoot.checkIfInputValidThird(inputFromCli)) {
                                  messageSendToCli = "shoot done, finish your shoot";
                              }
                          } catch (InvalidNameException e) {
@@ -248,7 +277,7 @@ public void shootTest(){
                  else if(inputFromCli == "2"){
                      try {
                          shoot.payAmmoForThirdSideEffect();
-                         messageSendToCli = "have paid," + "\n" + shoot.getTargetNameWithSideEffect(); // send to cli
+                         messageSendToCli = "have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect(); // send to cli
                      } catch (NotEnoughAmmosException e) {
                          messageSendToCli = e.toString();
                      }
@@ -312,10 +341,73 @@ public void shootTest(){
                      messageSendToCli = e.toString();
                      // keep in the same state, try again.
                  }
+                 if(inputFromCli == "continue") {
+                     try {
+                         shoot.payAmmoForOtherMode();
+                         messageSendToCli = "have paid," + "\n" + shoot.getTargetNameWithSideEffect(); // send to cli
+                     } catch (NotEnoughAmmosException e) {
+                         messageSendToCli = e.toString();
+                     }
+
+                     try {
+                         shoot.checkIfInputValidSecond(inputFromCli);
+                         messageSendToCli = "shoot done, do you want to continue with side effect?  input continue or end";
+                     } catch (InvalidNameException e) {
+                         messageSendToCli = e.toString();
+                     }
+
+                     if(inputFromCli == "continue"){
+                         try {
+                             shoot.payAmmoForThirdSideEffect();
+                             messageSendToCli = "have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect(); // send to cli
+                         } catch (NotEnoughAmmosException e) {
+                             messageSendToCli = e.toString();
+                         }
+                         try{
+                             shoot.checkIfInputValidThird(inputFromCli);
+                             messageSendToCli = "shoot done, end your shoot";
+
+                         }catch (InvalidNameException e) {
+                             messageSendToCli = e.toString();
+                         }
+
+                     }
+                 }
 
 
              }
         }
+        class shootWithVORTEXCANNON{
+             shootWithVORTEXCANNON(ActionShoot shoot){
+
+             }
+        }
+        class shootWithPLASMAGUN{
+            shootWithPLASMAGUN(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithFURANCE{
+            shootWithFURANCE(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+            }
+        }
+
+
+
+
     }
 
 

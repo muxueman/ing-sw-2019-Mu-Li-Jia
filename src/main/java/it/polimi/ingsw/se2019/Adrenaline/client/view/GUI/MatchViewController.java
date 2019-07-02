@@ -1,6 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import javafx.animation.KeyFrame;
@@ -27,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -49,7 +52,7 @@ public class MatchViewController extends GUIController{
     @FXML
     private GridPane weaponY;
     @FXML
-    private ImageView selfPlayer;
+    private AnchorPane selfPlayer;
     @FXML
     private VBox vboxPlayer;
     @FXML
@@ -108,10 +111,18 @@ public class MatchViewController extends GUIController{
     private TextArea killshootnum;
     @FXML
     private TextArea errorArea;
+    @FXML
+    private GridPane currentPowerupCard;
+    @FXML
+    private GridPane currentWeaponCard;
+    @FXML
+    private GridPane waitForReload;
 
 
     private boolean next;
     private boolean position = false;
+    private boolean powerup = false;
+    private boolean cell = false;
 
     private Timeline timeline;
     private Integer timeSeconds;
@@ -125,6 +136,9 @@ public class MatchViewController extends GUIController{
     protected static final String WeaponR_Path = "/weapons_red/";
     protected static final String WeaponB_Path = "/weapons_blue/";
     protected static final String WeaponY_Path = "/weapons_yellow/";
+    protected static final String Ammotile_Path = "/ammo/";
+    protected static final String PowerupCard_Path = "/powerups/";
+
 
 
     @FXML
@@ -199,21 +213,34 @@ public class MatchViewController extends GUIController{
         });
 
     }
-    //add selfPlayerBlood every blood have their own color represente the damage
+
+
     @FXML
-    public void setSelfBlood(PlayerStatus player){
-        for (int i = 0;i < player.getDamageColorOnTrack().size();i++ ){
-            switch (player.getDamageColorOnTrack().get(i).getColor()){
-                case "yellow" :
-
-
+    public void setPlayerInfo(BoardStatus boardStatus){
+        List<PlayerStatus> playerList = new ArrayList<>();
+        playerList = boardStatus.getAllPlayers();
+//        playerList.remove(boardStatus.getCurrentPlayer());
+        for(int i = 0; i < playerList.size(); i++){
+            switch(i){
+                case 0:
+                    selfPlayerName.setText(playerList.get(0).getUsername());break;
+                case 1:
+                    player1Name.setText(playerList.get(1).getUsername()); break;
+                case 2:
+                    player1Name.setText(playerList.get(2).getUsername()); break;
+                case 3:
+                    player1Name.setText(playerList.get(3).getUsername()); break;
+                case 4:
+                    player1Name.setText(playerList.get(4).getUsername()); break;
             }
         }
     }
 
-    @FXML
-    public void setPlayerInfo(){
 
+
+
+    protected void setPlayerBoard(BoardStatus boardStatus ,AnchorPane anchorPane){
+        PlayerBoardController playerBoardController = new PlayerBoardController();
 
     }
 
@@ -245,18 +272,6 @@ public class MatchViewController extends GUIController{
 
     }
 
-    @FXML
-    public void setGameMapTable(BoardStatus boardStatus){
-        List<PlayerStatus> playerList = new ArrayList<>(boardStatus.getAllPlayers());
-        playerList.remove(boardStatus.getCurrentPlayer());
-        for (int i = 0; i < playerList.size(); i++){
-            switch (i){
-                case 0:
-                    selfPlayer.setImage(new Image("/playerBoard/playerBoard_yellow"));
-            }
-
-        }
-    }
 
     @FXML
     private void choosePlayerPosition(int i,GridPane playerPosition){
@@ -266,59 +281,128 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML
-    public void setWeaponRCard(PlayerStatus weaponRCard){
-        for (int i = 0; i < weaponR.getChildren().size(); i++){
-            ((ImageView)weaponR.getChildren().get(i)).setImage(new Image(WeaponR_Path + weaponRCard.getWeaponsOwned() + ".png"));
-        }
+    public void setWeaponRCard(BoardStatus boardStatus){
+        ((ImageView)weaponR.getChildren().get(0)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[0].getCardName() + ".png"));
+        ((ImageView)weaponR.getChildren().get(1)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[1].getCardName() + ".png"));
+        ((ImageView)weaponR.getChildren().get(2)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[2].getCardName() + ".png"));
+
     }
     @FXML
-    public void setWeaponBCard(PlayerStatus weaponBCard,GridPane weaponB){
-        for (int i = 0; i < weaponB.getChildren().size(); i++){
-            ((ImageView)weaponB.getChildren().get(i)).setImage(new Image(WeaponB_Path + weaponBCard.getWeaponsOwned() + ".png"));
-        }
+    public void setWeaponBCard(BoardStatus boardStatus){
+        ((ImageView)weaponB.getChildren().get(0)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[0].getCardName() + ".png"));
+        ((ImageView)weaponB.getChildren().get(1)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[1].getCardName() + ".png"));
+        ((ImageView)weaponB.getChildren().get(2)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[2].getCardName() + ".png"));
+
     }
     @FXML
-    public void setWeaponYCard(PlayerStatus weaponYCard){
-        for (int i = 0; i < weaponY.getChildren().size(); i++){
-            ((ImageView)weaponY.getChildren().get(i)).setImage(new Image(WeaponY_Path + weaponYCard.getWeaponsOwned() + ".png"));
-        }
+    public void setWeaponYCard(BoardStatus boardStatus){
+        ((ImageView)weaponY.getChildren().get(0)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[0].getCardName() + ".png"));
+        ((ImageView)weaponY.getChildren().get(1)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[1].getCardName() + ".png"));
+        ((ImageView)weaponY.getChildren().get(2)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[2].getCardName() + ".png"));
+
     }
 
     @FXML
-    public void setAmmoCardInMap(){
+    public void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
+        if(boardStatus != null){
+            Map<Integer,Cell> allCell = boardStatus.getAllCells();
+            int size = allCell.size();
+            for(int i = 0;i < 12; i++) {
+                ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(Ammotile_Path+boardStatus.getAmmotilesInCell().get(i)+".png"));
+            }
+        }
 
     }
 
+    @FXML
+    public void setPlayer(PlayerStatus playerStatus){
 
+    }
 
-
-
-
-
-    public void showPlayer(int i ,VBox vboxPlayer) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
-            AnchorPane anchorPane = (AnchorPane) loader.load();
-
-            player1.getChildren().add(anchorPane);
-            player2.getChildren().add(anchorPane);
-            player3.getChildren().add(anchorPane);
-            player4.getChildren().add(anchorPane);
-
-
-        } catch (IOException e) {
-            Logger.getGlobal().warning(e.toString());
+    //setPlayer should use this function
+    @FXML
+    public void setPlayerOwnCard(PlayerStatus playerStatus,GridPane gridPane){
+        ArrayList<PowerupCard> powerupsOwn = playerStatus.getPowerupsOwned();
+        int size = powerupsOwn.size();
+        for (int i = 0; i < 3; i++){
+            if(i < size){
+                ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(PowerupCard_Path+playerStatus.getPowerupsOwned().get(i).getCardName()+".png"));
+                int chooseI = i;
+                (gridPane.getChildren().get(i)).setOnMouseClicked(
+                        event -> Platform.runLater(
+                                () ->{// set the choose one powerupcard unvisible and put the card show in the waitforreload GridPane
+                                    textMessege.setText("");
+                                    errorArea.setText("");
+                                    notify(powerupsOwn.get(chooseI).getCardName());
+                                    ((ImageView)waitForReload.getChildren().get(0)).setImage(new Image(PowerupCard_Path+powerupsOwn.get(chooseI).getCardName()+".png"));
+                                    (gridPane.getChildren().get(chooseI)).setVisible(false);
+                                    disable();
+                                }
+                        )
+                );
+            }
         }
+    }
 
+//    @FXML
+//    public void chooseCard(int i,GridPane gridPane){
+//        if(!powerup){
+//            notify("");//notify messege to clientController which card dont wanted
+//        }
+//        notify(Integer.toString(i));
+//        setGridClickable(currentPowerupCard);
+//    }
 
+    //can use to set map clickable
+    @FXML
+    private void setGridClickable(GridPane gridPane) {
+        int count = 0;
+        for(int rows=0; rows<4; rows++) {
+            for(int columns=0; columns<5; columns++) {
+                int row = rows;
+                int column = columns;
+                gridPane.getChildren().get(count).setOnMouseClicked(
+                        event -> Platform.runLater(
+                                () -> {
+                                    textMessege.setText("");
+                                    errorArea.setText("");
+                                    if (!cell) {
+                                        notify("");
+                                    }
+                                    notify(Integer.toString(row + 1));
+                                    notify(Integer.toString(column + 1));
+                                    disable();
+                                }
+                        )
+                );
+                count++;
+            }
+        }
+    }
+
+    private void disable() {
+        powerup = false;
+        cell = false;
+    }
+
+    @FXML
+    public void setMap(BoardStatus boardStatus){
+        if(boardStatus != null){
+
+        }
     }
 
 
     @Override
     public void update(ModelUpdate message) {
+        boardStatus = message.getBoardStatus();
         if (boardStatus!= null) {
             Platform.runLater( () -> {
-//                setWeaponBCard(boardStatus.getWeaponsInCell().get(3),weaponB);
+                setPlayerInfo(boardStatus);
+                setWeaponRCard(boardStatus);
+                setWeaponYCard(boardStatus);
+                setWeaponBCard(boardStatus);
+                setAmmoCardInMap(boardStatus,pickAmmoCard);
 
             });
         }

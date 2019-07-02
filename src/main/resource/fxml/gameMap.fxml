@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="root" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="background" fitHeight="800.0" fitWidth="1300.0">
+      <ImageView fx:id="background" fitHeight="814.0" fitWidth="1300.0">
          <image>
             <Image url="@../map/backgroud.jpg" />
          </image>
@@ -55,489 +55,6 @@
                   <AnchorPane fx:id="cell12" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <GridPane fx:id="playerPosition" layoutX="10.0" layoutY="10.0" prefHeight="276.0" prefWidth="411.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <GridPane prefHeight="92.0" prefWidth="100.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane layoutX="226.0" layoutY="10.0" prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.rowIndex="1">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黑（dozer）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../player/小黄（d-struct-or）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小蓝（banshee）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小绿（sprog）.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <image>
-                              <Image url="@../player/小紫（violet）.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-               </children>
-            </GridPane>
             <GridPane fx:id="pickAmmoCard" prefHeight="276.0" prefWidth="411.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -563,11 +80,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.rowIndex="1">
@@ -582,11 +95,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.rowIndex="2">
@@ -601,11 +110,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1">
@@ -620,11 +125,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -639,11 +140,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -658,11 +155,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="2">
@@ -677,11 +170,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -696,11 +185,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -715,11 +200,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="3">
@@ -734,11 +215,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -753,11 +230,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="3" GridPane.rowIndex="2">
@@ -772,11 +245,250 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <ImageView fitHeight="26.0" fitWidth="28.0" GridPane.columnIndex="2">
-                           <image>
-                              <Image url="@../ammo/AD_ammo_045.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+            <GridPane fx:id="playerPosition" layoutX="10.0" layoutY="10.0" prefHeight="276.0" prefWidth="411.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane prefHeight="92.0" prefWidth="100.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="226.0" layoutY="10.0" prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane prefHeight="92.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="36.59503173828125" minHeight="10.0" prefHeight="34.75701904296875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.730575561523438" minHeight="10.0" prefHeight="28.514053344726562" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="46.78511047363281" minHeight="10.0" prefHeight="36.98594665527344" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
@@ -1168,49 +880,34 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <GridPane layoutX="72.0" layoutY="694.0" prefHeight="105.0" prefWidth="543.0">
+      <GridPane fx:id="currentPowerupCard" layoutX="116.0" layoutY="677.0" prefHeight="105.0" prefWidth="261.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fx:id="currentCard1" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
+      <GridPane fx:id="currentWeaponCard" layoutX="390.0" layoutY="677.0" prefHeight="105.0" prefWidth="254.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints fx:id="currentCard" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="113.0" fitWidth="83.0">
-               <image>
-                  <Image url="@../weapons_blue/Falce_Protonica_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../weapons_blue/Fucile_Al_Plasma_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../weapons_blue/Fucile_Di_Precisione_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../weapons_blue/Mitragliatrice_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@../weapons_blue/Raggio_Traente_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../weapons_blue/Torpedine_blue.png" />
-               </image>
-            </ImageView>
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <GridPane fx:id="waitForReload" layoutX="663.0" layoutY="581.0" prefHeight="214.0" prefWidth="261.0">
@@ -1224,36 +921,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="113.0" fitWidth="83.0">
-               <image>
-                  <Image url="@../powerups/Mirino_yellow.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../powerups/Teletrasporto_red.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../powerups/Mirino_red.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../powerups/Teletrasporto_yellow.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../powerups/Teletrasporto_blue.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="83.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../powerups/Raggio_cinetico_red.png" />
-               </image>
-            </ImageView>
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fitHeight="105.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <TextArea fx:id="killshootnum" layoutX="14.0" layoutY="442.0" prefHeight="26.0" prefWidth="200.0" />

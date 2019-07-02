@@ -11,9 +11,15 @@ public class WeaponCardDeck implements Serializable {
 
 
     public ArrayList<WeaponCard> weaponCards;
+    public ArrayList<WeaponCard> redWeapons;
+    public ArrayList<WeaponCard> yellowWeapons;
+    public ArrayList<WeaponCard> blueWeapons;
     BufferedReader reader = null;
     public WeaponCardDeck() {
         weaponCards = new ArrayList<>();
+        redWeapons = new ArrayList<>();
+        yellowWeapons = new ArrayList<>();
+        blueWeapons = new ArrayList<>();
 
         try {
             Gson gson = new Gson();
@@ -43,9 +49,14 @@ public class WeaponCardDeck implements Serializable {
                 }
             }
         }
-        weaponCards.addAll(weaponCards); //两倍
-        Collections.shuffle(weaponCards);
 
+        for(WeaponCard w : weaponCards){
+            switch (w.getColor()){
+                case "yellow": yellowWeapons.add(w); break;
+                case "red": redWeapons.add(w); break;
+                case "blue": blueWeapons.add(w); break;
+            }
+        }
     }
 
     @Override

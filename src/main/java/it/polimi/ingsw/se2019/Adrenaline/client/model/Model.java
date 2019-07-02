@@ -4,9 +4,11 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+import org.fusesource.jansi.Ansi;
 
 import java.util.List;
 
@@ -117,4 +119,6 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
         boardStatus.setReconnectionToken(token.getToken());
         nextUpdate.addStatusUpdate(token);
     }
+
+
 }
