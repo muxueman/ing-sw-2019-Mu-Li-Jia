@@ -40,9 +40,9 @@ public class GenerationCell extends Cell {
         containedWeapon.add(board.extractWeapon());
         }
     }
-//    public void weaponTaken(int cardPosition){
-//        containedWeapon.get(cardPosition) = null;
-//    }
+    public void weaponTaken(int cardPosition){
+        containedWeapon.remove(cardPosition);
+    }
     @Override
     public Ansi toAnsi(){
         return ansi().a("cell players:" + cellPlayers.toString());

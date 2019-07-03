@@ -30,7 +30,7 @@ public class TestTable {
         powerupCards.add(board.extractPowerupcard());
 
 
-        weaponCards.put(weaponCardDeck.weaponCards.get(0),true);
+        weaponCards.put(weaponCardDeck.getWeaponCards().get(0),true);
         //weaponCards.put(weaponCardDeck.weaponCards.get(1),true);
         //weaponCards.put(weaponCardDeck.weaponCards.get(3),true);
 

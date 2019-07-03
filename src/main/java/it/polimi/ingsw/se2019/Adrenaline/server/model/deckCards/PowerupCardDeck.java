@@ -9,13 +9,10 @@ import java.util.Collections;
 
 public class PowerupCardDeck implements Serializable {
 
-
-
-    public ArrayList<PowerupCard> ppCards;
-    BufferedReader reader = null;
+    private ArrayList<PowerupCard> ppCards;
+    private transient BufferedReader reader;
 
     public PowerupCardDeck() {
-
         ppCards = new ArrayList<>();
 
         try {
@@ -23,14 +20,10 @@ public class PowerupCardDeck implements Serializable {
             reader = new BufferedReader(new FileReader("src/main/resource/json/PowerupCard.json"));
             JsonParser parser = new JsonParser();
             JsonObject json = parser.parse(reader).getAsJsonObject();
-
             JsonArray powerupCardArray = json.getAsJsonArray("powerupCardDeck");
-
             for (JsonElement powerupCardElement : powerupCardArray) {
-
                 PowerupCard powerupCardReaded = gson.fromJson(powerupCardElement.toString(), PowerupCard.class);
                 ppCards.add(powerupCardReaded);
-
             }
 
         } catch (FileNotFoundException e) {
@@ -49,6 +42,9 @@ public class PowerupCardDeck implements Serializable {
         Collections.shuffle(ppCards);
     }
 
+    public ArrayList<PowerupCard> getPpCards() {
+        return ppCards;
+    }
 
     @Override
     public String toString() {

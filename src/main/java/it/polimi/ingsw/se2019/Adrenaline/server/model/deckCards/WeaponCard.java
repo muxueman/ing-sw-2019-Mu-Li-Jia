@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 import org.fusesource.jansi.Ansi;
 
@@ -22,16 +23,12 @@ public class WeaponCard implements Status {
     private int weaponType;
     private int effectDamageVision;
     private String image;
-    private String color;
+    private Color color;
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
+    public Color getColor() { return color; }
+    public void setColor(Color color) {
         this.color = color;
     }
-
     public int getEffectDamageVison() {
         return effectDamageVision;
     }

@@ -10,11 +10,12 @@ import java.util.Collections;
 public class WeaponCardDeck implements Serializable {
 
 
-    public ArrayList<WeaponCard> weaponCards;
-    public ArrayList<WeaponCard> redWeapons;
-    public ArrayList<WeaponCard> yellowWeapons;
-    public ArrayList<WeaponCard> blueWeapons;
-    BufferedReader reader = null;
+    private ArrayList<WeaponCard> weaponCards;
+    private ArrayList<WeaponCard> redWeapons;
+    private ArrayList<WeaponCard> yellowWeapons;
+    private ArrayList<WeaponCard> blueWeapons;
+    private transient BufferedReader reader;
+
     public WeaponCardDeck() {
         weaponCards = new ArrayList<>();
         redWeapons = new ArrayList<>();
@@ -23,19 +24,15 @@ public class WeaponCardDeck implements Serializable {
 
         try {
             Gson gson = new Gson();
-         reader = new BufferedReader(new FileReader("src/main/resource/json/WeaponCard.json"));
+
+            reader = new BufferedReader(new FileReader("src/main/resource/json/WeaponCard.json"));
             JsonParser parser = new JsonParser();
             JsonObject json = parser.parse(reader).getAsJsonObject();
-
             JsonArray weaponCardArray = json.getAsJsonArray("weaponCardDeck");
-
             for (JsonElement weaponCardElement : weaponCardArray) {
-
                 WeaponCard weaponCardReaded = gson.fromJson(weaponCardElement.toString(), WeaponCard.class);
                 weaponCards.add(weaponCardReaded);
-
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }finally {
@@ -49,14 +46,49 @@ public class WeaponCardDeck implements Serializable {
                 }
             }
         }
-
+        //colorDistributed();
+    }
+    public void colorDistributed(){
         for(WeaponCard w : weaponCards){
             switch (w.getColor()){
-                case "yellow": yellowWeapons.add(w); break;
-                case "red": redWeapons.add(w); break;
-                case "blue": blueWeapons.add(w); break;
+                case YELLOW: this.yellowWeapons.add(w); break;
+                case RED: this.redWeapons.add(w); break;
+                case BLUE: this.blueWeapons.add(w); break;
+                default: break;
             }
         }
+    }
+
+    public ArrayList<WeaponCard> getWeaponCards() {
+        return weaponCards;
+    }
+
+    public void setWeaponCards(ArrayList<WeaponCard> weaponCards) {
+        this.weaponCards = weaponCards;
+    }
+
+    public ArrayList<WeaponCard> getRedWeapons() {
+        return redWeapons;
+    }
+
+    public void setRedWeapons(ArrayList<WeaponCard> redWeapons) {
+        this.redWeapons = redWeapons;
+    }
+
+    public ArrayList<WeaponCard> getYellowWeapons() {
+        return yellowWeapons;
+    }
+
+    public void setYellowWeapons(ArrayList<WeaponCard> yellowWeapons) {
+        this.yellowWeapons = yellowWeapons;
+    }
+
+    public ArrayList<WeaponCard> getBlueWeapons() {
+        return blueWeapons;
+    }
+
+    public void setBlueWeapons(ArrayList<WeaponCard> blueWeapons) {
+        this.blueWeapons = blueWeapons;
     }
 
     @Override

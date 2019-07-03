@@ -58,7 +58,7 @@ public class ActionGrab implements Serializable {
     }
 
     public boolean pickWeaponCrad(Player player, int position){
-        WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard(position);
+        WeaponCard weaponCard = ((GenerationCell)player.getCurrentCell()).getWeaponCard().get(position);
         if(checkPlayerAmmoAvailable(weaponCard, player)){
             int[] ammoCost = weaponCard.getBasicammoCost();
             int i = 1;

@@ -221,51 +221,51 @@ public class Board implements Status {
     }
 
     public PowerupCard extractPowerupcard(){
-        if(powerupCardDeck.ppCards.size() == 0){
+        if(powerupCardDeck.getPpCards().size() == 0){
             powerupCardDeck = new PowerupCardDeck();
         }
-        PowerupCard powerupCard = powerupCardDeck.ppCards.get(0);
-        powerupCardDeck.ppCards.remove(0);
+        PowerupCard powerupCard = powerupCardDeck.getPpCards().get(0);
+        powerupCardDeck.getPpCards().remove(0);
         return powerupCard;
     }
     public WeaponCard extractWeapon(){
-        if(weaponCardDeck.weaponCards.size() == 0){
+        if(weaponCardDeck.getWeaponCards().size() == 0){
             weaponCardDeck = new WeaponCardDeck();
         }
-        WeaponCard weaponCard = weaponCardDeck.weaponCards.get(0);
-        weaponCardDeck.weaponCards.remove(0);
+        WeaponCard weaponCard = weaponCardDeck.getWeaponCards().get(0);
+        weaponCardDeck.getWeaponCards().remove(0);
         return weaponCard;
     }
     public WeaponCard extractWeaponWithColor(String color){
         WeaponCard weaponCard = new WeaponCard();
         switch (color){
-            case "yellow": if(weaponCardDeck.yellowWeapons.size() == 0)
+            case "yellow": if(weaponCardDeck.getYellowWeapons().size() == 0)
                 weaponCardDeck = new WeaponCardDeck();
-                weaponCard = weaponCardDeck.yellowWeapons.get(0);
-                weaponCardDeck.yellowWeapons.remove(0); break;
-            case "red": if(weaponCardDeck.redWeapons.size() == 0)
+                weaponCard = weaponCardDeck.getYellowWeapons().get(0);
+                weaponCardDeck.getYellowWeapons().remove(0); break;
+            case "red": if(weaponCardDeck.getRedWeapons().size() == 0)
                 weaponCardDeck = new WeaponCardDeck();
-                weaponCard = weaponCardDeck.redWeapons.get(0);
-                weaponCardDeck.redWeapons.remove(0); break;
-            case"blue": if(weaponCardDeck.blueWeapons.size() == 0)
+                weaponCard = weaponCardDeck.getRedWeapons().get(0);
+                weaponCardDeck.getRedWeapons().remove(0); break;
+            case"blue": if(weaponCardDeck.getBlueWeapons().size() == 0)
                 weaponCardDeck = new WeaponCardDeck();
-                weaponCard = weaponCardDeck.blueWeapons.get(0);
-                weaponCardDeck.blueWeapons.remove(0); break;
+                weaponCard = weaponCardDeck.getBlueWeapons().get(0);
+                weaponCardDeck.getBlueWeapons().remove(0); break;
         }
         return weaponCard;
     }
     public AmmotileCard extractAmmotile(){
-        if(ammotileCardDeck.atCards.size() == 0){
+        if(ammotileCardDeck.getAtCards().size() == 0){
             ammotileCardDeck = new AmmotileCardDeck();
         }
-        AmmotileCard ammotileCard = ammotileCardDeck.atCards.get(0);
-        ammotileCardDeck.atCards.remove(0);
+        AmmotileCard ammotileCard = ammotileCardDeck.getAtCards().get(0);
+        ammotileCardDeck.getAtCards().remove(0);
         return ammotileCard;
     }
 
     public Player getNameFromPlayer(String playerName) throws InvalidNameException {
         for(Player p : allPlayers){
-            if(p.getUsername() == playerName){
+            if(p.getUsername().equalsIgnoreCase(playerName)){
                 return p;
             }
         }
@@ -298,7 +298,6 @@ public class Board implements Status {
     //public void turnNextPlayer(){
      //   setCurrentPlayer(nextPlayer(currentPlayer));
     //}
-
 
     public int getNumKillShoot() { return numKillShoot; }
 
