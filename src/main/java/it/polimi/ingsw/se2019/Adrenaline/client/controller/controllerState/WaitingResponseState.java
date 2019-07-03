@@ -9,6 +9,7 @@ import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ViewMessage;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -103,7 +104,9 @@ public class WaitingResponseState extends ControllerState {
                         for (StatusUpdate statusUpdate : statusUpdatesS) {
                             statusUpdate.updateStatus(clientController.getModel());
                         }
+                        clientController.getModel().pingUpdate(serverMessage.getMessage());
                     }
+                    else clientController.reportError("statusupdate empty location spawn");
 //                    String viewMessage = "";
 //                    for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()){
 //                        viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
@@ -121,7 +124,8 @@ public class WaitingResponseState extends ControllerState {
         }
         if (serverMessage.isPlaying() == true){
             System.out.println("is playing == true");
-            return new PlayingState(clientController,clientController.getActionMode());
+            return new ActionSelectState(clientController, new ArrayList<>() ).initState();
+//                    PlayingState(clientController,clientController.getActionMode());
 
         }
 
