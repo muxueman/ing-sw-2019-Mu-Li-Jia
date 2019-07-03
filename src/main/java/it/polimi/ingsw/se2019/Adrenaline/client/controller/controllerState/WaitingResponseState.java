@@ -86,8 +86,15 @@ public class WaitingResponseState extends ControllerState {
                     } else {
                         clientController.reportError("no response from server!");
                     }
+                    String viewMessage = "";
+                    for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()) {
+                        viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
+                                + clientController.getModel().getBoardStatus().getPositions().get(pID) + "  ";
+                    }
+                    //new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
                     return this;
                 case ("OPPONENTS"):
+                    new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
                     clientController.sendMessage(serverMessage.getSubParameter());
                     return new SpawnLocationState(clientController).initState();
                 case ("SpawnLocation"):

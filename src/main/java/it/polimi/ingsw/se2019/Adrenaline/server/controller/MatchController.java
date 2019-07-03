@@ -267,6 +267,18 @@ public class MatchController {
             ServerMessage opponentsMessage = new ServerMessage(false, "OPPONENTS", messageO);
             updateClient(client, opponentsMessage);
         }
+        for (Player p: players.values()){
+            System.out.println(p.getUserName());
+            //System.out.println(p.getCurrentCell().getCellID());
+            System.out.println(playBoard.getMap().getAllCells().get(3).getCellPlayers().size());
+            System.out.println(playBoard.getMap().getAllCells().get(5).getCellPlayers().size());
+            System.out.println(playBoard.getMap().getAllCells().get(12).getCellPlayers().size());
+        }
+        System.out.println(playBoard.getMap().getAllCells().get(1).getAmmotileCard().getNumAmmotileCard());
+        System.out.println(playBoard.getMap().getAllCells().get(2).getAmmotileCard().getNumAmmotileCard());
+        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(0).getCardName());
+        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(1).getCardName());
+        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(2).getCardName());
 
     }
 
@@ -313,6 +325,11 @@ public class MatchController {
                 System.out.println(playBoard.getMap().getAllCells().get(5).getCellPlayers().size());
                 System.out.println(playBoard.getMap().getAllCells().get(12).getCellPlayers().size());
             }
+            System.out.println(playBoard.getMap().getAllCells().get(1).getAmmotileCard().getNumAmmotileCard());
+            System.out.println(playBoard.getMap().getAllCells().get(2).getAmmotileCard().getNumAmmotileCard());
+            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(0).getCardName());
+            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(1).getCardName());
+            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(2).getCardName());
             updateAll(message);
             readyPlayers();
         }
