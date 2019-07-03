@@ -125,6 +125,6 @@ public class WeaponCardTest {
     }
     @Test
     public void testWeapondeck(){
-        System.out.println(weaponCardDeck.weaponCards.get(0));
+        System.out.println(weaponCardDeck.getWeaponCards().get(0));
     }
 }

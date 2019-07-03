@@ -8,6 +8,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.NotEnoughAmmosException;
@@ -18,9 +19,9 @@ import java.util.Scanner;
 
 public class TestAction {
 
-    Player player = new Player("jia");
-    Player target = new Player("mo");
-    Player target2 = new Player("xin");
+    Player player = new Player("player", "jia", 2);
+    Player target = new Player("target", "mo", 1);
+    Player target2 = new Player("target2", "xin", 3);
     Map map = new MapD();
     Board board = new Board(map, 5, 1);
     ActionRun run = new ActionRun(player);
@@ -35,15 +36,25 @@ public class TestAction {
         target2.setPlayerColor(Color.BLUE);
         target.setPlayerColor(Color.RED);
         player.setEnterCellByColor("blue");
-        target.setEnterCellByColor("blue");
+        target.setEnterCellByColor("yellow");
         target2.setEnterCellByColor("yellow");
-
         target2.setCurrentCell(target2.getCurrentCell().getNextCell(0));
+        target.setCurrentCell(player.getCurrentCell());
     }
 
     @Test
     public void testRun() {
         setInfo();
+        try{
+            player.addPowerupCard(board.extractPowerupcard());
+            player.addPowerupCard(board.extractPowerupcard());
+        }
+        catch (InvalidGrabException e){
+            System.out.println(e.toString());
+        }
+
+        player.dropPowerupAndGoNewCell(player.getPowerupsOwned().get(0).getCardName());
+        System.out.println(player.getPowerupsOwned().size());
         System.out.println(player.getCurrentCell().getCellID());
         try {
             run.ActionRun( 0);
@@ -68,7 +79,7 @@ public class TestAction {
     public void testGrab() {
         setInfo();
         ActionGrab grab = new ActionGrab();
-        System.out.println(grab.checkPlayerAmmoAvailable(((GenerationCell) player.getCurrentCell()).getWeaponCard(0), player));
+        System.out.println(grab.checkPlayerAmmoAvailable(((GenerationCell) player.getCurrentCell()).getWeaponCard().get(0), player));
         grab.pickWeaponCrad(player, 2);
         System.out.println(player.getAmmoOwned()[0]);
         System.out.println(player.getAmmoOwned()[1]);
@@ -96,6 +107,7 @@ public class TestAction {
         ActionGrab grab = new ActionGrab();
         grab.pickWeaponCrad(player, 2);
         //
+
         player.useWeapon(player.getAvailableWeapon().get(0));
         ActionShoot shoot = new ActionShoot(player);
         System.out.println(player.getWeaponInUse().getCardName());
@@ -107,36 +119,37 @@ public class TestAction {
         System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
         try{
 
-            shoot.checkIfInputValid("xin");
-            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
+            shoot.checkIfInputValid("mo ");
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target2.getKillShootTrack().getDamageColorOnTrack());
         }
         catch (InvalidNameException e){
             System.out.println(e);
         }
 
-        System.out.println(shoot.getTargetNameWithSideEffect());
-        try{
-            shoot.checkIfInputValidSecond("xin");
-            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
-        }
-        catch (InvalidNameException e){
-            System.out.println(e);
-        }
-        System.out.println("red:"+player.getAmmoOwned()[0]);
-        System.out.println("blue:"+player.getAmmoOwned()[1]);
-        System.out.println("yellow:"+player.getAmmoOwned()[2]);
-        try {
-            shoot.payAmmoForThirdSideEffect();
-             System.out.println("have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect()); // send to cli
-        } catch (NotEnoughAmmosException e) {
-            System.out.println(e);
-        }
-        try{
-            shoot.checkIfInputValidThird("xin");
-            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
-        }catch (InvalidNameException e) {
-            System.out.println(e);
-        }
+//        System.out.println(shoot.getTargetNameWithSideEffect());
+//        try{
+//            shoot.checkIfInputValidSecond("xin");
+//            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
+//        }
+//        catch (InvalidNameException e){
+//            System.out.println(e);
+//        }
+//        System.out.println("red:"+player.getAmmoOwned()[0]);
+//        System.out.println("blue:"+player.getAmmoOwned()[1]);
+//        System.out.println("yellow:"+player.getAmmoOwned()[2]);
+//        try {
+//            shoot.payAmmoForThirdSideEffect();
+//             System.out.println("have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect()); // send to cli
+//        } catch (NotEnoughAmmosException e) {
+//            System.out.println(e);
+//        }
+//        try{
+//            shoot.checkIfInputValidThird("xin");
+//            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
+//        }catch (InvalidNameException e) {
+//            System.out.println(e);
+//        }
 
 
     }
@@ -379,6 +392,17 @@ public void shootTest(){
         }
         class shootWithVORTEXCANNON{
              shootWithVORTEXCANNON(ActionShoot shoot){
+                 String inputFromCli = "";
+                 String messageSendToCli= "";
+                 messageSendToCli = shoot.getTargetNameBasic();
+                 try {                //2. controller
+                     if (shoot.checkIfInputValid(inputFromCli)) {
+                         messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                     }
+                 } catch (InvalidNameException e) {
+                     messageSendToCli = e.toString();
+                     // keep in the same state, try again.
+                 }
 
              }
         }
@@ -402,8 +426,243 @@ public void shootTest(){
                 String inputFromCli = "";
                 String messageSendToCli= "";
                 messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
             }
         }
+        class shootWithWHISPER{
+            shootWithWHISPER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+
+        class shootWithHEATSEEKER{
+            shootWithHEATSEEKER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+
+        class shootWithHELLION{
+            shootWithHELLION(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+
+        class shootWithFLAMETHROWER{
+            shootWithFLAMETHROWER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithZX2{
+            shootWithZX2(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, do you want to continue with side effect? end";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithGRENADELAUNCHER{
+            shootWithGRENADELAUNCHER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, type in the direction you want the target to move, no move with stay";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+                try{
+                    shoot.grenadeMove(inputFromCli);
+                    messageSendToCli = "move done, end your shoot or continue with side effect";
+                }
+                catch (InvalidRunException e){
+                    messageSendToCli = e.toString();
+                }
+
+            }
+        }
+
+        class shootWithSHOTGUN{
+             shootWithSHOTGUN(ActionShoot shoot){
+                 String inputFromCli = "";
+                 String messageSendToCli= "";
+                 messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                 try {                //2. controller
+                     if (shoot.checkIfInputValid(inputFromCli)) {
+                         messageSendToCli = "shoot done, type in the direction you want the target to move, no move with stay";
+                     }
+                 } catch (InvalidNameException e) {
+                     messageSendToCli = e.toString();
+                     // keep in the same state, try again.
+                 }
+                 try{
+                     shoot.grenadeMove(inputFromCli);
+                     messageSendToCli = "move done, end your shoot or continue with side effect";
+                 }
+                 catch (InvalidRunException e){
+                     messageSendToCli = e.toString();
+                 }
+
+             }
+         }
+
+        class shootWithROCKETLAUNCHER{
+            shootWithROCKETLAUNCHER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, type in the direction you want the target to move, no move with stay";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+                try{
+                    shoot.grenadeMove(inputFromCli);
+                    messageSendToCli = "move done, end your shoot or continue with side effect";
+                }
+                catch (InvalidRunException e){
+                    messageSendToCli = e.toString();
+                }
+
+            }
+        }
+        class shootWithPOWERGLOVE{
+            shootWithPOWERGLOVE(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, type in the direction you want the target to move, no move with stay";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithRAILGUN{
+            shootWithRAILGUN(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, continue with side effect or end your shoot?";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithSHOCKWAVE{
+            shootWithSHOCKWAVE(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, continue with side effect or end your shoot?";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithCYBERBLADE{
+            shootWithCYBERBLADE(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, continue with side effect or end your shoot?";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+        class shootWithSLEDGEAMMER{
+            shootWithSLEDGEAMMER(ActionShoot shoot){
+                String inputFromCli = "";
+                String messageSendToCli= "";
+                messageSendToCli = shoot.getTargetNameBasic(); // 1.send to cli
+                try {                //2. controller
+                    if (shoot.checkIfInputValid(inputFromCli)) {
+                        messageSendToCli = "shoot done, continue with side effect or end your shoot?";
+                    }
+                } catch (InvalidNameException e) {
+                    messageSendToCli = e.toString();
+                    // keep in the same state, try again.
+                }
+            }
+        }
+
+
+
 
 
 
