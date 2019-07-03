@@ -71,7 +71,7 @@ public class PowerupCard implements Status {
 
         this.note = note;
     }
-    public String getImage(String image){
+    public String getImage(){
         return image;
     }
     public void setImage(String image){
