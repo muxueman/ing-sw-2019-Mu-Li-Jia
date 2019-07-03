@@ -31,7 +31,7 @@ public abstract class ControllerState {
         for (StatusUpdate statusUpdate : statusUpdates) {
             statusUpdate.updateStatus(clientController.getModel());
         }
-        clientController.getModel().pingUpdate(serverMessage.getMessage());
+        //lientController.getModel().pingUpdate(serverMessage.getMessage());
         if (serverMessage.isError()) {
             if(serverMessage.getMessage().equals("ENDGAME")) {
                 Logger.getGlobal().info("next state: end game");

@@ -2,59 +2,67 @@ package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
-import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
-import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
-import org.fusesource.jansi.Ansi;
 
-import java.util.List;
-
-public class Model extends Observable<ModelUpdate> implements UpdatableModel{
+public class Model {
 
     private BoardStatus boardStatus;
-    private ModelUpdate nextUpdate;
 
     public Model() {
         boardStatus = null;
-        nextUpdate = new ModelUpdate();
     }
 
     public BoardStatus getBoardStatus() {
         return boardStatus;
     }
 
-    @Override
     //used for initial the board at the beginning
     public void setBoardStatus(Board board){
         boardStatus = new BoardStatus(board);
-        nextUpdate = new ModelUpdate(boardStatus);
     }
 
     //from client-side to client-side
-    public void setPosition(String playerID, int position){
-        boardStatus.updatePlayerPosition(playerID, position);
+    //public void setPosition(Map map){
+    //    boardStatus.updatePlayerPosition(map);
+    //}
+
+    public void updatePlayer(Player player) {
+        boardStatus.updatePlayer(player);
     }
 
-    /**
-     *
-     * The pingUpdate method notifies the View telling that nothing
-     * has changed from the previous state (possibly useful for GUI).
-     *
-     */
+    public void updateSpawnLocation(Board board, Map map){
+        boardStatus.updatePosition(map);
+        updateAllPlayers(board);
+    }
+
+    public void updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
+        boardStatus.updateMap(mapStatus);
+    }
+
+    public void updateAllPlayers(Board board){
+        boardStatus.updatePlayers(board);
+    }
+
+    public void updateSkull(Board board){
+        boardStatus.updateDamageSkullBoard(board);
+    }
+
+    public void updateAdditional(AdditionalStatus additionalStatus) {
+        boardStatus.updateAdditional(additionalStatus);
+
+    }
+
+    public void updateReconnectionToken(TokenStatus token) {
+        boardStatus.setReconnectionToken(token.getToken());
+    }
+
+/*
+
     private void pingUpdate() {
         notify(new ModelUpdate(boardStatus));
     }
 
-    /**
-     *
-     * The pingUpdate method notifies the View telling that something
-     * has changed from the previous state.
-     * @param message is the string message to elaborate.
-     *
-     */
     @Override
     public void pingUpdate(String message) {
         if (nextUpdate.isEmpty() && !message.equals("")) {
@@ -66,60 +74,5 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
             nextUpdate = new ModelUpdate(boardStatus);
         }
     }
-
-
-    @Override
-    public void updatePlayer(Player player) {
-        if (boardStatus.updatePlayer(player)) {
-            nextUpdate.addStatusUpdate(player);
-            nextUpdate.setBoardStatus(boardStatus);
-        }
-    }
-
-    @Override
-    public void updateSpawnLocation(Board board, Map map){
-
-        if(boardStatus.updatePosition(map)){
-            nextUpdate.addStatusUpdate(map);
-        }
-        updateAllPlayers(board);
-    }
-
-    @Override
-    public void updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
-        if (boardStatus.updateMap(mapStatus)) {
-            nextUpdate.addStatusUpdate(mapStatus);
-            nextUpdate.setBoardStatus(boardStatus);
-        }
-    }
-
-    @Override
-    public void updateAllPlayers(Board board){
-        if(boardStatus.updatePlayers(board)){
-            nextUpdate.addStatusUpdate(board);
-            nextUpdate.setBoardStatus(boardStatus);
-        }
-    }
-
-    @Override
-    public void updateSkull(Board board){
-        if(boardStatus.updateDamageSkullBoard(board)){
-            nextUpdate.addStatusUpdate(board);
-            nextUpdate.setBoardStatus(boardStatus);
-        }
-    }
-
-    @Override
-    public void updateAdditional(AdditionalStatus additionalStatus) {
-        boardStatus.updateAdditional(additionalStatus);
-        nextUpdate.addStatusUpdate(additionalStatus);
-    }
-
-    @Override
-    public void updateReconnectionToken(TokenStatus token) {
-        boardStatus.setReconnectionToken(token.getToken());
-        nextUpdate.addStatusUpdate(token);
-    }
-
-
+*/
 }

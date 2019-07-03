@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.CLI;
 
+
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
@@ -55,6 +56,7 @@ public class CLIView extends View {
 //            out.println(status.toAnsi().fg(Ansi.Color.DEFAULT));
 //        } else out.println(status.toString());
     }
+
     @Override
     public void update(ModelUpdate message) {
         print(message.getMessage());
@@ -65,8 +67,5 @@ public class CLIView extends View {
             }
         }
     }
-
-
-
 
 }

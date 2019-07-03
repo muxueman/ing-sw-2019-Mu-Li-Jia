@@ -18,8 +18,9 @@ public class ShowTotal {
     public ShowTotal(BoardStatus boardStatus,ClientController client){
         this.boardStatus = boardStatus;
         this.client = client;
-        printMap(boardStatus.getMapID());
-        new ShowBoardWeapons(boardStatus);
+        printMap(boardStatus.getMapID());//
+        new ShowBoardAmmotils(boardStatus);
+        new ShowBoardWeapons(boardStatus);//
         printPlayers(boardStatus.getAllPlayers(),boardStatus);
         printDamage(boardStatus.getAllPlayers());
         new ShowWeaponCard(boardStatus.getPlayer(client.getPlayerID()).getWeaponsOwned());
@@ -70,7 +71,7 @@ public class ShowTotal {
                 st.addRow("current score",String.valueOf(pA.get(0).getMyScore()),String.valueOf(pA.get(1).getMyScore()));
                 st.addRow("action mode", String.valueOf(pA.get(0).getActionMode()),String.valueOf(pA.get(1).getActionMode()));
                 st.addRow("killed times", String.valueOf(pA.get(0).getNumKilled()),String.valueOf(pA.get(1).getNumKilled()));
-                //st.addRow("cell location", String.valueOf(boardStatus.getPositions().get(pA.get(0).getPlayerID())),String.valueOf(boardStatus.getPositions().get(pA.get(1).getPlayerID())));
+                st.addRow("cell location", String.valueOf(boardStatus.getPositions().get(pA.get(0).getPlayerID())),String.valueOf(boardStatus.getPositions().get(pA.get(1).getPlayerID())));
                 break;
             case 3:break;
             case 4:break;

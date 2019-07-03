@@ -82,7 +82,7 @@ public class WaitingResponseState extends ControllerState {
                         for (StatusUpdate statusUpdate : statusUpdates) {
                             statusUpdate.updateStatus(clientController.getModel());
                         }
-                        clientController.getModel().pingUpdate(serverMessage.getMessage());
+                        //clientController.getModel().pingUpdate(serverMessage.getMessage());
                     } else {
                         clientController.reportError("no response from server!");
                     }

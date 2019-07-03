@@ -6,7 +6,8 @@ package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
  *
  * @author Xueman Mu
  */
-import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+
+import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 
@@ -26,7 +27,7 @@ public class PowerupCardUpdate implements StatusUpdate {
     }
 
     @Override
-    public void updateStatus(UpdatableModel model) {
+    public void updateStatus(Model model) {
         //odel.updateOptionalPowerupCards(powerupCards);
     }
 }

@@ -41,7 +41,7 @@ public class AmmotileCard implements Status {
 
         this.totalnumCard = totalnumCard;
     }
-    public String getImage(String image){
+    public String getImage(){
         return image;
     }
     public void setImage(String image){
