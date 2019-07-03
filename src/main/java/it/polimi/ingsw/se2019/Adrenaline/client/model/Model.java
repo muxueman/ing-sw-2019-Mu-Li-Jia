@@ -9,6 +9,7 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 
 
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
+    
     private BoardStatus boardStatus;
     private ModelUpdate nextUpdate;
 
