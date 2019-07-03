@@ -212,7 +212,7 @@ public class BoardStatus implements Status {
            return true;
     }
     public boolean updatePosition(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) {
-        positions = null;
+        positions = new HashMap<>();
         for (Cell c : map.getAllCells()) {
             if (c.getCellPlayers() != null) {
                 for (Player p : c.getCellPlayers()) {

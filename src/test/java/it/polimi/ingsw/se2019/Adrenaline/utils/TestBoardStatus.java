@@ -26,6 +26,9 @@ public class TestBoardStatus {
         Player player1 = new Player("1");
         player1.setPlayerColor(Color.RED);
         player1.setUserName("345");
+        Player player2 = new Player("2");
+        player2.setPlayerColor(Color.GREEN);
+        player2.setUserName("675");
         Board board = new Board(a,1,5);
         BoardStatus boardStatus = new BoardStatus(board);
         a.getAllCells().get(3).getCellPlayers().add(player1);
@@ -37,5 +40,24 @@ public class TestBoardStatus {
         System.out.println(boardStatus.getAllCells().get(3).getCellPlayers().size());
         System.out.println(boardStatus.getPositions().values());
         System.out.println(boardStatus.getPositions().get("1"));
+
+        a.getAllCells().get(3).getCellPlayers().remove(player1);
+        a.getAllCells().get(5).getCellPlayers().add(player1);
+        a.getAllCells().get(3).getCellPlayers().add(player2);
+
+        boardStatus.updateMap(a);
+
+
+        System.out.println(boardStatus.getAllCells().size());
+        System.out.println(boardStatus.getAllCells().get(3).getCellPlayers());
+        System.out.println(boardStatus.getAllCells().get(5).getCellPlayers());
+        System.out.println(boardStatus.getAllCells().get(3).getCellPlayers().size());
+        System.out.println(boardStatus.getPositions().keySet());
+        System.out.println(boardStatus.getPositions().values());
+
+        System.out.println(boardStatus.getPositions().get("1"));
+        System.out.println(boardStatus.getPositions().get("3"));
+
+
     }
 }
