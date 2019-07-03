@@ -46,14 +46,14 @@ public class WeaponCardDeck implements Serializable {
                 }
             }
         }
-        //colorDistributed();
+        colorDistributed();
     }
     public void colorDistributed(){
         for(WeaponCard w : weaponCards){
             switch (w.getColor()){
-                case YELLOW: this.yellowWeapons.add(w); break;
-                case RED: this.redWeapons.add(w); break;
-                case BLUE: this.blueWeapons.add(w); break;
+                case "yellow": this.yellowWeapons.add(w); break;
+                case "red": this.redWeapons.add(w); break;
+                case "blue": this.blueWeapons.add(w); break;
                 default: break;
             }
         }

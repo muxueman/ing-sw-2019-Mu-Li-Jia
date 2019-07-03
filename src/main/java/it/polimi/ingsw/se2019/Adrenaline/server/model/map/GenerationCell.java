@@ -36,8 +36,14 @@ public class GenerationCell extends Cell {
     public AmmotileCard getAmmotileCard(){ return null; }
     @Override
     public void reload(Board board) {
+        String color = new String();
+        switch (cellID){
+            case 3: color = "blue"; break;
+            case 5: color = "red"; break;
+            case 12: color = "yellow"; break;
+        }
         while(containedWeapon.size()<3){
-        containedWeapon.add(board.extractWeapon());
+        containedWeapon.add(board.extractWeaponWithColor(color));
         }
     }
     public void weaponTaken(int cardPosition){

@@ -23,10 +23,10 @@ public class WeaponCard implements Status {
     private int weaponType;
     private int effectDamageVision;
     private String image;
-    private Color color;
+    private String color;
 
-    public Color getColor() { return color; }
-    public void setColor(Color color) {
+    public String getColor() { return color; }
+    public void setColor(String color) {
         this.color = color;
     }
     public int getEffectDamageVison() {
