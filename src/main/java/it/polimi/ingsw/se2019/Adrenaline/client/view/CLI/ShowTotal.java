@@ -19,7 +19,8 @@ public class ShowTotal {
         this.boardStatus = boardStatus;
         this.client = client;
         printMap(boardStatus.getMapID());
-        printPlayers(boardStatus.getAllPlayers());
+        new ShowBoardWeapons(boardStatus);
+        printPlayers(boardStatus.getAllPlayers(),boardStatus);
         printDamage(boardStatus.getAllPlayers());
         new ShowWeaponCard(boardStatus.getPlayer(client.getPlayerID()).getWeaponsOwned());
         new ShowPowerupCard(boardStatus.getPlayer(client.getPlayerID()).getPowerupsOwned());
@@ -53,15 +54,15 @@ public class ShowTotal {
         System.out.println(messageMap);
     }
 
-    public void printPlayers(List<PlayerStatus> players){
+    public void printPlayers(List<PlayerStatus> players, BoardStatus boardStatus){
         System.out.println("All players in this match:");
         int length = players.size();
         ArrayList<PlayerStatus> pA = new ArrayList<>();
         for (PlayerStatus p: players){
             pA.add(p);
         }
-        CommandLineTable st = new CommandLineTable("\u001b[1;34m","\u001b[1;35m");
-        st.setShowVerticalLines(false);
+        CommandLineTable st = new CommandLineTable("\u001b[1;31m","\u001b[1;35m");
+        st.setShowVerticalLines(true);
         switch (length){
             case 2:
                 st.setHeaders("player name",pA.get(0).getUsername(),pA.get(1).getUsername());
@@ -69,7 +70,7 @@ public class ShowTotal {
                 st.addRow("current score",String.valueOf(pA.get(0).getMyScore()),String.valueOf(pA.get(1).getMyScore()));
                 st.addRow("action mode", String.valueOf(pA.get(0).getActionMode()),String.valueOf(pA.get(1).getActionMode()));
                 st.addRow("killed times", String.valueOf(pA.get(0).getNumKilled()),String.valueOf(pA.get(1).getNumKilled()));
-                //st.addRow("damage on track", messageD(pA.get(0)), messageD(pA.get(1)));
+                //st.addRow("cell location", String.valueOf(boardStatus.getPositions().get(pA.get(0).getPlayerID())),String.valueOf(boardStatus.getPositions().get(pA.get(1).getPlayerID())));
                 break;
             case 3:break;
             case 4:break;

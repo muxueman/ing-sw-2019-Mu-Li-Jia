@@ -230,7 +230,7 @@ public class MatchController {
             }
             catch (InvalidGrabException e){
                 Logger.getGlobal().warning("Invalid Powerup Grab ");
-            };
+            }
         }
         //Collections.shuffle(playBoard.getAllPlayers());//打乱allplayer 顺序 这是个arrayList
         //TurnHandler turnHandler = new TurnHandler(playBoard);// here set the current player

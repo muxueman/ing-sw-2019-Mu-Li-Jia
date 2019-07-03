@@ -79,7 +79,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel{
     @Override
     public void updateSpawnLocation(Board board, Map map){
 
-        if(boardStatus.updateMap(map)){
+        if(boardStatus.updatePosition(map)){
             nextUpdate.addStatusUpdate(map);
         }
         updateAllPlayers(board);

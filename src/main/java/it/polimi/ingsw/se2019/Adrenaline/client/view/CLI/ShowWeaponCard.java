@@ -28,7 +28,7 @@ public class ShowWeaponCard {
         CommandLineTable st = new CommandLineTable("\u001b[1;37m","\u001b[1;35m");
         //st.setRightAlign(true);//if true then cell text is right aligned
         switch (length){
-            case 0: System.out.println("you have no powerupCards!");break;
+            case 0: System.out.println("you have no Weapon Cards!");break;
             case 1:
                 st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
                 st.setHeaders("weapon",weaponCards.get(0).getCardName());//optional - if not used then there will be no header and horizontal lines

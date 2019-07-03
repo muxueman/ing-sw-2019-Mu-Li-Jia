@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
+import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.GUIView;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
@@ -96,14 +97,14 @@ public class WaitingResponseState extends ControllerState {
                             statusUpdate.updateStatus(clientController.getModel());
                         }
                     }
-                    String viewMessage = "";
-                    for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()){
-                        viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
-                                 + clientController.getModel().getBoardStatus().getPositions().get(pID) + "  ";
-                    }
-                    clientController.sendMessage(viewMessage);
+//                    String viewMessage = "";
+//                    for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()){
+//                        viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
+//                                 + clientController.getModel().getBoardStatus().getPositions().get(pID) + "  ";
+//                    }
+//                    clientController.sendMessage(viewMessage);
+                    new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
                     return new NonPlayingState(clientController);
-
 
                 default:
                  //   return super.updateStatus(serverMessage);

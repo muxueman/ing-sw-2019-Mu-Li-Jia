@@ -6,7 +6,6 @@ package it.polimi.ingsw.se2019.Adrenaline.utils.immutables;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 
@@ -191,6 +190,7 @@ public class BoardStatus implements Status {
     //更新map里面包含的内容
     public boolean updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map){
            ArrayList<Cell> cells = map.getAllCells();
+           System.out.println(cells.size());
            for (Cell c: cells){
                if (c.getCellID() != 0){
                    allCells.put(c.getCellID(),c);
@@ -203,6 +203,7 @@ public class BoardStatus implements Status {
                    if (c.getCellPlayers() != null){
                        ArrayList<Player> celllplayers = c.getCellPlayers();
                        for (Player p: celllplayers){
+                           positions.remove(p.getPlayerID());
                            positions.put(p.getPlayerID(),c.getCellID());
                        }
                    }
@@ -210,7 +211,17 @@ public class BoardStatus implements Status {
            }
            return true;
     }
-
+    public boolean updatePosition(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map) {
+        positions = null;
+        for (Cell c : map.getAllCells()) {
+            if (c.getCellPlayers() != null) {
+                for (Player p : c.getCellPlayers()) {
+                    positions.put(p.getPlayerID(), c.getCellID());
+                }
+            }
+        }
+        return true;
+    }
     //找到player类在这里的映射PlayerStatus
     public PlayerStatus getPlayer(String playerID) {
         for (PlayerStatus p : allPlayers) {
@@ -227,6 +238,8 @@ public class BoardStatus implements Status {
         PlayerStatus player = getPlayer(newPlayer.getPlayerID());
         if (player == null) {
             allPlayers.add(newPlayer);
+            usernames.put(newPlayer.getPlayerID(),newPlayer.getUsername());
+            players.put(newPlayer.getPlayerID(),newPlayer);
             if (currentPlayer == null) {
                 currentPlayer = newPlayer;
             }
@@ -234,12 +247,14 @@ public class BoardStatus implements Status {
             int playerIndex = allPlayers.indexOf(player);
             allPlayers.remove(playerIndex);
             allPlayers.add(playerIndex, newPlayer);
+            usernames.remove(newPlayer.getPlayerID());
+            usernames.put(newPlayer.getPlayerID(),newPlayer.getUsername());
+            players.remove(newPlayer.getPlayerID());
+            players.put(newPlayer.getPlayerID(),newPlayer);
             if (newPlayer.getPlayerID().equals(currentPlayer.getPlayerID())) {
                 currentPlayer = newPlayer;
             }
         }
-        usernames.put(newPlayer.getPlayerID(),newPlayer.getUsername());
-        players.put(newPlayer.getPlayerID(),newPlayer);
         return true;
     }
 
@@ -254,6 +269,7 @@ public class BoardStatus implements Status {
 
     //client-side update position of player
     public void updatePlayerPosition(String playerID, int position){
+           positions.remove(playerID);
            positions.put(playerID, position);
     }
 
