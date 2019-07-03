@@ -124,7 +124,7 @@ public class WeaponCard implements Status {
 
         this.notes = notes;
     }
-    public String getImage(String image){
+    public String getImage(){
         return image;
     }
     public void setImage(String image){
