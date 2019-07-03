@@ -1,0 +1,26 @@
+[
+  {
+    "color":"blue",
+    "image":"blue"
+  },
+  {
+    "color":"green",
+    "image":"green"
+  },
+  {
+    "color":"red",
+    "image":"red"
+  },
+  {
+    "color":"white",
+    "image":"white"
+  },
+  {
+    "color": "pink",
+    "image": "pink"
+  },
+  {
+    "color":"skull",
+    "image":"redSkull"
+  }
+]

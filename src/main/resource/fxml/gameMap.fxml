@@ -724,32 +724,32 @@
                <children>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../playerBoard/redSkull.png" />
+                        <Image url="@../blood/redSkull.png" />
                      </image>
                   </ImageView>
                </children>

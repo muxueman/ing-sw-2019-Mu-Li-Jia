@@ -62,16 +62,20 @@ public class PlayerBoardController extends GUIController {
     public void setPlayerBlood(PlayerStatus playerStatus,GridPane gridPane){
 
         for (int i = 0;i < 12;i++){
-            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image(Blood_Path + playerBlood));
-
-
+            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image(Blood_Path + playerStatus.getPlayerColor().getColor()+".png"));//怎么调用不一样的血滴？
+            notify(playerStatus.getPlayerColor().getColor());
 
         }
 
     }
 
     @FXML
-    public void setPlayerSkull(BoardStatus boardStatus){
+    public void setPlayerSkull(BoardStatus boardStatus,GridPane gridPane){
+
+        for (int i = 0;i < 6;i++ ){
+            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image("/blood/redSkull.png"));
+            notify(boardStatus.getColorDamageOnSkullBoard().toString());
+        }
 
     }
 
