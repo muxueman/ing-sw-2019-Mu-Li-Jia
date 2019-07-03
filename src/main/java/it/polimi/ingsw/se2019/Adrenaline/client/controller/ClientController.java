@@ -35,7 +35,7 @@ public class ClientController implements ClientInterface, Observer<String> {
         model = new Model();
         playerID = null;
         view.register(this);
-        //model.register(view);
+        model.register(view);
         playing = false;
         actionMode = 0;
         state = new ConnectionState(this).initState();

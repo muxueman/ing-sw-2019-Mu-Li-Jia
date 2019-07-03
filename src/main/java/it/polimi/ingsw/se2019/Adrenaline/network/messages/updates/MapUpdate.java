@@ -4,7 +4,8 @@ package it.polimi.ingsw.se2019.Adrenaline.network.messages.updates;
  * It's sent from the server to the client.
  * @author Xueman Mu
  */
-import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
+
+import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 
@@ -17,7 +18,7 @@ public class MapUpdate implements StatusUpdate {
     }
 
     @Override
-    public void updateStatus(Model model) {
+    public void updateStatus(UpdatableModel model) {
         model.updateMap(map);
     }
 

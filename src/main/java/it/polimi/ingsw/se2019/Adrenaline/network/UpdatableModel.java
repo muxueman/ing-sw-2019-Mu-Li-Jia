@@ -1,6 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.network;
 
-/*
+
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.PlayerBoard;
@@ -25,4 +25,3 @@ public interface UpdatableModel {
     void updateSpawnLocation(Board board, Map map);
 }
 
-*/
