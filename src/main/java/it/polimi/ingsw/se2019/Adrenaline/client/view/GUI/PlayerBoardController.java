@@ -28,6 +28,7 @@ public class PlayerBoardController extends GUIController {
     private MatchViewController matchViewController;
 
     private String playerID;
+    protected static final String Blood_Path = "/blood/";
 
 
     private void initialize(){
@@ -38,7 +39,8 @@ public class PlayerBoardController extends GUIController {
 
     @FXML
     public void setPlayerImg(PlayerStatus playerStatus) {
-        for(int i = 0;i < playerStatus.getPlayerColor().getColor().length();i++){
+        int size = boardStatus.getAllPlayers().size();
+        for(int i = 0;i < size;i++){
             switch (playerStatus.getPlayerColor().getColor()){
                 case "YELLOW":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_yellow.png")); break;
@@ -55,10 +57,13 @@ public class PlayerBoardController extends GUIController {
 
     }
 
+    //
     @FXML
     public void setPlayerBlood(PlayerStatus playerStatus,GridPane gridPane){
 
         for (int i = 0;i < 12;i++){
+            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image(Blood_Path + playerBlood));
+
 
 
         }

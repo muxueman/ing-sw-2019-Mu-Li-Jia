@@ -46,6 +46,8 @@ public class MatchViewController extends GUIController{
     @FXML
     private GridPane pickAmmoCard;
     @FXML
+    private GridPane relivePosition;
+    @FXML
     private GridPane weaponR;
     @FXML
     private GridPane weaponB;
@@ -219,7 +221,6 @@ public class MatchViewController extends GUIController{
     public void setPlayerInfo(BoardStatus boardStatus){
         List<PlayerStatus> playerList = new ArrayList<>();
         playerList = boardStatus.getAllPlayers();
-//        playerList.remove(boardStatus.getCurrentPlayer());
         for(int i = 0; i < playerList.size(); i++){
             switch(i){
                 case 0:
@@ -282,23 +283,23 @@ public class MatchViewController extends GUIController{
 
     @FXML
     public void setWeaponRCard(BoardStatus boardStatus){
-        ((ImageView)weaponR.getChildren().get(0)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[0].getCardName() + ".png"));
-        ((ImageView)weaponR.getChildren().get(1)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[1].getCardName() + ".png"));
-        ((ImageView)weaponR.getChildren().get(2)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5)[2].getCardName() + ".png"));
+        ((ImageView)weaponR.getChildren().get(0)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5).get(0).getCardName() + ".png"));
+        ((ImageView)weaponR.getChildren().get(1)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5).get(1).getCardName() + ".png"));
+        ((ImageView)weaponR.getChildren().get(2)).setImage(new Image(WeaponR_Path + boardStatus.getWeaponsInCell().get(5).get(2).getCardName() + ".png"));
 
     }
     @FXML
     public void setWeaponBCard(BoardStatus boardStatus){
-        ((ImageView)weaponB.getChildren().get(0)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[0].getCardName() + ".png"));
-        ((ImageView)weaponB.getChildren().get(1)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[1].getCardName() + ".png"));
-        ((ImageView)weaponB.getChildren().get(2)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3)[2].getCardName() + ".png"));
+        ((ImageView)weaponB.getChildren().get(0)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3).get(0).getCardName() + ".png"));
+        ((ImageView)weaponB.getChildren().get(1)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3).get(1).getCardName() + ".png"));
+        ((ImageView)weaponB.getChildren().get(2)).setImage(new Image(WeaponB_Path + boardStatus.getWeaponsInCell().get(3).get(2).getCardName() + ".png"));
 
     }
     @FXML
     public void setWeaponYCard(BoardStatus boardStatus){
-        ((ImageView)weaponY.getChildren().get(0)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[0].getCardName() + ".png"));
-        ((ImageView)weaponY.getChildren().get(1)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[1].getCardName() + ".png"));
-        ((ImageView)weaponY.getChildren().get(2)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12)[2].getCardName() + ".png"));
+        ((ImageView)weaponY.getChildren().get(0)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12).get(0).getCardName() + ".png"));
+        ((ImageView)weaponY.getChildren().get(1)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12).get(1).getCardName() + ".png"));
+        ((ImageView)weaponY.getChildren().get(2)).setImage(new Image(WeaponY_Path + boardStatus.getWeaponsInCell().get(12).get(2).getCardName() + ".png"));
 
     }
 
@@ -306,9 +307,9 @@ public class MatchViewController extends GUIController{
     public void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
         if(boardStatus != null){
             Map<Integer,Cell> allCell = boardStatus.getAllCells();
-            int size = allCell.size();
             for(int i = 0;i < 12; i++) {
-                ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(Ammotile_Path+boardStatus.getAmmotilesInCell().get(i)+".png"));
+                ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(Ammotile_Path+boardStatus.getAmmotilesInCell().get(i).getNumAmmotileCard()+".png"));
+                notify(String.valueOf(boardStatus.getAmmotilesInCell().get(i).getNumAmmotileCard()));
             }
         }
 
@@ -334,7 +335,6 @@ public class MatchViewController extends GUIController{
                                     textMessege.setText("");
                                     errorArea.setText("");
                                     notify(powerupsOwn.get(chooseI).getCardName());
-                                    ((ImageView)waitForReload.getChildren().get(0)).setImage(new Image(PowerupCard_Path+powerupsOwn.get(chooseI).getCardName()+".png"));
                                     (gridPane.getChildren().get(chooseI)).setVisible(false);
                                     disable();
                                 }
@@ -388,6 +388,9 @@ public class MatchViewController extends GUIController{
     @FXML
     public void setMap(BoardStatus boardStatus){
         if(boardStatus != null){
+            for(int i = 0; i < boardStatus.getAllCells().size(); i++){
+
+            }
 
         }
     }

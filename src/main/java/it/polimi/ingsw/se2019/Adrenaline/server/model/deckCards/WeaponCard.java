@@ -135,6 +135,7 @@ public class WeaponCard implements Status {
     public String toString() {
         return "WeaponCard{" +
                 "cardName='" + cardName + '\'' +
+                "image" + image +'\'' +
                 ", basicammoCost=" + Arrays.toString(basicammoCost) +
                 ", damageVision=" + basicDamageVision +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
@@ -149,6 +150,7 @@ public class WeaponCard implements Status {
     public Ansi toAnsi() {
         Ansi ansi = new Ansi().a("WeaponCard{" +
                 "cardName='" + cardName + '\'' +
+                "image" + image +'\'' +
                 ", basicammoCost=" + Arrays.toString(basicammoCost) +
                 ", damageVision=" + basicDamageVision +
                 ", damageDeal=" + Arrays.toString(damageDeal) +
