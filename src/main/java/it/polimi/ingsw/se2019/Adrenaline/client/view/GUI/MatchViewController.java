@@ -119,6 +119,14 @@ public class MatchViewController extends GUIController{
     private GridPane currentWeaponCard;
     @FXML
     private GridPane waitForReload;
+    @FXML
+    private ImageView c1;
+    @FXML
+    private ImageView c2;
+    @FXML
+    private ImageView c3;
+    @FXML
+    private ImageView c4;
 
 
     private boolean next;
@@ -128,6 +136,7 @@ public class MatchViewController extends GUIController{
 
     private Timeline timeline;
     private Integer timeSeconds;
+    private PlayerBoardController playerBoardController;
 
     public MatchViewController(BoardStatus boardStatus,boolean next){
         this.boardStatus = boardStatus;
@@ -225,25 +234,51 @@ public class MatchViewController extends GUIController{
         if(playerList.size()<4){
             player3Name.setVisible(false);
             player3Score.setVisible(false);
+            player3.setVisible(false);
             if(playerList.size()<5){
                 player4Name.setVisible(false);
                 player4Score.setVisible(false);
+                player4.setVisible(false);
             }
         }
 
         for(int i = 0; i < size; i++){
             switch(i){
                 case 0:
-                    selfPlayerName.setText(playerList.get(0).getUsername());break;
+                    selfPlayerName.setText(playerList.get(0).getUsername());
+                    setPlayerBoard(selfPlayer);break;
                 case 1:
-                    player1Name.setText(playerList.get(1).getUsername()); break;
+                    player1Name.setText(playerList.get(1).getUsername());
+                    setPlayerBoard(player1);break;
                 case 2:
-                    player2Name.setText(playerList.get(2).getUsername()); break;
+                    player2Name.setText(playerList.get(2).getUsername());
+                    setPlayerBoard(player2);break;
                 case 3:
-                    player3Name.setText(playerList.get(3).getUsername());break;
+                    player3Name.setText(playerList.get(3).getUsername());
+                    setPlayerBoard(player3);break;
                 case 4:
-                    player4Name.setText(playerList.get(4).getUsername());break;
+                    player4Name.setText(playerList.get(4).getUsername());
+                    setPlayerBoard(player4);break;
             }
+        }
+    }
+
+    @FXML
+    public void setPlayer(PlayerStatus playerStatus){
+
+    }
+
+    @FXML//need to collect the playerBoardController
+    public void setPlayerBoard(AnchorPane anchorPaneNeed){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
+            AnchorPane anchorPane = loader.load();
+            anchorPaneNeed.getChildren().add(anchorPane);
+            playerBoardController.initialize();
+
+
+        }catch (IOException e){
+            Logger.getGlobal().warning(e.getCause().toString());
         }
     }
 
@@ -267,16 +302,7 @@ public class MatchViewController extends GUIController{
         }
     }
 
-    @FXML
-    public void eses(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
-            AnchorPane anchorPane = loader.load();
-            selfPlayer.getChildren().add(anchorPane);
-        }catch (IOException e){
-            Logger.getGlobal().warning(e.getCause().toString());
-        }
-    }
+
 
     @FXML
     public void setInit() {
@@ -310,27 +336,34 @@ public class MatchViewController extends GUIController{
 
     @FXML
     public void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
+        int count = 1;
+        for (int cellID : boardStatus.getAmmotilesInCell().keySet()) {
+            while (count < cellID){
+                ((ImageView) gridPane.getChildren().get(count-1)).setImage(new Image(Ammotile_Path +
+                        boardStatus.getAmmotilesInCell().get(cellID).getImage() + ".png"));
+                gridPane.getChildren().get(count-1).setVisible(false);
+                count++;
+            }
+            if(count == cellID){
+                ((ImageView) gridPane.getChildren().get(count-1)).setImage(new Image(Ammotile_Path +
+                        boardStatus.getAmmotilesInCell().get(cellID).getImage() + ".png"));
+                count++;
+            }
 
-        for (int cellID : boardStatus.getAllCells().keySet()) {
-                ((ImageView) gridPane.getChildren().get(cellID-1)).setImage(new Image(Ammotile_Path +
-                        boardStatus.getAmmotilesInCell().get(cellID-1).getImage() + ".png"));
             }
 
     }
 
-    @FXML
-    public void setPlayer(PlayerBoardController playerBoardController,AnchorPane anchorPane){
-        int size = boardStatus.getAllPlayers().size();
-        for (int i = 0; i < size ;i++) {
-            selfPlayer.getChildren().add(anchorPane);
-        }
 
-    }
 
     //about initial the game give two powerupcard to choose one discard and relive in that card's color cell
     @FXML
     public void setPlayerRelivePosition(PlayerStatus playerStatus,int i,GridPane gridPane){
         setPlayerOwnCard(playerStatus,currentPowerupCard);
+        for(int j = 0;j < 11; j++){
+            ((ImageView)gridPane.getChildren().get(2)).setImage(new Image("/player/小紫（violet）.jpg"));
+
+        }
 
 
     }
@@ -349,7 +382,7 @@ public class MatchViewController extends GUIController{
                                     errorArea.setText("");
                                     notify(powerupsOwn.get(chooseI).getCardName());
                                     (gridPane.getChildren().get(chooseI)).setVisible(false);
-                                    disable();
+//                                    disable();
                                 }
                         )
                 );
@@ -360,41 +393,6 @@ public class MatchViewController extends GUIController{
         }
     }
 
-//    @FXML
-//    public void chooseCard(int i,GridPane gridPane){
-//        if(!powerup){
-//            notify("");//notify messege to clientController which card dont wanted
-//        }
-//        notify(Integer.toString(i));
-//        setGridClickable(currentPowerupCard);
-//    }
-
-    //can use to set map clickable
-    @FXML
-    private void setGridClickable(GridPane gridPane) {
-        int count = 0;
-        for(int rows=0; rows<4; rows++) {
-            for(int columns=0; columns<5; columns++) {
-                int row = rows;
-                int column = columns;
-                gridPane.getChildren().get(count).setOnMouseClicked(
-                        event -> Platform.runLater(
-                                () -> {
-                                    textMessege.setText("");
-                                    errorArea.setText("");
-                                    if (!cell) {
-                                        notify("");
-                                    }
-                                    notify(Integer.toString(row + 1));
-                                    notify(Integer.toString(column + 1));
-                                    disable();
-                                }
-                        )
-                );
-                count++;
-            }
-        }
-    }
 
     private void disable() {
         powerup = false;
@@ -466,19 +464,6 @@ public class MatchViewController extends GUIController{
             errorArea.setText(error);
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

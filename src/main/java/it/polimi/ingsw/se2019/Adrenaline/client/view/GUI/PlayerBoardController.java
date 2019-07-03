@@ -26,13 +26,16 @@ public class PlayerBoardController extends GUIController {
     private GridPane markDamageNum;
 
     private MatchViewController matchViewController;
+    private PlayerStatus playerStatus;
 
     private String playerID;
     protected static final String Blood_Path = "/blood/";
 
 
-    private void initialize(){
+    public void initialize(){
         addDraggableNode(playerChild);
+        setPlayerImg(playerStatus);
+
 
 
     }
@@ -43,15 +46,20 @@ public class PlayerBoardController extends GUIController {
         for(int i = 0;i < size;i++){
             switch (playerStatus.getPlayerColor().getColor()){
                 case "YELLOW":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_yellow.png")); break;
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_yellow.png"));
+                    notify("YELLOW");break;
                 case "RED":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_red.png")); break;
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_red.png"));
+                    notify("RED");break;
                 case "GREEN":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_green.png")); break;
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_green.png"));
+                    notify("GREEN");break;
                 case "BLUE":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_blue.png")); break;
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_blue.png"));
+                    notify("BLUE");break;
                 case "WHITE":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_white.png")); break;
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_white.png"));
+                    notify("WHITE");break;
             }
         }
 
@@ -78,5 +86,7 @@ public class PlayerBoardController extends GUIController {
         }
 
     }
+
+
 
 }
