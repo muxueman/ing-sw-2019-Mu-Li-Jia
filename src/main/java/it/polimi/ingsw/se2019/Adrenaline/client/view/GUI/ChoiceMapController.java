@@ -71,7 +71,7 @@ public class ChoiceMapController extends GUIController{
     private void checkChoice(int killshootnum) {
         if (killshootnum >=5 && killshootnum <= 8) {
             matchViewController.notify(Integer.toString(killshootnum));
-            matchViewController.setInit();
+//            matchViewController.setInit();
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
         } else {

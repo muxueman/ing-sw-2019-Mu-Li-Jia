@@ -160,7 +160,7 @@ public class InitialViewController extends GUIController {
             Platform.runLater( () -> {
 
                 switchSceneSameStage(root, "/fxml/gameMap.fxml",
-                        new MatchViewController(boardStatus, next));
+                        new MatchViewController(client,boardStatus, next));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
 
             });

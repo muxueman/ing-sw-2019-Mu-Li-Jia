@@ -47,7 +47,8 @@ public class ClientGui extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         GUIController guiController = loader.getController();
-        new ClientController(new GUIView(guiController));
+        ClientController client = new ClientController(new GUIView(guiController));
+        guiController.setClientController(client);
     }
 }
 

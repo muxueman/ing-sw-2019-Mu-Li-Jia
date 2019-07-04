@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.*;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
@@ -20,7 +21,7 @@ public abstract class GUIController {
     protected GUIView guiView = null;
     private double initialX = 0;
     private double initialY = 0;
-
+    protected ClientController client;
     protected BoardStatus boardStatus;
 
 
@@ -41,6 +42,9 @@ public abstract class GUIController {
         });
     }
 
+    public void setClientController(ClientController client){
+        this.client = client;
+    }
 
 
     /**
