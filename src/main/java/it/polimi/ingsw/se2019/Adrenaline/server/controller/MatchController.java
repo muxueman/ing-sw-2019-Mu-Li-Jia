@@ -96,6 +96,7 @@ public class MatchController {
         return players.get(clientInterface).getPlayerID();
     }
 
+    public Player getCurrentPlayer(){return currentPlayer;}
     //************************************* initial part ****************************************
 
     //add the player to the match
@@ -294,6 +295,10 @@ public class MatchController {
         client.updateStatus(serverMessage);
     }
 
+    public Map<ClientInterface, Player> getPlayers() {
+        return players;
+    }
+
     //calculate the number of values(client) that have already selected
     protected Integer numMap(){
         int num = 0;
@@ -342,17 +347,25 @@ public class MatchController {
         turnHandler = new TurnHandler(definitivePlayers);
         currentPlayer = turnHandler.getCurrentPlayer();
         refreshControllerStates();
+        updateCurrentPlayer(new PlayMessage());
+        closeTimer();
+        startTimer();
     }
 
     //change state between playing state and non playing state
-    private synchronized void refreshControllerStates() {
+    private synchronized void refreshControllerStates(){
         Logger.getGlobal().log(Level.INFO,"start refresh controller state....");
         controllers.forEach((player, controller) -> {
             if (player.equals(currentPlayer)) {
                 Logger.getGlobal().log(Level.INFO,"current player next state: playing");
-                controller.nextState(new PlayingState(this));
+                try {
+                    controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
+                    Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
+                }catch (RemoteException e){
+                    e.printStackTrace();
+                }
             } else {
-                controller.nextState(new NonPlayingState());
+                controller.nextState(new NonPlayingState(clients.get(player),this));
                 Logger.getGlobal().log(Level.INFO,"not current player next state: nonplaying");
             }
         });
@@ -428,6 +441,11 @@ public class MatchController {
     private void updateAll(ServerMessage serverMessage) {
         for (ClientInterface client : clients.values()) {
             updateClient(client, serverMessage);
+            try{
+                Thread.sleep(3000);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
     private void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {

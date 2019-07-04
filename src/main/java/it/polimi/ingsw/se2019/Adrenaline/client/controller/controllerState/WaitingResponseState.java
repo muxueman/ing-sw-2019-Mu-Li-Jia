@@ -124,7 +124,7 @@ public class WaitingResponseState extends ControllerState {
         }
         if (serverMessage.isPlaying() == true){
             System.out.println("is playing == true");
-            return new ActionSelectState(clientController, new ArrayList<>() ).initState();
+            return new ActionSelectState(clientController, new ArrayList<>() );
 //                    PlayingState(clientController,clientController.getActionMode());
 
         }

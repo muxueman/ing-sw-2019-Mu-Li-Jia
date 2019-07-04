@@ -2,6 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
+import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
 
 import java.util.ArrayList;
 
@@ -31,5 +32,13 @@ public class NonPlayingState extends ControllerState {
             return new ActionSelectState(clientController, new ArrayList<>() ).initState();
         }
         return this;
+    }
+
+    @Override
+    public ControllerState updateStatus(ServerMessage serverMessage) {
+        if (serverMessage.isPlaying() == true) {
+            System.out.println("is playing == true");
+            return new ActionSelectState(clientController, new ArrayList<>()).initState();
+        }else return this;
     }
 }
