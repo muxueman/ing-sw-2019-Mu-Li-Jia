@@ -34,7 +34,7 @@ public class PlayerBoardController extends GUIController {
     @FXML
     private GridPane markDamageNum;
 
-    private MatchViewController matchViewController;
+    private GameMapController gameMapController;
 
     private String playerID;
     private boolean next;

@@ -1,6 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.network.messages;
 
-
+/**
+ *
+ * A PlayMessage object is the message sent from the client to the server.
+ * It contains an message to change the client's status in PlayingState.
+ *
+ * @author li xuejing
+ *
+ */
 
 
 public class PlayMessage extends ServerMessage {

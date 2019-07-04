@@ -1,7 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,9 +20,9 @@ import java.util.logging.Logger;
  *
  */
 
-public class AlertBox extends GUIController {
+public class Window extends GUIController {
 
-    private static final String REQUEST_ALERT = "/fxml/requestAlert.fxml";
+    private static final String REQUEST_ALERT = "/fxml/requestWindow.fxml";
     private boolean next;
     /**
      *
@@ -31,7 +30,7 @@ public class AlertBox extends GUIController {
      *
      *
      */
-    private AlertBox() {
+    private Window() {
 
         throw new IllegalStateException("Utility class");
     }
@@ -64,10 +63,10 @@ public class AlertBox extends GUIController {
 
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource(REQUEST_ALERT));
+            FXMLLoader loader = new FXMLLoader(Window.class.getResource(REQUEST_ALERT));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
-            AlertBoxController controller = loader.getController();
+            WindowController controller = loader.getController();
             controller.setLabelOne("Are you sure?");
             controller.setButtonOne(
                     event -> {
@@ -94,10 +93,10 @@ public class AlertBox extends GUIController {
     public static void displayEndGame(GUIController guiController, AnchorPane anchorPane, Player score, String username) {
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(AlertBox.class.getResource("/fxml/endGameAlert.fxml"));
+            FXMLLoader loader = new FXMLLoader(Window.class.getResource("/fxml/endGameAlert.fxml"));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
-            AlertBoxController controller = loader.getController();
+            WindowController controller = loader.getController();
             controller.setCloseButton(guiController, anchorPane);
 
             controller.setNewGameButton(anchorPane);

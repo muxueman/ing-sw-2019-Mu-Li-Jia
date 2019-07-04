@@ -18,6 +18,13 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ *
+ * The Controller class represent the controller of the game logic.
+ *
+ * @author Mu xueman
+ *
+ */
 public class ClientController implements ClientInterface, Observer<String> {
     //current view, state
     private View view;
@@ -28,7 +35,13 @@ public class ClientController implements ClientInterface, Observer<String> {
     private int actionMode;
     protected boolean playing;
 
-    //constructor
+    /**
+     *
+     * The constructor create the ClientController Initializing all its attributes.
+     * @param view is the reference to the view.
+     *
+     */
+
     public ClientController(View view){
         this.view = view;
         this.gameServer = null;
@@ -40,34 +53,78 @@ public class ClientController implements ClientInterface, Observer<String> {
         actionMode = 0;
         state = new ConnectionState(this).initState();
     }
-    //get value
+    /**
+     *
+     * The getView method is used to get the reference to the View.
+     * @return the reference to the view.
+     *
+     */
     public View getView() {
         return view;
     }
+    /**
+     *
+     * The getModel method is used to get the reference to the Model
+     * @return the reference to the model.
+     *
+     */
     public Model getModel() {
         return model;
     }
+    /**
+     *
+     * The getState method is used to get the current State of the Controller.
+     * @return the current state of the Controller.
+     *
+     */
     protected ControllerState getState() {
         return state;
     }
+
+    /**
+     * The getActionMode is used to get the current actionmode of controller
+     * @return the current actionmode of the controller
+     *
+     */
     public int getActionMode(){return actionMode;}
 
-    //set value
+    /**
+     *
+     * The setGameServer is used to set the interface of the server.
+     * @param gameServer is the interface to be set.
+     *
+     */
     public void setGameServer(GameServerInterface gameServer) {
         if (this.gameServer == null) {
             this.gameServer = gameServer;
         }
     }
+
+    /**
+     *
+     * The setPlayerID is use to set the String playerID
+     * @param playerID
+     */
     public void setPlayerID(String playerID){
         this.playerID = playerID;
 
     }
+
+    /**
+     * The getPlayerID is used to send message to the view
+     *
+     * @return
+     */
     public String getPlayerID(){return playerID;}
-    //send message to the view
     public void sendMessage(String message) {
         view.showMessage(message);
     }
-    //send clientMessage to a server
+    /**
+     *
+     * The sendToServer method is used to send a ClientMessage to the server.
+     * @param message is the message to be sent to the server.
+     *
+     */
     public void sendToServer(ClientMessage message) {
         try {
             gameServer.update(message, this);
@@ -76,15 +133,31 @@ public class ClientController implements ClientInterface, Observer<String> {
             state = state.nextState(true, false);
         }
     }
-
+    /**
+     *
+     * The reportError method is used to send the error to the view.
+     * @param error is the string representing the error.
+     *
+     */
     public void reportError(String error){
         view.reportError(error);
     }
+    /**
+     * The sendError method is used to send and error message.
+     * @param error is the string representing the error.
+     * @throws RemoteException is the exception thrown by RMI.
+     */
     public void sendError(String error) throws RemoteException{};
 
+    /**
+     * The isPlaying is use to show the player still playing or not
+     *
+     * @return
+     */
     public boolean isPlaying() {
         return playing;
     }
+
     public void setPlaying(boolean playing){
         this.playing = playing;
     }
@@ -92,6 +165,13 @@ public class ClientController implements ClientInterface, Observer<String> {
     public void nextView(boolean next) {
         view.nextView(next);
     }
+
+    /**
+     *
+     * The update method is used to call the update of one state of the Controller.
+     * @param message is the message to be elaborate.
+     *
+     */
     @Override
     public synchronized void update(String message) {
         state = state.update(message);
@@ -104,8 +184,16 @@ public class ClientController implements ClientInterface, Observer<String> {
     }
     public void checkConnection() throws RemoteException{};
 
-    //connection between client and server, 1 for RMI, 2 for socket
-    //protected
+    /**
+     *
+     * The connect method is used to establish a connection between client and server.
+     * @param selectedConnection is the kind of connection, 1 for RMI, 2 for Socket
+     * @param host is the address of the host.
+     * @param port is the port of the host.
+     * @return true if the connection is established, false if not.
+     *
+     */
+
     public boolean connect(int selectedConnection, String host, int port) {
         if (gameServer == null) {
             switch (selectedConnection) {
@@ -119,6 +207,15 @@ public class ClientController implements ClientInterface, Observer<String> {
         }
         return false;
     }
+
+    /**
+     *
+     * The connectToRmi method is used establish a RMI connection between client and server.
+     * @param host is the address of the host.
+     * @param port is the port of the host.
+     * @return true if the connection is established, false if not.
+     *
+     */
 
     //connect this client to RMIServer
     private boolean connectToRMI(String host, int port) {
@@ -144,6 +241,14 @@ public class ClientController implements ClientInterface, Observer<String> {
         return true;
     }
 
+    /**
+     *
+     * The connectToRmi method is used establish a Socket connection between client and server.
+     * @param host is the address of the host.
+     * @param port is the port of the host.
+     * @return true if the connection is established, false if not.
+     *
+     */
 
     private boolean connectToSocket(String host, int port) {
         try {

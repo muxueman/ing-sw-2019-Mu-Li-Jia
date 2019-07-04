@@ -122,7 +122,7 @@ public abstract class GUIController {
 
     }
     public void guiSetCancelImage() {
-        // only used by MatchViewController
+        // only used by GameMapController
     }
 
 
@@ -146,7 +146,7 @@ public abstract class GUIController {
      */
 
     public void guiPlay(boolean playing) {
-        // only used by MatchViewController
+        // only used by GameMapController
     }
 
 
@@ -155,7 +155,7 @@ public abstract class GUIController {
      */
 
     public void guiLaunchTimer() {
-        // only used by MatchViewController
+        // only used by GameMapController
     }
 
 
@@ -216,7 +216,7 @@ public abstract class GUIController {
 
 
     public void guiValue() {
-        // only used by MatchViewController
+        // only used by GameMapController
     }
 
     /**
@@ -226,7 +226,7 @@ public abstract class GUIController {
      */
 
     public void showRanking(Player myscore) {
-        //Implemented only by MatchViewController
+        //Implemented only by GameMapController
     }
 
 

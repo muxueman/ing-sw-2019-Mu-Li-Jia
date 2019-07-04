@@ -39,7 +39,7 @@ public class Lobby implements Serializable {
         queue = new Queue();
         queue.start();
 
-        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/config.json"))){
+        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/file/Timer.json"))){
             StringBuilder jsonIn = new StringBuilder();
             while(input.hasNextLine()) {
                 jsonIn.append(input.nextLine());

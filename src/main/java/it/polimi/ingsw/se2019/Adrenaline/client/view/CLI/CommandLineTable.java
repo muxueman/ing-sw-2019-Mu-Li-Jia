@@ -20,15 +20,34 @@ public class CommandLineTable {
     private String colorLine;
     private String colorWord;
 
+    /**
+     *
+     * to print the commandline table
+     *
+     * @param colorLine
+     * @param colorWord
+     */
     public CommandLineTable(String colorLine, String colorWord) {
         this.colorLine = colorLine;
         this.colorWord = colorWord;
         setShowVerticalLines(false);
     }
 
+    /**
+     *
+     * set the rignt align
+     *
+     * @param rightAlign
+     */
     public void setRightAlign(boolean rightAlign) {
         this.rightAlign = rightAlign;
     }
+
+    /**
+     * to show the vertical lines
+     *
+     * @param showVerticalLines
+     */
 
     public void setShowVerticalLines(boolean showVerticalLines) {
         verticalSep = showVerticalLines ? "|" : "";
@@ -37,6 +56,8 @@ public class CommandLineTable {
 
     /**
      *
+     * set the headers
+     *
      * @param headers
      */
     public void setHeaders(String... headers) {
@@ -44,6 +65,7 @@ public class CommandLineTable {
     }
 
     /**
+     *add the cells in row
      *
      * @param cells
      */
@@ -53,7 +75,7 @@ public class CommandLineTable {
 
     /**
      *
-     *
+     *show to the user all the matrx
      */
     public void print() {
         int[] maxWidths = headers != null ?
@@ -84,6 +106,12 @@ public class CommandLineTable {
         }
     }
 
+    /**
+     *
+     * print the colunm line
+     *
+     * @param columnWidths
+     */
     private void printLine(int[] columnWidths) {
         for (int i = 0; i < columnWidths.length; i++) {
             String line = String.join("", Collections.nCopies(columnWidths[i] +
@@ -93,6 +121,13 @@ public class CommandLineTable {
         System.out.println(colorWord);
     }
 
+    /**
+     *
+     * print the row line
+     *
+     * @param cells
+     * @param maxWidths
+     */
     private void printRow(String[] cells, int[] maxWidths) {
         for (int i = 0; i < cells.length; i++) {
             String s = cells[i];
