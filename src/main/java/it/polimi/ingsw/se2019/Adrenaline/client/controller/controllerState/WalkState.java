@@ -29,32 +29,37 @@ public class WalkState extends ControllerState {
     @Override
     public ControllerState update(String message){
         ClientMessage clientMessage;
+        System.out.println(message);
         switch (message) {
             case ("0"):
             case ("up"):
                 clientMessage = new ClientMessage("WALK", 0);
-                break;
+                clientController.sendToServer(clientMessage);
+                return this;
             case ("1"):
             case ("right"):
                 clientMessage = new ClientMessage("WALK", 1);
-                break;
+                clientController.sendToServer(clientMessage);
+                return this;
             case ("2"):
             case ("down"):
                 clientMessage = new ClientMessage("WALK",2);
-                break;
+                clientController.sendToServer(clientMessage);
+                return this;
             case ("3"):
             case ("left"):
                 clientMessage = new ClientMessage("WALK", 3);
-                break;
+                clientController.sendToServer(clientMessage);
+                return this;
             default:
                 //clientMessage = null;
                 clientController.reportError("not valid direction");
                 return this;
         }
-        clientController.sendToServer(clientMessage);
+
 //        return new WaitingResponseState()
 //        return new ActionSelectState(clientController,previousActions).initState();
-        return this;
+
     }
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage){

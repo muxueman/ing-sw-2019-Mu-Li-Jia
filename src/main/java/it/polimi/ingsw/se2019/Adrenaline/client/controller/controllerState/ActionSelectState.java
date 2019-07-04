@@ -180,27 +180,28 @@ public class ActionSelectState extends ControllerState {
         return "end turn";
     }
     public ControllerState update(String message) {
+        System.out.println("action selected: " + message);
         if (selectedActions.contains(message)) {
             switch (message) {
                 case ("grab"):
-                    clientController.sendToServer(new ClientMessage("SELECTEDACTION",0));
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","grab"));
                     actionSelected = "grab";
                     break;
                 case ("run"):
-                    clientController.sendToServer(new ClientMessage("SELECTEDACTION",0));
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","run"));
                     actionSelected = "run";
                     break;
                 case ("shoot"):
-                    clientController.sendToServer(new ClientMessage("SELECTEDACTION",0));
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","shoot"));
                     actionSelected = "shoot";
                     break;
                 case ("end round"):
-                    clientController.sendToServer(new ClientMessage("SELECTEDACTION",0));
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","end round"));
                     previousActions.add("end round");
                     actionSelected = "end round";
                     break;
                 case ("end turn"):
-                    clientController.sendToServer(new ClientMessage("SELECTEDACTION",0));
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","end turn"));
                     actionSelected = "end turn";
                     break;
                 default:

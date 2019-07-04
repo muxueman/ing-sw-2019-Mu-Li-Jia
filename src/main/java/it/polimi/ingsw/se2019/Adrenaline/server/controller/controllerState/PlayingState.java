@@ -13,9 +13,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionRun;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionShoot;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +21,7 @@ public class PlayingState implements GameServerInterface {
 
     private MatchController matchController;
 
-    public PlayingState(MatchController matchController,ClientInterface client) throws RemoteException{
+    public PlayingState(MatchController matchController,ClientInterface client){
 
         this.matchController = matchController;
         Logger.getGlobal().log(Level.INFO," playing state: conroller astaet", matchController.getCurrentPlayer().getUserName());
@@ -37,22 +35,32 @@ public class PlayingState implements GameServerInterface {
             case "SELECTEDACTION":
                 ServerMessage messageS = new ServerMessage(true, "ACTIONSELECTED");
                 client.updateStatus(messageS);
+                Logger.getGlobal().log(Level.INFO," {0} selected an action", matchController.getCurrentPlayer().getUserName());
+                ServerMessage serverMessage1 = new ServerMessage(false,"OHTER",matchController.getPlayers().get(client).getUserName() + " select to " + message.getMainParamS());
+                matchController.updateNotCurrentPlayer(serverMessage1);
                 return this;
             case "GRABAMMOTILE":
+                System.out.println(" grab amotile send to server succ!");
                 ActionGrab grab1 = new ActionGrab();
                 grab1.pickAmmoTile(matchController.getCurrentPlayer());
                 ServerMessage messageG = new ServerMessage(true, "GRAB");
                 messageG.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
                 client.updateStatus(messageG);
+                ServerMessage serverMessage2 = new ServerMessage(false,"UPDATE");
+                serverMessage2.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                matchController.updateNotCurrentPlayer(serverMessage2);
                 return this;
             case "GRABWEAPON":
-                System.out.println("send to server succ!");
+                System.out.println(" grab weapon send to server succ!");
                 ActionGrab grab2 = new ActionGrab();
                 grab2.pickWeaponCrad(matchController.getCurrentPlayer(), message.getMainParam());
                 System.out.println(matchController.getCurrentPlayer().getWeaponsOwned().size());
                 ServerMessage messageGW = new ServerMessage(true, "GRAB");
                 messageGW.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
                 client.updateStatus(messageGW);
+                ServerMessage serverMessage3 = new ServerMessage(false,"UPDATE");
+                serverMessage3.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                matchController.updateNotCurrentPlayer(serverMessage3);
                 return this;
             case "WALK":
                 ActionRun run = new ActionRun(matchController.getCurrentPlayer());
@@ -60,10 +68,16 @@ public class PlayingState implements GameServerInterface {
                     run.ActionRun(message.getMainParam());
                     ServerMessage messagewalkSucc = new ServerMessage(true, "WALK");
                     messagewalkSucc.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                    client.updateStatus(messagewalkSucc);
+                    ServerMessage serverMessage4 = new ServerMessage(false,"UPDATE");
+                    serverMessage4.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                    matchController.updateNotCurrentPlayer(serverMessage4);
                 } catch (InvalidRunException e) {
                     ServerMessage messagewalkfalse = new ServerMessage(true, "notRun");
                     messagewalkfalse.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
                 }
+                return this;
+            case "RELOAD":
                 return this;
             case "SHOOT":
                 matchController.getCurrentPlayer().useWeapon(message.getMainParamS());
