@@ -40,17 +40,11 @@ public class PlayerBoardController extends GUIController {
     private boolean next;
     protected static final String Blood_Path = "/blood/";
 
-    public PlayerBoardController(ClientController client, BoardStatus boardStatus,boolean next){
-        this.boardStatus = boardStatus;
-        this.next = next;
-        this.client = client;
-    }
 
 
 
     public void initialize(){
-        addDraggableNode(playerChild);
-        setPlayerImage(boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor());
+        addFrameNode(playerChild);
     }
 
     /**
@@ -61,50 +55,46 @@ public class PlayerBoardController extends GUIController {
      */
 
     @FXML
-    public void setPlayerImage(String color) {
+    public void setPlayerImage(BoardStatus boardStatus,String color) {
 
-            switch (color){
+            switch (color) {
                 case "YELLOW":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_yellow.png"));
-                    notify("YELLOW");break;
+                    break;
                 case "PINK":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_pink.png"));
-                    notify("RED");break;
+                    break;
                 case "GREEN":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_green.png"));
-                    notify("GREEN");break;
+                    break;
                 case "BLUE":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_blue.png"));
-                    notify("BLUE");break;
+                    break;
                 case "WHITE":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_white.png"));
-                    notify("WHITE");break;
+                    break;
             }
-
-
     }
 
-    //
-    @FXML
-    public void setPlayerBlood(PlayerStatus playerStatus,GridPane gridPane){
-
-        for (int i = 0;i < 12;i++){
-            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image(Blood_Path + playerStatus.getPlayerColor().getColor()+".png"));//怎么调用不一样的血滴？
-            notify(playerStatus.getPlayerColor().getColor());
-
-        }
-
-    }
-
-    @FXML
-    public void setPlayerSkull(BoardStatus boardStatus,GridPane gridPane){
-
-        for (int i = 0;i < 6;i++ ){
-            ((ImageView)gridPane.getChildren().get(i)).setImage(new Image("/blood/redSkull.png"));
-            notify(boardStatus.getColorDamageOnSkullBoard().toString());
-        }
-
-    }
+//    //
+//    @FXML
+//    public void setPlayerBlood(BoardStatus boardStatus){
+//
+//        for (int i = 0;i < 12;i++){
+//
+//            ((ImageView)playerBlood.getChildren().get(i)).setImage(new Image(Blood_Path + boardStatus.getPlayer(client.getPlayerID()).getDamageColorOnTrack().get(i).getColor()+".png"));
+//        }
+//
+//    }
+//
+//    @FXML
+//    public void setPlayerSkull(BoardStatus boardStatus){
+//
+//        for (int i = 0;i < 6;i++ ){
+//            ((ImageView)playerSkull.getChildren().get(i)).setImage(new Image("/blood/redSkull.png"));
+//        }
+//
+//    }
 
 
 

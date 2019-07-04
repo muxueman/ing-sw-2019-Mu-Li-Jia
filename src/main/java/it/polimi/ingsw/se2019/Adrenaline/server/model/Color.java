@@ -16,6 +16,13 @@ public enum Color implements Serializable {
     RED("RED");
     
     private String color;
+
+    /**
+     *
+     * The Color is to get the string color
+     *
+     * @param color
+     */
     private Color(String color){
 		this.color = color;
     }

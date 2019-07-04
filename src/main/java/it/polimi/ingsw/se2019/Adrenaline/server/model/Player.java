@@ -17,6 +17,13 @@ import org.fusesource.jansi.Ansi;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
+/**
+ *The player class is contain all the information about players
+ * and playerboard
+ * collect to the status and use playerstatus update every change
+ *
+ * @author Jia moxin
+ */
 public class Player implements Status {
 
 
@@ -39,6 +46,14 @@ public class Player implements Status {
     mode = 1 walk+shoott
     */
 
+    /**
+     *
+     * The player is a constructor can use it to get the
+     * whole player information
+     * @param playerID
+     * @param username
+     * @param favorTokens
+     */
     //constructor
     public Player(String playerID, String username, int favorTokens) {
         this.playerID = playerID;
@@ -53,6 +68,14 @@ public class Player implements Status {
         this.killShootTrack = new PlayerBoard(this);
     }
 
+    /**
+     *
+     * The drapPowerupAndGoNewCell is use to let the user choose
+     * a powerupcard to drop and get the powerupcard's color
+     * and initial in that color's cell
+     *
+     * @param powerupName
+     */
     public void dropPowerupAndGoNewCell(String powerupName){
 
         Iterator<PowerupCard> iterator = powerupsOwned.iterator();
@@ -65,6 +88,12 @@ public class Player implements Status {
         }
     }
 
+    /**
+     *
+     * The player constructor is use let matchcontroller collect
+     * the game board and player
+     * @param playerID
+     */
     //match controller 每次在开始的时候initial player 用到的constructor
     public Player(String playerID) {
         this.playerID = playerID;
@@ -79,10 +108,30 @@ public class Player implements Status {
         this.killShootTrack = new PlayerBoard(this);
     }
 
+    /**
+     *
+     * The setUserName is to set username
+     *
+     * @param userName
+     */
+
     public void setUserName(String userName) {
         this.username = userName;
     }
+
+    /**
+     * The setPlayBoard is use to get a new board
+     *
+     * @param board
+     */
     public void setPlayBoard(Board board) { this.board = board; }
+
+    /**
+     *
+     * 
+     *
+     * @param mode
+     */
     public void setActionMode(int mode){
         actionMode = mode;
     }

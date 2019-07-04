@@ -35,13 +35,13 @@ public abstract class GUIController {
     protected BoardStatus boardStatus;
 
     /**
-     * The addDraggableNode method is used to permit
+     * The addFrameNode method is used to permit
      * a node to be draggable.
      *
      * @param node chosen node to be draggable.
      */
 
-    public void addDraggableNode(final Node node) {
+    public void addFrameNode(final Node node) {
 
         node.setOnMousePressed(me -> {
             if (me.getButton() != MouseButton.MIDDLE) {
@@ -64,7 +64,7 @@ public abstract class GUIController {
 
 
     /**
-     * The switchSceneSameStage method is used to switch the scene using the
+     * The changeToNextView method is used to switch the scene using the
      * same stage.
      *
      * @param root         the root of the scene.
@@ -75,13 +75,13 @@ public abstract class GUIController {
 
 
 
-    protected void switchSceneSameStage(AnchorPane root, String fxmlFileName, GUIController controller) {
+    protected void changeToNextView(AnchorPane root, String fxmlFileName, GUIController controller) {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             loader.setController(controller);
-            Parent secondView = loader.load();
-            Scene newScene = new Scene(secondView);
+            Parent newView = loader.load();
+            Scene newScene = new Scene(newView);
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setWidth(1300);
             stage.setHeight(800);
@@ -146,7 +146,6 @@ public abstract class GUIController {
      */
 
     public void guiPlay(boolean playing) {
-        // only used by GameMapController
     }
 
 
@@ -155,15 +154,7 @@ public abstract class GUIController {
      */
 
     public void guiLaunchTimer() {
-        // only used by GameMapController
     }
-
-
-
-    private String getCardText(String name, String description) {
-        return "Name: " + name + "\nDescription: \n" + description;
-    }
-
 
 
     /**
@@ -216,17 +207,15 @@ public abstract class GUIController {
 
 
     public void guiValue() {
-        // only used by GameMapController
     }
 
     /**
-     * The showRanking method is used to show the ranking.
+     * The showScore method is used to show the ranking.
      *
      * @param myscore ranking to display.
      */
 
-    public void showRanking(Player myscore) {
-        //Implemented only by GameMapController
+    public void showScore(Player myscore) {
     }
 
 

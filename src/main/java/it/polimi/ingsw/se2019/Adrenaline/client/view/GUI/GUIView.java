@@ -152,14 +152,14 @@ public class GUIView extends View {
 
     /**
      *
-     * The showRanking method is used to show the ranking.
+     * The showScore method is used to show the ranking.
      *
      * @param myscore the ranking needed to be show.
      *
      */
 
     public void showRanking(Player myscore) {
-        guiController.showRanking(myscore);
+        guiController.showScore(myscore);
     }
 
 

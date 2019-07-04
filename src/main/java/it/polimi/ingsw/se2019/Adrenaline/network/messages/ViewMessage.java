@@ -1,8 +1,12 @@
 package it.polimi.ingsw.se2019.Adrenaline.network.messages;
 
-
-
 import java.io.Serializable;
+
+/**
+ *
+ *
+ * @author  Mu xueman
+ */
 
 public class ViewMessage implements Serializable {
 

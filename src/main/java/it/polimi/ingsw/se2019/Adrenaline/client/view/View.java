@@ -23,7 +23,7 @@ public abstract class View extends Observable<String> implements Observer<ModelU
 
     //show the Ranking with scores
     public abstract void showMessage(String message);
-//    public abstract void showRanking(KillShootTrack track);
+//    public abstract void showScore(KillShootTrack track);
     public abstract void reportError(String error);
     //public void showStatus(Status status) {
         // doesn't need to do anything, only used by CLIView

@@ -80,7 +80,7 @@ public class WindowController extends GUIController {
 
 
     public void initialize(){
-        addDraggableNode(root);
+        addFrameNode(root);
         closeButton.setOnAction( event ->  {
             Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
@@ -166,9 +166,9 @@ public class WindowController extends GUIController {
 //        choiceBox.setValue("violet");
 //    }
 
-    public String getChoiceBoxValue(){
-        return choiceBox.getValue();
-    }
+//    public String getChoiceBoxValue(){
+//        return choiceBox.getValue();
+//    }
 
     private void setTextArea(Player myScore,String username){
         textArea.setVisible(true);
