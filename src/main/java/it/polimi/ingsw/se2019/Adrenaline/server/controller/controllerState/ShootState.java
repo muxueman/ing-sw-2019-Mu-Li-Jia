@@ -35,12 +35,26 @@ public class ShootState implements GameServerInterface {
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
         String textMove = message.getTextMove();
         switch (textMove) {
-            case "CHOOSE BASIC TARGET":{
+            case "TARGET BASIC":{
                 try{
-                    shoot.checkIfInputValid(message.getMainParamS());
                     ServerMessage messageShootTarget = new ServerMessage(true, "shoot done! contiue with side effect?");
-                    messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
-                    return previousState;
+                    shoot.checkIfInputValid(message.getMainParamS());
+                    if (shoot.getTargetBasic().size() == 0)
+                        messageShootTarget = new ServerMessage(true, "nobody to shoot! " +
+                                "contiue with side effect?");
+
+                    if(shoot.checkWeaponType() == 0){
+                        messageShootTarget = new ServerMessage(true,"shoot done! finish this round?",0);
+                        messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                        return previousState;
+                    }
+                    else {
+                        messageShootTarget = new ServerMessage(true, "shoot done, type in the direction with 0,1,2,3 to which " +
+                                "you want your target move");
+                        messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                        return this;
+                    }
+
                 }
                 catch (InvalidNameException e) {
                     ServerMessage errorMessage = new ServerMessage(true, "inValid target, try again?");
@@ -48,12 +62,18 @@ public class ShootState implements GameServerInterface {
                 }
 
             }
-            case "BASICMOVE":{
-
+            case "TARGET MOVE":{
+                try{
+                    shoot.grenadeMove(message.getMainParamS());
+                    ServerMessage messageMoveTarget = new ServerMessage(true, "move done! contiue with side effect?");
+                    messageMoveTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                    return previousState;
+                }
+                catch (InvalidRunException e){
+                    ServerMessage errorMessage = new ServerMessage(true, "inValid run, try again?");
+                    return this;
+                }
             }
-
-                return this;
-
         }
         return this;
     }

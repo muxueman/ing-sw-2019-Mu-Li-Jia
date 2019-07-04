@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
@@ -22,10 +23,12 @@ public class ShootState extends ControllerState {
     private ArrayList<String> previousActions;
     private int messageUpadateTimes;
     private ArrayList<WeaponCard> availableWeapon;
+    private boolean isReload;
 
-    public ShootState(ClientController controller, ArrayList<String> previousActions){
+    public ShootState(ClientController controller, ArrayList<String> previousActions, boolean isReload){
         super(controller, "please select your weapon cards: ");
         this.previousActions = previousActions;
+        this.isReload =isReload;
         previousActions.add("shoot");
         messageUpadateTimes = 0;
         new ShowWeaponCard(controller.getModel().getBoardStatus().getPlayer(controller.getPlayerID()).getWeaponsOwned());
@@ -39,11 +42,15 @@ public class ShootState extends ControllerState {
                 clientController.sendToServer(clientMessage);
                 messageUpadateTimes ++;
                 return this;
-            case 1: System.out.println("message");
-                ClientMessage targetbasic = new ClientMessage("TARGETBASIC",message);
+            case 1:
+                ClientMessage targetbasic = new ClientMessage("TARGET BASIC",message);
                 clientController.sendToServer(targetbasic);
                 messageUpadateTimes ++;
                 return this;
+            case 2:
+                ClientMessage targetMoveDirect = new ClientMessage("TARGET MOVE",message);
+                clientController.sendToServer(targetMoveDirect);
+                messageUpadateTimes ++;
         }
         return this; //
     }
@@ -54,9 +61,13 @@ public class ShootState extends ControllerState {
         } else {
             if (serverMessage.isPlaying()) {
                 switch (serverMessage.getMessage()) {
-                    case "TARGET":
+                    case "TARGET BASIC":
                         clientController.sendMessage(serverMessage.getSubParameter());
-                        return this;
+                        if(serverMessage.getParm() == 0) return new ActionSelectState(clientController, previousActions,isReload).initState();
+                        else return this;
+                    case "TARGET MOVE":
+                        clientController.sendMessage(serverMessage.getSubParameter());
+                        return new ActionSelectState(clientController, previousActions,isReload).initState();
                     default:
                         clientController.reportError("cannot parse shoot message from server");
                         return this;
@@ -64,7 +75,6 @@ public class ShootState extends ControllerState {
             }
             else {
                 clientController.reportError("no response from server!");
-
             }
         }
         return this;
