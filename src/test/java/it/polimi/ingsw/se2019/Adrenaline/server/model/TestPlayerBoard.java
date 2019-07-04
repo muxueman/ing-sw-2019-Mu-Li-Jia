@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
 import org.junit.Test;
 
 import java.util.*;
@@ -7,15 +9,22 @@ import java.util.*;
 import java.util.HashMap;
 
 public class TestPlayerBoard {
-/*
-    Board testBoard = new Board(5);
-    Player testShooter = new Player("JIA");
-    Player testPlayer = new Player("MO");
-    Player testPlayer2 = new Player("XIN");
-    PlayerBoard testKillShootTrack = testPlayer.getKillShootTrack();
-    PlayerBoard testKillShootTrack2 = new PlayerBoard();
+it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map;
+    Board testBoard;
+    Player testShooter;
+    Player testPlayer;
+    Player testPlayer2;
+    PlayerBoard testKillShootTrack;
+    PlayerBoard testKillShootTrack2;
 
     public void setTestInfo() {
+        map = new MapA();
+        testShooter = new Player("JIA");
+        testPlayer = new Player("MO");
+        testPlayer2 = new Player("XIN");
+        testBoard = new Board(map, 5,2);
+        testKillShootTrack = testPlayer.getKillShootTrack();
+        testKillShootTrack2 = testPlayer2.getKillShootTrack();
         testShooter.setPlayerColor(Color.RED);
         testPlayer.setPlayerColor(Color.WHITE);
         testPlayer2.setPlayerColor(Color.GREEN);
@@ -76,16 +85,16 @@ public class TestPlayerBoard {
         testKillShootTrack.addMarkToDamage(testShooter);
     }
 
-    @Test
-    public void testSet() {
-        testKillShootTrack.setPlayerScore(testKillShootTrack.getPlayerScore());
-//        testKillShootTrack.setPlayer(testPlayer);
-        testKillShootTrack.setBeKilled(2);
-        testKillShootTrack.setDamageColorOnTrack(testKillShootTrack.getDamageColorOnTrack());
-        testKillShootTrack.setMarkColorOnTrack(testKillShootTrack.getMarkColorOnTrack());
-        testKillShootTrack.setTurn(3);
-
-    }
+//    @Test
+//    public void testSet() {
+////        testKillShootTrack.setPlayerScore(testKillShootTrack.getPlayerScore());
+////        testKillShootTrack.setPlayer(testPlayer);
+//        testKillShootTrack.setBeKilled(2);
+//        testKillShootTrack.setDamageColorOnTrack(testKillShootTrack.getDamageColorOnTrack());
+//        testKillShootTrack.setMarkColorOnTrack(testKillShootTrack.getMarkColorOnTrack());
+//        testKillShootTrack.setTurn(3);
+//
+//    }
 
     public Map valueOfMapDownSort(Map inputMap) {
         List<Map.Entry<String, Integer>> infoIds = new ArrayList<Map.Entry<String, Integer>>(inputMap.entrySet());
@@ -121,5 +130,5 @@ public class TestPlayerBoard {
 //        testKillShootTrack.toString();
     }
 
- */
+
 }

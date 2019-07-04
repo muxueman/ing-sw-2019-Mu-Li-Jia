@@ -4,6 +4,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionGrab;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionShoot;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import org.junit.Test;
 
@@ -24,6 +25,8 @@ public class TestPlayer {
     public void setTestInfo(){
         testPlayer = new Player("JIA");
         testKillShootTrack = new PlayerBoard(testPlayer);
+        testPlayer.setPlayerColor(Color.RED);
+        map = new MapC();
         testBoard = new Board(map, 5, 1);
         testMode = 2;
         testBoard.addPlayers(testPlayer);
@@ -35,6 +38,7 @@ public class TestPlayer {
     }
 
     public void testPlayerColor() {
+        setTestInfo();
         System.out.println("test player ID: " + testPlayer.getPlayerID());
         testPlayer.setPlayerColor(Color.RED);
         System.out.println("test player color: " + testPlayer.getPlayerColor());
@@ -73,7 +77,7 @@ public class TestPlayer {
     }
     @Test
     public void testPlayerSet(){
-
+        setTestInfo();
         testPlayer.setEnterCellByColor("red");
         testPlayer.setPlayBoard(testBoard);
         testPlayer.setCurrentCell(testBoard.getMap().getAllCells().get(0));
@@ -81,8 +85,7 @@ public class TestPlayer {
     }
     @Test
     public void testPlayerInfo(){
-       testName();
-       testPlayerColor();
+        setTestInfo();
        System.out.println(testPlayer.toString());
        testActionMode();
        testAmmoOwned();
@@ -93,8 +96,9 @@ public class TestPlayer {
 
     @Test
     public void testScore() {
-        testPlayerColor();
+        setTestInfo();
         Player killedPlayer = new Player("JIA");
+        testBoard.addPlayers(killedPlayer);
         testPlayer.addToMyScore(8);
         killedPlayer.setPlayerColor(Color.BLUE);
         Map<Color, Integer> testScore = new HashMap();
@@ -106,32 +110,9 @@ public class TestPlayer {
         testScore.get(testPlayer.getPlayerColor());
         testPlayer.countMyScore(killedPlayer);
     }
-    @Test
-    public void testPlayerAlive(){
-       System.out.println(testPlayer.isAlive());
-    }
 
-    @Test
-    public void setTestKillShootTrack(){
-       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayerScore());
-    }
-    @Test
-    public void testAction(){
-        testBoard.initialCardsOnBoard();
-        //generation cell
-        testPlayer.setPlayBoard(testBoard);
-        testBoard.getMap().getAllCells().get(2).getWeaponCard().get(0).getBasicammoCost();
-        testPlayer.setEnterCellByColor("yellow");
-        testPlayer.setCurrentCell(testPlayer.getPlayBoard().getMap().getAllCells().get(2));
-        System.out.println(testPlayer.getCurrentCell().getWeaponCard().get(1).getCardName());
-//        testPlayer.getCurrentCell().getWeaponCard(1).getBasicammoCost();
-        ActionGrab action = new ActionGrab();
-//        shoot.payAmmoForOtherMode(testPlayer, );
-        action.pickWeaponCrad(testPlayer, 1);
-        System.out.println(testPlayer.getAmmoOwned()[0]);
-        System.out.println(testPlayer.getAmmoOwned()[1]);
-        System.out.println(testPlayer.getAmmoOwned()[2]);
-    }
+
+
 
 
 }
