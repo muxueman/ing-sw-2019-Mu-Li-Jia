@@ -96,6 +96,7 @@ public class MatchController {
         return players.get(clientInterface).getPlayerID();
     }
 
+    public Player getCurrentPlayer(){return currentPlayer;}
     //************************************* initial part ****************************************
 
     //add the player to the match
@@ -294,6 +295,10 @@ public class MatchController {
         client.updateStatus(serverMessage);
     }
 
+    public Map<ClientInterface, Player> getPlayers() {
+        return players;
+    }
+
     //calculate the number of values(client) that have already selected
     protected Integer numMap(){
         int num = 0;
@@ -336,12 +341,15 @@ public class MatchController {
     }
 
     //update all players to ready
-    public void readyPlayers(){
+    public void readyPlayers() {
         List<Player> definitivePlayers = new ArrayList<>();
         players.forEach((client, player) -> definitivePlayers.add(player));
         turnHandler = new TurnHandler(definitivePlayers);
         currentPlayer = turnHandler.getCurrentPlayer();
         refreshControllerStates();
+        updateCurrentPlayer(new PlayMessage());
+        closeTimer();
+        startTimer();
     }
 
     //change state between playing state and non playing state
@@ -350,9 +358,16 @@ public class MatchController {
         controllers.forEach((player, controller) -> {
             if (player.equals(currentPlayer)) {
                 Logger.getGlobal().log(Level.INFO,"current player next state: playing");
-                controller.nextState(new PlayingState(this));
+//                try {
+//                    controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
+//                    Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
+//                }catch (RemoteException e){
+//                    e.printStackTrace();
+//                }
+                controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
+                Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
             } else {
-                controller.nextState(new NonPlayingState());
+                controller.nextState(new NonPlayingState(clients.get(player),this));
                 Logger.getGlobal().log(Level.INFO,"not current player next state: nonplaying");
             }
         });
@@ -428,9 +443,14 @@ public class MatchController {
     private void updateAll(ServerMessage serverMessage) {
         for (ClientInterface client : clients.values()) {
             updateClient(client, serverMessage);
+//            try{
+//                Thread.sleep(3000);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
         }
     }
-    private void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {
+    public void updateAll(ServerMessage serverMessage, BiFunction<Player, ClientInterface, Boolean> conditions) {
         for (Map.Entry<Player, ClientInterface> entry : clients.entrySet()) {
             Player player = entry.getKey();
             ClientInterface client = entry.getValue();
@@ -441,7 +461,7 @@ public class MatchController {
     }
 
     //update client from the server part
-    private void updateClient(ClientInterface client, ServerMessage serverMessage) {
+    public void updateClient(ClientInterface client, ServerMessage serverMessage) {
         try {
             ServerController serverController = controllers.get(players.get(client));
             if (serverController.isActive()) {
@@ -453,7 +473,16 @@ public class MatchController {
             e.printStackTrace();
         }
     }
-    private void updateCurrentPlayer(ServerMessage serverMessage) {
+
+    public void updateNotCurrentPlayer(ServerMessage serverMessage){
+        controllers.forEach((player, controller) -> {
+            if (!player.equals(currentPlayer)) {
+                updateClient(clients.get(player), serverMessage);
+            }
+        });
+        Logger.getGlobal().log(Level.INFO,"not current player update {0}",serverMessage.getMessage());
+    }
+    public void updateCurrentPlayer(ServerMessage serverMessage) {
         Logger.getGlobal().warning("current player {0} "+ currentPlayer.getUserName());
         ClientInterface client = clients.get(currentPlayer);
         updateClient(client, serverMessage);

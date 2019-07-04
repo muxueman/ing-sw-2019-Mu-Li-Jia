@@ -14,7 +14,7 @@ public class ShowBoardAmmotils {
     }
     protected void printA(){
         for (int cellID : boardStatus.getAmmotilesInCell().keySet()){
-            System.out.println(cellID + boardStatus.getAmmotilesInCell().get(cellID).getImage());
+            System.out.println(cellID + boardStatus.getAmmotilesInCell().get(cellID).getContent());
         }
     }
 

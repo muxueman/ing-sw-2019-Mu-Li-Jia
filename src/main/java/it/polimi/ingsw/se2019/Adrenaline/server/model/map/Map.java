@@ -161,6 +161,7 @@ public abstract class Map implements Status {
         while(i < 4 ){
             if(cellX.getAdjacentCells()[i].getCellID() != 0)
                 visibleTwoAwayCells.remove(cellX.getAdjacentCells()[i]);
+            i++;
         }
         return visibleTwoAwayCells;
     }

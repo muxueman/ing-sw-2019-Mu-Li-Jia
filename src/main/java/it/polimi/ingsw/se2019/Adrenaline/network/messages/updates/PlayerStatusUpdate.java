@@ -18,7 +18,7 @@ public class PlayerStatusUpdate implements StatusUpdate {
 
     private Player player;
 
-    public PlayerStatusUpdate(PlayerStatus playerStatus) {
+    public PlayerStatusUpdate(Player player) {
         this.player = player;
     }
 
