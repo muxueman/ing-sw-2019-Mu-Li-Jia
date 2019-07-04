@@ -11,6 +11,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.*;
 import org.junit.Test;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -96,7 +97,9 @@ public class TestAction {
         System.out.println(player.getAmmoOwned()[0]);
         System.out.println(player.getAmmoOwned()[1]);
         System.out.println(player.getAmmoOwned()[2]);
-
+        System.out.println(board.getPickedCell().size());
+        board.reloadCardOnBoard();
+        System.out.println(board.getPickedCell().size());
         //how to grab?;
         //you should check the player is in common or generation cell
         //common then grab.pickammotile
