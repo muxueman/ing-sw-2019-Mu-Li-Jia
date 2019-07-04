@@ -448,12 +448,12 @@
       <AnchorPane fx:id="ammoCard" layoutX="567.0" layoutY="22.0" prefHeight="64.0" prefWidth="51.0" />
       <AnchorPane fx:id="selfPlayer" layoutX="123.0" layoutY="531.0">
          <children>
-            <ImageView fitHeight="135.0" fitWidth="543.0" visible="false">
+            <ImageView fitHeight="135.0" fitWidth="543.0">
                <image>
                   <Image url="@../playerBoard/playerBoard_yellow.png" />
                </image>
             </ImageView>
-            <GridPane fx:id="selfaction" layoutX="-4.0" layoutY="23.0" prefHeight="105.0" prefWidth="36.0" visible="false">
+            <GridPane fx:id="selfaction" layoutX="-4.0" layoutY="23.0" prefHeight="105.0" prefWidth="36.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -468,7 +468,7 @@
                   <AnchorPane fx:id="shoot" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <GridPane fx:id="selfBlood" layoutX="47.0" layoutY="47.0" prefHeight="41.0" prefWidth="370.0" visible="false">
+            <GridPane fx:id="selfBlood" layoutX="47.0" layoutY="47.0" prefHeight="41.0" prefWidth="370.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
@@ -549,7 +549,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <GridPane fx:id="selfSkull" layoutX="107.0" layoutY="98.0" prefHeight="30.0" prefWidth="181.0" visible="false">
+            <GridPane fx:id="selfSkull" layoutX="107.0" layoutY="98.0" prefHeight="30.0" prefWidth="181.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -595,7 +595,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <GridPane fx:id="markBlood" layoutX="256.0" layoutY="-1.0" prefHeight="30.0" prefWidth="116.0" visible="false">
+            <GridPane fx:id="markBlood" layoutX="256.0" layoutY="-1.0" prefHeight="30.0" prefWidth="116.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -638,7 +638,196 @@
       </AnchorPane>
       <VBox fx:id="vboxPlayer" layoutX="723.0" layoutY="32.0">
          <children>
-            <AnchorPane fx:id="player1" prefHeight="135.0" prefWidth="543.0" />
+            <AnchorPane fx:id="player1">
+               <children>
+                  <ImageView fitHeight="135.0" fitWidth="543.0">
+                     <image>
+                        <Image url="@../playerBoard/playerBoard_yellow.png" />
+                     </image>
+                  </ImageView>
+                  <GridPane fx:id="selfaction1" layoutX="-4.0" layoutY="23.0" prefHeight="105.0" prefWidth="36.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="26.99932861328125" minHeight="10.0" prefHeight="23.99951171875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="25.99932861328125" minHeight="10.0" prefHeight="22.50048828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="28.50408935546875" minHeight="10.0" prefHeight="21.4991455078125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="40.5018310546875" minHeight="10.0" prefHeight="37.5008544921875" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <AnchorPane fx:id="grap1" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <AnchorPane fx:id="shoot1" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="selfBlood1" layoutX="47.0" layoutY="47.0" prefHeight="41.0" prefWidth="370.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="10.0" prefWidth="75.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="25.0">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" layoutX="10.0" layoutY="13.0" GridPane.columnIndex="1">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="2">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="3">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="4">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="5">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="6">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="7">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="8">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="9">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="10">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="25.0" GridPane.columnIndex="11">
+                           <image>
+                              <Image url="@../blood/yellow.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="selfSkull1" layoutX="107.0" layoutY="98.0" prefHeight="30.0" prefWidth="181.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="30.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../blood/redSkull.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="markBlood1" layoutX="256.0" layoutY="-1.0" prefHeight="30.0" prefWidth="116.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../blood/blue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="31.0" fitWidth="20.0" GridPane.columnIndex="1">
+                           <image>
+                              <Image url="@../blood/blue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="31.0" fitWidth="20.0" GridPane.columnIndex="2">
+                           <image>
+                              <Image url="@../blood/blue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="31.0" fitWidth="20.0" GridPane.columnIndex="3">
+                           <image>
+                              <Image url="@../blood/blue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="31.0" fitWidth="20.0" GridPane.columnIndex="4">
+                           <image>
+                              <Image url="@../blood/blue.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="player2" prefHeight="135.0" prefWidth="543.0" />
             <AnchorPane fx:id="player3" prefHeight="135.0" prefWidth="543.0" />
             <AnchorPane fx:id="player4" prefHeight="135.0" prefWidth="543.0" />

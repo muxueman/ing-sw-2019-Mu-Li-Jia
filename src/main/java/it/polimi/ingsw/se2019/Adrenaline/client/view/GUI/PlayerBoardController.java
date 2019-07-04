@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import javafx.fxml.FXML;
@@ -26,30 +27,33 @@ public class PlayerBoardController extends GUIController {
     private GridPane markDamageNum;
 
     private MatchViewController matchViewController;
-    private PlayerStatus playerStatus;
 
     private String playerID;
+    private boolean next;
     protected static final String Blood_Path = "/blood/";
+
+    public PlayerBoardController(ClientController client, BoardStatus boardStatus,boolean next){
+        this.boardStatus = boardStatus;
+        this.next = next;
+        this.client = client;
+    }
+
 
 
     public void initialize(){
         addDraggableNode(playerChild);
-        setPlayerImg(playerStatus);
-
-
-
+        setPlayerImage(boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor());
     }
 
     @FXML
-    public void setPlayerImg(PlayerStatus playerStatus) {
-        int size = boardStatus.getAllPlayers().size();
-        for(int i = 0;i < size;i++){
-            switch (playerStatus.getPlayerColor().getColor()){
+    public void setPlayerImage(String color) {
+
+            switch (color){
                 case "YELLOW":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_yellow.png"));
                     notify("YELLOW");break;
-                case "RED":
-                    playerImg.setImage(new Image("/playerBoard/playerBoard_red.png"));
+                case "PINK":
+                    playerImg.setImage(new Image("/playerBoard/playerBoard_pink.png"));
                     notify("RED");break;
                 case "GREEN":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_green.png"));
@@ -61,7 +65,7 @@ public class PlayerBoardController extends GUIController {
                     playerImg.setImage(new Image("/playerBoard/playerBoard_white.png"));
                     notify("WHITE");break;
             }
-        }
+
 
     }
 
