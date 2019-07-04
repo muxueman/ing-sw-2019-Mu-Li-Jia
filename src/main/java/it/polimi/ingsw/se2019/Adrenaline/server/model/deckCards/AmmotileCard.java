@@ -10,10 +10,19 @@ import java.util.Arrays;
 
 public class AmmotileCard implements Status {
 
-    public int numAmmotileCard;
-    public int[] ammoColor;
-    public int totalnumCard;
-    public String image;
+    private int numAmmotileCard;
+    private int[] ammoColor;
+    private int totalnumCard;
+    private String image;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getNumAmmotileCard(){
 

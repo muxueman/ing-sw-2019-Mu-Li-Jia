@@ -4,73 +4,85 @@
       "numAmmotileCard": 1,
       "image": "AD_ammo_042",
       "ammoColor": [3, 2, 2],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "yellow blue blue"
     },
     {
       "numAmmotileCard": 2,
       "image": "AD_ammo_043",
       "ammoColor": [3, 1, 1],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "yellow red red"
     },
     {
       "numAmmotileCard": 3,
       "image": "AD_ammo_044",
       "ammoColor": [1, 2, 2],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "red blue blue"
     },
     {
       "numAmmotileCard": 4,
       "image": "AD_ammo_045",
       "ammoColor": [1, 3, 3],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "red yellow yellow"
     },
     {
       "numAmmotileCard": 5,
       "image": "AD_ammo_046",
       "ammoColor": [2, 3, 3],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "blue yellow yellow"
     },
     {
       "numAmmotileCard": 6,
       "image": "AD_ammo_047",
       "ammoColor": [2, 1, 1],
-      "totalnumCard": 3
+      "totalnumCard": 3,
+      "content": "blue red red"
     },
     {
       "numAmmotileCard": 7,
       "image": "AD_ammo_0420",
       "ammoColor": [0, 3, 3],
-      "totalnumCard": 2
+      "totalnumCard": 2,
+      "content": "powerup yellow yellow"
     },
     {
       "numAmmotileCard": 8,
       "image": "AD_ammo_0421",
       "ammoColor": [0, 1, 1],
-      "totalnumCard": 2
+      "totalnumCard": 2,
+      "content": "powerup red red"
     },
     {
       "numAmmotileCard": 9,
       "image": "AD_ammo_0422",
       "ammoColor": [0, 2, 2],
-      "totalnumCard": 2
+      "totalnumCard": 2,
+      "content": "powerup blue blue"
     },
     {
       "numAmmotileCard": 10,
       "image": "AD_ammo_0423",
       "ammoColor": [0, 3, 1],
-      "totalnumCard": 4
+      "totalnumCard": 4,
+      "content": "red yellow red"
     },
     {
       "numAmmotileCard": 11,
       "image": "AD_ammo_0424",
       "ammoColor": [0, 3, 2],
-      "totalnumCard": 4
+      "totalnumCard": 4,
+      "content": "powerup yellow blue"
     },
     {
       "numAmmotileCard": 12,
       "image": "AD_ammo_0425",
       "ammoColor": [0, 1, 2],
-      "totalnumCard": 4
+      "totalnumCard": 4,
+      "content": "powerup red blue"
     }
   ]
 }
