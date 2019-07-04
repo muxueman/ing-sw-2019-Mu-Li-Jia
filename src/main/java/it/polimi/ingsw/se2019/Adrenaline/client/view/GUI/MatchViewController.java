@@ -1,5 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
+import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
@@ -119,28 +120,18 @@ public class MatchViewController extends GUIController{
     private GridPane currentWeaponCard;
     @FXML
     private GridPane waitForReload;
-    @FXML
-    private ImageView c1;
-    @FXML
-    private ImageView c2;
-    @FXML
-    private ImageView c3;
-    @FXML
-    private ImageView c4;
 
 
     private boolean next;
-    private boolean position = false;
-    private boolean powerup = false;
-    private boolean cell = false;
 
     private Timeline timeline;
     private Integer timeSeconds;
     private PlayerBoardController playerBoardController;
 
-    public MatchViewController(BoardStatus boardStatus,boolean next){
+    public MatchViewController(ClientController client, BoardStatus boardStatus,boolean next){
         this.boardStatus = boardStatus;
         this.next = next;
+        this.client = client;
     }
 
     public static final String chioceMap = "/fxml/choiceMap.fxml";
@@ -263,10 +254,6 @@ public class MatchViewController extends GUIController{
         }
     }
 
-    @FXML
-    public void setPlayer(PlayerStatus playerStatus){
-
-    }
 
     @FXML//need to collect the playerBoardController
     public void setPlayerBoard(AnchorPane anchorPaneNeed){
@@ -274,12 +261,14 @@ public class MatchViewController extends GUIController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = loader.load();
             anchorPaneNeed.getChildren().add(anchorPane);
+            this.playerBoardController = new PlayerBoardController();
             playerBoardController.initialize();
 
 
         }catch (IOException e){
             Logger.getGlobal().warning(e.getCause().toString());
         }
+
     }
 
 
@@ -304,10 +293,10 @@ public class MatchViewController extends GUIController{
 
 
 
-    @FXML
-    public void setInit() {
-
-    }
+//    @FXML
+//    public void setInit() {
+//
+//    }
 
 
 
@@ -354,50 +343,51 @@ public class MatchViewController extends GUIController{
 
     }
 
+    @FXML//用颜色代表每一个player 与 playerBoard 连接
+    private void setPlayerColor(BoardStatus boardStatus){
+       String playerColor = boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor();
+       switch (playerColor){
+           case "YELLOW":
+
+       }
+    }
+
 
 
     //about initial the game give two powerupcard to choose one discard and relive in that card's color cell
     @FXML
-    public void setPlayerRelivePosition(PlayerStatus playerStatus,int i,GridPane gridPane){
-        setPlayerOwnCard(playerStatus,currentPowerupCard);
-        for(int j = 0;j < 11; j++){
-            ((ImageView)gridPane.getChildren().get(2)).setImage(new Image("/player/小紫（violet）.jpg"));
+    public void setPlayerRelivePosition(BoardStatus boardStatus,GridPane gridPane){
 
-        }
+
+
 
 
     }
-    @FXML
-    public void setPlayerOwnCard(PlayerStatus playerStatus,GridPane gridPane){
-        ArrayList<PowerupCard> powerupsOwn = playerStatus.getPowerupsOwned();
+
+    @FXML//两个卡牌都可能会消失 有bug还没解决
+    public void setPlayerOwnCard(BoardStatus boardStatus,GridPane gridPane){
+
+        ArrayList<PowerupCard> powerupsOwn = boardStatus.getPlayer(client.getPlayerID()).getPowerupsOwned();
         int size = powerupsOwn.size();
-        for (int i = 0; i < 3; i++){
-            if(i < size){
-                ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(PowerupCard_Path+ powerupsOwn.get(i).getImage() + ".png"));
-                int chooseI = i;
-                (gridPane.getChildren().get(i)).setOnMouseClicked(
-                        event -> Platform.runLater(
-                                () ->{// set the choose one powerupcard unvisible and put the card show in the waitforreload GridPane
-                                    textMessege.setText("");
-                                    errorArea.setText("");
-                                    notify(powerupsOwn.get(chooseI).getCardName());
-                                    (gridPane.getChildren().get(chooseI)).setVisible(false);
-//                                    disable();
-                                }
-                        )
-                );
-            }else {
-                 gridPane.getChildren().get(i).setVisible(false);
-                ((ImageView)waitForReload.getChildren().get(i)).setImage(new Image(PowerupCard_Path +powerupsOwn.get(i).getImage() + ".png"));
-            }
+        for (int i = 0; i < size; i++){
+        ((ImageView) gridPane.getChildren().get(i)).setImage(new Image(PowerupCard_Path+ powerupsOwn.get(i).getImage() + ".png"));
+        int chooseI = i;
+        (gridPane.getChildren().get(i)).setOnMouseClicked(
+            event -> Platform.runLater(
+                    () ->{// set the choose one powerupcard unvisible and put the card show in the waitforreload GridPane
+                        textMessege.setText("");
+                        errorArea.setText("");
+                        notify(powerupsOwn.get(chooseI).getCardName());
+                        (gridPane.getChildren().get(chooseI)).setVisible(false);
+
+                    }
+                )
+            );
         }
-    }
 
 
-    private void disable() {
-        powerup = false;
-        cell = false;
     }
+
 
     @FXML
     public void setMap(BoardStatus boardStatus){
@@ -420,10 +410,13 @@ public class MatchViewController extends GUIController{
                 setWeaponYCard(boardStatus,weaponY);
                 setWeaponBCard(boardStatus,weaponB);
                 setAmmoCardInMap(boardStatus,pickAmmoCard);
+                setPlayerOwnCard(boardStatus,currentPowerupCard);
 
             });
         }
+
     }
+
 
 
 
