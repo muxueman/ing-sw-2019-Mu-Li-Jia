@@ -5,12 +5,23 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ *
+ *The ShowWeaponCardReload is to show the weaponcard wait for reload
+ * for now cant use
+ *
+ * @author li xuejing
+ */
 public class ShowWeaponCardReload{
 
     private Map<WeaponCard, Boolean> weaponsOwned;
     private ArrayList<WeaponCard> weaponCards;
     private int length;
 
+    /**
+     * this methods is to
+     * @param weaponsOwned
+     */
     public ShowWeaponCardReload(Map<WeaponCard, Boolean> weaponsOwned) {
         this.weaponsOwned = weaponsOwned;
         weaponCards = new ArrayList<>();
@@ -23,6 +34,12 @@ public class ShowWeaponCardReload{
         print();
     }
 
+    /**
+     *
+     * print the cards
+     *
+     * @return
+     */
     public ArrayList<WeaponCard> getWeaponCards(){return weaponCards;}
     protected void print(){
 

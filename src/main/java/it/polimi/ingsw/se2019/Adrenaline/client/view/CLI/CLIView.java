@@ -22,6 +22,7 @@ public class CLIView extends View {
         (new InputHandler()).start();
     }
 
+
     private class InputHandler extends Thread {
 
         @Override
@@ -34,10 +35,17 @@ public class CLIView extends View {
             }
         }
     }
+
     public boolean isActive() {
         return active;
     }
 
+    /**
+     *
+     * print the message
+     *
+     * @param message
+     */
 
     public void showMessage(String message) {
         print(message);

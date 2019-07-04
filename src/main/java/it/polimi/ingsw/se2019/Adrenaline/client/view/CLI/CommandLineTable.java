@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *
+ *
+ *
+ */
 public class CommandLineTable {
     private static final String HORIZONTAL_SEP = "-";
     private String verticalSep;
@@ -30,14 +35,26 @@ public class CommandLineTable {
         joinSep = showVerticalLines ? "+" : " ";
     }
 
+    /**
+     *
+     * @param headers
+     */
     public void setHeaders(String... headers) {
         this.headers = headers;
     }
 
+    /**
+     *
+     * @param cells
+     */
     public void addRow(String... cells) {
         rows.add(cells);
     }
 
+    /**
+     *
+     *
+     */
     public void print() {
         int[] maxWidths = headers != null ?
                 Arrays.stream(headers).mapToInt(String::length).toArray() : null;

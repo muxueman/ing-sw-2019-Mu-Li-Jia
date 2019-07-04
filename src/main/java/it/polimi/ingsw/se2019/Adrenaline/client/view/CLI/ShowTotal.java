@@ -8,6 +8,14 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * The ShowTotal is to show all the cli want to show
+ * like a whole board message
+ *
+ * @author li xuejing
+ *
+ */
 public class ShowTotal {
 
     private BoardStatus boardStatus;
@@ -27,6 +35,12 @@ public class ShowTotal {
         new ShowPowerupCard(boardStatus.getPlayer(client.getPlayerID()).getPowerupsOwned());
     }
 
+    /**
+     *
+     * print the map
+     *
+     * @param mapID
+     */
     public void printMap(int mapID){
         switch (mapID) {
             case 1:
@@ -55,6 +69,14 @@ public class ShowTotal {
         System.out.println(messageMap);
     }
 
+    /**
+     *
+     * show the player name , color , current score , action mode, killed times, cell location
+     * to the user
+     *
+     * @param players
+     * @param boardStatus
+     */
     public void printPlayers(List<PlayerStatus> players, BoardStatus boardStatus){
         System.out.println("All players in this match:");
         int length = players.size();
@@ -81,12 +103,25 @@ public class ShowTotal {
         st.print();
     }
 
+    /**
+     *
+     * show the player's damage
+     *
+     * @param players
+     */
     public void printDamage(List<PlayerStatus> players) {
         for (PlayerStatus p : players) {
             System.out.println(p.getUsername() + ":   "+ messageD(p));
         }
     }
 
+    /**
+     *
+     * print the damage in color
+     *
+     * @param p
+     * @return
+     */
     protected String messageD(PlayerStatus p){
         ArrayList<Color> damageColorOnTrack = p.getDamageColorOnTrack();
         ArrayList<Color> damageMarkOnTrack = p.getMarkColorOnTrack();

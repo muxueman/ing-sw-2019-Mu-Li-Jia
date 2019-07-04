@@ -5,6 +5,12 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ *
+ * The ShowWeaponCard is to show the weaponcard you have
+ *
+ * @author li xuejing
+ */
 public class ShowWeaponCard {
 
     private Map<WeaponCard, Boolean> weaponsOwned;
@@ -23,6 +29,10 @@ public class ShowWeaponCard {
         print();
     }
 
+    /**
+     *
+     * print the cards
+     */
     protected void print(){
 
         System.out.println("the weapon cards you have:");
