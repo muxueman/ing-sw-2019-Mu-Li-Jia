@@ -61,15 +61,12 @@ public class Board implements Status {
     public Player getCurrentPlayer(){return currentPlayer;}
 
     public ArrayList<Player> getAllPlayers() {return this.allPlayers;}
+
     public Player findPlayerByColor (Color playerColor){
-        int i = 0;
-        while(allPlayers.get(i).getPlayerColor() != playerColor){
-            i++;
-            if(i == allPlayers.size()){
-                return null;
-            }
+        for(Player p : allPlayers){
+            if(p.getPlayerColor().equals(playerColor)) return p;
         }
-        return allPlayers.get(i);
+        return null;
     }
     //生成0到玩家数量-1的随机数， 只决定第一个玩家
 
@@ -99,7 +96,7 @@ public class Board implements Status {
                     addScoreFromKST(allPlayers.get(index));
                     System.out.println(allPlayers.get(index).getKillShootTrack().getPlayerScore());
                     allPlayers.get(index).recover();
-                    break;
+                    return playerDie;
                 }
                 else index++;
             }
@@ -201,11 +198,11 @@ public class Board implements Status {
         reloadCardOnBoard();
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        for(Player player: players){
-            players.add((Player)player);
-        }
-    }
+//    public void setPlayers(ArrayList<Player> players) {
+//        for(Player player: players){
+//            players.add((Player)player);
+//        }
+//    }
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }

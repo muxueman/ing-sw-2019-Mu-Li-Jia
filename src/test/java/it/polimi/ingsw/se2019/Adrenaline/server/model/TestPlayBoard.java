@@ -1,76 +1,85 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.map.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 public class TestPlayBoard {
 
-    Map testMap = new MapB();
-    int skull = 5;
-    Board testBoard = new Board(testMap, skull, 2);
-    Player testShooter = new Player("jia");
-    Player testPlayer = new Player("li");
-    Player testPlayer2 = new Player("mu");
-
+    Map testMapA;
+    Map testMapB;
+    Map testMapC;
+    Board testBoard;
+    Player testShooter;
+    Player testPlayer;
+    Player testPlayer2;
     public void setTestInfo() {
-//        Board testBoard2 = new Board(testMap, allPlayer);
-//        testBoard2.setNumKillShoot(6);
-//        testBoard.getNumKillShoot();
-//        testBoard.getKillTurn();
+        testMapA = new MapA();
+        testMapB = new MapB();
+        testMapC = new MapC();
+        int skull = 5;
+        testBoard = new Board(testMapB, skull, 2);
+        testShooter= new Player("jia");
+        testPlayer = new Player("li");
+        testPlayer2 = new Player("mu");
+        testBoard.getNumKillShoot();
+        testBoard.getKillTurn();
+        testBoard.addPlayers(testShooter);
+        testBoard.addPlayers(testPlayer);
+        testBoard.addPlayers(testPlayer2);
+        testShooter.setPlayerColor(Color.RED);
+        testPlayer2.setPlayerColor(Color.YELLOW);
+        testPlayer.setPlayerColor(Color.BLUE);
+        testBoard.setCurrentPlayer(testShooter);
     }
 
     @Test
     public void addPlayerTest(){
-//        testBoard.addPlayers(testShooter);
-//        testBoard.addPlayers(testPlayer);
-//        testBoard.addPlayers(testPlayer2);
-//        System.out.println("currenttest"+testBoard.getCurrentPlayer());
-//        //testBoard.setPlayers(testBoard.getAllPlayers());
-//        testBoard.setCurrentPlayer(testShooter);
-//        //testBoard.turnNextPlayer();
-//        //testBoard.turnNextPlayer();
-//        testBoard.changefirenzyMode();
-//        System.out.println(testBoard.getCurrentPlayer());
-//        //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
-//        System.out.println(testBoard.getCurrentPlayer());
-//        for(Player p : testBoard.getAllPlayers()){
-//            System.out.println(p.getUserName());
-//        }
+        setTestInfo();
+
+
+
+        System.out.println("currenttest"+testBoard.getCurrentPlayer());
+//        testBoard.setPlayers(testBoard.getAllPlayers());
+        testBoard.setCurrentPlayer(testShooter);
+        //testBoard.turnNextPlayer();
+        //testBoard.turnNextPlayer();
+        testBoard.changefirenzyMode();
+        System.out.println(testBoard.getCurrentPlayer());
+        //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
+        System.out.println(testBoard.getCurrentPlayer());
+        for(Player p : testBoard.getAllPlayers()){
+            System.out.println(p.getUserName());
+        }
         for(Cell c : testBoard.getMap().getAllCells()){
-            System.out.println(c.getCellID());
+            c.getCellID();
         }
 
 
-/*
+
     }
 
     @Test
     public void testPlayerOnBoard() {
+        setTestInfo();
         addPlayerTest();
         System.out.println(testBoard.getMap());
 
-//        testMap.initialMap();
-//        Board testBoard2 = new Board(testMap);
-//        testBoard2.setMap(testMap);
-//        System.out.println(testBoard2.getMap().getAllCells());
-//        System.out.println(testBoard.getAllPlayers());
-//        testBoard.setCurrentPlayer(testShooter);
-////        System.out.println(testBoard.getCurrentPlayer());
-//        testBoard.nextPlayer(testBoard.getCurrentPlayer());
-//        System.out.println(testBoard.getAllPlayers());
-//        testBoard.nextPlayer(testShooter);
-//        System.out.println(testBoard.nextPlayer(testShooter));
-//        testBoard.findPlayerByColor(Color.RED);
-//        testBoard.findPlayerByColor(Color.GREEN);
+        System.out.println(testBoard.getAllPlayers());
+        testBoard.setCurrentPlayer(testShooter);
+//        System.out.println(testBoard.getCurrentPlayer());
+        testBoard.nextPlayer(testBoard.getCurrentPlayer());
+        System.out.println(testBoard.getAllPlayers());
+        testBoard.nextPlayer(testShooter);
+        System.out.println(testBoard.nextPlayer(testShooter));
+        testBoard.findPlayerByColor(Color.RED);
+        testBoard.findPlayerByColor(Color.GREEN);
     }
 
 
     @Test
     public void testfirenzyMode() {
+        setTestInfo();
         testBoard.setKillTurn(4);
         System.out.println(testBoard.triggerFirenzy());
         testBoard.setKillTurn(5);
@@ -85,35 +94,39 @@ public class TestPlayBoard {
         testPlayer2.beAttacked(testShooter, 4,3);
         testPlayer.beAttacked(testShooter, 3, 2);
         testPlayer.beAttacked(testPlayer2, 4,3);
+
         System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
 
 
-//        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
-//        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
-//        testPlayer.beAttacked(testShooter, 4, 2);
-//        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
-//        testBoard.checkIfAnyPlayerDie(testShooter);
-//        testPlayer.getKillShootTrack().beAttacked(testShooter, 4, 2);
-//        System.out.println("all players num " + testBoard.getAllPlayers().size());
-//        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
-//        testBoard.checkIfAnyPlayerDie(testShooter);
-//        testBoard.addScoreFromKST(testPlayer);
-//        testBoard.addScoreFromPB();
-//        testBoard.setCurrentPlayer(testShooter);
-//        testBoard.changefirenzyMode();
-//        testBoard.setCurrentPlayer(testPlayer);
-//        testBoard.changefirenzyMode();
-//        testBoard.setCurrentPlayer(testPlayer2);
-//        testBoard.changefirenzyMode();
-//        testBoard.getNumDamageOnSkullBoard();
-//        testBoard.getColorDamageOnSkullBoard();
-////        testBoard.getWeaponCardsOnBoard();
-////        System.out.println(testBoard.getCurrentPlayer().getPlayerColor().toString());
-//        System.out.println(testBoard.getAllPlayers().get(testBoard.getFirstPlayer()).getPlayerColor().toString());
-//        System.out.println(testPlayer.getActionMode());
-//        System.out.println(testPlayer2.getActionMode());
-//        System.out.println(testShooter.getActionMode());
+        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
+        testPlayer.beAttacked(testShooter, 4, 2);
+        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
+        testBoard.checkIfAnyPlayerDie(testShooter);
+        testPlayer.getKillShootTrack().beAttacked(testShooter, 4, 2);
+
+        System.out.println("all players num " + testBoard.getAllPlayers().size());
+        testPlayer.getKillShootTrack().beAttacked(testShooter,2,2);
+        System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
+        testBoard.checkIfAnyPlayerDie(testShooter);
+        testBoard.findPlayerByColor(Color.RED);
+        testBoard.addScoreFromKST(testPlayer);
+        testBoard.addScoreFromPB();
+        testBoard.setCurrentPlayer(testShooter);
+        testBoard.changefirenzyMode();
+        testBoard.setCurrentPlayer(testPlayer);
+        testBoard.changefirenzyMode();
+        testBoard.setCurrentPlayer(testPlayer2);
+        testBoard.changefirenzyMode();
+        testBoard.getNumDamageOnSkullBoard();
+        testBoard.getColorDamageOnSkullBoard();
+//        testBoard.getWeaponCardsOnBoard();
+//        System.out.println(testBoard.getCurrentPlayer().getPlayerColor().toString());
+        System.out.println(testBoard.getAllPlayers().get(testBoard.getFirstPlayer()).getPlayerColor().toString());
+        System.out.println(testPlayer.getActionMode());
+        System.out.println(testPlayer2.getActionMode());
+        System.out.println(testShooter.getActionMode());
     }
 
-*/}
+
 }

@@ -136,6 +136,7 @@ public class ActionShoot implements Serializable {
         if(check){
             targetAttacked.addAll(getTargetsArrayFromName(names));
             dealBasicDamageToTarget(targetAttacked);
+            shooter.getBoard().checkIfAnyPlayerDie();
         }
         return check;
     }
@@ -944,7 +945,7 @@ public class ActionShoot implements Serializable {
         // catch cannotMoveException;
     }
 
-    public void grenadeMove(String direction) throws InvalidRunException{
+    public void  grenadeMove(String direction) throws InvalidRunException{
         if(direction.equals("stay")) return;
         int direc = Integer.valueOf(direction);
         if(targetBasic.get(0).getCurrentCell().getNextCell(direction) == null)

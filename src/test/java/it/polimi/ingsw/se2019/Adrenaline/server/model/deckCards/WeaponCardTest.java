@@ -24,7 +24,7 @@ public class WeaponCardTest {
 
     @Test
     public void testCardName() {
-
+        weaponCard = weaponCardDeck.getWeaponCards().get(0);
         weaponCard.setCardName("VORTEX CANNON");
         System.out.println("cardName:" + weaponCard.getCardName());
         Assert.assertEquals("VORTEX CANNON", weaponCard.getCardName());

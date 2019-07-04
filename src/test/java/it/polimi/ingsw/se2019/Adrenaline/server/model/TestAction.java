@@ -8,10 +8,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.NotEnoughAmmosException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -35,11 +32,13 @@ public class TestAction {
         player.setPlayerColor(Color.YELLOW);
         target2.setPlayerColor(Color.BLUE);
         target.setPlayerColor(Color.RED);
-        player.setEnterCellByColor("blue");
+        player.setEnterCellByColor("red");
         target.setEnterCellByColor("yellow");
         target2.setEnterCellByColor("yellow");
         target2.setCurrentCell(target2.getCurrentCell().getNextCell(0));
         target.setCurrentCell(player.getCurrentCell());
+        target.setCurrentCell(board.getCellFromID(7));
+        target2.setCurrentCell(board.getCellFromID(6));
     }
 
     @Test
@@ -85,6 +84,9 @@ public class TestAction {
         System.out.println(player.getAmmoOwned()[1]);
         System.out.println(player.getAmmoOwned()[2]);
         System.out.println(player.getWeaponsOwned());
+
+        int[] am = {2,2,2};
+        player.setAmmoOwned(am);
         try {
             run.ActionRun( 2);
         } catch (InvalidRunException e) {
@@ -100,15 +102,32 @@ public class TestAction {
         //common then grab.pickammotile
         //generation then if(checkplayerAmmoAvailable) grab.pickweaponcard else message"you dont have enough ammo"
     }
+    @Test
+    public void testPlayerReload() {
+        setInfo();
+        ActionGrab grab = new ActionGrab();
+        grab.pickWeaponCrad(player, 2);
+        int[] am = {2,2,2};
+        player.setAmmoOwned(am);
 
+        try{
+
+            System.out.println( player.reloadWeapon("FLAMETHROWER"));
+        }
+       catch (InvalidReloadException e){
+            System.out.println(e.toString());
+        }
+
+
+    }
     @Test
     public void testShoot() {
         setInfo();
         ActionGrab grab = new ActionGrab();
         grab.pickWeaponCrad(player, 2);
         //
-
-        player.useWeapon(player.getAvailableWeapon().get(0));
+        player.useWeapon("FLAMETHROWER");
+//        player.useWeapon(player.getAvailableWeapon().get(0));
         ActionShoot shoot = new ActionShoot(player);
         System.out.println(player.getWeaponInUse().getCardName());
         System.out.println(shoot.getTargetNameBasic());
@@ -117,11 +136,13 @@ public class TestAction {
         System.out.println("shooter cell" + player.getCurrentCell().getCellID());
         System.out.println("target cell" + target.getCurrentCell().getCellID());
         System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
         try{
 
-            shoot.checkIfInputValid("mo ");
+            shoot.checkIfInputValid("mo xin");
+            System.out.println(shoot.getTargetAttacked().size());
             System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
-            System.out.println("mo" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
         }
         catch (InvalidNameException e){
             System.out.println(e);

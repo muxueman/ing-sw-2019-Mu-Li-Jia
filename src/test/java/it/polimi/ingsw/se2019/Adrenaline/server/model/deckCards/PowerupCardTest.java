@@ -9,6 +9,7 @@ import org.junit.Test;
 public class PowerupCardTest {
 
     PowerupCard powerupCard = new PowerupCard();
+    PowerupCardDeck powerupCardDeck = new PowerupCardDeck();
 
     @Before
     public void setUp() throws Exception {
@@ -24,6 +25,7 @@ public class PowerupCardTest {
 
     @Test
     public void testCardName() {
+        powerupCard = powerupCardDeck.getPpCards().get(0);
 
         String cardName;
         cardName = "TARGETINE SCOPE";

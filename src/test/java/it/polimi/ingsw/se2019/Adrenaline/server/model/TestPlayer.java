@@ -14,12 +14,20 @@ import java.util.Map;
 
 
 public class TestPlayer {
-/*
-    Player testPlayer = new Player("JIA");
-    PlayerBoard testKillShootTrack = new PlayerBoard(testPlayer);
-    it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map = new MapD();
-    Board testBoard = new Board(map, 5);
-    int testMode = 2;
+
+    Player testPlayer;
+    PlayerBoard testKillShootTrack;
+    it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map;
+    Board testBoard;
+    int testMode;
+
+    public void setTestInfo(){
+        testPlayer = new Player("JIA");
+        testKillShootTrack = new PlayerBoard(testPlayer);
+        testBoard = new Board(map, 5, 1);
+        testMode = 2;
+        testBoard.addPlayers(testPlayer);
+    }
 
     public void testName() {
         testPlayer.setUserName("jiamoxin");
@@ -65,6 +73,8 @@ public class TestPlayer {
     }
     @Test
     public void testPlayerSet(){
+
+        testPlayer.setEnterCellByColor("red");
         testPlayer.setPlayBoard(testBoard);
         testPlayer.setCurrentCell(testBoard.getMap().getAllCells().get(0));
         testPlayer.getCurrentCell();
@@ -103,17 +113,17 @@ public class TestPlayer {
 
     @Test
     public void setTestKillShootTrack(){
-       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayerStatus().getUsername());
+       System.out.println("get kill shoot track owner name: "  + testKillShootTrack.getPlayerScore());
     }
     @Test
     public void testAction(){
         testBoard.initialCardsOnBoard();
         //generation cell
         testPlayer.setPlayBoard(testBoard);
-        testBoard.getMap().getAllCells().get(2).getWeaponCard(2).getBasicammoCost();
+        testBoard.getMap().getAllCells().get(2).getWeaponCard().get(0).getBasicammoCost();
         testPlayer.setEnterCellByColor("yellow");
         testPlayer.setCurrentCell(testPlayer.getPlayBoard().getMap().getAllCells().get(2));
-        System.out.println(testPlayer.getCurrentCell().getWeaponCard(1).getCardName());
+        System.out.println(testPlayer.getCurrentCell().getWeaponCard().get(1).getCardName());
 //        testPlayer.getCurrentCell().getWeaponCard(1).getBasicammoCost();
         ActionGrab action = new ActionGrab();
 //        shoot.payAmmoForOtherMode(testPlayer, );
@@ -123,5 +133,5 @@ public class TestPlayer {
         System.out.println(testPlayer.getAmmoOwned()[2]);
     }
 
- */
+
 }

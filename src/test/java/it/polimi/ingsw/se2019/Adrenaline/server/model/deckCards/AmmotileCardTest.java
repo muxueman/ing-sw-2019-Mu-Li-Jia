@@ -9,6 +9,7 @@ import org.junit.Test;
 
 public class AmmotileCardTest {
 
+    AmmotileCardDeck ammoDeck = new AmmotileCardDeck();
     AmmotileCard ammotileCard = new AmmotileCard();
 
 
@@ -28,7 +29,7 @@ public class AmmotileCardTest {
 
     @Test
     public void testotalnumCard(){
-
+        ammotileCard = ammoDeck.getAtCards().get(0);
         ammotileCard.setTotalnumCard(3);
         System.out.println("test totalnumCard: " + ammotileCard.getTotalnumCard());
         Assert.assertEquals(3,ammotileCard.getTotalnumCard());
