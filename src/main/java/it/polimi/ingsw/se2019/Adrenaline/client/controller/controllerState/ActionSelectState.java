@@ -17,8 +17,9 @@ public class ActionSelectState extends ControllerState {
     private String actionSelected;
     //below is only to check whether client choose the right action (CLI exclusive)
     private ArrayList<String> selectedActions;
+    private boolean isReload;
 
-    public ActionSelectState(ClientController clientController, ArrayList<String> previousActions) {
+    public ActionSelectState(ClientController clientController, ArrayList<String> previousActions,boolean isReload) {
 
 
         super(clientController, "Please select an Action:\n");
@@ -28,6 +29,7 @@ public class ActionSelectState extends ControllerState {
         } else {
             numRound = 2;
         }
+        this.isReload = isReload;
         this.currentRound = 1;
         this.previousActions = previousActions;
         this.selectedActions = new ArrayList<>();
@@ -171,13 +173,21 @@ public class ActionSelectState extends ControllerState {
                                 }
                         }
                     }
-                    currentRound += 1;
-                    //clientController.sendMessage("end of one turn");
                     break;
             }
-            this.previousActions = new ArrayList<>();
+            currentRound += 1;
+            clientController.sendMessage("end of one turn");
+            if (actionMode != 4 && currentRound < numRound){
+                this.previousActions = new ArrayList<>();
+            }
         }
-        return "end turn";
+        if (!isReload){
+            return "reload";
+        }
+        else {
+            clientController.sendMessage("end of your turn");
+            return "end turn";
+        }
     }
     public ControllerState update(String message) {
         System.out.println("action selected: " + message);
@@ -198,35 +208,40 @@ public class ActionSelectState extends ControllerState {
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","shoot"));
                     actionSelected = "shoot";
                     break;
+                case ("reload"):
+                    System.out.println("send message action selected: " + message);
+                    clientController.sendToServer(new ClientMessage("SELECTEDACTION","reload"));
+                    actionSelected = "reload";
+                    break;
                 case ("end round"):
                     System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end round"));
                     previousActions.add("end round");
                     actionSelected = "end round";
-                    break;
+                    return this.initState();
                 case ("end turn"):
                     System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end turn"));
                     actionSelected = "end turn";
                     break;
                 default:
-                    actionSelected = "end round";
+                    //actionSelected = "end turn";
                     clientController.reportError("not valid action!");
             }
         }
-        return this;
+       return this;
     }
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
         if (serverMessage.isPlaying() && serverMessage.getMessage().equalsIgnoreCase("ACTIONSELECTED")){
             switch (actionSelected){
-                case "grab": return new GrabState(clientController, previousActions).initState();
-                case "shoot": return new ShootState(clientController, previousActions).initState();
-                case "run": return new WalkState(clientController, previousActions).initState();
-                case "end round": return new ActionSelectState(clientController, previousActions).initState();
+                case "grab": return new GrabState(clientController, previousActions,isReload).initState();
+                case "shoot": return new ShootState(clientController, previousActions,isReload).initState();
+                case "run": return new WalkState(clientController, previousActions,isReload).initState();
+                //case "end round": return new ActionSelectState(clientController, previousActions).initState();
                 case "reload": return new ReloadState(clientController, previousActions).initState();
-                case "end turn": return new ReloadState(clientController,previousActions).initState();
+                case "end turn": return new NonPlayingState(clientController).initState();
             }
         }
         clientController.reportError(serverMessage.getMessage());

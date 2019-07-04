@@ -14,6 +14,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionGrab;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionRun;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionShoot;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidReloadException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
 
 import java.rmi.RemoteException;
@@ -42,6 +43,10 @@ public class PlayingState implements GameServerInterface {
                 Logger.getGlobal().log(Level.INFO," {0} selected an action", matchController.getCurrentPlayer().getUserName());
                 ServerMessage serverMessage1 = new ServerMessage(false,"OTHER",matchController.getPlayers().get(client).getUserName() + " select to " + message.getMainParamS());
                 matchController.updateNotCurrentPlayer(serverMessage1);
+                if (message.getMainParamS().equalsIgnoreCase("end turn")){
+                    matchController.nextTurn();
+                    return matchController.isPlaying(client) ? this : new NonPlayingState();
+                }
                 return this;
             case "GRABAMMOTILE":
                 System.out.println(" grab amotile send to server succ!");
@@ -84,13 +89,20 @@ public class PlayingState implements GameServerInterface {
                     matchController.updateNotCurrentPlayer(serverMessage4);
                 } catch (InvalidRunException e) {
                     ServerMessage messagewalkfalse = new ServerMessage(true, "notRun");
-                    messagewalkfalse.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
-                    client.updateStatus(messagewalkfalse);
+                    //messagewalkfalse.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                    //client.updateStatus(messagewalkfalse);
                 }
                 return this;
             case "RELOAD":
-
-                //todo
+                try{
+                    matchController.getCurrentPlayer().reloadWeapon(message.getMainParamS());
+                }catch (InvalidReloadException e){
+                    client.sendError(e.toString());
+                    return this;
+                }
+                ServerMessage messageRe = new ServerMessage(true,"RELOAD");
+                messageRe.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                client.updateStatus(messageRe);
                 ServerMessage serverMessage5 = new ServerMessage(false,"UPDATE");
                 serverMessage5.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                 matchController.updateNotCurrentPlayer(serverMessage5);

@@ -22,11 +22,13 @@ public class GrabState extends ControllerState {
     private int currentCell;
     private ArrayList<WeaponCard> weaponCards;
     private AmmotileCard ammotileCard;
+    private boolean isReload;
 
-    public GrabState(ClientController controller, ArrayList<String> previousActions) {
+    public GrabState(ClientController controller, ArrayList<String> previousActions,boolean isReload) {
         super(controller, "please select the cards...(card name or 0 for ammoile, 1, 2, 3 for each weapon cards)\n");
         this.previousActions = previousActions;
         this.previousActions.add("grab");
+        this.isReload = isReload;
         this.currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
         System.out.println("cell id" + currentCell);
         if (currentCell == 5 || currentCell == 3 ||currentCell ==12){
@@ -86,7 +88,7 @@ public class GrabState extends ControllerState {
                             }
                             new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
                             clientController.getModel().pingUpdate(serverMessage.getMessage());
-                        return new ActionSelectState(clientController, previousActions).initState();
+                        return new ActionSelectState(clientController, previousActions,isReload).initState();
                     } else {
                         clientController.reportError("no response from server!");
                     }

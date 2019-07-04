@@ -15,11 +15,13 @@ import java.util.List;
 public class WalkState extends ControllerState {
     private ArrayList<String> previousActions;
     private int currentCell;
+    private boolean isReload;
 
-    public WalkState(ClientController controller, ArrayList<String> previousActions) {
+    public WalkState(ClientController controller, ArrayList<String> previousActions,boolean isReload) {
         super(controller, "please select walk direction: 0.up 1.right 2.down 3.left");
         this.previousActions = previousActions;
         this.previousActions.add("walk");
+        this.isReload = isReload;
         this.currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
         System.out.println("cell id" + currentCell);
         //this.currentCell = model>>>>>
@@ -75,7 +77,7 @@ public class WalkState extends ControllerState {
                         }
                         clientController.getModel().pingUpdate(serverMessage.getMessage());
                         new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
-                        return new ActionSelectState(clientController, previousActions).initState();
+                        return new ActionSelectState(clientController, previousActions,isReload).initState();
                     } else {
                         clientController.reportError("no response from server!");
                     }

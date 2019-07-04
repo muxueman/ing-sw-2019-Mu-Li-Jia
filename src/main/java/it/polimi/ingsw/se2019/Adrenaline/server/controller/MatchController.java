@@ -367,12 +367,16 @@ public class MatchController {
                 controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
                 Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
             } else {
-                controller.nextState(new NonPlayingState(clients.get(player),this));
+                controller.nextState(new NonPlayingState());
                 Logger.getGlobal().log(Level.INFO,"not current player next state: nonplaying");
             }
         });
     }
 
+    //check whether is current player
+    public boolean isPlaying(ClientInterface client) {
+        return players.get(client).equals(currentPlayer);
+    }
     //pass to next player
     private synchronized void nextPlayer() throws EndGameException {
         //currentPlayer = turnHandler.nextTurn();
@@ -509,14 +513,6 @@ public class MatchController {
         try {
             ServerMessage serverMessage = new PlayMessage();
             UpdateMessage updateMessage = new UpdateMessage(currentPlayer.getUsername() + " passed the turn.");
-//            Die chosenDie = currentPlayer.resetMoves();
-//            draftPool.returnDie(chosenDie);
-//            if (chosenDie != null) {
-//                serverMessage.addStatusUpdate(new AdditionalStatusUpdate(null));
-//                serverMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
-//                serverMessage.setMessage("You put back the chosen die.");
-//                updateMessage.addStatusUpdate(new DraftPoolUpdate(draftPool.getStatus()));
-//            }
             updateCurrentPlayer(serverMessage);
             updateAll(updateMessage, (p, c) -> !p.equals(currentPlayer));
             nextPlayer();

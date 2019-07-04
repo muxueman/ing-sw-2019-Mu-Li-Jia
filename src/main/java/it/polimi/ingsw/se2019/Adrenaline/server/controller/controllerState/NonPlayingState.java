@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 
 public class NonPlayingState implements GameServerInterface{
 
-    private MatchController matchController;
-    private ClientInterface client;
-
-    public NonPlayingState(ClientInterface client, MatchController matchController){
-        this.matchController = matchController;
-        this.client = client;
-    }
+//    private MatchController matchController;
+//    private ClientInterface client;
+//
+//    public NonPlayingState(ClientInterface client, MatchController matchController){
+//        this.matchController = matchController;
+//        this.client = client;
+//    }
     /**
      *
      * The update method is used to elaborate the message from the Client and update the model.
@@ -32,7 +32,7 @@ public class NonPlayingState implements GameServerInterface{
 
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
-        Logger.getGlobal().log(Level.INFO," playing state: conroller astaet", matchController.getPlayers().get(client).getUserName());
+     //   Logger.getGlobal().log(Level.INFO," not play! current player:", matchController.getPlayers().get(client).getUserName());
         client.updateStatus(new ErrorMessage("Wait for your turn!"));
         return this;
     }

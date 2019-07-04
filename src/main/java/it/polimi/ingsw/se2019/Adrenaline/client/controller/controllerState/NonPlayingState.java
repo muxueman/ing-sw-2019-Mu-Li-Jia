@@ -32,7 +32,7 @@ public class NonPlayingState extends ControllerState {
     public ControllerState nextState(boolean error, boolean playing) {
         if (playing) {
             //clientController.getView().launchTimer();
-            return new ActionSelectState(clientController, new ArrayList<>() ).initState();
+            return new ActionSelectState(clientController, new ArrayList<>(),false).initState();
         }
         return this;
     }
@@ -42,7 +42,7 @@ public class NonPlayingState extends ControllerState {
         if (serverMessage.isPlaying()) {
             System.out.println("is playing == true");
             clientController.sendMessage("now it's your turn!");
-            return new ActionSelectState(clientController, new ArrayList<>()).initState();
+            return new ActionSelectState(clientController, new ArrayList<>(),false).initState();
         }else {
             switch (serverMessage.getMessage()) {
                 case "OTHER":
@@ -61,7 +61,6 @@ public class NonPlayingState extends ControllerState {
                     default:
                         clientController.reportError("fail to analysis the message from server!");
                         return this;
-//            serverMessage.getMessage().equalsIgnoreCase("OTHER");
 
             }
         }
