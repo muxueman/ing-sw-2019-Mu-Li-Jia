@@ -15,7 +15,7 @@ public class ShowWeaponCard {
         this.weaponsOwned = weaponsOwned;
         weaponCards = new ArrayList<>();
         for (WeaponCard w : weaponsOwned.keySet()){
-            if (!weaponsOwned.get(w)){
+            if (weaponsOwned.get(w)){
                 weaponCards.add(w);
             }
         }

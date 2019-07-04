@@ -33,7 +33,7 @@ public class ShootState implements GameServerInterface {
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
         String textMove = message.getTextMove();
         switch (textMove) {
-            case "TARGETBASIC":{
+            case "CHOOSE BASIC TARGET":{
                 try{
                     shoot.checkIfInputValid(message.getMainParamS());
                     ServerMessage messageShootTarget = new ServerMessage(true, "shoot done! contiue with side effect?");
