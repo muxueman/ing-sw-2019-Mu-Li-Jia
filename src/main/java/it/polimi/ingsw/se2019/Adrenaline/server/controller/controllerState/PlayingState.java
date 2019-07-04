@@ -44,6 +44,7 @@ public class PlayingState implements GameServerInterface {
                 ServerMessage serverMessage1 = new ServerMessage(false,"OTHER",matchController.getPlayers().get(client).getUserName() + " select to " + message.getMainParamS());
                 matchController.updateNotCurrentPlayer(serverMessage1);
                 if (message.getMainParamS().equalsIgnoreCase("end turn")){
+                    matchController.getPlayBoard().reloadCardOnBoard();
                     matchController.nextTurn();
                     return matchController.isPlaying(client) ? this : new NonPlayingState();
                 }
