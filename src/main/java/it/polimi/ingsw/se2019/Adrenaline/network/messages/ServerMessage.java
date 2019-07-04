@@ -53,14 +53,14 @@ public class ServerMessage implements Serializable {
     }
 
     public ServerMessage(boolean playing, String message, Integer parameter) {
-        this.playing = false;
+        this.playing = playing;
         this.message = message;
         this.parameter = parameter;
         this.subParameter = null;
     }
 
     public ServerMessage(boolean playing, String message, String subParameter) {
-        this.playing = false;
+        this.playing = playing;
         this.message = message;
         this.parameter = 0;
         this.subParameter = subParameter;

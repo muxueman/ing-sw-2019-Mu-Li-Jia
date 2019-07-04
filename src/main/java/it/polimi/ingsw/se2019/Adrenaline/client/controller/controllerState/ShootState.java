@@ -35,7 +35,7 @@ public class ShootState extends ControllerState {
     public ControllerState update(String message){
         switch (messageUpadateTimes){
             case 0:
-                ClientMessage clientMessage = new ClientMessage("SHOOTWITH",message);
+                ClientMessage clientMessage = new ClientMessage("SHOOT", message);
                 clientController.sendToServer(clientMessage);
                 messageUpadateTimes ++;
                 return this;

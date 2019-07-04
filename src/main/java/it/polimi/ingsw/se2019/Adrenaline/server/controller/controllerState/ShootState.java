@@ -40,7 +40,7 @@ public class ShootState implements GameServerInterface {
                     shoot.checkIfInputValid(message.getMainParamS());
                     ServerMessage messageShootTarget = new ServerMessage(true, "shoot done! contiue with side effect?");
                     messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
-                    return new PlayingState(matchController,client);
+                    return previousState;
                 }
                 catch (InvalidNameException e) {
                     ServerMessage errorMessage = new ServerMessage(true, "inValid target, try again?");

@@ -317,7 +317,7 @@ public class Player implements Status {
 
     public void useWeapon(String weaponName){
         for(WeaponCard weaponCard : weaponsOwned.keySet()){
-            if(weaponCard.getCardName() == weaponName){
+            if(weaponCard.getCardName().equals(weaponName)){
                 weaponsOwned.put(weaponCard, false);
                 weaponInUse = weaponCard;
             }
