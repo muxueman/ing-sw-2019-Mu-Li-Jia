@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  *
  * The ChoiceMapController is to let the user choose the map he like
- * and choose a killshootnum for next matchview
+ * and choose a killshootnum for next game map
  *
  * @author  li xuejing
  *
@@ -42,13 +42,13 @@ public class ChoiceMapController extends GUIController{
     @FXML
     private Button closeButton;
 
-    private MatchViewController matchViewController;
+    private GameMapController gameMapController;
     private boolean close = false;
 
 
-    public ChoiceMapController(BoardStatus boardStatus,MatchViewController matchViewController){
+    public ChoiceMapController(BoardStatus boardStatus, GameMapController gameMapController){
         this.boardStatus = boardStatus;
-        this.matchViewController = matchViewController;
+        this.gameMapController = gameMapController;
     }
 
     /**
@@ -65,7 +65,7 @@ public class ChoiceMapController extends GUIController{
             Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
         });
-        checkMap(matchViewController);
+        checkMap(gameMapController);
         Button5.setOnMouseClicked(event -> checkChoice(5));
         Button6.setOnMouseClicked(event -> checkChoice(6));
         Button7.setOnMouseClicked(event -> checkChoice(7));
@@ -82,12 +82,12 @@ public class ChoiceMapController extends GUIController{
      *
      */
 
-    public void checkMap(MatchViewController matchViewController) {
+    public void checkMap(GameMapController gameMapController) {
 
-        mapAbutton.setOnAction(event -> matchViewController.notify("1"));
-        mapBbutton.setOnAction(event -> matchViewController.notify("2"));
-        mapCbutton.setOnAction(event -> matchViewController.notify("3"));
-        mapDbutton.setOnAction(event -> matchViewController.notify("4"));
+        mapAbutton.setOnAction(event -> gameMapController.notify("1"));
+        mapBbutton.setOnAction(event -> gameMapController.notify("2"));
+        mapCbutton.setOnAction(event -> gameMapController.notify("3"));
+        mapDbutton.setOnAction(event -> gameMapController.notify("4"));
 
 
     }
@@ -101,8 +101,8 @@ public class ChoiceMapController extends GUIController{
      */
     private void checkChoice(int killshootnum) {
         if (killshootnum >=5 && killshootnum <= 8) {
-            matchViewController.notify(Integer.toString(killshootnum));
-//            matchViewController.setInit();
+            gameMapController.notify(Integer.toString(killshootnum));
+//            gameMapController.setInit();
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
         } else {

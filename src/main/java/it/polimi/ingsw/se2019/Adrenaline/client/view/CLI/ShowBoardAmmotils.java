@@ -4,10 +4,25 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * to show the Ammotilecards in the board
+ *
+ *collect in the showtotal
+ *
+ * @author li xuejing
+ *
+ */
 public class ShowBoardAmmotils {
 
     BoardStatus boardStatus;
 
+    /**
+     *
+     * show the ammotilecards in the board
+     *
+     * @param boardStatus
+     */
     public ShowBoardAmmotils(BoardStatus boardStatus){
         this.boardStatus = boardStatus;
         printA();

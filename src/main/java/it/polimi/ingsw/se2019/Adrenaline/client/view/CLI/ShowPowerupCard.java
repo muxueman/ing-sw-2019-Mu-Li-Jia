@@ -4,6 +4,12 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * The ShowPowerupCard is to show the powerupcard you have
+ *
+ * @author  li xuejing
+ */
 public class ShowPowerupCard {
 
     private ArrayList<PowerupCard> powerupCards;
@@ -15,6 +21,10 @@ public class ShowPowerupCard {
         print();
     }
 
+    /**
+     *
+     * print the powerupcard you have
+     */
     protected void print(){
 
         CommandLineTable st = new CommandLineTable("\u001b[1;33m","\u001b[1;31m");

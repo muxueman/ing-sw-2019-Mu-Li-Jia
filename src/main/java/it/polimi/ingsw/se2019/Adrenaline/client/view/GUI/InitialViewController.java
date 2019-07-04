@@ -70,7 +70,7 @@ public class InitialViewController extends GUIController {
         searchButton.getStyleClass().add(searchButtonEffect);
         nameText.setVisible(false);
         searchButton.setVisible(false);
-        closeButton.setOnAction(event -> AlertBox.displayCloseRequest(this,root));
+        closeButton.setOnAction(event -> Window.displayCloseRequest(this,root));
         addDraggableNode(root);
         boardStatus = null;
     }
@@ -160,7 +160,7 @@ public class InitialViewController extends GUIController {
             Platform.runLater( () -> {
 
                 switchSceneSameStage(root, "/fxml/gameMap.fxml",
-                        new MatchViewController(client,boardStatus, next));
+                        new GameMapController(client,boardStatus, next));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
 
             });

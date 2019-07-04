@@ -12,7 +12,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.logging.Logger;
-
+/**
+ *
+ * The SocketController class is the implementation of the GameServerInterface through a socket connection.
+ *
+ * @author Mu xueman
+ *
+ */
 public class SocketController implements GameServerInterface {
 
     private ClientController controller;
@@ -20,6 +26,15 @@ public class SocketController implements GameServerInterface {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private boolean active;
+
+    /**
+     *
+     * The constructor creates a local controller of the game that communicates with the server.
+     * @param clientController is a reference to the controller.
+     * @param socket is a reference to the socket used.
+     * @throws IOException when the input or the output is not valid.
+     *
+     */
 
     protected SocketController(ClientController clientController, Socket socket) throws IOException {
         this.controller = clientController;
@@ -29,7 +44,11 @@ public class SocketController implements GameServerInterface {
         (new SocketListener()).start();
         active = true;
     }
-
+    /**
+     *
+     * The SocketListener class is a Thread that listen a socket port.
+     *
+     */
     private class SocketListener extends Thread {
 
         @Override
@@ -46,10 +65,23 @@ public class SocketController implements GameServerInterface {
             }
         }
 
+        /**
+         * The isActive method is used to check if a socket is still active and not closed.
+         * @return true if the socket is active, false if not.
+         */
         private boolean isActive() {
             return active && !socket.isClosed();
         }
     }
+
+    /**
+     *
+     * The update method is used to communicate with the client.
+     * @param message is the message to be sent.
+     * @param client that has to receive the message.
+     * @return the socket controller.
+     *
+     */
 
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) {

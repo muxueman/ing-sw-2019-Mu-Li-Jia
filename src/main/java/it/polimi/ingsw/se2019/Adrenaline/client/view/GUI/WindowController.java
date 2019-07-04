@@ -22,13 +22,13 @@ import java.io.IOException;
 import java.util.logging.Logger;
 /**
  *
- * The AlertBoxController is collect with javafx and initial the fxml scene and
+ * The WindowController is collect with javafx and initial the fxml scene and
  * use to collect other controller
  *
  * @author li xuejing
  *
  */
-public class AlertBoxController extends GUIController {
+public class WindowController extends GUIController {
 
     @FXML
     private TextArea textArea;

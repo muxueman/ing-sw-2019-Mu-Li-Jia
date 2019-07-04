@@ -5,7 +5,6 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
 import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
@@ -27,7 +26,6 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.EndGameException;
 //import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -423,7 +421,7 @@ public class MatchController {
 
 
     public void startTimer() {
-        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/config.json"))){
+        try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/Timer2.json"))){
             //Read the content of the file
             StringBuilder jsonIn = new StringBuilder();
             while(input.hasNextLine()) {

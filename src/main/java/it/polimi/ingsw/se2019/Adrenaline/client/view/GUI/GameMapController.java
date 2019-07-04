@@ -3,7 +3,6 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
 import javafx.animation.KeyFrame;
@@ -26,24 +25,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
  *
- * The MatchViewController class represents the controller
+ * The GameMapController class represents the controller
  * of the matchView.fxml file.
  *
  * @author li xuejing
  */
 
 
-public class MatchViewController extends GUIController{
+public class GameMapController extends GUIController{
 
     @FXML
     private AnchorPane root;
@@ -140,14 +137,14 @@ public class MatchViewController extends GUIController{
     private GUIController guiController;
 
     /**
-     * The constructor of the MatchViewController class.
+     * The constructor of the GameMapController class.
      *
      * @param boardStatus boardStatus from the server.
      * @param client clientController
      *
      */
 
-    public MatchViewController(ClientController client, BoardStatus boardStatus,boolean next){
+    public GameMapController(ClientController client, BoardStatus boardStatus, boolean next){
         this.boardStatus = boardStatus;
         this.next = next;
         this.client = client;
@@ -162,50 +159,8 @@ public class MatchViewController extends GUIController{
 
 
 
-    @FXML
-    @Override
-    public void guiLaunchTimer() {
-        try (Scanner input = new Scanner(MatchViewController.class.getResourceAsStream("/json/config.json"))){
-            //Read the content of the file
-            StringBuilder jsonIn = new StringBuilder();
-            while(input.hasNextLine()) {
-                jsonIn.append(input.nextLine());
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject rootFile = (JSONObject) parser.parse(jsonIn.toString());
-            JSONArray jsonArray = (JSONArray) rootFile.get("timer");
-            JSONObject cell = (JSONObject) jsonArray.get(0);
-            final int seconds = Integer.parseInt((String) cell.get("seconds"));
-            Platform.runLater(()->{
-                if (timeline != null) {
-                    timeline.stop();
-                }
-                timeSeconds = seconds;
-                timerLabel.setText(timeSeconds.toString());
-                timeline = new Timeline();
-                timeline.setCycleCount(Timeline.INDEFINITE);
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(1),
-                                event -> {
-                                    timeSeconds--;
-                                    timerLabel.setText(
-                                            timeSeconds.toString());
-                                    if (timeSeconds <= 0) {
-                                        notify("PASS");
-                                        textMessege.setText("");
-                                        endTurnButton.setVisible(false);
-                                        timeline.stop();
-                                    }
-                                }));
-                timeline.playFromStart();
-            });
-        } catch (Exception e) {
-            Logger.getGlobal().warning(e.getMessage());
-        }
-    }
-
     /**
-     * The initialize method is used to initialize the match view.
+     * The initialize method is used to initialize the game map
      */
 
 
@@ -216,7 +171,7 @@ public class MatchViewController extends GUIController{
         }
         addDraggableNode(root);
         closeButton.setOnAction( event ->  {
-            AlertBox.displayCloseRequest(this,root);
+            Window.displayCloseRequest(this,root);
             Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
         });
@@ -313,12 +268,12 @@ public class MatchViewController extends GUIController{
      * The choiceMapView method is used to show a new window
      * with the list of window pattern card.
      *
-     * @param matchViewController actual controller.
+     * @param gameMapController actual controller.
      */
     @FXML
-    private void choiceMapView(MatchViewController matchViewController) {
+    private void choiceMapView(GameMapController gameMapController) {
         try {
-            ChoiceMapController choiceMapController = new ChoiceMapController(boardStatus, matchViewController);
+            ChoiceMapController choiceMapController = new ChoiceMapController(boardStatus, gameMapController);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceMap.fxml"));
             loader.setController(choiceMapController);

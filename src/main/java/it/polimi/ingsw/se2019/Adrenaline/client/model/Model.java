@@ -7,21 +7,47 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 
-
+/**
+ *
+ * The Model class is used to keep an updatable copy of the game model
+ * (the state of the match) on the client.
+ *
+ * @author Riccardo Nembrini
+ *
+ */
 public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
     private BoardStatus boardStatus;
     private ModelUpdate nextUpdate;
+
+    /**
+     *
+     * The constructor creates a model that is a updatable copy of the game model.
+     *
+     */
+
 
     public Model() {
         boardStatus = null;
         nextUpdate = new ModelUpdate();
     }
 
+    /**
+     *
+     * The getBoardStatus method is used to get the actual status of the board.
+     * @return the status of the board.
+     *
+     */
     public BoardStatus getBoardStatus() {
         return boardStatus;
     }
 
+    /**
+     *
+     * set the board according to boardstatus
+     *
+     * @param board
+     */
     @Override
     //used for initial the board at the beginning
     public void setBoardStatus(Board board) {
@@ -29,6 +55,12 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         nextUpdate = new ModelUpdate(boardStatus);
     }
 
+    /**
+     *
+     * The updatePlayer method is used to update the local model.
+     * @param player is the new status of the player.
+     *
+     */
     @Override
     public void updatePlayer(Player player) {
         if (boardStatus.updatePlayer(player)) {
@@ -37,6 +69,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         }
         boardStatus.updatePlayer(player);
     }
+
 
     @Override
     public void updateSpawnLocation(Board board, it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
@@ -47,6 +80,10 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         updateAllPlayers(board);
     }
 
+    /**
+     * update the map information
+     * @param mapStatus
+     */
     @Override
     public void updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
         if (boardStatus.updateMap(mapStatus)) {
@@ -56,6 +93,12 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         boardStatus.updateMap(mapStatus);
     }
 
+    /**
+     *
+     * update the all player information
+     *
+     * @param board
+     */
     @Override
     public void updateAllPlayers(Board board) {
         if (boardStatus.updatePlayers(board)) {
@@ -64,7 +107,11 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         }
         boardStatus.updatePlayers(board);
     }
-
+    /**
+     *
+     * The updateSkull method use to update the skull number and the position
+     *
+     */
     @Override
     public void updateSkull(Board board) {
         if (boardStatus.updateDamageSkullBoard(board)) {
@@ -73,6 +120,13 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         }
         boardStatus.updateDamageSkullBoard(board);
     }
+
+    /**
+     *
+     * The updatePlayer method is used to update the local model.
+     * @param additionalStatus is a new additional status to update.
+     *
+     */
 
     @Override
     public void updateAdditional(AdditionalStatus additionalStatus) {
@@ -87,11 +141,22 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
         nextUpdate.addStatusUpdate(token);
     }
 
-
+    /**
+     *
+     * The pingUpdate method notifies the View telling that nothing
+     * has changed from the previous state (possibly useful for GUI).
+     *
+     */
     private void pingUpdate() {
         notify(new ModelUpdate(boardStatus));
     }
-
+    /**
+     *
+     * The pingUpdate method notifies the View telling that something
+     * has changed from the previous state.
+     * @param message is the string message to elaborate.
+     *
+     */
     @Override
     public void pingUpdate(String message) {
         if (nextUpdate.isEmpty() && !message.equals("")) {

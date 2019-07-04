@@ -5,12 +5,23 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * ShowBoardWeapons is to show all the weaponcard in board in three color position
+ *
+ * @author
+ */
 public class ShowBoardWeapons {
 
     private ArrayList<WeaponCard> weaponCardsB;
     private ArrayList<WeaponCard> weaponCardsR;
     private ArrayList<WeaponCard> weaponCardsY;
 
+    /**
+     *
+     * initial the weaponcard in board
+     * @param boardStatus
+     */
     public ShowBoardWeapons(BoardStatus boardStatus) {
         this.weaponCardsB = boardStatus.getWeaponsInCell().get(3);
         this.weaponCardsR = boardStatus.getWeaponsInCell().get(5);
