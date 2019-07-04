@@ -72,9 +72,9 @@ public class WalkState extends ControllerState {
                     if (!statusUpdates.isEmpty()) {
                         for (StatusUpdate statusUpdate : statusUpdates) {
                             statusUpdate.updateStatus(clientController.getModel());
-                            new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
                         }
                         clientController.getModel().pingUpdate(serverMessage.getMessage());
+                        new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
                         return new ActionSelectState(clientController, previousActions).initState();
                     } else {
                         clientController.reportError("no response from server!");

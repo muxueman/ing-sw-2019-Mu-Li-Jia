@@ -184,23 +184,28 @@ public class ActionSelectState extends ControllerState {
         if (selectedActions.contains(message)) {
             switch (message) {
                 case ("grab"):
+                    System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","grab"));
                     actionSelected = "grab";
                     break;
                 case ("run"):
+                    System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","run"));
                     actionSelected = "run";
                     break;
                 case ("shoot"):
+                    System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","shoot"));
                     actionSelected = "shoot";
                     break;
                 case ("end round"):
+                    System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end round"));
                     previousActions.add("end round");
                     actionSelected = "end round";
                     break;
                 case ("end turn"):
+                    System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end turn"));
                     actionSelected = "end turn";
                     break;
@@ -214,7 +219,7 @@ public class ActionSelectState extends ControllerState {
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
-        if (serverMessage.getMessage().equalsIgnoreCase("ACTIONSELECTED")){
+        if (serverMessage.isPlaying() && serverMessage.getMessage().equalsIgnoreCase("ACTIONSELECTED")){
             switch (actionSelected){
                 case "grab": return new GrabState(clientController, previousActions).initState();
                 case "shoot": return new ShootState(clientController, previousActions).initState();

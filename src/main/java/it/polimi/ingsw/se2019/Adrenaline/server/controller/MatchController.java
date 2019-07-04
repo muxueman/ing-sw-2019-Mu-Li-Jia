@@ -95,7 +95,7 @@ public class MatchController {
     public String getPlayerID(ClientInterface clientInterface){
         return players.get(clientInterface).getPlayerID();
     }
-
+    public Board getPlayBoard(){return playBoard;}
     public Player getCurrentPlayer(){return currentPlayer;}
     //************************************* initial part ****************************************
 

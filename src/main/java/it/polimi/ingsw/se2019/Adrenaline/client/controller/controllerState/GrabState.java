@@ -74,11 +74,11 @@ public class GrabState extends ControllerState {
                 if (serverMessage.getMessage().equalsIgnoreCase("GRAB")) {
                     List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
                     if (!statusUpdates.isEmpty()) {
-                        for (StatusUpdate statusUpdate : statusUpdates) {
-                            statusUpdate.updateStatus(clientController.getModel());
+                            for (StatusUpdate statusUpdate : statusUpdates) {
+                                statusUpdate.updateStatus(clientController.getModel());
+                            }
                             new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
-                        }
-                        clientController.getModel().pingUpdate(serverMessage.getMessage());
+                            clientController.getModel().pingUpdate(serverMessage.getMessage());
                         return new ActionSelectState(clientController, previousActions).initState();
                     } else {
                         clientController.reportError("no response from server!");

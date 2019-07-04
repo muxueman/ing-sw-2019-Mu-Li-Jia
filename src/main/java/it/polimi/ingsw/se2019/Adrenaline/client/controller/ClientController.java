@@ -100,7 +100,7 @@ public class ClientController implements ClientInterface, Observer<String> {
     @Override
     public synchronized void updateStatus(ServerMessage serverMessage) {
         state = state.updateStatus(serverMessage);
-        System.out.println(serverMessage);
+        System.out.println(serverMessage.getMessage());
     }
     public void checkConnection() throws RemoteException{};
 

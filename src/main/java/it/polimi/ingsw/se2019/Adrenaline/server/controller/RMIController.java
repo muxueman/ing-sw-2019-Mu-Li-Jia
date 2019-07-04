@@ -39,6 +39,7 @@ public class RMIController implements GameServerInterface, ServerController {
     @Override
     public GameServerInterface update(ClientMessage message, ClientInterface client) throws RemoteException {
         (new AsyncUpdate(message, client)).start();
+        System.out.println("receive message from client;" + message.getTextMove());
         return null;
     }
 
