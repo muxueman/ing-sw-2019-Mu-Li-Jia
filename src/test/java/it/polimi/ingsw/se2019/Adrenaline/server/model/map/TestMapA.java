@@ -27,13 +27,14 @@ public class TestMapA {
 
         testMapA.initialMap();
         ArrayList<Cell> cellA = testMapA.getAllCells();
-        Cell cellX = cellA.get(4);
+        Cell cellX = cellA.get(5);
         Cell cellY = cellA.get(1);
 
         Cell cellZ = cellA.get(2);
-
+        cellX.getCellColor();
         testMapA.checkDoor(cellX, cellY);
         testMapA.getCellsWithinRoom(cellX);
+
         testMapA.getAllVisibleCells(cellX);
         testMapA.getAllCells();
         testMapA.getCellsWithinRoom(Color.RED);
