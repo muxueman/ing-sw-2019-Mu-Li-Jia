@@ -20,7 +20,9 @@ public class ActionSelectState extends ControllerState {
 
     public ActionSelectState(ClientController clientController, ArrayList<String> previousActions) {
 
+
         super(clientController, "Please select an Action:\n");
+        actionMode = clientController.getModel().getBoardStatus().getPlayer(clientController.getPlayerID()).getActionMode();
         if (actionMode == 4) {
             numRound = 1;
         } else {
@@ -37,9 +39,11 @@ public class ActionSelectState extends ControllerState {
         }
     }
 
+    //only for test
+    public ArrayList<String> getPreviousActions(){return this.previousActions;}
     //need test!!!
-    protected String addChoice() {
-
+    public String addChoice() {
+        System.out.println(previousActions);
         while (currentRound <= numRound) {
             switch (actionMode) {
                 case 0:
@@ -64,13 +68,13 @@ public class ActionSelectState extends ControllerState {
                                             case "end round":
                                                 break;
                                             case "run":
-                                                if (previousActions.get(2) == null) {
+                                                if (previousActions.size() == 2) {
                                                     return "run,grab,end round";
                                                 }
                                                 break;
                                         }
                                     }
-                                } else if (previousActions.get(1) == null) {
+                                } else if (previousActions.size() == 1) {
                                     return "run,grab,end round";
                                 } else {
                                     switch (previousActions.get(1)) {
@@ -78,7 +82,7 @@ public class ActionSelectState extends ControllerState {
                                         case "end round":
                                             break;
                                         case "run":
-                                            if (previousActions.get(2) == null) {
+                                            if (previousActions.size() == 2) {
                                                 if (actionMode == 1) {
                                                     return "run,grab,end round";
                                                 }
@@ -95,7 +99,7 @@ public class ActionSelectState extends ControllerState {
                     break;
                 case 3:
                 case 4:
-                    if (previousActions.get(0) == null) {
+                    if (previousActions.size() == 0) {
                         return "run,grab,shoot,reload,end round";
                     } else {
                         switch (previousActions.get(0)) {
@@ -104,12 +108,12 @@ public class ActionSelectState extends ControllerState {
                             case "end round":
                                 break;
                             case "reload":
-                                if (previousActions.get(1) == null) {
+                                if (previousActions.size() == 1) {
                                     return "shoot,end round";
                                 }
                                 break;
                             case "run":
-                                if (previousActions.get(1) == null) {
+                                if (previousActions.size() == 1) {
                                     return "run,grab,shoot,reload,end round";
                                 } else {
                                     switch (previousActions.get(1)) {
@@ -118,13 +122,13 @@ public class ActionSelectState extends ControllerState {
                                         case "end round":
                                             break;
                                         case "reload":
-                                            if (previousActions.get(2) == null) {
+                                            if (previousActions.size() == 2) {
                                                 return "shoot,end round";
                                             }
                                             break;
                                         case "run":
                                             if (actionMode == 3) {
-                                                if (previousActions.get(2) == null) {
+                                                if (previousActions.size() == 2) {
                                                     return "run,grab,end round";
                                                 } else {
                                                     switch (previousActions.get(2)) {
@@ -132,7 +136,7 @@ public class ActionSelectState extends ControllerState {
                                                         case "end round":
                                                             break;
                                                         case "run":
-                                                            if (previousActions.get(3) == null) {
+                                                            if (previousActions.size() == 3) {
                                                                 return "run,end round";
                                                             }
                                                             break;
@@ -140,7 +144,7 @@ public class ActionSelectState extends ControllerState {
                                                 }
                                             }
                                             if (actionMode == 4) {
-                                                if (previousActions.get(2) == null) {
+                                                if (previousActions.size() == 2) {
                                                     return "run,grab,shoot,reload,end round";
                                                 } else {
                                                     switch (previousActions.get(2)) {
@@ -149,12 +153,12 @@ public class ActionSelectState extends ControllerState {
                                                         case "end round":
                                                             break;
                                                         case "reload":
-                                                            if (previousActions.get(3) == null) {
+                                                            if (previousActions.size() == 3) {
                                                                 return "shoot,end round";
                                                             }
                                                             break;
                                                         case "run":
-                                                            if (previousActions.get(3) == null) {
+                                                            if (previousActions.size() == 3) {
                                                                 return "grab,end round";
                                                             }
                                                             break;
@@ -168,8 +172,10 @@ public class ActionSelectState extends ControllerState {
                         }
                     }
                     currentRound += 1;
+                    //clientController.sendMessage("end of one turn");
                     break;
             }
+            this.previousActions = new ArrayList<>();
         }
         return "end turn";
     }
@@ -207,16 +213,18 @@ public class ActionSelectState extends ControllerState {
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage) {
-        //几乎没用 =@.@=
-        switch (actionSelected){
-            case "grab": return new GrabState(clientController, previousActions).initState();
-            case "shoot": return new ShootState(clientController, previousActions).initState();
-            case "run": return new WalkState(clientController, previousActions).initState();
-            case "end round": return new ActionSelectState(clientController, previousActions).initState();
-            case "end turn": return new ReloadState(clientController).initState();
+        if (serverMessage.getMessage().equalsIgnoreCase("ACTIONSELECTED")){
+            switch (actionSelected){
+                case "grab": return new GrabState(clientController, previousActions).initState();
+                case "shoot": return new ShootState(clientController, previousActions).initState();
+                case "run": return new WalkState(clientController, previousActions).initState();
+                case "end round": return new ActionSelectState(clientController, previousActions).initState();
+                case "reload": return new ReloadState(clientController, previousActions).initState();
+                case "end turn": return new ReloadState(clientController,previousActions).initState();
+            }
         }
+        clientController.reportError(serverMessage.getMessage());
         return this;
-
     }
 
 }

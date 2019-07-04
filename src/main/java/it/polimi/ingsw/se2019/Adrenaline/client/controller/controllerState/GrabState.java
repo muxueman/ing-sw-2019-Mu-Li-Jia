@@ -54,9 +54,10 @@ public class GrabState extends ControllerState {
             case ("1"):
             case ("2"):
             case ("3"):
+                System.out.println("update message weapons");
                 ClientMessage clientMessageB = new ClientMessage("GRABWEAPON", Integer.valueOf(message));
                 clientController.sendToServer(clientMessageB); // not success
-                return new ActionSelectState(clientController, previousActions).initState();
+                break;
             default:
                 clientController.reportError("not valid card!");
                 return this.initState();

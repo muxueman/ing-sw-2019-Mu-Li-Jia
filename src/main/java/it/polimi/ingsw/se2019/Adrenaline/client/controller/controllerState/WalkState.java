@@ -47,12 +47,14 @@ public class WalkState extends ControllerState {
                 clientMessage = new ClientMessage("WALK", 3);
                 break;
             default:
+                //clientMessage = null;
                 clientController.reportError("not valid direction");
                 return this;
         }
         clientController.sendToServer(clientMessage);
 //        return new WaitingResponseState()
-        return new ActionSelectState(clientController,previousActions).initState();
+//        return new ActionSelectState(clientController,previousActions).initState();
+        return this;
     }
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage){
