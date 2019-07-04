@@ -20,7 +20,7 @@ public class WalkState extends ControllerState {
     public WalkState(ClientController controller, ArrayList<String> previousActions,boolean isReload) {
         super(controller, "please select walk direction: 0.up 1.right 2.down 3.left");
         this.previousActions = previousActions;
-        this.previousActions.add("walk");
+        this.previousActions.add("run");
         this.isReload = isReload;
         this.currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
         System.out.println("cell id" + currentCell);
