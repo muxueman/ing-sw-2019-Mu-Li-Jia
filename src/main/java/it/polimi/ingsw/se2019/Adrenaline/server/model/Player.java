@@ -11,6 +11,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidReloadException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 import org.fusesource.jansi.Ansi;
 
@@ -87,6 +88,10 @@ public class Player implements Status {
     }
     public void setPlayerColor(Color color){
         playerColor = color;
+    }
+
+    public void setAmmoOwned(int[] ammoOwned) {
+        this.ammoOwned = ammoOwned;
     }
 
     public void setCurrentCell(Cell cell){
@@ -331,23 +336,37 @@ public class Player implements Status {
         return weaponInUse;
     }
 
-    public boolean reloadWeapon(WeaponCard weaponCard){
+    public boolean reloadWeapon(String weaponname) throws InvalidReloadException {
+        WeaponCard weaponCard = getWeaponFromName(weaponname);
+        if(weaponCard == null) throw new InvalidReloadException();
         int[] ammoCost = weaponCard.getBasicammoCost();
+
+        int[] historyAmmo = new int[]{ammoOwned[0], ammoOwned[1], ammoOwned[2]};
         int i = 0;
         while(i<3){
-            i++;
-            switch (ammoCost[i-1]){
+
+            switch (ammoCost[i]){
                 case 0: continue;
                 case 1:
-                    if(getAmmoOwned()[1] > 0) {getAmmoOwned()[1]--; break;}
-                    else return false;
+                    if(ammoOwned[0] == 0) {
+                        ammoOwned = historyAmmo;
+                        throw new InvalidReloadException();
+                    }
+                    ammoOwned[0]--; break;
                 case 2:
-                    if(getAmmoOwned()[2] > 0) {getAmmoOwned()[2]--; break;}
-                    else return false;
+                    if(ammoOwned[1] == 0) {
+                    ammoOwned = historyAmmo;
+                    throw new InvalidReloadException();
+                }
+                    ammoOwned[1]--; break;
                 case 3:
-                    if(getAmmoOwned()[3] > 0) {getAmmoOwned()[3]--; break;}
-                    else return false;
+                    if(ammoOwned[2] == 0) {
+                        ammoOwned = historyAmmo;
+                        throw new InvalidReloadException();
+                    }
+                    ammoOwned[2]--; break;
             }
+            i++;
         }
         weaponsOwned.put(weaponCard, true);
         return true;
@@ -358,7 +377,7 @@ public class Player implements Status {
 
     public WeaponCard getWeaponFromName(String weaponName){
         for(WeaponCard w : weaponsOwned.keySet()){
-            if(w.getCardName() == weaponName){
+            if(w.getCardName().equals(weaponName)){
                 return w;
             }
             else continue;

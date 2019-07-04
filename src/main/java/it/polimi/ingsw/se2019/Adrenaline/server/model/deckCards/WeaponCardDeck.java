@@ -46,6 +46,7 @@ public class WeaponCardDeck implements Serializable {
                 }
             }
         }
+        Collections.shuffle(weaponCards);
         colorDistributed();
     }
     public void colorDistributed(){

@@ -31,10 +31,11 @@ public class TurnHandler implements Serializable {
         orderedPlayers.addAll(invertedList);
     }
 
-    public void changeTurn(Board board) {
+    public Player changeTurn(Board board) {
         this.turn++;
         if(turn == board.getAllPlayers().size()) turn = 0;
         board.setCurrentPlayer(board.getAllPlayers().get(turn));
+        return board.getCurrentPlayer();
     }
 
     public List<Player> getPlayers() {
