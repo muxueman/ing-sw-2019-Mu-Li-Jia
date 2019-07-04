@@ -35,7 +35,7 @@ public class TestActionSelectState {
 
 
         //
-        ActionSelectState a = new ActionSelectState(client,new ArrayList<>());
+        ActionSelectState a = new ActionSelectState(client,new ArrayList<>(),false);
         System.out.println(a.getPreviousActions());
         System.out.println(a.addChoice());
 

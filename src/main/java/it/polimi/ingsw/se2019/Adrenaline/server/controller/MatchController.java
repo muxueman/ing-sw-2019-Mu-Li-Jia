@@ -377,10 +377,7 @@ public class MatchController {
     }
     //pass to next player
     private synchronized void nextPlayer() throws EndGameException {
-        //currentPlayer = turnHandler.nextTurn();
-        //if (turnHandler.isNewRound()) {
-        //refreshDraftPool();
-        //}
+         currentPlayer = turnHandler.changeTurn(playBoard);
     }
 
     private void endGame(boolean lessPlayer) {
