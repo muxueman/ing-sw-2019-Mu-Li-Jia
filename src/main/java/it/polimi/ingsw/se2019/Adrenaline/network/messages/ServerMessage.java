@@ -71,6 +71,7 @@ public class ServerMessage implements Serializable {
     }
 
     public ServerMessage(boolean playing, String message, Integer parameter) {
+        error = false;
         this.playing = playing;
         this.message = message;
         this.parameter = parameter;
