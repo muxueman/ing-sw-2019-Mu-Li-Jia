@@ -42,7 +42,7 @@ public class ShowWeaponCard {
             case 0: System.out.println("you have no Weapon Cards!");break;
             case 1:
                 st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-                st.setHeaders("weapon",weaponCards.get(0).getCardName());//optional - if not used then there will be no header and horizontal lines
+                st.addRow("weapon",weaponCards.get(0).getCardName());//optional - if not used then there will be no header and horizontal lines
               //  st.addRow("ammo cost [red,blue,yellow]", String.valueOf(weaponCards.get(0).getBasicammoCost()[0])+ String.valueOf(weaponCards.get(0).getBasicammoCost()[1])+ String.valueOf(weaponCards.get(0).getBasicammoCost()[2]));
                 //st.addRow("basic effect", weaponCards.get(0).getBasicEffect());
               //  st.addRow("special effect", weaponCards.get(0).getSpecialEffectName().toString());
@@ -50,7 +50,7 @@ public class ShowWeaponCard {
                 break;
             case 2:
                 st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-                st.setHeaders("weapon",weaponCards.get(0).getCardName(),weaponCards.get(1).getCardName());//optional - if not used then there will be no header and horizontal lines
+                st.addRow("weapon",weaponCards.get(0).getCardName(),weaponCards.get(1).getCardName());//optional - if not used then there will be no header and horizontal lines
                // st.addRow("ammo cost [red,blue,yellow]", weaponCards.get(0).getBasicammoCost().toString(), weaponCards.get(1).getBasicammoCost().toString());
                 //st.addRow("basic effect", weaponCards.get(0).getBasicEffect(), weaponCards.get(1).getBasicEffect());
               //  st.addRow("special effect", weaponCards.get(0).getSpecialEffectName().toString(),weaponCards.get(1).getSpecialEffectName().toString());
@@ -58,7 +58,7 @@ public class ShowWeaponCard {
                 break;
             case 3:
                 st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-                st.setHeaders("weapon",weaponCards.get(0).getCardName());//optional - if not used then there will be no header and horizontal lines
+                st.addRow("weapon",weaponCards.get(0).getCardName());//optional - if not used then there will be no header and horizontal lines
                // st.addRow("ammo cost [red,blue,yellow]", weaponCards.get(0).getBasicammoCost().toString(), weaponCards.get(1).getBasicammoCost().toString(),weaponCards.get(2).getCardName());
                 //st.addRow("basic effect", weaponCards.get(0).getBasicEffect(), weaponCards.get(1).getBasicEffect(), weaponCards.get(2).getBasicEffect());
               //  st.addRow("special effect", weaponCards.get(0).getSpecialEffectName().toString(),weaponCards.get(1).getSpecialEffectName().toString(),weaponCards.get(2).getSpecialEffectName().toString());

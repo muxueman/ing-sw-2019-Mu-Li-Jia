@@ -26,6 +26,7 @@ public class ShootState extends ControllerState {
     public ShootState(ClientController controller, ArrayList<String> previousActions){
         super(controller, "please select your weapon cards: ");
         this.previousActions = previousActions;
+        previousActions.add("shoot");
         messageUpadateTimes = 0;
         new ShowWeaponCard(controller.getModel().getBoardStatus().getPlayer(controller.getPlayerID()).getWeaponsOwned());
 
@@ -52,19 +53,18 @@ public class ShootState extends ControllerState {
             clientController.reportError(serverMessage.getMessage());
         } else {
             if (serverMessage.isPlaying()) {
-                if (serverMessage.getMessage().equalsIgnoreCase("SHOOT")) {
-                    List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
-                    if (!statusUpdates.isEmpty()) {
-                        for (StatusUpdate statusUpdate : statusUpdates) {
-                            statusUpdate.updateStatus(clientController.getModel());
-                            new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
-                        }
-                        clientController.getModel().pingUpdate(serverMessage.getMessage());
-                        return new ActionSelectState(clientController, previousActions).initState();
-                    } else {
-                        clientController.reportError("no response from server!");
-                    }
+                switch (serverMessage.getMessage()) {
+                    case "TARGET":
+                        clientController.sendMessage(serverMessage.getSubParameter());
+                        return this;
+                    default:
+                        clientController.reportError("cannot parse shoot message from server");
+                        return this;
                 }
+            }
+            else {
+                clientController.reportError("no response from server!");
+
             }
         }
         return this;

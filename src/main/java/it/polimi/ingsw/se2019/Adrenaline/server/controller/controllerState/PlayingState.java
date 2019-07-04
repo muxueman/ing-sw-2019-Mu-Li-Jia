@@ -75,7 +75,7 @@ public class PlayingState implements GameServerInterface {
                     System.out.println(message.getMainParam());
                     run.ActionRun(message.getMainParam());
                     ServerMessage messagewalkSucc = new ServerMessage(true, "WALK");
-                    messagewalkSucc.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                    messagewalkSucc.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                     client.updateStatus(messagewalkSucc);
                     ServerMessage serverMessage4 = new ServerMessage(false,"UPDATE");
                     serverMessage4.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
@@ -90,18 +90,18 @@ public class PlayingState implements GameServerInterface {
                 return this;
             case "RELOAD":
 
-
+                //todo
                 ServerMessage serverMessage5 = new ServerMessage(false,"UPDATE");
-                serverMessage5.addStatusUpdate(new BoardUpdate(matchController.getPlayBoard()));
-                serverMessage5.addStatusUpdate(new MapUpdate(matchController.getPlayBoard().getMap()));
+                serverMessage5.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                 matchController.updateNotCurrentPlayer(serverMessage5);
                 return this;
             case "SHOOT":
                 matchController.getCurrentPlayer().useWeapon(message.getMainParamS());
                 ActionShoot shoot = new ActionShoot(matchController.getCurrentPlayer());
-                ServerMessage messageShootTarget = new ServerMessage(true, shoot.getTargetNameBasic());
-                messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
-                ShootState shootState = new ShootState(matchController, client);
+                ServerMessage messageShootTarget = new ServerMessage(true, "TARGET",shoot.getTargetNameBasic());
+                client.updateStatus(messageShootTarget);
+                //messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                ShootState shootState = new ShootState(matchController, client,this);
                 shootState.setShoot(shoot);
                 return shootState;
             default:

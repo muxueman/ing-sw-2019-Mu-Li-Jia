@@ -18,9 +18,11 @@ import java.util.logging.Logger;
 public class ShootState implements GameServerInterface {
     private ActionShoot shoot;
     private MatchController matchController;
+    private GameServerInterface previousState;
 
-    public ShootState(MatchController matchController, ClientInterface client) throws RemoteException {
+    public ShootState(MatchController matchController, ClientInterface client, GameServerInterface previouState) throws RemoteException {
         this.matchController = matchController;
+        this.previousState = previouState;
         Logger.getGlobal().log(Level.INFO, " shoot state: ", matchController.getCurrentPlayer().getUserName());
         //client.updateStatus(new PlayMessage());
     }

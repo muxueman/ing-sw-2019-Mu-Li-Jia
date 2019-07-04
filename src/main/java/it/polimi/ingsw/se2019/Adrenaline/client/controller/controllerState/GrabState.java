@@ -33,8 +33,15 @@ public class GrabState extends ControllerState {
             this.weaponCards = clientController.getModel().getBoardStatus().getWeaponsInCell().get(currentCell);
             CommandLineTable st = new CommandLineTable("\u001b[1;32m","\u001b[1;31m");
             st.setShowVerticalLines(true);
-            st.addRow("Weapon Cards",weaponCards.get(0).getCardName(),weaponCards.get(1).getCardName(),weaponCards.get(2).getCardName());
-            st.print();
+            int length = weaponCards.size();
+            switch (length){
+                case 1: st.addRow("Weapon Cards",weaponCards.get(0).getCardName());st.print();break;
+                case 2: st.addRow("Weapon Cards",weaponCards.get(0).getCardName(),weaponCards.get(1).getCardName());st.print();break;
+                case 3: st.addRow("Weapon Cards",weaponCards.get(0).getCardName(),weaponCards.get(1).getCardName(),weaponCards.get(2).getCardName());st.print();break;
+                case 0:
+                default:
+                    clientController.sendMessage("no weapon cards for you to grab");break;
+            }
         }else{
             this.ammotileCard = clientController.getModel().getBoardStatus().getAmmotilesInCell().get(currentCell);
             clientController.sendMessage(ammotileCard.getContent());
