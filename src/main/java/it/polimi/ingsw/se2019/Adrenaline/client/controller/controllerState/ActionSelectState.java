@@ -336,7 +336,7 @@ public class ActionSelectState extends ControllerState {
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end round"));
                     previousActions.add("end round");
                     actionSelected = "end round";
-                    return this.initState();
+                    return new ActionSelectState(clientController,previousActions,isReload);
                 case ("end turn"):
                     System.out.println("send message action selected: " + message);
                     clientController.sendToServer(new ClientMessage("SELECTEDACTION","end turn"));
@@ -357,7 +357,7 @@ public class ActionSelectState extends ControllerState {
                 case "grab": return new GrabState(clientController, previousActions,isReload).initState();
                 case "shoot": return new ShootState(clientController, previousActions,isReload).initState();
                 case "run": return new WalkState(clientController, previousActions,isReload).initState();
-                case "end round": return new ActionSelectState(clientController, previousActions,isReload).initState();
+                //case "end round": return new ActionSelectState(clientController, previousActions,isReload).initState();
                 case "reload": return new ReloadState(clientController, previousActions).initState();
                 case "end turn": return new NonPlayingState(clientController).initState();
             }
