@@ -16,7 +16,12 @@ public class MapC extends Map{
     public MapC (){
         super();
     }
-
+    /**
+     *
+     * The initialMap is to initial information for map
+     *
+     *
+     */
     //initial information for Map
     @Override
     public void initialMap(){

@@ -5,7 +5,14 @@ import com.google.gson.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ *
+ * This weaponCardDeck is use to use Gson to verify the messege and get info about all the
+ * WeaponCards , and collect it to the json file
+ *
+ * @author li xuejing
+ *
+ */
 
 public class WeaponCardDeck implements Serializable {
 

@@ -8,6 +8,13 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
 
+/**
+ *
+ * View is an abstract class extended by every type of view used on the client.
+ * It groups the methods that can be called on the view.
+ *
+ * @author li xuejing
+ */
 
 public abstract class View extends Observable<String> implements Observer<ModelUpdate> {
 

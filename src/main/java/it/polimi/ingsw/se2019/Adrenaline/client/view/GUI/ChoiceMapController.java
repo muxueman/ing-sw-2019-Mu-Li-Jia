@@ -9,6 +9,15 @@ import javafx.stage.Stage;
 
 import java.util.logging.Logger;
 
+/**
+ *
+ * The ChoiceMapController is to let the user choose the map he like
+ * and choose a killshootnum for next matchview
+ *
+ * @author  li xuejing
+ *
+ */
+
 public class ChoiceMapController extends GUIController{
 
 
@@ -42,6 +51,13 @@ public class ChoiceMapController extends GUIController{
         this.matchViewController = matchViewController;
     }
 
+    /**
+     *
+     * The initialize is to setup the choicemap scenes
+     *and the button is for the killshootnum
+     *
+     *
+     */
     public void initialize(){
 
         addDraggableNode(root);
@@ -59,6 +75,13 @@ public class ChoiceMapController extends GUIController{
 
     }
 
+    /**
+     *
+     *choose the map you want to choose and through the matchviewcontroller to
+     * notify the update messege
+     *
+     */
+
     public void checkMap(MatchViewController matchViewController) {
 
         mapAbutton.setOnAction(event -> matchViewController.notify("1"));
@@ -68,6 +91,14 @@ public class ChoiceMapController extends GUIController{
 
 
     }
+
+    /**
+     *
+     * checkChoice use for initial methods and give the killshootnum
+     * and then close the scene
+     *
+     * @param killshootnum
+     */
     private void checkChoice(int killshootnum) {
         if (killshootnum >=5 && killshootnum <= 8) {
             matchViewController.notify(Integer.toString(killshootnum));

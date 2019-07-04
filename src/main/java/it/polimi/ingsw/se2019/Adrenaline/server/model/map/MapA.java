@@ -17,8 +17,12 @@ public class MapA extends Map{
     public MapA (){
         super();
     }
-
-    //inital information for Map
+    /**
+     *
+     * The initialMap is to initial information for map
+     *
+     *
+     */
     @Override
     public void initialMap(){
         this.totalCellNum = 10;

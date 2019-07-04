@@ -17,7 +17,12 @@ public class MapD extends Map{
     public MapD (){
         super();
     }
-
+    /**
+     *
+     * The initialMap is to initial information for map
+     *
+     *
+     */
     //inital information for Map
     @Override
     public void initialMap(){

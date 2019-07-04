@@ -34,6 +34,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/**
+ *
+ * The MatchViewController class represents the controller
+ * of the matchView.fxml file.
+ *
+ * @author li xuejing
+ */
+
+
 public class MatchViewController extends GUIController{
 
     @FXML
@@ -130,6 +139,14 @@ public class MatchViewController extends GUIController{
     private PlayerBoardController playerBoardController;
     private GUIController guiController;
 
+    /**
+     * The constructor of the MatchViewController class.
+     *
+     * @param boardStatus boardStatus from the server.
+     * @param client clientController
+     *
+     */
+
     public MatchViewController(ClientController client, BoardStatus boardStatus,boolean next){
         this.boardStatus = boardStatus;
         this.next = next;
@@ -187,7 +204,9 @@ public class MatchViewController extends GUIController{
         }
     }
 
-
+    /**
+     * The initialize method is used to initialize the match view.
+     */
 
 
     @FXML
@@ -218,6 +237,10 @@ public class MatchViewController extends GUIController{
 
     }
 
+    /**
+     * setPlayerInfo is to set everyPlayer who play in game some information at scene
+     * @param boardStatus
+     */
 
     @FXML
     public void setPlayerInfo(BoardStatus boardStatus){
@@ -263,7 +286,12 @@ public class MatchViewController extends GUIController{
         }
     }
 
-
+    /**
+     * the methods set PlayerBoard is use to collect the playerboardcontroller
+     *
+     * @param anchorPaneNeed
+     * @param color
+     */
 
     @FXML//need to collect the playerBoardController
     public void setPlayerBoard(AnchorPane anchorPaneNeed,String color){
@@ -281,7 +309,12 @@ public class MatchViewController extends GUIController{
 
     }
 
-
+    /**
+     * The choiceMapView method is used to show a new window
+     * with the list of window pattern card.
+     *
+     * @param matchViewController actual controller.
+     */
     @FXML
     private void choiceMapView(MatchViewController matchViewController) {
         try {
@@ -308,7 +341,12 @@ public class MatchViewController extends GUIController{
 //
 //    }
 
-
+    /**
+     * set the weaponcard red blue and yellow
+     *
+     * @param boardStatus
+     * @param gridPane
+     */
 
     //initial every weapon gridpane three weaponCard
     @FXML
@@ -333,6 +371,13 @@ public class MatchViewController extends GUIController{
 
     }
 
+    /**
+     * initial the game map give every cell which need ammotilecard
+     *
+     * @param boardStatus
+     * @param gridPane
+     */
+
     @FXML
     public void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
         int count = 1;
@@ -353,6 +398,13 @@ public class MatchViewController extends GUIController{
 
     }
 
+    /**
+     *
+     * to set the player collect to the player image to show in gui
+     *
+     * @param imageView
+     * @param color
+     */
     @FXML//用颜色代表每一个player 与 playerBoard 连接
     private void setPlayerColor(ImageView imageView,String color){
         switch(color){
@@ -378,7 +430,16 @@ public class MatchViewController extends GUIController{
         }
     }
 
-    @FXML//两个卡牌都可能会消失 有bug还没解决
+    /**
+     *
+     * to give two powerupcard to player let them choose which card want drop
+     * and make the card unvisible
+     *
+     * @param boardStatus
+     * @param gridPane
+     */
+
+    @FXML
     public void setPlayerOwnPowerupCard(BoardStatus boardStatus,GridPane gridPane){
 
         ArrayList<PowerupCard> powerupsOwn = boardStatus.getPlayer(client.getPlayerID()).getPowerupsOwned();
@@ -418,6 +479,12 @@ public class MatchViewController extends GUIController{
         }
     }
 
+    /**
+     *
+     * use for to update the messege
+     *
+     * @param message part of the model to be updated.
+     */
 
     @Override
     public void update(ModelUpdate message) {
@@ -437,8 +504,12 @@ public class MatchViewController extends GUIController{
     }
 
 
-
-
+    /**
+     *
+     * to showMessage to the client controller
+     *
+     * @param message message to display.
+     */
 
     @Override
     public void showMessage(String message) {
@@ -469,6 +540,12 @@ public class MatchViewController extends GUIController{
 
 
     }
+
+    /**
+     *
+     *show the errorArea the error message
+     * @param error error to display.
+     */
 
     @Override
     public void reportError(String error) {

@@ -9,6 +9,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+/**
+ *
+ * The PlayerBoardController class represents the controller
+ * of the PlayerBoard.fxml file.
+ *
+ * @author li xuejing
+ */
+
 public class PlayerBoardController extends GUIController {
 
     @FXML
@@ -44,6 +52,13 @@ public class PlayerBoardController extends GUIController {
         addDraggableNode(playerChild);
         setPlayerImage(boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor());
     }
+
+    /**
+     *
+     * set the playerboard every color collect a image
+     *
+     * @param color
+     */
 
     @FXML
     public void setPlayerImage(String color) {

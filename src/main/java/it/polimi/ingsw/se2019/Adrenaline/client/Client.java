@@ -11,9 +11,25 @@ import java.util.Scanner;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
+/**
+ *
+ * The Client class is the representation of a client.
+ * @author Xueman Mu
+ *
+ */
+
 public class Client {
 
     //choose to play with cli or gui
+
+    /**
+     *
+     * The chooseView method is used to ask to the user if he want to play with the CLI
+     * or with the GUI.
+     * @param input is a string containing the user's answer.
+     * @return true if the decision is done, false if not.
+     *
+     */
     private static boolean chooseView(String input) {
         if (input.equalsIgnoreCase("cli") || input.equalsIgnoreCase("c")) {
             new ClientController(new CLIView(System.out));

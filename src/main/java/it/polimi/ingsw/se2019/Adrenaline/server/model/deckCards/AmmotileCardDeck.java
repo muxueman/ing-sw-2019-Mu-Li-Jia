@@ -5,7 +5,14 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ *
+ * This ammotileCardDeck is use to use Gson to verify the messege and get info about all the
+ * AmmotileCards , and collect it to the json file
+ *
+ * @author li xuejing
+ *
+ */
 
 public class AmmotileCardDeck implements Serializable {
 

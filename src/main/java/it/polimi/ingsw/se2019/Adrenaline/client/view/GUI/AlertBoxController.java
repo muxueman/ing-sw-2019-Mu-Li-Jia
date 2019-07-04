@@ -20,7 +20,14 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-
+/**
+ *
+ * The AlertBoxController is collect with javafx and initial the fxml scene and
+ * use to collect other controller
+ *
+ * @author li xuejing
+ *
+ */
 public class AlertBoxController extends GUIController {
 
     @FXML
@@ -63,7 +70,13 @@ public class AlertBoxController extends GUIController {
 
     private boolean next;
 
-
+    /**
+     *
+     * The initialize is use to initial the scene
+     * and you can choose the closeButton to out the game any time
+     *
+     *
+     */
 
 
     public void initialize(){
@@ -74,7 +87,11 @@ public class AlertBoxController extends GUIController {
         });
     }
 
-
+    /**
+     *
+     * The setCloseButton is use to close the scene you want to close
+     *
+     */
 
     public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
         closeButton.setOnAction(event -> {
@@ -83,7 +100,11 @@ public class AlertBoxController extends GUIController {
             stage.close();
         });
     }
-
+    /**
+     *
+     * The setNewGameButton is use to start other new game collect to the new initialView.fxml
+     *
+     */
     public void setNewGameButton(AnchorPane anchorPane) {
         newGameButton.setOnAction(event -> {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -135,15 +156,15 @@ public class AlertBoxController extends GUIController {
 
         buttonTwo.setOnAction(value);
     }
-
-    public void setChoiceBox() {
-        choiceBox.getItems().add("violet");
-        choiceBox.getItems().add("sprog");
-        choiceBox.getItems().add("banshee");
-        choiceBox.getItems().add("d-struct-or");
-        choiceBox.getItems().add("dozer");
-        choiceBox.setValue("violet");
-    }
+//
+//    public void setChoiceBox() {
+//        choiceBox.getItems().add("violet");
+//        choiceBox.getItems().add("sprog");
+//        choiceBox.getItems().add("banshee");
+//        choiceBox.getItems().add("d-struct-or");
+//        choiceBox.getItems().add("dozer");
+//        choiceBox.setValue("violet");
+//    }
 
     public String getChoiceBoxValue(){
         return choiceBox.getValue();

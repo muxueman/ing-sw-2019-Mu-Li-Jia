@@ -16,6 +16,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ *
+ * The GUIController is an abstract class that have all the
+ * common methods of all the javafx views
+ *
+ * @author li xuejing
+ *
+ */
+
+
 public abstract class GUIController {
 
     protected GUIView guiView = null;
@@ -24,6 +34,12 @@ public abstract class GUIController {
     protected ClientController client;
     protected BoardStatus boardStatus;
 
+    /**
+     * The addDraggableNode method is used to permit
+     * a node to be draggable.
+     *
+     * @param node chosen node to be draggable.
+     */
 
     public void addDraggableNode(final Node node) {
 
@@ -169,6 +185,12 @@ public abstract class GUIController {
         guiView.notify(message);
     }
 
+    /**
+     * The close method is used to close the stage.
+     *
+     * @param anchorPane root.
+     */
+
     protected void close(AnchorPane anchorPane) {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
@@ -177,13 +199,31 @@ public abstract class GUIController {
         System.exit(0);
     }
 
+    /**
+     * The update method is used to update the gui.
+     *
+     * @param message part of the model to be updated.
+     */
+
+
     public void update(ModelUpdate message) {
         this.boardStatus = message.getBoardStatus();
     }
 
+    /**
+     * The guiValue method is used to get the value needed for a toolcard.
+     */
+
+
     public void guiValue() {
         // only used by MatchViewController
     }
+
+    /**
+     * The showRanking method is used to show the ranking.
+     *
+     * @param myscore ranking to display.
+     */
 
     public void showRanking(Player myscore) {
         //Implemented only by MatchViewController

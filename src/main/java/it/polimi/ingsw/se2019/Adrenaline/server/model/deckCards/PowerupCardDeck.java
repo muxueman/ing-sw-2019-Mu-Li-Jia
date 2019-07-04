@@ -6,6 +6,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ *
+ * This powerupCardDeck is use to use Gson to verify the messege and get info about all the
+ * powerupCards , and collect it to the json file
+ *
+ * @author li xuejing
+ *
+ */
 
 public class PowerupCardDeck implements Serializable {
 
