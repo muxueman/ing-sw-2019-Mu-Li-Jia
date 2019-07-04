@@ -123,10 +123,12 @@ public class MatchViewController extends GUIController{
 
 
     private boolean next;
+    private boolean visible = false;
 
     private Timeline timeline;
     private Integer timeSeconds;
     private PlayerBoardController playerBoardController;
+    private GUIController guiController;
 
     public MatchViewController(ClientController client, BoardStatus boardStatus,boolean next){
         this.boardStatus = boardStatus;
@@ -222,11 +224,11 @@ public class MatchViewController extends GUIController{
         List<PlayerStatus> playerList = new ArrayList<>();
         playerList = boardStatus.getAllPlayers();
         int size = playerList.size();
-        if(playerList.size()<4){
+        if(size < 4){
             player3Name.setVisible(false);
             player3Score.setVisible(false);
             player3.setVisible(false);
-            if(playerList.size()<5){
+            if(size < 5){
                 player4Name.setVisible(false);
                 player4Score.setVisible(false);
                 player4.setVisible(false);
@@ -237,33 +239,41 @@ public class MatchViewController extends GUIController{
             switch(i){
                 case 0:
                     selfPlayerName.setText(playerList.get(0).getUsername());
-                    setPlayerBoard(selfPlayer);break;
+                    Logger.getGlobal().info(playerList.get(0).getPlayerColor().getColor());
+                    setPlayerBoard(selfPlayer,playerList.get(0).getPlayerColor().getColor());
+                    break;
                 case 1:
                     player1Name.setText(playerList.get(1).getUsername());
-                    setPlayerBoard(player1);break;
+                    Logger.getGlobal().info(playerList.get(1).getPlayerColor().getColor());
+                    setPlayerBoard(player1,playerList.get(1).getPlayerColor().getColor());
+                    break;
                 case 2:
                     player2Name.setText(playerList.get(2).getUsername());
-                    setPlayerBoard(player2);break;
+                    setPlayerBoard(player2,playerList.get(2).getPlayerColor().getColor());
+                    break;
                 case 3:
                     player3Name.setText(playerList.get(3).getUsername());
-                    setPlayerBoard(player3);break;
+                    setPlayerBoard(player3,playerList.get(3).getPlayerColor().getColor());
+                    break;
                 case 4:
                     player4Name.setText(playerList.get(4).getUsername());
-                    setPlayerBoard(player4);break;
+                    setPlayerBoard(player4,playerList.get(4).getPlayerColor().getColor());
+                    break;
             }
         }
     }
 
 
+
     @FXML//need to collect the playerBoardController
-    public void setPlayerBoard(AnchorPane anchorPaneNeed){
+    public void setPlayerBoard(AnchorPane anchorPaneNeed,String color){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = loader.load();
             anchorPaneNeed.getChildren().add(anchorPane);
-            this.playerBoardController = new PlayerBoardController();
-            playerBoardController.initialize();
-
+            this.playerBoardController = new PlayerBoardController(client,boardStatus,next);
+            playerBoardController.setPlayerImage(color);
+            Logger.getGlobal().info(color);
 
         }catch (IOException e){
             Logger.getGlobal().warning(e.getCause().toString());
@@ -344,12 +354,19 @@ public class MatchViewController extends GUIController{
     }
 
     @FXML//用颜色代表每一个player 与 playerBoard 连接
-    private void setPlayerColor(BoardStatus boardStatus){
-       String playerColor = boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor();
-       switch (playerColor){
-           case "YELLOW":
-
-       }
+    private void setPlayerColor(ImageView imageView,String color){
+        switch(color){
+            case "YELLOW":
+                imageView.setImage(new Image("/player/小黄（d-struct-or）.jpg"));
+            case "PINK":
+                imageView.setImage(new Image("/player/小紫（violet）.jpg"));
+            case "GREEN":
+                imageView.setImage(new Image("/player/小绿（sprog）.jpg"));
+            case "BLUE":
+                imageView.setImage(new Image("/player/小蓝（banshee）.jpg"));
+            case "white":
+                imageView.setImage(new Image("/player/小黑（dozer）.jpg"));
+        }
     }
 
 
@@ -357,15 +374,12 @@ public class MatchViewController extends GUIController{
     //about initial the game give two powerupcard to choose one discard and relive in that card's color cell
     @FXML
     public void setPlayerRelivePosition(BoardStatus boardStatus,GridPane gridPane){
-
-
-
-
-
+        for(int i = 0;i < 3;i++ ){
+        }
     }
 
     @FXML//两个卡牌都可能会消失 有bug还没解决
-    public void setPlayerOwnCard(BoardStatus boardStatus,GridPane gridPane){
+    public void setPlayerOwnPowerupCard(BoardStatus boardStatus,GridPane gridPane){
 
         ArrayList<PowerupCard> powerupsOwn = boardStatus.getPlayer(client.getPlayerID()).getPowerupsOwned();
         int size = powerupsOwn.size();
@@ -378,13 +392,18 @@ public class MatchViewController extends GUIController{
                         textMessege.setText("");
                         errorArea.setText("");
                         notify(powerupsOwn.get(chooseI).getCardName());
-                        (gridPane.getChildren().get(chooseI)).setVisible(false);
-
+                        (gridPane.getChildren().get(chooseI)).setVisible(visible);
+                        disable();
                     }
                 )
             );
         }
 
+
+    }
+
+    private void disable() {
+        visible = true;
 
     }
 
@@ -410,7 +429,7 @@ public class MatchViewController extends GUIController{
                 setWeaponYCard(boardStatus,weaponY);
                 setWeaponBCard(boardStatus,weaponB);
                 setAmmoCardInMap(boardStatus,pickAmmoCard);
-                setPlayerOwnCard(boardStatus,currentPowerupCard);
+                setPlayerOwnPowerupCard(boardStatus,currentPowerupCard);
 
             });
         }

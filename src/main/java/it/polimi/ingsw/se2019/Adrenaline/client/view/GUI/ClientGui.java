@@ -12,6 +12,7 @@ import javafx.stage.Stage;
  * The clientGui class launch the gui.
  *
  * @author Li xuejing
+ *
  */
 
 public class ClientGui extends Application {
