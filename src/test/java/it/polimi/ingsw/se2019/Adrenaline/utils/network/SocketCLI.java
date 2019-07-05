@@ -1,4 +1,4 @@
-package it.polimi.ingsw.se2019.Adrenaline.network;
+package it.polimi.ingsw.se2019.Adrenaline.utils.network;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.CLIView;
