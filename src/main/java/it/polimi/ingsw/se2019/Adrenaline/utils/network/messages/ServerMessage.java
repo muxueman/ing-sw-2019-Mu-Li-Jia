@@ -245,7 +245,7 @@ public class ServerMessage implements Serializable {
     public void addStatusUpdate(StatusUpdate... statusUpdates) {
         for (StatusUpdate statusUpdate : statusUpdates) {
             if (statusUpdate != null) {
-                this.statusUpdates.add(statusUpdate);
+                              this.statusUpdates.add(statusUpdate);
             }
         }
     }

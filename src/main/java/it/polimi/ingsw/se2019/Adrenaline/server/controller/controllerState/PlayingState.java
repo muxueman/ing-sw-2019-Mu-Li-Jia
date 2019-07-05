@@ -102,9 +102,9 @@ public class PlayingState implements GameServerInterface {
             case "SHOOT":
                 matchController.getCurrentPlayer().useWeapon(message.getMainParamS());
                 ActionShoot shoot = new ActionShoot(matchController.getCurrentPlayer());
-                ServerMessage messageShootTarget = new ServerMessage(true, "TARGET", shoot.getTargetNameBasic());
+                ServerMessage messageShootTarget = new ServerMessage(true, "TARGET BASIC", shoot.getTargetNameBasic());
                 client.updateStatus(messageShootTarget);
-                messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+//                messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                 ShootState shootState = new ShootState(matchController, client,this);
                 shootState.setShoot(shoot);
                 return shootState;

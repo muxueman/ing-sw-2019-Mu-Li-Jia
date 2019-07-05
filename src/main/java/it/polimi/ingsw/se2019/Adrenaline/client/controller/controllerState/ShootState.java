@@ -53,9 +53,14 @@ public class ShootState extends ControllerState {
                 switch (serverMessage.getMessage()) {
                     case "TARGET BASIC":
                         clientController.sendMessage(serverMessage.getSubParameter());
-                        if(serverMessage.getParm() == 0) return new ActionSelectState(clientController, previousActions,isReload).initState();
-                        else return this;
+                        return this;
                     case "TARGET MOVE":
+                        clientController.sendMessage(serverMessage.getSubParameter());
+                        return this;
+                    case "TARGET ATTACK":
+                        clientController.sendMessage(serverMessage.getSubParameter());
+                        return new ActionSelectState(clientController, previousActions,isReload).initState();
+                    case "MOVED":
                         clientController.sendMessage(serverMessage.getSubParameter());
                         return new ActionSelectState(clientController, previousActions,isReload).initState();
                     default:

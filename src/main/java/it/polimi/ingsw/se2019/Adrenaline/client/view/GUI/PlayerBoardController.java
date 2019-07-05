@@ -46,7 +46,7 @@ public class PlayerBoardController extends GUIController {
     }
 
     public void initialize(){
-        addDraggableNode(playerChild);
+        addFrameNode(playerChild);
         setPlayerImage(boardStatus.getPlayer(client.getPlayerID()).getPlayerColor().getColor());
     }
 

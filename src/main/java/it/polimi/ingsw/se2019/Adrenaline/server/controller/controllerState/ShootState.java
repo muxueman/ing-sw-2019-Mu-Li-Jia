@@ -38,18 +38,17 @@ public class ShootState implements GameServerInterface {
                     ServerMessage messageShootTarget = new ServerMessage(true, "shoot done! contiue with side effect?");
                     shoot.checkIfInputValid(message.getMainParamS());
                     if (shoot.getTargetBasic().isEmpty())
-                        messageShootTarget = new ServerMessage(true, "nobody to shoot! " + "contiue with side effect?");
-
+                        messageShootTarget = new ServerMessage(true, "TARGET ATTACK","nobody to shoot! " + "contiue with side effect?");
                     if(shoot.checkWeaponType() == 0){
-                        messageShootTarget = new ServerMessage(true,"shoot done! finish this round?",0);
-                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                        messageShootTarget = new ServerMessage(true,"TARGET MOVE","shoot done! finish this round?");
+//                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                         client.updateStatus(messageShootTarget);
                         return previousState;
                     }
                     else {
                         messageShootTarget = new ServerMessage(true, "shoot done, type in the direction with 0,1,2,3 to which " +
                                 "you want your target move");
-                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+//                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                         client.updateStatus(messageShootTarget);
                         return this;
                     }
@@ -64,7 +63,7 @@ public class ShootState implements GameServerInterface {
             case "TARGET MOVE":{
                 try{
                     shoot.grenadeMove(message.getMainParamS());
-                    ServerMessage messageMoveTarget = new ServerMessage(true, "move done! contiue with side effect?");
+                    ServerMessage messageMoveTarget = new ServerMessage(true, "MOVED","move done! contiue with side effect?");
                     messageMoveTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                     return previousState;
                 }

@@ -260,7 +260,7 @@ public class GameMapController extends GUIController{
             AnchorPane anchorPane = loader.load();
             anchorPaneNeed.getChildren().add(anchorPane);
             PlayerBoardController playerBoardController =loader.getController();
-            playerBoardController.setPlayerImage(boardStatus,color);
+            playerBoardController.setPlayerImage(color);
 //            playerBoardController.setPlayerBlood(boardStatus);
 //            playerBoardController.setPlayerSkull(boardStatus);
 
