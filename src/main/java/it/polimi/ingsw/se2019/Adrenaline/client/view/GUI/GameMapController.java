@@ -2,14 +2,15 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view.GUI;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.BoardStatus;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,15 +21,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -73,7 +70,7 @@ public class GameMapController extends GUIController{
     @FXML
     private AnchorPane player4;
     @FXML
-    private Button nextButton;
+    private Button endGameButton;
     @FXML
     private TextArea textMessege;
     @FXML
@@ -101,7 +98,11 @@ public class GameMapController extends GUIController{
     @FXML
     private Label player4Score;
     @FXML
-    private HBox ammotile;
+    private Label redAmmoN;
+    @FXML
+    private Label blueAmmoN;
+    @FXML
+    private Label yellowAmmoN;
     @FXML
     private GridPane skull;
     @FXML
@@ -136,6 +137,7 @@ public class GameMapController extends GUIController{
     private PlayerBoardController playerBoardController;
     private GUIController guiController;
 
+
     /**
      * The constructor of the GameMapController class.
      *
@@ -156,6 +158,9 @@ public class GameMapController extends GUIController{
     protected static final String WeaponY_Path = "/weapons_yellow/";
     protected static final String Ammotile_Path = "/ammo/";
     protected static final String PowerupCard_Path = "/powerups/";
+    protected static final String Player_Path = "/player/";
+
+
 
 
 
@@ -169,7 +174,7 @@ public class GameMapController extends GUIController{
         if (next) {
             Platform.runLater(() -> choiceMapView(this));
         }
-        addDraggableNode(root);
+        addFrameNode(root);
         closeButton.setOnAction( event ->  {
             Window.displayCloseRequest(this,root);
             Stage stage = (Stage)root.getScene().getWindow();
@@ -218,24 +223,24 @@ public class GameMapController extends GUIController{
                 case 0:
                     selfPlayerName.setText(playerList.get(0).getUsername());
                     Logger.getGlobal().info(playerList.get(0).getPlayerColor().getColor());
-                    setPlayerBoard(selfPlayer,playerList.get(0).getPlayerColor().getColor());
+                    showPlayerBoard(selfPlayer,playerList.get(0).getPlayerColor().getColor());
                     break;
                 case 1:
                     player1Name.setText(playerList.get(1).getUsername());
                     Logger.getGlobal().info(playerList.get(1).getPlayerColor().getColor());
-                    setPlayerBoard(player1,playerList.get(1).getPlayerColor().getColor());
+                    showPlayerBoard(player1,playerList.get(1).getPlayerColor().getColor());
                     break;
                 case 2:
                     player2Name.setText(playerList.get(2).getUsername());
-                    setPlayerBoard(player2,playerList.get(2).getPlayerColor().getColor());
+                    showPlayerBoard(player2,playerList.get(2).getPlayerColor().getColor());
                     break;
                 case 3:
                     player3Name.setText(playerList.get(3).getUsername());
-                    setPlayerBoard(player3,playerList.get(3).getPlayerColor().getColor());
+                    showPlayerBoard(player3,playerList.get(3).getPlayerColor().getColor());
                     break;
                 case 4:
                     player4Name.setText(playerList.get(4).getUsername());
-                    setPlayerBoard(player4,playerList.get(4).getPlayerColor().getColor());
+                    showPlayerBoard(player4,playerList.get(4).getPlayerColor().getColor());
                     break;
             }
         }
@@ -249,14 +254,15 @@ public class GameMapController extends GUIController{
      */
 
     @FXML//need to collect the playerBoardController
-    public void setPlayerBoard(AnchorPane anchorPaneNeed,String color){
+    public void showPlayerBoard(AnchorPane anchorPaneNeed,String color){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playerBoard.fxml"));
             AnchorPane anchorPane = loader.load();
             anchorPaneNeed.getChildren().add(anchorPane);
-            this.playerBoardController = new PlayerBoardController(client,boardStatus,next);
-            playerBoardController.setPlayerImage(color);
-            Logger.getGlobal().info(color);
+            PlayerBoardController playerBoardController =loader.getController();
+            playerBoardController.setPlayerImage(boardStatus,color);
+//            playerBoardController.setPlayerBlood(boardStatus);
+//            playerBoardController.setPlayerSkull(boardStatus);
 
         }catch (IOException e){
             Logger.getGlobal().warning(e.getCause().toString());
@@ -291,10 +297,6 @@ public class GameMapController extends GUIController{
 
 
 
-//    @FXML
-//    public void setInit() {
-//
-//    }
 
     /**
      * set the weaponcard red blue and yellow
@@ -334,7 +336,7 @@ public class GameMapController extends GUIController{
      */
 
     @FXML
-    public void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
+    private void setAmmoCardInMap(BoardStatus boardStatus,GridPane gridPane){
         int count = 1;
         for (int cellID : boardStatus.getAmmotilesInCell().keySet()) {
             while (count < cellID){
@@ -355,35 +357,71 @@ public class GameMapController extends GUIController{
 
     /**
      *
-     * to set the player collect to the player image to show in gui
+     * The setAmmoOwned  set the current ammotile number
      *
-     * @param imageView
-     * @param color
+     * @param boardStatus
      */
-    @FXML//用颜色代表每一个player 与 playerBoard 连接
-    private void setPlayerColor(ImageView imageView,String color){
-        switch(color){
-            case "YELLOW":
-                imageView.setImage(new Image("/player/小黄（d-struct-or）.jpg"));
-            case "PINK":
-                imageView.setImage(new Image("/player/小紫（violet）.jpg"));
-            case "GREEN":
-                imageView.setImage(new Image("/player/小绿（sprog）.jpg"));
-            case "BLUE":
-                imageView.setImage(new Image("/player/小蓝（banshee）.jpg"));
-            case "white":
-                imageView.setImage(new Image("/player/小黑（dozer）.jpg"));
-        }
-    }
 
-
-
-    //about initial the game give two powerupcard to choose one discard and relive in that card's color cell
     @FXML
-    public void setPlayerRelivePosition(BoardStatus boardStatus,GridPane gridPane){
-        for(int i = 0;i < 3;i++ ){
-        }
+    private void setAmmoOwned(BoardStatus boardStatus){
+        redAmmoN.setText(String.valueOf(boardStatus.getPlayer(client.getPlayerID()).getAmmoOwned()[0]));
+        blueAmmoN.setText(String.valueOf(boardStatus.getPlayer(client.getPlayerID()).getAmmoOwned()[1]));
+        yellowAmmoN.setText(String.valueOf(boardStatus.getPlayer(client.getPlayerID()).getAmmoOwned()[3]));
+
     }
+
+    /**
+     *The setDamageOnSkull is use to get the blood on the skull board
+     *
+     */
+    @FXML
+    private void setDamageOnSkull(BoardStatus boardStatus){
+        int size = boardStatus.getNumDamageOnSkullBoard().length;
+        for(int i = 0; i < 9 ;i ++){
+            if(i < size){
+                ((ImageView)skull.getChildren().get(i)).setImage(new Image("/blood/" + boardStatus.getColorDamageOnSkullBoard().toString()+".png"));
+            }
+        }
+
+
+    }
+
+
+
+    /**
+     *
+     * The setPlayerPosition is use to get the player's position
+     * at the beginning use forEach methods set the image visible false
+     * and collect to playerstatus get the cellID and put the player's image
+     * into the GridPane,if the position image is false put into the player's
+     * image into it,if the position image is true pass it to next position
+     *
+     * @param boardStatus
+     * @param gridPane
+     */
+
+
+    @FXML
+    public void setPlayerPosition(BoardStatus boardStatus,GridPane gridPane){
+        playerPosition.getChildren().stream().map(node->(GridPane)node).forEach(grid -> grid.getChildren().forEach(n -> n.setVisible(false)));
+        boardStatus.getAllPlayers().forEach(playerStatus ->
+                {
+                    int playerPos = boardStatus.getPositions().get(playerStatus.getPlayerID());
+                    GridPane playerGrid = (GridPane) playerPosition.getChildren().get(playerPos-1);
+                    ImageView iv = (ImageView) playerGrid.getChildren().stream().filter(node -> !node.isVisible()).findFirst().orElse(null);
+                    if (iv != null) {
+                        Logger.getGlobal().info("Path = " + Player_Path+playerStatus.getPlayerColor().getColor()+"jpg");
+                        iv.setImage(new Image(Player_Path+playerStatus.getPlayerColor().getColor()+".jpg"));
+                        iv.setVisible(true);
+                    }
+                });
+
+        //用stream（）把所以的player位置的图片 设置成不可见
+        //那所有的playstatus PLAYERID去找它的 位置 （cellID）
+        //在那个cellID里面加那个玩家的图片
+        //如果位置的图片不可见（false） 就添加 如果是true 就不考虑（filter的用法就是为了去判断不考虑）
+    }
+
 
     /**
      *
@@ -409,7 +447,7 @@ public class GameMapController extends GUIController{
                         errorArea.setText("");
                         notify(powerupsOwn.get(chooseI).getCardName());
                         (gridPane.getChildren().get(chooseI)).setVisible(visible);
-                        disable();
+                        visible = true;
                     }
                 )
             );
@@ -418,10 +456,22 @@ public class GameMapController extends GUIController{
 
     }
 
-    private void disable() {
-        visible = true;
+    /**
+     *
+     *
+     *
+     * @param
+     */
 
-    }
+//    @FXML
+//    private void setEndGameButton(BoardStatus boardStatus,AnchorPane anchorPane){
+//        endGameButton.setOnMouseClicked(
+//                event -> {
+//                });
+//
+//
+//    }
+
 
 
     @FXML
@@ -452,6 +502,8 @@ public class GameMapController extends GUIController{
                 setWeaponBCard(boardStatus,weaponB);
                 setAmmoCardInMap(boardStatus,pickAmmoCard);
                 setPlayerOwnPowerupCard(boardStatus,currentPowerupCard);
+                setPlayerPosition(boardStatus,playerPosition);
+                setAmmoOwned(boardStatus);
 
             });
         }

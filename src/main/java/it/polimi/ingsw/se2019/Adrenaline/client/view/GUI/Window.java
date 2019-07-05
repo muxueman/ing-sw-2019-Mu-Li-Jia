@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class Window extends GUIController {
 
-    private static final String REQUEST_ALERT = "/fxml/requestWindow.fxml";
+    private static final String REQUEST_WINDOW = "/fxml/requestWindow.fxml";
     private boolean next;
     /**
      *
@@ -32,7 +32,7 @@ public class Window extends GUIController {
      */
     private Window() {
 
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("");
     }
 
     /**
@@ -63,11 +63,10 @@ public class Window extends GUIController {
 
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(Window.class.getResource(REQUEST_ALERT));
+            FXMLLoader loader = new FXMLLoader(Window.class.getResource(REQUEST_WINDOW));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             WindowController controller = loader.getController();
-            controller.setLabelOne("Are you sure?");
             controller.setButtonOne(
                     event -> {
                         guiController.close(anchorPane);
@@ -84,7 +83,7 @@ public class Window extends GUIController {
 
     /**
      *
-     * The displayEndGame is use for get the Gamerisult to the user
+     * The displayEndGame is use for get the game result to the user
      * information about every user and win or loss and the final score
      *
      *
@@ -93,7 +92,7 @@ public class Window extends GUIController {
     public static void displayEndGame(GUIController guiController, AnchorPane anchorPane, Player score, String username) {
         try {
             Stage window = new Stage();
-            FXMLLoader loader = new FXMLLoader(Window.class.getResource("/fxml/endGameAlert.fxml"));
+            FXMLLoader loader = new FXMLLoader(Window.class.getResource("/fxml/finalWindow.fxml"));
             Parent root = loader.load();
             Scene initialScene = new Scene(root);
             WindowController controller = loader.getController();

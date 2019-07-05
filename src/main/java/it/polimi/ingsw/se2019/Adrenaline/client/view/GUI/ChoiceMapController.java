@@ -60,7 +60,7 @@ public class ChoiceMapController extends GUIController{
      */
     public void initialize(){
 
-        addDraggableNode(root);
+        addFrameNode(root);
         closeButton.setOnAction( event ->  {
             Stage stage = (Stage)root.getScene().getWindow();
             stage.close();
@@ -102,7 +102,6 @@ public class ChoiceMapController extends GUIController{
     private void checkChoice(int killshootnum) {
         if (killshootnum >=5 && killshootnum <= 8) {
             gameMapController.notify(Integer.toString(killshootnum));
-//            gameMapController.setInit();
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
         } else {

@@ -22,27 +22,27 @@
         </Label>
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="310.0" layoutY="160.0">
          <image>
-            <Image url="@../player/小紫（violet）.jpg" />
+            <Image url="@../player/PINK.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="240.0" layoutY="160.0">
          <image>
-            <Image url="@../player/小绿（sprog）.jpg" />
+            <Image url="@../player/GREEN.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="170.0" layoutY="160.0">
          <image>
-            <Image url="@../player/小蓝（banshee）.jpg" />
+            <Image url="@../player/BLUE.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="100.0" layoutY="160.0">
          <image>
-            <Image url="@../player/小黄（d-struct-or）.jpg" />
+            <Image url="@../player/YELLOW.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="30.0" layoutY="160.0">
          <image>
-            <Image url="@../player/小黑（dozer）.jpg" />
+            <Image url="@../player/WHITE.jpg" />
          </image>
       </ImageView>
     </children>

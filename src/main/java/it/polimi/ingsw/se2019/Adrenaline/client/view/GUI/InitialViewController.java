@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * The InitialViewController class represents the controller
- * of the initialView.fxml file.
+ * The initialViewController is use to enter the Game and
+ * turn into the next game map
  *
  * @author Li xuejing
  *
@@ -71,17 +71,17 @@ public class InitialViewController extends GUIController {
         nameText.setVisible(false);
         searchButton.setVisible(false);
         closeButton.setOnAction(event -> Window.displayCloseRequest(this,root));
-        addDraggableNode(root);
+        addFrameNode(root);
         boardStatus = null;
     }
 
 
     /**
-     * The getTable method is used to take the player's name and
+     * The getInitialPlayer method is used to take the player's name and
      * get into a room.
      */
 
-    public void getTable() {
+    public void getInitialPlayer() {
         if (!nameText.getText().equals("")) {
             notify(nameText.getText());
         } else {
@@ -159,7 +159,7 @@ public class InitialViewController extends GUIController {
         } else {
             Platform.runLater( () -> {
 
-                switchSceneSameStage(root, "/fxml/gameMap.fxml",
+                changeToNextView(root, "/fxml/gameMap.fxml",
                         new GameMapController(client,boardStatus, next));
                 Logger.getGlobal().log(Level.INFO, "{0} joins the table...", nameText.getText());
 
