@@ -11,8 +11,8 @@ public class TestMapD {
     @Test
     public void test(){
         Map testMapD = new MapD();
-        testMapD.initialMap();
-        System.out.println(testMapD.getMapInfo());
+        testMapD = null;
+
 
     }
 }

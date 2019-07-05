@@ -1,5 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
@@ -16,40 +18,57 @@ import java.util.ArrayList;
  */
 
 public class TestMapA {
+    private MapA mapA;
+    ArrayList<Cell> cellA;
+    Cell cellX;
+    Cell cellY;
+    Cell cellZ;
 
-   
+    @Before
+    public void setUp() {
+        mapA = new MapA();
+        cellA = mapA.getAllCells();
+        cellX = cellA.get(5);
+        cellY = cellA.get(1);
+        cellZ = cellA.get(2);
+    }
 
     @Test
 
     public void test() {
 
-        Map testMapA = new MapA();
-
-        testMapA.initialMap();
-        ArrayList<Cell> cellA = testMapA.getAllCells();
-        Cell cellX = cellA.get(5);
-        Cell cellY = cellA.get(1);
-
-        Cell cellZ = cellA.get(2);
         cellX.getCellColor();
-        testMapA.checkDoor(cellX, cellY);
-        testMapA.getCellsWithinRoom(cellX);
+        mapA.checkDoor(cellX, cellY);
+        mapA.getMapInfo();
+        assertTrue(mapA.checkWithinRoom(cellY, cellZ));
+        assertTrue(!mapA.checkWithinRoom(cellX, cellZ));
+        assertTrue(mapA.checkDoor(cellY,cellX));
+        mapA.getCellsWithinRoom(cellX);
+        assertTrue(mapA.getCellsWithinRoom(Color.RED).contains(cellX));
+        assertTrue(!mapA.getCellsWithinRoom(Color.RED).contains(cellY));
+        assertTrue(mapA.getAllVisibleCells(cellX).contains(cellY));
+        mapA.getAllCells();
+        mapA.getCellsWithinRoom(Color.BLUE);
+        mapA.getCellsWithinRoom(Color.GREEN);
+        mapA.getCellsWithinRoom(Color.WHITE);
+        mapA.getAllVisibleCells(cellX);
+        mapA.getVisibleTwoAwayCells(cellX);
+        mapA.getVisibleRoomWithoutYourRoom(cellX);
+        mapA.getDirectionFromCellToCell(cellX,cellY);
+        mapA.checkAllCardinalCells(cellX,cellY,0);
+        mapA.checkAvailableOneWalkCell(cellX,cellY);
+        
+        assertTrue(mapA.getCardinalTwoCells(cellX,0).contains(cellY));
+        assertTrue(mapA.checkWithinRoom(mapA.getAllCells().get(1),mapA.getAllCells().get(2)));
 
-        testMapA.getAllVisibleCells(cellX);
-        testMapA.getAllCells();
-        testMapA.getCellsWithinRoom(Color.RED);
-        testMapA.getCellsWithinRoom(Color.YELLOW);
-        testMapA.getCellsWithinRoom(Color.BLUE);
-        testMapA.getCellsWithinRoom(Color.GREEN);
-        testMapA.getCellsWithinRoom(Color.WHITE);
+    }
 
-        assertTrue(testMapA.checkWithinRoom(testMapA.getAllCells().get(1),testMapA.getAllCells().get(2)));
-        System.out.println(testMapA.getCellsWithinRoom(cellX));
-        System.out.println((testMapA.getAllVisibleCells(cellY)));
-
-
-
-
+    @After
+    public void tearDown() {
+        mapA = null;
+        cellA = null;
+        cellX = null;
+        cellY = null;
     }
 
 }

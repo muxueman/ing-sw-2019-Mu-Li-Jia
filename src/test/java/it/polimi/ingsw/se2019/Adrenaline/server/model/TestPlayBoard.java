@@ -1,32 +1,29 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.*;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 public class TestPlayBoard {
 
-    Map testMapA;
-    Map testMapB;
-    Map testMapC;
+    Map testmapa;
     Board testBoard;
     Player testShooter;
     Player testPlayer;
     Player testPlayer2;
+    TurnHandler turnHandler;
+    @Before
     public void setTestInfo() {
-        testMapA = new MapA();
-        testMapB = new MapB();
-        testMapC = new MapC();
+        testmapa = new MapB();
         int skull = 5;
-        testBoard = new Board(testMapB, skull, 2);
+        testBoard = new Board(testmapa, skull, 2);
         testShooter= new Player("jia");
         testPlayer = new Player("li");
         testPlayer2 = new Player("mu");
-        testBoard.getNumKillShoot();
-        testBoard.getKillTurn();
         testBoard.addPlayers(testShooter);
         testBoard.addPlayers(testPlayer);
         testBoard.addPlayers(testPlayer2);
+        turnHandler = new TurnHandler(testBoard);
         testShooter.setPlayerColor(Color.RED);
         testPlayer2.setPlayerColor(Color.YELLOW);
         testPlayer.setPlayerColor(Color.BLUE);
@@ -35,13 +32,7 @@ public class TestPlayBoard {
 
     @Test
     public void addPlayerTest(){
-        setTestInfo();
 
-
-
-        System.out.println("currenttest"+testBoard.getCurrentPlayer());
-//        testBoard.setPlayers(testBoard.getAllPlayers());
-        testBoard.setCurrentPlayer(testShooter);
         //testBoard.turnNextPlayer();
         //testBoard.turnNextPlayer();
         testBoard.changefirenzyMode();
@@ -126,6 +117,15 @@ public class TestPlayBoard {
         System.out.println(testPlayer.getActionMode());
         System.out.println(testPlayer2.getActionMode());
         System.out.println(testShooter.getActionMode());
+    }
+
+    @After
+    public void tearDown() {
+        testmapa = null;
+        testBoard = null;
+        testShooter = null;
+        testPlayer = null;
+        testPlayer2 = null;
     }
 
 
