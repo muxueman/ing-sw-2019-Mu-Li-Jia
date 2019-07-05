@@ -47,7 +47,7 @@
   },
   {
     "cardName": "T.H.O.R.",
-    "image": "Torpedine_blue.png",
+    "image": "Torpedine_blue",
     "basicammoCost": [2, 1, 0, 2],
     "weaponType": 0,
     "basicDamageVision": 1,

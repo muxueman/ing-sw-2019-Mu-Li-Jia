@@ -260,7 +260,7 @@ public class GameMapController extends GUIController{
             AnchorPane anchorPane = loader.load();
             anchorPaneNeed.getChildren().add(anchorPane);
             PlayerBoardController playerBoardController =loader.getController();
-            playerBoardController.setPlayerImage(boardStatus,color);
+            playerBoardController.setPlayerImage(color);
 //            playerBoardController.setPlayerBlood(boardStatus);
 //            playerBoardController.setPlayerSkull(boardStatus);
 
@@ -410,7 +410,7 @@ public class GameMapController extends GUIController{
                     GridPane playerGrid = (GridPane) playerPosition.getChildren().get(playerPos-1);
                     ImageView iv = (ImageView) playerGrid.getChildren().stream().filter(node -> !node.isVisible()).findFirst().orElse(null);
                     if (iv != null) {
-                        Logger.getGlobal().info("Path = " + Player_Path+playerStatus.getPlayerColor().getColor()+"jpg");
+                        Logger.getGlobal().info("Path = " + Player_Path+playerStatus.getPlayerColor().getColor()+".jpg");
                         iv.setImage(new Image(Player_Path+playerStatus.getPlayerColor().getColor()+".jpg"));
                         iv.setVisible(true);
                     }
