@@ -1,28 +1,18 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
-import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCardReload;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShootState extends ControllerState {
 
 //    private MatchController matchController;
     private ArrayList<String> previousActions;
     private int messageUpadateTimes;
-    private ArrayList<WeaponCard> availableWeapon;
     private boolean isReload;
 
     public ShootState(ClientController controller, ArrayList<String> previousActions, boolean isReload){
@@ -52,7 +42,7 @@ public class ShootState extends ControllerState {
                 clientController.sendToServer(targetMoveDirect);
                 messageUpadateTimes ++;
         }
-        return this; //
+        return this;
     }
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage){
@@ -79,6 +69,4 @@ public class ShootState extends ControllerState {
         }
         return this;
     }
-
-//    message("    ",),
 }

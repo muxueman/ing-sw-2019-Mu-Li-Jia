@@ -3,13 +3,10 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.CommandLineTable;
-import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowBoardWeapons;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
-import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.AmmotileCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 
@@ -19,9 +16,6 @@ import java.util.List;
 public class GrabState extends ControllerState {
 
     private ArrayList<String> previousActions;
-    private int currentCell;
-    private ArrayList<WeaponCard> weaponCards;
-    private AmmotileCard ammotileCard;
     private boolean isReload;
 
     public GrabState(ClientController controller, ArrayList<String> previousActions,boolean isReload) {
@@ -29,10 +23,10 @@ public class GrabState extends ControllerState {
         this.previousActions = previousActions;
         this.previousActions.add("grab");
         this.isReload = isReload;
-        this.currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
+        int currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
         System.out.println("cell id" + currentCell);
         if (currentCell == 5 || currentCell == 3 ||currentCell ==12){
-            this.weaponCards = clientController.getModel().getBoardStatus().getWeaponsInCell().get(currentCell);
+            ArrayList<WeaponCard> weaponCards = clientController.getModel().getBoardStatus().getWeaponsInCell().get(currentCell);
             CommandLineTable st = new CommandLineTable("\u001b[1;32m","\u001b[1;31m");
             st.setShowVerticalLines(true);
             int length = weaponCards.size();
@@ -45,7 +39,7 @@ public class GrabState extends ControllerState {
                     clientController.sendMessage("no weapon cards for you to grab");break;
             }
         }else{
-            this.ammotileCard = clientController.getModel().getBoardStatus().getAmmotilesInCell().get(currentCell);
+            AmmotileCard ammotileCard = clientController.getModel().getBoardStatus().getAmmotilesInCell().get(currentCell);
             clientController.sendMessage(ammotileCard.getContent());
         }
 
@@ -79,19 +73,17 @@ public class GrabState extends ControllerState {
         if (serverMessage.isError()) {
             clientController.reportError(serverMessage.getMessage());
         } else {
-            if (serverMessage.isPlaying()) {
-                if (serverMessage.getMessage().equalsIgnoreCase("GRAB")) {
-                    List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
-                    if (!statusUpdates.isEmpty()) {
-                            for (StatusUpdate statusUpdate : statusUpdates) {
-                                statusUpdate.updateStatus(clientController.getModel());
-                            }
-                            new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
-                            clientController.getModel().pingUpdate(serverMessage.getMessage());
-                        return new ActionSelectState(clientController, previousActions,isReload).initState();
-                    } else {
-                        clientController.reportError("no response from server!");
+            if (serverMessage.isPlaying() && serverMessage.getMessage().equalsIgnoreCase("GRAB")) {
+                List<StatusUpdate> statusUpdates = serverMessage.getStatusUpdates();
+                if (!statusUpdates.isEmpty()) {
+                    for (StatusUpdate statusUpdate : statusUpdates) {
+                        statusUpdate.updateStatus(clientController.getModel());
                     }
+                    new ShowTotal(clientController.getModel().getBoardStatus(), clientController);
+                    clientController.getModel().pingUpdate(serverMessage.getMessage());
+                    return new ActionSelectState(clientController, previousActions,isReload).initState();
+                } else {
+                    clientController.reportError("no response from server!");
                 }
             }
         }

@@ -4,8 +4,6 @@ package it.polimi.ingsw.se2019.Adrenaline.client.view.CLI;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.ModelUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
-
-
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
@@ -102,25 +100,11 @@ public class CLIView extends View {
     private void print(Object object){
         out.println("\u001b[1;34m"+ object);
     }
-    /**
-     *
-     * The print method is used to print out a status.
-     *
-     * @param status status to be printed.
-     *
-     */
-
-    private void print(Status status){
-//        if () {
-//            out.println(status.toAnsi().fg(Ansi.Color.DEFAULT));
-//        } else out.println(status.toString());
-    }
 
     /**
      *
      * update message
-     *
-     * @param message
+     * @param message update message
      */
 
     @Override

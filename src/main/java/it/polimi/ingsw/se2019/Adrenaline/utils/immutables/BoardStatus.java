@@ -57,28 +57,6 @@ public class BoardStatus implements Status {
         this.allCells = new HashMap<>();
         this.ammotilesInCell = new HashMap<>();
         this.weaponsInCell = new HashMap<>();
-        //this.playersInCell = new HashMap<>();
-        this.positions = new HashMap<>();
-        this.additional = null;
-        this.reconnectionToken = "";
-        this.started = false;
-    }
-
-    //constructor from controller
-    public BoardStatus(int mapID, int numKillShoot) {
-        this.numDamageOnSkullBoard = null;
-        this.colorDamageOnSkullBoard = null;
-        this.mapID = mapID;
-        this.numKillShoot = numKillShoot;
-        this.firenzyTriggerd = false;
-        this.currentPlayer = null;
-        this.allPlayers = new ArrayList<>();
-        this.usernames = new HashMap<>();
-        this.allCells = new HashMap<>();
-        this.ammotilesInCell = new HashMap<>();
-        this.weaponsInCell = new HashMap<>();
-        this.players = new HashMap<>();
-        //this.playersInCell = new HashMap<>();
         this.positions = new HashMap<>();
         this.additional = null;
         this.reconnectionToken = "";
@@ -190,7 +168,6 @@ public class BoardStatus implements Status {
     //更新map里面包含的内容
     public boolean updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map map){
            ArrayList<Cell> cells = map.getAllCells();
-           System.out.println(cells.size());
            for (Cell c: cells){
                if (c.getCellID() != 0){
                    allCells.put(c.getCellID(),c);
@@ -280,7 +257,7 @@ public class BoardStatus implements Status {
         return true;
     }
 
-    public boolean setFirenzyTrigger(boolean Firenzy){
+    public boolean setFrenzyTrigger(boolean Firenzy){
            this.firenzyTriggerd = Firenzy;
            return true;
     }
@@ -296,11 +273,5 @@ public class BoardStatus implements Status {
     public String toString(){
         return "BoardStatus:\n " + "map id: " + mapID + "\n" + "numkill: " + numKillShoot+ "\n" +
                 "firenzy:" + firenzyTriggerd + "\n" + "allplayer:" +allPlayers + "\n" + "current player:" +currentPlayer;
-    }
-
-    @Override
-    public Ansi toAnsi(){
-        return ansi().a("BoardStatus:\n " + "map id: " + mapID + "\n" + "numkill: " + numKillShoot+ "\n" +
-                "firenzy:" + firenzyTriggerd + "\n" + "allplayer:" +allPlayers + "\n" + "current player:" +currentPlayer);
     }
 }

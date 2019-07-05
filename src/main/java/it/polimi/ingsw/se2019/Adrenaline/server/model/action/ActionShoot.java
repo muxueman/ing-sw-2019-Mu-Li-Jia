@@ -1,25 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.action;
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.AmmoColor;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.NotEnoughAmmosException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
-import javafx.scene.control.SliderBuilder;
-import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
-import sun.security.krb5.internal.PAData;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidNameException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidRunException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.NotEnoughAmmosException;
 
 import java.io.Serializable;
-import java.lang.management.PlatformLoggingMXBean;
-import java.rmi.server.SkeletonNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 /**
  *
@@ -112,7 +101,7 @@ public class ActionShoot implements Serializable {
     }
 
     public boolean checkIfInputValid(String names) throws InvalidNameException{
-        if(getTargetBasic().size() == 0 || weaponCard.getBasicDamageVision() == 0){  // case: dont need to choose target or nobody valid
+        if(getTargetBasic().isEmpty() || weaponCard.getBasicDamageVision() == 0){  // case: dont need to choose target or nobody valid
             dealBasicDamageToTarget(targetBasic);
             return true; // dont do anything
         }
@@ -123,8 +112,7 @@ public class ActionShoot implements Serializable {
         }
         boolean check = true;
         for(Player p : getTargetsArrayFromName(names)){
-            if(getTargetBasic().contains(p)) continue;
-            else {
+            if(!getTargetBasic().contains(p)) {
                 check = false;
                 throw new InvalidNameException();      // target not in vision
             }
@@ -156,14 +144,13 @@ public class ActionShoot implements Serializable {
     }
 
     public boolean checkIfInputValidSecond(String names) throws InvalidNameException{
-        if(targetSecond.size() == 0 || weaponCard.getEffectDamageVison() == 0) {
+        if(targetSecond.isEmpty() || weaponCard.getEffectDamageVison() == 0) {
             dealSideEffectDamageToTarget(targetSecond);
             return true;
         }
         boolean check = true;
         for(Player p : getTargetsArrayFromName(names)){
-            if(getTargetSecond().contains(p)) continue;
-            else {
+            if(!getTargetSecond().contains(p)) {
                 check = false;
                 throw new InvalidNameException();
             }
@@ -179,14 +166,13 @@ public class ActionShoot implements Serializable {
         return check;
     }
     public boolean checkIfInputValidThird(String names) throws InvalidNameException{
-        if(targetSecond.size() == 0 || weaponCard.getEffectDamageVison() == 0) {
+        if(targetSecond.isEmpty() || weaponCard.getEffectDamageVison() == 0) {
             dealSideEffectDamageToTarget(targetSecond);
             return true;
         }
         boolean check = true;
         for(Player p : getTargetsArrayFromName(names)){
-            if(getTargetSecond().contains(p)) continue;
-            else {
+            if(getTargetSecond().contains(p)) {
                 check = false;
                 throw new InvalidNameException();
             }
@@ -250,14 +236,14 @@ public class ActionShoot implements Serializable {
             case "SLEDGEHAMMER": targetString += transferFromPlayerToString(findTargetBasic());
                 targetString += "\n" + "type in the name of ONE target"; break;
         }
-        if(getTargetBasic().size() == 0) targetString += "\n" + "nobody to shoot,";
+        if(getTargetBasic().isEmpty()) targetString += "\n" + "nobody to shoot,";
         return targetString;
     }
     public String getTargetNameWithSideEffect(){
         if(weaponCard.getType() == 1){
             targetBasic = findTargetBasic();
         }
-        if(targetBasic.size() == 0){
+        if(targetBasic.isEmpty()){
             return "nobody to shoot";
         }
         String secondTargetName = "Second Target:" + "\n";
@@ -323,7 +309,7 @@ public class ActionShoot implements Serializable {
 //    }
 
 
-    public String transferFromPlayerToString(ArrayList<Player> targetBasic){
+    private String transferFromPlayerToString(ArrayList<Player> targetBasic){
         String targetName = "";
         for(Player p : targetBasic) {
             targetName += p.getUsername();
@@ -366,7 +352,7 @@ public class ActionShoot implements Serializable {
         boolean shootable = false;
         int i = 0;
         while(i < target.size()){
-            if(weaponCard.getCardName() == "FLAMETHROWER"){
+            if(weaponCard.getCardName().equalsIgnoreCase("FLAMETHROWER") ){
                 if(target.size() == 1)
                     if (getTargetOneCellAway(shooter).contains(target.get(i))) shootable = true;
                 else {
@@ -376,7 +362,7 @@ public class ActionShoot implements Serializable {
                 }
                 break;
             }
-            else if(weaponCard.getCardName() == "SHOCKWAVE"){
+            else if(weaponCard.getCardName().equalsIgnoreCase("SHOCKWAVE") ){
                 if(target.size() == 1){
                     if(getTargetOneCellAway(shooter).contains(target.get(i))) shootable = true;
                 else if(target.size() == 2)
@@ -388,7 +374,7 @@ public class ActionShoot implements Serializable {
                         shootable = true;
                 break;
             }
-            else if(weaponCard.getCardName() == "")
+            else if(weaponCard.getCardName().equalsIgnoreCase(""))
             switch (weaponCard.getCardName()){
                 case "LOCK RIFLE": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
                 case "MACHINE GUN": if(getTargetsYouCanSee(shooter).contains(target.get(i))) {shootable = true; } break;
@@ -424,7 +410,7 @@ public class ActionShoot implements Serializable {
 //       }
 //       targetAttacked.add(target);
 //    }
-    protected void moveTargetOneWalkToVortex(Player target){
+    private void moveTargetOneWalkToVortex(Player target){
         Cell targetCell = target.getCurrentCell();
         for(Cell c : shooter.getBoard().getMap().getVisibleCellsWithoutYourCell(shooter.getCurrentCell()))
         {   int i = 0;
@@ -439,10 +425,10 @@ public class ActionShoot implements Serializable {
     }
 
     protected void dealBasicDamageToTarget(ArrayList<Player> target) {
-        if(target.size() == 0) return;
+        if(target.isEmpty()) return;
         boolean shoot = false;
         int i = 0;
-        if (weaponCard.getCardName() == "FURANCE") {
+        if (weaponCard.getCardName().equalsIgnoreCase("FURANCE")) {
             target.addAll(getTargetFromCell(target.get(i).getPlayBoard().getMap().getCellsWithinRoom(target.get(i).getCurrentCell())));
             target.remove(target.get(i));
         }
@@ -790,7 +776,7 @@ public class ActionShoot implements Serializable {
         }
         return toCells;
     }
-    protected ArrayList<Player> getTargetsFromRoomYouCanSeeButNotYouAreIn(Player shooter){
+    private ArrayList<Player> getTargetsFromRoomYouCanSeeButNotYouAreIn(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         int cellIndex = 0;
         int playerIndex = 0;
@@ -806,19 +792,19 @@ public class ActionShoot implements Serializable {
         }
         return getTargetFromCell(getCleanCellArray(cellOfTargets));
     }
-    protected ArrayList<Player> getTargetVisibleTwoCellsAway(Player shooter){
+    private ArrayList<Player> getTargetVisibleTwoCellsAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getVisibleTwoAwayCells(shooter.getCurrentCell());
         return getTargetFromCell(getCleanCellArray(cellOfTargets));
     }
     //get targets from visible cells but at least one cell away
-    protected ArrayList<Player> getTargetVisibleOneCellAway(Player shooter){
+    private ArrayList<Player> getTargetVisibleOneCellAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets = shooter.getPlayBoard().getMap().getVisibleCellsWithoutYourCell(shooter.getCurrentCell());
         return getTargetFromCell(cellOfTargets);
     }
     //hget targets from one move away cell
-    protected ArrayList<Player> getTargetOneCellAway(Player shooter){
+    private ArrayList<Player> getTargetOneCellAway(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         int i = 0;
         while(i < 4){
@@ -828,14 +814,14 @@ public class ActionShoot implements Serializable {
         }
         return getTargetFromCell(getCleanCellArray(cellOfTargets));
     }
-    protected ArrayList<Player> getTargetInYourCell(Player shooter){
+    private ArrayList<Player> getTargetInYourCell(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         cellOfTargets.add(shooter.getCurrentCell());
 //        ArrayList<Player> players = getTargetFromCell(cellOfTargets);
 //        players.remove(shooter);
         return getTargetFromCell(cellOfTargets);
     }
-    protected ArrayList<Player> getTargetCardinal(Player shooter){
+    private ArrayList<Player> getTargetCardinal(Player shooter){
         ArrayList<Cell> cellOfTargets = new ArrayList<>();
         Player shooter1 = shooter;
         int i = 0;
@@ -846,7 +832,7 @@ public class ActionShoot implements Serializable {
         return getTargetFromCell(getCleanCellArray(cellOfTargets));
     }
 
-    public ArrayList<Player> getTargetFromCell( ArrayList<Cell> cellOfTargets){
+    private ArrayList<Player> getTargetFromCell(ArrayList<Cell> cellOfTargets){
         ArrayList<Player> targetsInVision = new ArrayList<>();
         int cellIndex = 0;
         int playerIndex = 0;
@@ -857,12 +843,12 @@ public class ActionShoot implements Serializable {
         return  targetsInVision;
     }
 
-    protected void dealDamageMarkToTarget(Player shooter, int damage, int mark, Player target){
+    private void dealDamageMarkToTarget(Player shooter, int damage, int mark, Player target){
         target.getKillShootTrack().beAttacked(shooter, damage, mark);
     }
 
 
-    protected boolean payAmmoForAtherMode(Player shooter, AmmoColor color){
+    private boolean payAmmoForAtherMode(Player shooter, AmmoColor color){
         boolean available = false;
         switch (color){
             case RED: if(shooter.getAmmoOwned()[0]>0){
@@ -973,7 +959,7 @@ public class ActionShoot implements Serializable {
             dealDamageMarkToTarget(shooter, damage, mark, targets.get(i));
         }
     }
-    public ArrayList<Player> getTargetAttacked() {
+    ArrayList<Player> getTargetAttacked() {
         return targetAttacked;
     }
 

@@ -3,8 +3,8 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.StatusUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,6 @@ public class NonPlayingState extends ControllerState {
 
     @Override
     public ControllerState initState() {
-        //clientController.getView().play(false);
         clientController.setPlaying(false);
         return super.initState();
     }
@@ -31,7 +30,6 @@ public class NonPlayingState extends ControllerState {
     @Override
     public ControllerState nextState(boolean error, boolean playing) {
         if (playing) {
-            //clientController.getView().launchTimer();
             return new ActionSelectState(clientController, new ArrayList<>(),false).initState();
         }
         return this;
@@ -61,7 +59,6 @@ public class NonPlayingState extends ControllerState {
                     default:
                         clientController.reportError("fail to analysis the message from server!");
                         return this;
-
             }
         }
     }

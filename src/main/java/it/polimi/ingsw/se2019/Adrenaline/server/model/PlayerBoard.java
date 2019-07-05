@@ -34,7 +34,6 @@ public class PlayerBoard implements Status {
         numKillShoot = 0;
         beKilled = 0;
         turn = 0;
-//        numKillShoot = 0;
     }
     //overload for test
     public PlayerBoard() {
@@ -76,7 +75,7 @@ public class PlayerBoard implements Status {
             markNum--;
         }
         if(damageColorOnTrack.size() >= 12) {//如果被超杀死，先清除多余的
-            int i = maxiDamageOnTrack;
+            //int i = maxiDamageOnTrack;
             while (damageColorOnTrack.size() - maxiDamageOnTrack != 0) {
                 damageColorOnTrack.remove(damageColorOnTrack.size()-1);
             }
@@ -110,7 +109,7 @@ public class PlayerBoard implements Status {
     }
     //count damage num of each color on the track, then add score.
     private Map countDamageOnTrack() {
-        Map<Color, Integer> damageCount = new HashMap<Color, Integer>();
+        Map<Color, Integer> damageCount = new HashMap<>();
         for(Color color : damageColorOnTrack){
             if(damageCount.containsKey(color)) {
                 Integer times = damageCount.get(color);
@@ -140,9 +139,7 @@ public class PlayerBoard implements Status {
         return outMap;
     }
 
-
-
-    public ArrayList<Integer> checkHighestScore(){
+    private ArrayList<Integer> checkHighestScore(){
         ArrayList<Integer> scoreArray = new ArrayList<Integer>();
         int index = 0;
         while((index + turn) < 6){
@@ -153,10 +150,10 @@ public class PlayerBoard implements Status {
 
     }
 
-    public Map countPlayerScore() {
+    private Map countPlayerScore() {
         Map damageCount = new HashMap();
         damageCount = valueOfMapDownSort(countDamageOnTrack());
-        Map playerScore = new HashMap<Color, Integer>();
+        Map playerScore = new HashMap<>();
         int i = 0;
         ArrayList<Integer> scoreArray = checkHighestScore();
         for (Object key : damageCount.keySet()){
@@ -166,7 +163,7 @@ public class PlayerBoard implements Status {
         return playerScore;
     }
 
-    public Map scoreForfirstShooter(Map playerScore){
+    private Map scoreForfirstShooter(Map playerScore){
         int sum = (int)(playerScore.get(this.damageColorOnTrack.get(0)));
         sum++;
         playerScore.put(this.damageColorOnTrack.get(0),sum);
@@ -189,14 +186,14 @@ public class PlayerBoard implements Status {
         turn++;
     }
 
-    public void recover(){
+    void recover(){
         clearKillShootTrack();
 //        turn++;
         playerScore.clear();
         beKilled = 0;
     }
     //计算板子上各玩家该得分数后 放入this.playerscore， 给每个玩家加分的步骤  由存有所有玩家的类来调用
-    public void addPlayerScore(Player player){
+    void addPlayerScore(Player player){
         for (Color key : playerScore.keySet()){
             if(player.getPlayerColor() == key){
                 int score = player.getMyScore();
@@ -263,8 +260,4 @@ public class PlayerBoard implements Status {
                 + resultMarkOnTrack;
     }
 
-    @Override
-     public Ansi toAnsi(){
-        return ansi().a("damage on you:" + damageColorOnTrack);
-    }
 }

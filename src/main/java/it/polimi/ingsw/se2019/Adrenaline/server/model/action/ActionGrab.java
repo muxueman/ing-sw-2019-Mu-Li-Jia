@@ -1,15 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.action;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.AmmoColor;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.CommonCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidGrabException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.logging.Logger;
+
 /**
  * interface ActionStrategy
  * @author Xueman Mu
@@ -75,7 +74,7 @@ public class ActionGrab implements Serializable {
                 player.addWeaponCard(weaponCard);
             }
             catch (InvalidGrabException e){
-                System.out.println(e);
+                Logger.getGlobal().warning(e.getMessage());
                 return false;
             }
             ((GenerationCell) player.getCurrentCell()).weaponTaken(position);
@@ -84,10 +83,5 @@ public class ActionGrab implements Serializable {
         }
         else return false;
     }
-
-    /*
-     * check if he has enough ammo to pick the weapon
-     * start from ammocost[1], when you pick a new weapon, you dont have to pay the first ammo
-     */
 
 }

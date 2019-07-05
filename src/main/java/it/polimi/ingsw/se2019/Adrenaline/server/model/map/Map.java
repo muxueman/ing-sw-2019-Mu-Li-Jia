@@ -32,28 +32,6 @@ public abstract class Map implements Status {
         PINKCells = new ArrayList<>();
         initialMap();
     }
-
-    /**
-    public Map(int mapType) {
-        switch (mapType) {
-            case 1:
-                initialMap1();
-                break;
-            case 2:
-                initialMap2();
-                break;
-            case 3:
-                initialMap3();
-                break;
-            case 4:
-                initialMap4();
-                break;
-            default:
-                System.out.println("error");
-        }
-    }
-     */
-
     //abstract method to initial different kind of map
     public abstract void initialMap();
     public String getMapInfo(){

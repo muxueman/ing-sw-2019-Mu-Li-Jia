@@ -17,16 +17,16 @@ import java.util.ArrayList;
 public abstract class Cell implements Status {
 
     protected int cellID;
-    protected ArrayList<Player> cellPlayers;
-    protected Cell[] adjacentCells;
+    ArrayList<Player> cellPlayers;
+    private Cell[] adjacentCells;
     protected int type;
-    protected Color cellColor;
+    private Color cellColor;
 
     //constructor
     public Cell(int cellID) {
 
         this.cellID = cellID;
-        this.cellPlayers = new ArrayList<Player>();
+        this.cellPlayers = new ArrayList<>();
     }
 
     //set values of cell
@@ -131,7 +131,7 @@ public abstract class Cell implements Status {
                     return this.adjacentCells[3];
                 else return null;
             default:
-                return null; //better solution??? not regular
+                return null;
         }
     }
 }

@@ -20,7 +20,6 @@ public class SocketServer extends Thread {
         this.server = server;
         try {
             serverSocket = new ServerSocket(port);
-            //System.out.println("Socket Server HOST: " + serverSocket.getInetAddress());
         } catch (IOException e) {
             Logger.getGlobal().warning(e.getMessage());
         }

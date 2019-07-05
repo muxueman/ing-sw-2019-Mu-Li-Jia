@@ -1,7 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState;
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
@@ -9,22 +9,14 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ChooseKillState implements GameServerInterface {
     private ServerController serverController;
     private MatchController matchController;
 
-    public ChooseKillState(ServerController serverController, ClientInterface client) throws RemoteException {
+    public ChooseKillState(ServerController serverController)  {
         Logger.getGlobal().log(Level.INFO, "choose kill state..... ");
         this.serverController = serverController;
         matchController = serverController.getMatch();
-//        matchController = serverController.getMatch();
-//        ServerMessage serverMessage = new ServerMessage("CHOOSEMAP", true, new MapUpdate());//需改进
-//        //MapNum = matchController.getSelectedMap();
-//        //serverMessage.addStatusUpdate(new MapUpdate(MapNum));
-//        serverMessage.addStatusUpdate(new MapUpdate());
-//        client.updateStatus(new PlayMessage());
-//        client.updateStatus(serverMessage);
     }
 
     //the message from the Client and update the model.
@@ -33,8 +25,6 @@ public class ChooseKillState implements GameServerInterface {
         Logger.getGlobal().log(Level.INFO, "CHOOSEKILL: {0} ", message.getMainParam());
         if (message.getTextMove().equals("CHOOSEKILL")) {
             matchController.chooseKill(message.getMainParam());
-
-            //在选择所有玩家选择完kill并更新之后再initPlayer;
             return new SpawnLocationState(serverController,client);
         }
         client.sendError("Can't choose the map!");

@@ -5,13 +5,12 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.PlayMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.UpdateMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ErrorMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.PlayMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.UpdateMessage;
 //import it.polimi.ingsw.se2019.Adrenaline.network.updates.PlayerStatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.NonPlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
@@ -23,9 +22,13 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapA;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapB;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapC;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.EndGameException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.EndGameException;
 //import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.updates.BoardUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.updates.MapUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.updates.SpawnLocationUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.updates.TokenUpdate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -73,8 +76,6 @@ public class MatchController {
         controllers = new HashMap<>();
         clients = new HashMap<>();
         figures = new HashMap<>();
-        started = false;
-        //roundTrack = new RoundTack();
         started = false;
         turnHandler = null;
         timer = new Timer();
@@ -144,7 +145,7 @@ public class MatchController {
     //输入用户名之后从这里开始一个match,并且update player->clientController.updateStatus(server Message)
     private synchronized void startMatch() {
         //如果开始的人数少于三人
-        if (players.size() < 2) {
+        if (players.size() < 3) {
             endGame(true);
             return;
         }
@@ -168,7 +169,7 @@ public class MatchController {
             Integer maxCount = Collections.max(selectedMaps.values());
 
             for (Integer i : selectedMaps.keySet()) {
-                if (selectedMaps.get(i) == maxCount) {
+                if (selectedMaps.get(i).equals(maxCount)) {
                     selectedMapInt = i;
                     switch (i){
                         case 1: selectedMap = new MapA();break;
@@ -197,7 +198,7 @@ public class MatchController {
         if (numKill() == clients.size()){
             Integer maxCount = Collections.max(selectedKills.values());
             for (Integer i : selectedKills.keySet()) {
-                if (selectedKills.get(i) == maxCount) {
+                if (selectedKills.get(i).equals(maxCount)) {
                     this.selectedKill = i;
                 }
             }
@@ -211,14 +212,14 @@ public class MatchController {
     }
 
     //initial playBoard with map, Numkill, players
-    protected void initPlayBoard(){
+    private void initPlayBoard(){
         playBoard = new Board(selectedMap, selectedKill,selectedMapInt);
         addPlayersToBoard(playBoard);
         Logger.getGlobal().log(Level.INFO,"init play board success!");
     }
 
     // add all players on the board, including giving each player color and two powerUp card
-    public void addPlayersToBoard(Board playBoard){
+    private void addPlayersToBoard(Board playBoard){
         for(ClientInterface key : players.keySet()){
             playBoard.addPlayers(players.get(key));
             players.get(key).setPlayBoard(playBoard);
@@ -266,29 +267,17 @@ public class MatchController {
             ServerMessage opponentsMessage = new ServerMessage(false, "OPPONENTS", messageO);
             updateClient(client, opponentsMessage);
         }
-        for (Player p: players.values()){
-            System.out.println(p.getUserName());
-            //System.out.println(p.getCurrentCell().getCellID());
-            System.out.println(playBoard.getMap().getAllCells().get(3).getCellPlayers().size());
-            System.out.println(playBoard.getMap().getAllCells().get(5).getCellPlayers().size());
-            System.out.println(playBoard.getMap().getAllCells().get(12).getCellPlayers().size());
-        }
-        System.out.println(playBoard.getMap().getAllCells().get(1).getAmmotileCard().getNumAmmotileCard());
-        System.out.println(playBoard.getMap().getAllCells().get(2).getAmmotileCard().getNumAmmotileCard());
-        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(0).getCardName());
-        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(1).getCardName());
-        System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(2).getCardName());
 
     }
 
     //send map result ot each client
-    protected void chooseMapEach(ClientInterface client) throws RemoteException{
+    private void chooseMapEach(ClientInterface client) throws RemoteException{
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEMAP",selectedMapInt);
         client.updateStatus(serverMessage);
     }
 
     //send kill result to each client
-    protected void chooseKillEach(ClientInterface client) throws RemoteException {
+    private void chooseKillEach(ClientInterface client) throws RemoteException {
         ServerMessage serverMessage = new ServerMessage(false, "CHOOSEKILL",selectedKill);
         client.updateStatus(serverMessage);
     }
@@ -298,14 +287,14 @@ public class MatchController {
     }
 
     //calculate the number of values(client) that have already selected
-    protected Integer numMap(){
+    private Integer numMap(){
         int num = 0;
         for(int m : selectedMaps.keySet()){
             num += selectedMaps.get(m);
         }
         return num;
     }
-    protected Integer numKill(){
+    private Integer numKill(){
         int num = 0;
         for(int k : selectedKills.keySet()){
             num += selectedKills.get(k);
@@ -314,32 +303,20 @@ public class MatchController {
     }
 
     //drop a powerupcard in a SpawnLocation State
-    public void spawnLocationDrop(String powerupName,ClientInterface client) throws RemoteException{
+    public void spawnLocationDrop(String powerupName,ClientInterface client) {
         players.get(client).dropPowerupAndGoNewCell(powerupName);
         numSqawnAlready += 1;
         Logger.getGlobal().log(Level.INFO,"dropPowerupAndGoNewCell {0} successful! ", powerupName);
         if (numSqawnAlready == players.size()){
             ServerMessage message = new ServerMessage(false, "SpawnLocation");
             message.addStatusUpdate(new SpawnLocationUpdate(playBoard,playBoard.getMap()));
-            for (Player p: players.values()){
-                System.out.println(p.getUserName());
-                System.out.println(p.getCurrentCell().getCellID());
-                System.out.println(playBoard.getMap().getAllCells().get(3).getCellPlayers().size());
-                System.out.println(playBoard.getMap().getAllCells().get(5).getCellPlayers().size());
-                System.out.println(playBoard.getMap().getAllCells().get(12).getCellPlayers().size());
-            }
-            System.out.println(playBoard.getMap().getAllCells().get(1).getAmmotileCard().getNumAmmotileCard());
-            System.out.println(playBoard.getMap().getAllCells().get(2).getAmmotileCard().getNumAmmotileCard());
-            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(0).getCardName());
-            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(1).getCardName());
-            System.out.println(playBoard.getMap().getAllCells().get(3).getWeaponCard().get(2).getCardName());
             updateAll(message);
             readyPlayers();
         }
     }
 
     //update all players to ready
-    public void readyPlayers() {
+    private void readyPlayers() {
         List<Player> definitivePlayers = new ArrayList<>();
         players.forEach((client, player) -> definitivePlayers.add(player));
         turnHandler = new TurnHandler(definitivePlayers);
@@ -355,18 +332,10 @@ public class MatchController {
         Logger.getGlobal().log(Level.INFO,"start refresh controller state....");
         controllers.forEach((player, controller) -> {
             if (player.equals(currentPlayer)) {
-                Logger.getGlobal().log(Level.INFO,"current player next state: playing");
-//                try {
-//                    controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
-//                    Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
-//                }catch (RemoteException e){
-//                    e.printStackTrace();
-//                }
-                controller.nextState(new PlayingState(this, clients.get(currentPlayer)));
+                controller.nextState(new PlayingState(this));
                 Logger.getGlobal().log(Level.INFO,"current player {0}", currentPlayer.getUserName());
             } else {
                 controller.nextState(new NonPlayingState());
-                Logger.getGlobal().log(Level.INFO,"not current player next state: nonplaying");
             }
         });
     }
@@ -417,7 +386,7 @@ public class MatchController {
     }
 
 
-    public void startTimer() {
+    void startTimer() {
         try (Scanner input = new Scanner(MatchController.class.getResourceAsStream("/Timer2.json"))){
             //Read the content of the file
             StringBuilder jsonIn = new StringBuilder();
@@ -431,7 +400,6 @@ public class MatchController {
             final int seconds = Integer.parseInt((String) cell.get("seconds")) + 30;
             timer.scheduleAtFixedRate(new GameTimerTask(seconds),0,1000);
         } catch (Exception e) {
-            e.printStackTrace();
             Logger.getGlobal().warning(e.getMessage());
         }
     }
@@ -469,7 +437,6 @@ public class MatchController {
         } catch (RemoteException e) {
             Logger.getGlobal().warning("There has been a connection error from player "
                     + players.get(client).getUsername());
-            e.printStackTrace();
         }
     }
 
@@ -481,7 +448,7 @@ public class MatchController {
         });
         Logger.getGlobal().log(Level.INFO,"not current player update {0}",serverMessage.getMessage());
     }
-    public void updateCurrentPlayer(ServerMessage serverMessage) {
+    private void updateCurrentPlayer(ServerMessage serverMessage) {
         Logger.getGlobal().warning("current player {0} "+ currentPlayer.getUserName());
         ClientInterface client = clients.get(currentPlayer);
         updateClient(client, serverMessage);

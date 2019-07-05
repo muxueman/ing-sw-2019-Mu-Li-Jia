@@ -6,7 +6,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.SocketController;
 
@@ -21,8 +21,8 @@ import java.util.logging.Logger;
 public class Server {
 
     //port number (if cannot be established, possibly because current port number is being used
-    static final int RMI_PORT = 1099;
-    static final int SOCKET_PORT = 1100;
+    private static final int RMI_PORT = 1099;
+    private static final int SOCKET_PORT = 1100;
 
     private Lobby lobby;
 

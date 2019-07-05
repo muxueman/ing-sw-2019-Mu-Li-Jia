@@ -2,15 +2,14 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
 
 public class SelectKillState extends ControllerState {
 
     private int numKillShoot;
 
+    //debug 有两次输出message
     public SelectKillState(ClientController clientController){
-        //debug 有两次输出message
         super(clientController, "Please insert the number of killShoot: (suggested 5~8)");
         this.numKillShoot = 5;
     }
@@ -26,16 +25,5 @@ public class SelectKillState extends ControllerState {
             clientController.reportError("Not a valid number!");
             return this;
         }
-    }
-
-    public ControllerState updateStatus(ServerMessage serverMessage) {
-
-        if (serverMessage.getMessage().equalsIgnoreCase("CHOOSEMAP")) {
-            String finalMap = String.valueOf(serverMessage.getParm());
-            String messageMap = "(select map state) the map of this match: " + finalMap;
-            clientController.sendMessage(messageMap);
-            return nextState(false, true);
-        }
-        return this;
     }
 }

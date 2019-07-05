@@ -7,5 +7,4 @@ import org.fusesource.jansi.Ansi;
 //All properties come from client point of view as well
 public interface Status extends Serializable {
     String toString();
-    Ansi toAnsi();
 }

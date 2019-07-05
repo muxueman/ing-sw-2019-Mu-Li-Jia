@@ -1,14 +1,12 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.PowerupCard;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 
 /**
@@ -22,17 +20,10 @@ import java.util.List;
 
 public class SpawnLocationState implements GameServerInterface {
 
-    private ServerController serverController;
-    private MatchController matchController;
-    private List<PowerupCard> powerupCards;
 
+    private MatchController matchController;
     public SpawnLocationState(ServerController serverController, ClientInterface client) throws RemoteException {
-        this.serverController = serverController;
         matchController = serverController.getMatch();
-        powerupCards = matchController.getChoosablePowerupCards(client);
-//        ServerMessage serverMessage = new ServerMessage("CHOOSE", true, new PowerupCardUpdate(powerupCards));
-//        client.updateStatus(new PlayMessage());
-//        client.updateStatus(serverMessage);
     }
 
     //the message from the Client and update the model.

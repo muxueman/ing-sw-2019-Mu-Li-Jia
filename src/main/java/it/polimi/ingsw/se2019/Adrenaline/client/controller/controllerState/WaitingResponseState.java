@@ -4,10 +4,9 @@ import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.GUI.GUIView;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ViewMessage;
-import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.PlayerStatus;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ViewMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class WaitingResponseState extends ControllerState {
 
     @Override
     public ControllerState updateStatus(ServerMessage serverMessage){
-        if (serverMessage.isPlaying() == false){
+        if (!serverMessage.isPlaying()){
             switch (serverMessage.getMessage()) {
                 case ("CONNECT"):
                     wpc = false;
@@ -87,12 +86,11 @@ public class WaitingResponseState extends ControllerState {
                     } else {
                         clientController.reportError("no response from server!");
                     }
-                    String viewMessage = "";
+                    String viewMessage = "all players in map: ";
                     for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()) {
                         viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
                                 + clientController.getModel().getBoardStatus().getPositions().get(pID) + "  ";
                     }
-                    //new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
                     return this;
                 case ("OPPONENTS"):
                     new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
@@ -107,28 +105,17 @@ public class WaitingResponseState extends ControllerState {
                         clientController.getModel().pingUpdate(serverMessage.getMessage());
                     }
                     else clientController.reportError("statusupdate empty location spawn");
-//                    String viewMessage = "";
-//                    for (String pID : clientController.getModel().getBoardStatus().getPlayers().keySet()){
-//                        viewMessage += clientController.getModel().getBoardStatus().getUsernames().get(pID) + ": cell "
-//                                 + clientController.getModel().getBoardStatus().getPositions().get(pID) + "  ";
-//                    }
-//                    clientController.sendMessage(viewMessage);
                     new ShowTotal(clientController.getModel().getBoardStatus(),clientController);
                     return new NonPlayingState(clientController);
-
                 default:
-                 //   return super.updateStatus(serverMessage);
                     return nextState(false,true);
             }
 
         }
-        if (serverMessage.isPlaying() == true){
+        if (serverMessage.isPlaying()){
             System.out.println("is playing == true");
             return new ActionSelectState(clientController, new ArrayList<>() ,false);
-//                    PlayingState(clientController,clientController.getActionMode());
-
         }
-
         return this;
     }
 

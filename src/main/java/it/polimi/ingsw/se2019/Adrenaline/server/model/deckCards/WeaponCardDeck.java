@@ -5,6 +5,8 @@ import com.google.gson.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Logger;
+
 /**
  *
  * This weaponCardDeck is use to use Gson to verify the messege and get info about all the
@@ -41,14 +43,14 @@ public class WeaponCardDeck implements Serializable {
                 weaponCards.add(weaponCardReaded);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Logger.getGlobal().warning(e.getMessage());
         }finally {
             {
                 if(null != reader ){
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Logger.getGlobal().warning(e.getMessage());
                     }
                 }
             }
@@ -71,32 +73,16 @@ public class WeaponCardDeck implements Serializable {
         return weaponCards;
     }
 
-    public void setWeaponCards(ArrayList<WeaponCard> weaponCards) {
-        this.weaponCards = weaponCards;
-    }
-
     public ArrayList<WeaponCard> getRedWeapons() {
         return redWeapons;
-    }
-
-    public void setRedWeapons(ArrayList<WeaponCard> redWeapons) {
-        this.redWeapons = redWeapons;
     }
 
     public ArrayList<WeaponCard> getYellowWeapons() {
         return yellowWeapons;
     }
 
-    public void setYellowWeapons(ArrayList<WeaponCard> yellowWeapons) {
-        this.yellowWeapons = yellowWeapons;
-    }
-
     public ArrayList<WeaponCard> getBlueWeapons() {
         return blueWeapons;
-    }
-
-    public void setBlueWeapons(ArrayList<WeaponCard> blueWeapons) {
-        this.blueWeapons = blueWeapons;
     }
 
     @Override

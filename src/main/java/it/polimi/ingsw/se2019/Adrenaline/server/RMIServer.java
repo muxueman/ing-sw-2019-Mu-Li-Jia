@@ -1,12 +1,11 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.RMIServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.RMIServerInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.RMIController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 //UnicastRemoteObject用于导出的远程对象和获得与该远程对象通信的存根。
 import java.rmi.server.UnicastRemoteObject;
@@ -33,7 +32,6 @@ public class RMIServer implements RMIServerInterface {
             System.out.println("a client added with a RMI controller");
             return gameServer;
         } catch (RemoteException e) {
-            e.printStackTrace();
             Logger.getGlobal().warning(e.getMessage());
             return null;
         }

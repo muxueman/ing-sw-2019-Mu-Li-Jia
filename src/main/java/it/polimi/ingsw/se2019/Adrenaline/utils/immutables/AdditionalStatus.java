@@ -42,15 +42,4 @@ public class AdditionalStatus implements Status {
         return message + status.toString();
     }
 
-    /**
-     *
-     * The toAnsi method is used to get the ansi containing the message
-     * and the status colored information.
-     * @return the ansi containing the message and the status colored information.
-     *
-     */
-    @Override
-    public Ansi toAnsi() {
-        return ansi().a(message).a(" ").a(status.toAnsi());
-    }
 }

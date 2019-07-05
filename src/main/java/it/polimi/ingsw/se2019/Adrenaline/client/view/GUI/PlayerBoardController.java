@@ -35,18 +35,15 @@ public class PlayerBoardController extends GUIController {
     private GridPane markDamageNum;
 
     private GameMapController gameMapController;
-
     private String playerID;
     private boolean next;
-    protected static final String Blood_Path = "/blood/";
+    private static final String Blood_Path = "/blood/";
 
     public PlayerBoardController(ClientController client, BoardStatus boardStatus,boolean next){
         this.boardStatus = boardStatus;
         this.next = next;
         this.client = client;
     }
-
-
 
     public void initialize(){
         addDraggableNode(playerChild);
@@ -57,11 +54,11 @@ public class PlayerBoardController extends GUIController {
      *
      * set the playerboard every color collect a image
      *
-     * @param color
+     * @param color of a player
      */
 
     @FXML
-    public void setPlayerImage(String color) {
+    void setPlayerImage(String color) {
 
             switch (color){
                 case "YELLOW":
@@ -79,6 +76,7 @@ public class PlayerBoardController extends GUIController {
                 case "WHITE":
                     playerImg.setImage(new Image("/playerBoard/playerBoard_white.png"));
                     notify("WHITE");break;
+                    default:break;
             }
 
 
@@ -101,7 +99,7 @@ public class PlayerBoardController extends GUIController {
 
         for (int i = 0;i < 6;i++ ){
             ((ImageView)gridPane.getChildren().get(i)).setImage(new Image("/blood/redSkull.png"));
-            notify(boardStatus.getColorDamageOnSkullBoard().toString());
+            //notify(boardStatus.getColorDamageOnSkullBoard());
         }
 
     }

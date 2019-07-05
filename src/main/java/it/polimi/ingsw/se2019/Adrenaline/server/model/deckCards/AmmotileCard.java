@@ -158,22 +158,6 @@ public class AmmotileCard implements Status {
                 '}';
     }
 
-    /**
-     *
-     * The toAnsi methods is use to get the info about the ammotilecard that the player get
-     *
-     *
-     */
-
-    public Ansi toAnsi() {
-        Ansi ansi = new Ansi().a("AmmotileCard{" +
-                "numAmmotileCard=" + numAmmotileCard +
-                "image" + image +
-                ", ammoColor=" + Arrays.toString(ammoColor) +
-                ", totalnumCard=" + totalnumCard +
-                '}');
-        return ansi;
-    }
 }
 
 

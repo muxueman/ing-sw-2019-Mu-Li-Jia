@@ -90,18 +90,9 @@ public abstract class GUIController {
 
             guiView.setGuiController(controller);
         } catch (IOException e1) {
-            e1.printStackTrace();
             Logger.getGlobal().warning(e1.getCause().toString());
         }
     }
-
-
-
-
-
-
-
-
 
     /**
      * The showMessage method is used to show a message

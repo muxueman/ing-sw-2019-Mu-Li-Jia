@@ -19,8 +19,4 @@ public class TokenStatus implements Status {
         return "This is your reconnection token: " + token;
     }
 
-    @Override
-    public Ansi toAnsi() {
-        return Ansi.ansi().a(toString());
-    }
 }

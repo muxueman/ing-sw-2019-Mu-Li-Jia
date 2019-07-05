@@ -1,10 +1,10 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards;
 
 import com.google.gson.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,14 +35,14 @@ public class PowerupCardDeck implements Serializable {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Logger.getGlobal().warning(e.getMessage());
         }finally {
             {
                 if(null != reader ){
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Logger.getGlobal().warning(e.getMessage());
                     }
                 }
             }

@@ -108,10 +108,6 @@ public class MapC extends Map{
     }
 
     @Override
-    public Ansi toAnsi(){
-        return ansi().a("Map cells:" + allCells.toString());
-    }
-    @Override
     public String toString(){
         return "map cells:" + allCells.toString() ;
     }

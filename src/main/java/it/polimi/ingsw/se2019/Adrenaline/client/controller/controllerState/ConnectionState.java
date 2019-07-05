@@ -2,7 +2,7 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState;
 
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ClientController;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
 
 public class ConnectionState extends ControllerState {
 

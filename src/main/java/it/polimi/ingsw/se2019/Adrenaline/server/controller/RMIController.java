@@ -5,9 +5,9 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayerSetupState;
@@ -84,7 +84,6 @@ public class RMIController implements GameServerInterface, ServerController {
                 state = state.update(message, client);
             } catch (RemoteException e) {
                 Logger.getGlobal().warning("There has been a problem with a client.");
-                e.printStackTrace();
             }
         }
     }

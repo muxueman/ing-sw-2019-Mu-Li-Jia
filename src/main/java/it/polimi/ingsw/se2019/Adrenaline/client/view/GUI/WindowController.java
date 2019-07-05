@@ -93,7 +93,7 @@ public class WindowController extends GUIController {
      *
      */
 
-    public void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
+    void setCloseButton(GUIController guiController, AnchorPane anchorPane) {
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) root.getScene().getWindow();
             guiController.close(anchorPane);
@@ -105,7 +105,7 @@ public class WindowController extends GUIController {
      * The setNewGameButton is use to start other new game collect to the new initialView.fxml
      *
      */
-    public void setNewGameButton(AnchorPane anchorPane) {
+    void setNewGameButton(AnchorPane anchorPane) {
         newGameButton.setOnAction(event -> {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
@@ -131,7 +131,7 @@ public class WindowController extends GUIController {
         });
     }
 
-    public void setLabelOne(String s) {
+    void setLabelOne(String s) {
 
         labelOne.setText(s);
     }
@@ -147,24 +147,16 @@ public class WindowController extends GUIController {
     }
 
 
-    public void setButtonOne(EventHandler<ActionEvent> value) {
+    void setButtonOne(EventHandler<ActionEvent> value) {
 
         buttonOne.setOnAction(value);
     }
 
-    public void setButtonTwo(EventHandler<ActionEvent> value) {
+    void setButtonTwo(EventHandler<ActionEvent> value) {
 
         buttonTwo.setOnAction(value);
     }
-//
-//    public void setChoiceBox() {
-//        choiceBox.getItems().add("violet");
-//        choiceBox.getItems().add("sprog");
-//        choiceBox.getItems().add("banshee");
-//        choiceBox.getItems().add("d-struct-or");
-//        choiceBox.getItems().add("dozer");
-//        choiceBox.setValue("violet");
-//    }
+
 
     public String getChoiceBoxValue(){
         return choiceBox.getValue();
@@ -207,19 +199,6 @@ public class WindowController extends GUIController {
         fifthScore.setText(Integer.toString(player.getMyScore()));
         fifthScore.setOnMouseClicked(event -> setTextArea(score,player.getUserName()));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

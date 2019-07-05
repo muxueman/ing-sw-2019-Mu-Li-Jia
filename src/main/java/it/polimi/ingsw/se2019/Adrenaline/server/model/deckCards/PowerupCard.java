@@ -48,7 +48,7 @@ public class PowerupCard implements Status {
      */
 
 
-    public void setCardName(String cardName){
+    void setCardName(String cardName){
 
         this.cardName = cardName;
     }
@@ -215,18 +215,5 @@ public class PowerupCard implements Status {
                 ", effect='" + effect + '\'' +
                 ", note='" + note + '\'' +
                 '}';
-    }
-
-
-    public Ansi toAnsi() {
-        Ansi ansi = new Ansi().a("PowerupCard{" +
-                "cardName='" + cardName + '\'' +
-                "image" + image +'\'' +
-                ", ammoCost='" + ammoCost + '\'' +
-                ", damageDeal=" + Arrays.toString(damageDeal) +
-                ", effect='" + effect + '\'' +
-                ", note='" + note + '\'' +
-                '}');
-        return ansi;
     }
 }

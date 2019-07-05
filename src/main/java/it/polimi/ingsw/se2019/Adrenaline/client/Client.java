@@ -41,12 +41,11 @@ public class Client {
         return true;
     }
 
+    //input is a string containing the user's answer.
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        //System.out.println( ansi().eraseScreen().fg(RED).a("Welcome").fg(YELLOW).a(" To").fg(BLUE).a(" Adrenaline").fg(GREEN).a("!").reset() );
         System.out.println( "\u001b[1;31m Wel" + "\u001b[1;33mcome" + "\u001b[1;35m To" + "\u001b[1;36m Adrena" + "\u001b[1;34mline" + "\u001b[1;38m!");
         System.out.println("\033[34;4m" + "Do you want to play on a CLI (Command Line Interface) or on a GUI (Graphic User Interface)?" + "\033[0m");
-        //input is a string containing the user's answer.
         String input = scanner.nextLine();
         while (!chooseView(input)) {
             System.out.println("Please answer with \"cli\" (\"c\") or \"gui\" (\"g\"):");

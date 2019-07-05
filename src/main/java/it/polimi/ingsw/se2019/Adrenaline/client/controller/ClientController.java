@@ -3,10 +3,11 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.ConnectionState;
 import it.polimi.ingsw.se2019.Adrenaline.client.model.Model;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.View;
-import it.polimi.ingsw.se2019.Adrenaline.network.*;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.RMIServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observer;
 
 import java.io.IOException;
@@ -147,7 +148,9 @@ public class ClientController implements ClientInterface, Observer<String> {
      * @param error is the string representing the error.
      * @throws RemoteException is the exception thrown by RMI.
      */
-    public void sendError(String error) throws RemoteException{};
+    public void sendError(String error) throws RemoteException{
+        //send error
+    };
 
     /**
      * The isPlaying is use to show the player still playing or not
@@ -180,9 +183,10 @@ public class ClientController implements ClientInterface, Observer<String> {
     @Override
     public synchronized void updateStatus(ServerMessage serverMessage) {
         state = state.updateStatus(serverMessage);
-        System.out.println(serverMessage.getMessage());
     }
-    public void checkConnection() throws RemoteException{};
+    public void checkConnection() throws RemoteException{
+        // for GUI
+    };
 
     /**
      *
@@ -231,7 +235,6 @@ public class ClientController implements ClientInterface, Observer<String> {
             reportError("Wrong host or port, retry!");
             return false;
         } catch (NotBoundException | RemoteException e) {
-            e.printStackTrace();
             reportError("An RMI related error, try again.");
             return false;
         } catch (Exception e) {

@@ -18,17 +18,14 @@ import java.util.List;
  */
 public class ShowTotal {
 
-    private BoardStatus boardStatus;
     private String messageMap;
-    private ClientController client;
+
 
     public ShowTotal(){};
     public ShowTotal(BoardStatus boardStatus,ClientController client){
-        this.boardStatus = boardStatus;
-        this.client = client;
-        printMap(boardStatus.getMapID());//
+        printMap(boardStatus.getMapID());
         new ShowBoardAmmotils(boardStatus);
-        new ShowBoardWeapons(boardStatus);//
+        new ShowBoardWeapons(boardStatus);
         printPlayers(boardStatus.getAllPlayers(),boardStatus);
         printDamage(boardStatus.getAllPlayers());
         new ShowWeaponCard(boardStatus.getPlayer(client.getPlayerID()).getWeaponsOwned());
@@ -39,7 +36,7 @@ public class ShowTotal {
      *
      * print the map
      *
-     * @param mapID
+     * @param mapID mapid
      */
     public void printMap(int mapID){
         switch (mapID) {
@@ -77,7 +74,7 @@ public class ShowTotal {
      * @param players
      * @param boardStatus
      */
-    public void printPlayers(List<PlayerStatus> players, BoardStatus boardStatus){
+    private void printPlayers(List<PlayerStatus> players, BoardStatus boardStatus){
         System.out.println("All players in this match:");
         int length = players.size();
         ArrayList<PlayerStatus> pA = new ArrayList<>();
@@ -107,9 +104,9 @@ public class ShowTotal {
      *
      * show the player's damage
      *
-     * @param players
+     * @param players playerStatus
      */
-    public void printDamage(List<PlayerStatus> players) {
+    private void printDamage(List<PlayerStatus> players) {
         for (PlayerStatus p : players) {
             System.out.println(p.getUsername() + ":   "+ messageD(p));
         }
@@ -119,8 +116,8 @@ public class ShowTotal {
      *
      * print the damage in color
      *
-     * @param p
-     * @return
+     * @param p playerStatus
+     * @return the demage
      */
     protected String messageD(PlayerStatus p){
         ArrayList<Color> damageColorOnTrack = p.getDamageColorOnTrack();

@@ -1,9 +1,8 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.model;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.UpdatableModel;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.UpdatableModel;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.utils.Observable;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.*;
 
@@ -46,7 +45,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
      *
      * set the board according to boardstatus
      *
-     * @param board
+     * @param board board from server model to update
      */
     @Override
     //used for initial the board at the beginning
@@ -82,7 +81,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
 
     /**
      * update the map information
-     * @param mapStatus
+     * @param mapStatus map from server model to update
      */
     @Override
     public void updateMap(it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map mapStatus) {
@@ -97,7 +96,7 @@ public class Model extends Observable<ModelUpdate> implements UpdatableModel {
      *
      * update the all player information
      *
-     * @param board
+     * @param board board from server model to update
      */
     @Override
     public void updateAllPlayers(Board board) {

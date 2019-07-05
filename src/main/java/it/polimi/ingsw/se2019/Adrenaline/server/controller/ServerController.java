@@ -5,7 +5,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
 
 public interface ServerController {
 

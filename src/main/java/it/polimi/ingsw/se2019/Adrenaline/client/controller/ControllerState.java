@@ -3,8 +3,8 @@ package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.EndGameState;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.NonPlayingState;
 import it.polimi.ingsw.se2019.Adrenaline.client.controller.controllerState.WaitingResponseState;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.StatusUpdate;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -39,8 +39,8 @@ public abstract class ControllerState {
      *The controllerstate is deal with the message from client, if it is accepted updates the state of the controller, else sends error.
      * deal with the server message, if it is accepted change the status of the controller, else sends error.
      *
-     * @param message
-     * @return
+     * @param message update with a message from view
+     * @return controller state
      */
     public abstract ControllerState update(String message);
     public ControllerState updateStatus(ServerMessage serverMessage){
@@ -73,7 +73,8 @@ public abstract class ControllerState {
      * @param playing tells if the player is playing or not.
      * @return the new state for the Controller.
      *
-     */    protected ControllerState nextState(boolean error, boolean playing) {
+     */
+    protected ControllerState nextState(boolean error, boolean playing) {
         return initState();
     }
 
@@ -90,12 +91,10 @@ public abstract class ControllerState {
 
     /**
      *
-     * The sendMessage method is used to send the message to the controller.
+     * The sendMessage method is used to send the message to view.
      *
      */
     protected void sendMessage() {
         clientController.sendMessage(message);
     }
-
-
 }

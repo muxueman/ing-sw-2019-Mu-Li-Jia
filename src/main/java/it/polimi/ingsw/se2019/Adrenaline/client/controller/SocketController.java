@@ -1,17 +1,13 @@
 package it.polimi.ingsw.se2019.Adrenaline.client.controller;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-
-
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
-import java.util.logging.Logger;
 /**
  *
  * The SocketController class is the implementation of the GameServerInterface through a socket connection.

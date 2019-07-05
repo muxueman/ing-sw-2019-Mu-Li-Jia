@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
- *
+ * the template for print values in a table, used for cli view
  *
  */
 public class CommandLineTable {
@@ -24,8 +25,8 @@ public class CommandLineTable {
      *
      * to print the commandline table
      *
-     * @param colorLine
-     * @param colorWord
+     * @param colorLine color
+     * @param colorWord color
      */
     public CommandLineTable(String colorLine, String colorWord) {
         this.colorLine = colorLine;
@@ -37,7 +38,7 @@ public class CommandLineTable {
      *
      * set the rignt align
      *
-     * @param rightAlign
+     * @param rightAlign right align
      */
     public void setRightAlign(boolean rightAlign) {
         this.rightAlign = rightAlign;
@@ -46,7 +47,7 @@ public class CommandLineTable {
     /**
      * to show the vertical lines
      *
-     * @param showVerticalLines
+     * @param showVerticalLines whether to show vertial lines
      */
 
     public void setShowVerticalLines(boolean showVerticalLines) {
@@ -58,16 +59,16 @@ public class CommandLineTable {
      *
      * set the headers
      *
-     * @param headers
+     * @param headers set headers
      */
-    public void setHeaders(String... headers) {
+    void setHeaders(String... headers) {
         this.headers = headers;
     }
 
     /**
      *add the cells in row
      *
-     * @param cells
+     * @param cells set rows
      */
     public void addRow(String... cells) {
         rows.add(cells);
@@ -102,7 +103,12 @@ public class CommandLineTable {
             printRow(cells, maxWidths);
         }
         if (headers != null) {
-            printLine(maxWidths);
+            try{
+                printLine(maxWidths);
+            }catch (Exception e){
+                Logger.getGlobal().warning(e.getMessage());
+            }
+
         }
     }
 
@@ -110,7 +116,7 @@ public class CommandLineTable {
      *
      * print the colunm line
      *
-     * @param columnWidths
+     * @param columnWidths within the boarder
      */
     private void printLine(int[] columnWidths) {
         for (int i = 0; i < columnWidths.length; i++) {

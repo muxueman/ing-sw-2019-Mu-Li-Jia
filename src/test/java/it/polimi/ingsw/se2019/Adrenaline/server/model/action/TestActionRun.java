@@ -3,11 +3,10 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.action;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidGrabException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidGrabException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidRunException;
 import org.junit.Test;
 
 public class TestActionRun {

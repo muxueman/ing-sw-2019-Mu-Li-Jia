@@ -369,21 +369,6 @@ public class WeaponCard implements Status {
                 '}';
     }
 
-    public Ansi toAnsi() {
-        Ansi ansi = new Ansi().a("WeaponCard{" +
-                "cardName='" + cardName + '\'' +
-                "image" + image +'\'' +
-                ", basicammoCost=" + Arrays.toString(basicammoCost) +
-                ", damageVision=" + basicDamageVision +
-                ", damageDeal=" + Arrays.toString(damageDeal) +
-                ", basicEffect='" + basicEffect + '\'' +
-                ", specialEffectName=" + Arrays.toString(specialEffectName) +
-                ", specialAmmoCost=" + Arrays.toString(specialAmmoCost) +
-                ", specialEffect=" + Arrays.toString(specialEffect) +
-                ", notes='" + notes + '\'' +
-                '}');
-        return ansi;
-    }
 
 
 }

@@ -1,15 +1,14 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.GameServerInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.updates.PlayerStatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.updates.SpawnLocationUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
-import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionGrab;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.action.ActionShoot;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidRunException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidNameException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidRunException;
 
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -24,7 +23,6 @@ public class ShootState implements GameServerInterface {
         this.matchController = matchController;
         this.previousState = previouState;
         Logger.getGlobal().log(Level.INFO, " shoot state: ", matchController.getCurrentPlayer().getUserName());
-        //client.updateStatus(new PlayMessage());
     }
 
     public void setShoot(ActionShoot shoot){
@@ -39,25 +37,26 @@ public class ShootState implements GameServerInterface {
                 try{
                     ServerMessage messageShootTarget = new ServerMessage(true, "shoot done! contiue with side effect?");
                     shoot.checkIfInputValid(message.getMainParamS());
-                    if (shoot.getTargetBasic().size() == 0)
-                        messageShootTarget = new ServerMessage(true, "nobody to shoot! " +
-                                "contiue with side effect?");
+                    if (shoot.getTargetBasic().isEmpty())
+                        messageShootTarget = new ServerMessage(true, "nobody to shoot! " + "contiue with side effect?");
 
                     if(shoot.checkWeaponType() == 0){
                         messageShootTarget = new ServerMessage(true,"shoot done! finish this round?",0);
-                        messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                        client.updateStatus(messageShootTarget);
                         return previousState;
                     }
                     else {
                         messageShootTarget = new ServerMessage(true, "shoot done, type in the direction with 0,1,2,3 to which " +
                                 "you want your target move");
-                        messageShootTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                        messageShootTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
+                        client.updateStatus(messageShootTarget);
                         return this;
                     }
 
                 }
                 catch (InvalidNameException e) {
-                    ServerMessage errorMessage = new ServerMessage(true, "inValid target, try again?");
+                    client.sendError("inValid target, try again?");
                     return this;
                 }
 
@@ -66,7 +65,7 @@ public class ShootState implements GameServerInterface {
                 try{
                     shoot.grenadeMove(message.getMainParamS());
                     ServerMessage messageMoveTarget = new ServerMessage(true, "move done! contiue with side effect?");
-                    messageMoveTarget.addStatusUpdate(new PlayerStatusUpdate(matchController.getCurrentPlayer()));
+                    messageMoveTarget.addStatusUpdate(new SpawnLocationUpdate(matchController.getPlayBoard(),matchController.getPlayBoard().getMap()));
                     return previousState;
                 }
                 catch (InvalidRunException e){

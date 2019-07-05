@@ -5,20 +5,17 @@ import it.polimi.ingsw.se2019.Adrenaline.client.controller.ControllerState;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowTotal;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.client.view.CLI.ShowWeaponCardReload;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.StatusUpdate;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.StatusUpdate;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ReloadState extends ControllerState {
 
     private ArrayList<String> previousActions;
-    private int currentCell;
     private ArrayList<WeaponCard> weaponCardReloads;
 
     public ReloadState(ClientController controller, ArrayList<String> previousActions) {
@@ -28,7 +25,7 @@ public class ReloadState extends ControllerState {
         this.previousActions.add("reload");
         new ShowWeaponCard(clientController.getModel().getBoardStatus().getPlayer(clientController.getPlayerID()).getWeaponsOwned());
         weaponCardReloads = new ShowWeaponCardReload(clientController.getModel().getBoardStatus().getPlayer(clientController.getPlayerID()).getWeaponsOwned()).getWeaponCards();
-        this.currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
+        int currentCell = clientController.getModel().getBoardStatus().getPositions().get(clientController.getPlayerID());
         System.out.println("your current cell id" + currentCell);
     }
 
@@ -43,8 +40,6 @@ public class ReloadState extends ControllerState {
                 }
             }
             if (message.equals("0")){
-                //ClientMessage cMessage = new ClientMessage("ENDTURN",0);
-                //clientController.sendToServer(cMessage);
                 return new ActionSelectState(clientController, previousActions,true).initState();
             }else{
                 clientController.reportError("not a valid reload action!");

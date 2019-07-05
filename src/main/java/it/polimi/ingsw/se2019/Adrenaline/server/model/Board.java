@@ -6,11 +6,8 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Cell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
-import it.polimi.ingsw.se2019.Adrenaline.utils.exceptions.InvalidNameException;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidNameException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.immutables.Status;
-import org.fusesource.jansi.Ansi;
-
-import java.util.*;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -62,7 +59,7 @@ public class Board implements Status {
 
     public ArrayList<Player> getAllPlayers() {return this.allPlayers;}
 
-    public Player findPlayerByColor (Color playerColor){
+    Player findPlayerByColor(Color playerColor){
         for(Player p : allPlayers){
             if(p.getPlayerColor().equals(playerColor)) return p;
         }
@@ -198,11 +195,6 @@ public class Board implements Status {
         reloadCardOnBoard();
     }
 
-//    public void setPlayers(ArrayList<Player> players) {
-//        for(Player player: players){
-//            players.add((Player)player);
-//        }
-//    }
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -218,7 +210,7 @@ public class Board implements Status {
     }
 
     public PowerupCard extractPowerupcard(){
-        if(powerupCardDeck.getPpCards().size() == 0){
+        if(powerupCardDeck.getPpCards().isEmpty()){
             powerupCardDeck = new PowerupCardDeck();
         }
         PowerupCard powerupCard = powerupCardDeck.getPpCards().get(0);
@@ -226,7 +218,7 @@ public class Board implements Status {
         return powerupCard;
     }
     public WeaponCard extractWeapon(){
-        if(weaponCardDeck.getWeaponCards().size() == 0){
+        if(weaponCardDeck.getWeaponCards().isEmpty()){
             weaponCardDeck = new WeaponCardDeck();
         }
         WeaponCard weaponCard = weaponCardDeck.getWeaponCards().get(0);
@@ -236,15 +228,15 @@ public class Board implements Status {
     public WeaponCard extractWeaponWithColor(String color){
         WeaponCard weaponCard = new WeaponCard();
         switch (color){
-            case "yellow": if(weaponCardDeck.getYellowWeapons().size() == 0)
+            case "yellow": if(weaponCardDeck.getYellowWeapons().isEmpty())
                 weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getYellowWeapons().get(0);
                 weaponCardDeck.getYellowWeapons().remove(0); break;
-            case "red": if(weaponCardDeck.getRedWeapons().size() == 0)
+            case "red": if(weaponCardDeck.getRedWeapons().isEmpty())
                 weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getRedWeapons().get(0);
                 weaponCardDeck.getRedWeapons().remove(0); break;
-            case"blue": if(weaponCardDeck.getBlueWeapons().size() == 0)
+            case"blue": if(weaponCardDeck.getBlueWeapons().isEmpty())
                 weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getBlueWeapons().get(0);
                 weaponCardDeck.getBlueWeapons().remove(0); break;
@@ -252,7 +244,7 @@ public class Board implements Status {
         return weaponCard;
     }
     public AmmotileCard extractAmmotile(){
-        if(ammotileCardDeck.getAtCards().size() == 0){
+        if(ammotileCardDeck.getAtCards().isEmpty()){
             ammotileCardDeck = new AmmotileCardDeck();
         }
         AmmotileCard ammotileCard = ammotileCardDeck.getAtCards().get(0);
@@ -303,10 +295,6 @@ public class Board implements Status {
         return pickedCell;
     }
 
-    @Override
-    public Ansi toAnsi(){
-        return ansi().a("map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd);
-    }
     @Override
     public String toString(){
         return "map: " + map + "\n" + "numkill: " + numKillShoot+ "\n" + "firenzy:" + firenzyTriggerd ;

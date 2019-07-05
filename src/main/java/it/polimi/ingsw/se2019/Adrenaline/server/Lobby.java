@@ -1,7 +1,6 @@
 package it.polimi.ingsw.se2019.Adrenaline.server;
 
-import it.polimi.ingsw.se2019.Adrenaline.network.ClientInterface;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.ChooseMapState;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.MatchController;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.ServerController;
@@ -9,13 +8,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Lobby implements Serializable {
+public class Lobby {
 
     private Map<ClientInterface, Boolean> clients;
     private Map<ClientInterface, ServerController> controllers;
@@ -115,10 +112,10 @@ public class Lobby implements Serializable {
         @Override
         public void run() {
             while (active) {
-                if (playersNumber(2)) {
+                if (playersNumber(3)) {
                     timerStarted = false;
                     startMatch();
-                } else if (playersNumber(1)) {
+                } else if (playersNumber(2)) {
                     if (!timerStarted) {
                         timerStarted = true;
                         startTimer();
@@ -182,12 +179,7 @@ public class Lobby implements Serializable {
                 currentMatch.setPlayer(usernames.get(client), client);
                 ServerController serverController = controllers.get(client);
                 serverController.setMatch(currentMatch);
-                try {
-                    serverController.nextState(new ChooseMapState(serverController, client));
-                    Logger.getGlobal().log(Level.INFO,"next state choose map state ");
-                } catch (RemoteException e) {
-                    Logger.getGlobal().warning("There has been an error: " + e.getMessage());
-                }
+                serverController.nextState(new ChooseMapState(serverController));
                 playingClients.add(client);
             }
         }
@@ -207,7 +199,4 @@ public class Lobby implements Serializable {
         currentMatch = new MatchController(matchID);
         matches.put(matchID, currentMatch);
     }
-
-
-
 }

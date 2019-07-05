@@ -80,7 +80,6 @@ public class PlayerStatus implements Status{
         weaponsOwned = player.getWeaponsOwned();
         powerupsOwned = player.getPowerupsOwned();
         myScore = player.getMyScore();
-        //currentCell = player.getCurrentCell().getCellID();
         actionMode = player.getActionMode();
         favorTokens = player.getFavorTokens();
         damageColorOnTrack = player.getKillShootTrack().getDamageColorOnTrack();
@@ -104,9 +103,5 @@ public class PlayerStatus implements Status{
                 + weaponsOwned + "\n" + "powerup you have:" + "\n";
     }
 
-    @Override
-    public Ansi toAnsi(){
-        return ansi().a("Username: " + username + "\n color: " + playerColor + "\n" );
-    }
 }
 

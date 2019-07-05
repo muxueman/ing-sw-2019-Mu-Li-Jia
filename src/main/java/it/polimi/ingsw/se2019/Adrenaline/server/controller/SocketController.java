@@ -5,10 +5,11 @@ package it.polimi.ingsw.se2019.Adrenaline.server.controller;
  * @author Xueman Mu
  */
 
-import it.polimi.ingsw.se2019.Adrenaline.network.*;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ClientMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ErrorMessage;
-import it.polimi.ingsw.se2019.Adrenaline.network.messages.ServerMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.ClientInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.GameServerInterface;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ClientMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ErrorMessage;
+import it.polimi.ingsw.se2019.Adrenaline.utils.network.messages.ServerMessage;
 import it.polimi.ingsw.se2019.Adrenaline.server.Lobby;
 import it.polimi.ingsw.se2019.Adrenaline.server.controller.controllerState.PlayerSetupState;
 
@@ -87,7 +88,6 @@ public class SocketController implements ClientInterface, ServerController {
             out.flush();
         } catch (IOException e) {
             Logger.getGlobal().warning(e.getMessage());
-            e.printStackTrace();
         }
     }
 

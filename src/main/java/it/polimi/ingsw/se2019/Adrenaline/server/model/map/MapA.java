@@ -104,10 +104,7 @@ public class MapA extends Map{
 
         this.notDoor = new int[][]{{2,6}, {7,11}};
     }
-    @Override
-    public Ansi toAnsi(){
-        return ansi().a("Map cells:" + allCells.toString());
-    }
+
     @Override
     public String toString(){
         return "map cells:" + allCells.toString() ;

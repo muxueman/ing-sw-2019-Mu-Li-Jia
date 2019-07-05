@@ -8,7 +8,6 @@ import java.util.ArrayList;
 /**
  *
  * ShowBoardWeapons is to show all the weaponcard in board in three color position
- *
  * @author
  */
 public class ShowBoardWeapons {
@@ -20,7 +19,7 @@ public class ShowBoardWeapons {
     /**
      *
      * initial the weaponcard in board
-     * @param boardStatus
+     * @param boardStatus from immutables
      */
     public ShowBoardWeapons(BoardStatus boardStatus) {
         this.weaponCardsB = boardStatus.getWeaponsInCell().get(3);
@@ -31,7 +30,7 @@ public class ShowBoardWeapons {
         printY();
     }
 
-    public void printB(){
+    private void printB(){
 
         CommandLineTable st = new CommandLineTable("\u001b[1;36m","\u001b[1;31m");
         int length = weaponCardsB.size();
@@ -59,7 +58,7 @@ public class ShowBoardWeapons {
     }
 
 
-    public void printR(){
+    private void printR(){
 
         CommandLineTable st = new CommandLineTable("\u001b[1;31m","\u001b[1;31m");
         int length = weaponCardsR.size();
@@ -85,7 +84,7 @@ public class ShowBoardWeapons {
         }
     }
 
-    public void printY(){
+    private void printY(){
 
         CommandLineTable st = new CommandLineTable("\u001b[1;33m","\u001b[1;31m");
         int length = weaponCardsY.size();

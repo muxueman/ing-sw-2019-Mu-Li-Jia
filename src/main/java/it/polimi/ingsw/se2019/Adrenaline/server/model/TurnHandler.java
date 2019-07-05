@@ -42,17 +42,6 @@ public class TurnHandler implements Serializable {
         return players;
     }
 
-    /**
-     *
-     * The getRoundTrack method return the roundTrack
-     *
-     * @return the roundTrack.
-     *
-     */
-
-//    public RoundTrack getRoundTrack() {
-//        return roundTrack;
-//    }
 
     /**
      *
