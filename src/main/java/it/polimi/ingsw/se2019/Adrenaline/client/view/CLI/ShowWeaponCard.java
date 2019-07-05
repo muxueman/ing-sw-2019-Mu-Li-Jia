@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * The ShowWeaponCard is to show the weaponcard you have
+ * The ShowWeaponCard is to show the weapon card you have
  *
  * @author li xuejing
  */

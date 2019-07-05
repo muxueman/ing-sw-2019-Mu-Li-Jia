@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- *The ShowWeaponCardReload is to show the weaponcard wait for reload
+ *The ShowWeaponCardReload is to show the weapon card wait for reload
  * for now cant use
  *
  * @author li xuejing

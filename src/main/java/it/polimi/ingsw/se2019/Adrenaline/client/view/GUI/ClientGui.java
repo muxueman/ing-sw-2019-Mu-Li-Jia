@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.logging.Logger;
+
 /**
  *
  * The clientGui class launch the gui.
@@ -40,6 +42,7 @@ public class ClientGui extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        Logger.getGlobal().info("Resource " + getClass().getResource("/fxml/initialView.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/initialView.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Adrenalina");
