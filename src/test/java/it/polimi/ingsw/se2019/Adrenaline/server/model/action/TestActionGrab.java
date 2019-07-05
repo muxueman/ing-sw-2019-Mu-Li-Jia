@@ -9,6 +9,7 @@ import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
 import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidRunException;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
 public class TestActionGrab {
 
     Player player = new Player("player", "jia", 2);
@@ -41,11 +42,7 @@ public class TestActionGrab {
         ActionGrab grab = new ActionGrab();
         System.out.println(grab.checkPlayerAmmoAvailable(((GenerationCell) player.getCurrentCell()).getWeaponCard().get(0), player));
         grab.pickWeaponCrad(player, 2);
-        System.out.println(player.getAmmoOwned()[0]);
-        System.out.println(player.getAmmoOwned()[1]);
-        System.out.println(player.getAmmoOwned()[2]);
-        System.out.println(player.getWeaponsOwned());
-
+        assertTrue(!player.getWeaponsOwned().isEmpty());
         int[] am = {2,2,2};
         player.setAmmoOwned(am);
         try {
@@ -57,12 +54,9 @@ public class TestActionGrab {
         System.out.println(player.getAmmoOwned()[0]);
         System.out.println(player.getAmmoOwned()[1]);
         System.out.println(player.getAmmoOwned()[2]);
-        System.out.println(board.getPickedCell().size());
+        assertTrue(player.getCurrentCell().getAmmotileCard() == null);
+        assertTrue(board.getPickedCell().size() == 2);
         board.reloadCardOnBoard();
-        System.out.println(board.getPickedCell().size());
-        //how to grab?;
-        //you should check the player is in common or generation cell
-        //common then grab.pickammotile
-        //generation then if(checkplayerAmmoAvailable) grab.pickweaponcard else message"you dont have enough ammo"
+        assertTrue(player.getCurrentCell().getAmmotileCard() != null);
     }
 }

@@ -50,20 +50,14 @@ public class TestActionRun {
         System.out.println(player.getCurrentCell().getCellID());
         try {
             run.ActionRun(0);
-            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(0));
-//            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(0));
-//            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(1));
-//            System.out.println(run.ActionRun(1));
-//            System.out.println(run.ActionRun(1));
-            System.out.println(player.getCurrentCell().getCellID());
-            System.out.println(run.ActionRunToCell(3));
+            run.ActionRun(1);
+            run.ActionRun(2);
+            run.ActionRun(3);
             System.out.println(player.getCurrentCell().getCellID());
         } catch (InvalidRunException e) {
             System.out.println(e);
         }
+
 
     }
 }

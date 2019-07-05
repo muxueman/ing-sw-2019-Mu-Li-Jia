@@ -1,6 +1,7 @@
 package it.polimi.ingsw.se2019.Adrenaline.server.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.*;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
@@ -123,7 +124,7 @@ public class Board implements Status {
     }
 
     // 从当前玩家开始 mode 变为 3 可进行两次3选一 从第一玩家到之后 mode 变为4 可进行一次2选1
-    public void changefirenzyMode(){
+    private void changefirenzyMode(){
         int index = allPlayers.indexOf(currentPlayer);
         if(index < firstPlayer){
             int count = 0;
@@ -154,7 +155,7 @@ public class Board implements Status {
                     count++;
                     i++;
                     if (i == allPlayers.size()) i = 0;
-                } else if (i >= 0 && i < firstPlayer) {
+                } else if (i >= 0) {
                     allPlayers.get(i).setActionMode(3);
                     i++;
                     count++;
@@ -162,7 +163,7 @@ public class Board implements Status {
 
             }
         }
-        else if(index == firstPlayer){
+        else {
             int i = 0;
             while(i < allPlayers.size()){
                 allPlayers.get(i).setActionMode(3);
@@ -172,13 +173,13 @@ public class Board implements Status {
 
     }
     // 某玩家被杀后 其余玩家给自己增加计分板上的得分
-    public void addScoreFromKST(Player diedPlayer){
+    private void addScoreFromKST(Player diedPlayer){
         for(Color playerColor: diedPlayer.getKillShootTrack().getPlayerScore().keySet()){
             findPlayerByColor(playerColor).countMyScore(diedPlayer);
         }
     }
     //游戏结束后 所有玩家给自己增加得分
-    public void addScoreFromPB(){
+    private void addScoreFromPB(){
         int index = 0;
         for (Player player : allPlayers){
             while(index < colorDamageOnSkullBoard.length){
@@ -190,7 +191,7 @@ public class Board implements Status {
             }
         }
     }
-    public void initialCardsOnBoard(){
+    private void initialCardsOnBoard(){
         pickedCell.addAll(map.getAllCells());
         reloadCardOnBoard();
     }
@@ -226,20 +227,21 @@ public class Board implements Status {
         return weaponCard;
     }
     public WeaponCard extractWeaponWithColor(String color){
-        WeaponCard weaponCard = new WeaponCard();
+        WeaponCard weaponCard;
         switch (color){
             case "yellow": if(weaponCardDeck.getYellowWeapons().isEmpty())
-                weaponCardDeck = new WeaponCardDeck();
+                                weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getYellowWeapons().get(0);
                 weaponCardDeck.getYellowWeapons().remove(0); break;
             case "red": if(weaponCardDeck.getRedWeapons().isEmpty())
-                weaponCardDeck = new WeaponCardDeck();
+                            weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getRedWeapons().get(0);
                 weaponCardDeck.getRedWeapons().remove(0); break;
             case"blue": if(weaponCardDeck.getBlueWeapons().isEmpty())
-                weaponCardDeck = new WeaponCardDeck();
+                            weaponCardDeck = new WeaponCardDeck();
                 weaponCard = weaponCardDeck.getBlueWeapons().get(0);
                 weaponCardDeck.getBlueWeapons().remove(0); break;
+                default: return null;
         }
         return weaponCard;
     }
@@ -271,10 +273,6 @@ public class Board implements Status {
 
     public void setKillTurn(int killTurn) { this.killTurn = killTurn; }
 
-    public int getKillTurn() { return killTurn; }
-
-    public int getFirstPlayer() { return firstPlayer; }
-
     public Map getMap() { return map; }
 
     public Cell getCellFromID(int cellID){
@@ -283,15 +281,8 @@ public class Board implements Status {
         }
         return null;
     }
-
-    //public void turnNextPlayer(){
-     //   setCurrentPlayer(nextPlayer(currentPlayer));
-    //}
-
     public int getNumKillShoot() { return numKillShoot; }
-
-
-    public ArrayList<Cell> getPickedCell() {
+    public List<Cell> getPickedCell() {
         return pickedCell;
     }
 

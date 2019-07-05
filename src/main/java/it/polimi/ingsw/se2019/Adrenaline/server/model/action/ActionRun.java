@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class ActionRun implements Serializable {
     // If the player cant reach the cell he wanted to go, this function will return false, then the player have to decide
     // direction to run
-    Player player;
+    private Player player;
     public ActionRun(Player player) {
         this.player = player;
     }
@@ -21,7 +21,6 @@ public class ActionRun implements Serializable {
         boolean runSucceed = true;
         Cell nextcell = player.getCurrentCell().getNextCell(direction);
         if(nextcell == null) {
-            runSucceed = false;
             throw new InvalidRunException();
         }
         player.setCurrentCell(nextcell);

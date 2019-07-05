@@ -3,6 +3,7 @@ package it.polimi.ingsw.se2019.Adrenaline.server.model.action;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Board;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Color;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.Player;
+import it.polimi.ingsw.se2019.Adrenaline.server.model.deckCards.WeaponCard;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.GenerationCell;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.Map;
 import it.polimi.ingsw.se2019.Adrenaline.server.model.map.MapD;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidGrabExc
 import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidNameException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidReloadException;
 import it.polimi.ingsw.se2019.Adrenaline.utils.network.exceptions.InvalidRunException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestActionShoot {
@@ -20,6 +22,7 @@ public class TestActionShoot {
     Board board = new Board(map, 5, 1);
     ActionRun run = new ActionRun(player);
 
+    @Before
     public void setInfo() {
         board.addPlayers(player);
         board.addPlayers(target);
@@ -38,79 +41,14 @@ public class TestActionShoot {
         target2.setCurrentCell(board.getCellFromID(6));
     }
 
-    @Test
-    public void testRun() {
-        setInfo();
-        try{
-            player.addPowerupCard(board.extractPowerupcard());
-            player.addPowerupCard(board.extractPowerupcard());
-        }
-        catch (InvalidGrabException e){
-            System.out.println(e.toString());
-        }
 
-        player.dropPowerupAndGoNewCell(player.getPowerupsOwned().get(0).getCardName());
-        System.out.println(player.getPowerupsOwned().size());
-        System.out.println(player.getCurrentCell().getCellID());
-        try {
-            run.ActionRun( 0);
-            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(0));
-//            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(0));
-//            System.out.println(player.getCurrentCell().getCellID());
-//            System.out.println(run.ActionRun(1));
-//            System.out.println(run.ActionRun(1));
-//            System.out.println(run.ActionRun(1));
-            System.out.println(player.getCurrentCell().getCellID());
-            System.out.println(run.ActionRunToCell(3));
-            System.out.println(player.getCurrentCell().getCellID());
-        } catch (InvalidRunException e) {
-            System.out.println(e);
-        }
-
-    }
-
-    @Test
-    public void testGrab() {
-        setInfo();
-        ActionGrab grab = new ActionGrab();
-        System.out.println(grab.checkPlayerAmmoAvailable(((GenerationCell) player.getCurrentCell()).getWeaponCard().get(0), player));
-        grab.pickWeaponCrad(player, 2);
-        System.out.println(player.getAmmoOwned()[0]);
-        System.out.println(player.getAmmoOwned()[1]);
-        System.out.println(player.getAmmoOwned()[2]);
-        System.out.println(player.getWeaponsOwned());
-
-        int[] am = {2,2,2};
-        player.setAmmoOwned(am);
-        try {
-            run.ActionRun( 2);
-        } catch (InvalidRunException e) {
-            System.out.println(e);
-        }
-        grab.pickAmmoTile(player);
-        System.out.println(player.getAmmoOwned()[0]);
-        System.out.println(player.getAmmoOwned()[1]);
-        System.out.println(player.getAmmoOwned()[2]);
-        System.out.println(board.getPickedCell().size());
-        board.reloadCardOnBoard();
-        System.out.println(board.getPickedCell().size());
-        //how to grab?;
-        //you should check the player is in common or generation cell
-        //common then grab.pickammotile
-        //generation then if(checkplayerAmmoAvailable) grab.pickweaponcard else message"you dont have enough ammo"
-    }
     @Test
     public void testPlayerReload() {
-        setInfo();
         ActionGrab grab = new ActionGrab();
         grab.pickWeaponCrad(player, 2);
         int[] am = {2,2,2};
         player.setAmmoOwned(am);
-
         try{
-
             System.out.println( player.reloadWeapon("FLAMETHROWER"));
         }
         catch (InvalidReloadException e){
@@ -120,11 +58,12 @@ public class TestActionShoot {
 
     }
     @Test
-    public void testShoot() {
-        setInfo();
+    public void testShootFLAME() {
         ActionGrab grab = new ActionGrab();
         grab.pickWeaponCrad(player, 2);
-        //
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setCardName("FLAMETHROWER");
+        player.getWeaponsOwned().put(weaponCard, true);
         player.useWeapon("FLAMETHROWER");
 //        player.useWeapon(player.getAvailableWeapon().get(0));
         ActionShoot shoot = new ActionShoot(player);
@@ -147,34 +86,418 @@ public class TestActionShoot {
             System.out.println(e);
         }
 
-//        System.out.println(shoot.getTargetNameWithSideEffect());
-//        try{
-//            shoot.checkIfInputValidSecond("xin");
-//            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
-//        }
-//        catch (InvalidNameException e){
-//            System.out.println(e);
-//        }
-//        System.out.println("red:"+player.getAmmoOwned()[0]);
-//        System.out.println("blue:"+player.getAmmoOwned()[1]);
-//        System.out.println("yellow:"+player.getAmmoOwned()[2]);
-//        try {
-//            shoot.payAmmoForThirdSideEffect();
-//             System.out.println("have paid," + "\n" + shoot.getTargetNameWithThirdSideEffect()); // send to cli
-//        } catch (NotEnoughAmmosException e) {
-//            System.out.println(e);
-//        }
-//        try{
-//            shoot.checkIfInputValidThird("xin");
-//            System.out.println(target2.getKillShootTrack().getDamageColorOnTrack());
-//        }catch (InvalidNameException e) {
-//            System.out.println(e);
-//        }
+    }
+    @Test
+    public void testShootLOCK() {
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setCardName("LOCK RIFLE");
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("LOCK RIFLE");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
 
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo xin");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShootELECTROSCYTHE() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setCardName("ELECTROSCYTHE");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("ELECTROSCYTHE");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("xin");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShootMACHINE_GUN() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(2);
+        weaponCard.setCardName("MACHINE GUN");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("MACHINE GUN");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("xin");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShootTHOR() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("T.H.O.R.");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("T.H.O.R.");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("xin");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShootVORTEX_CANNON() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("VORTEX CANNON");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("VORTEX CANNON");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShooFURNACE() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("FURNACE");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("FURNACE");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShooPLASMA_GUN() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("PLASMA GUN");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("PLASMA GUN");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+    public void testShootHEATSEEKER() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("HEATSEEKER");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("HEATSEEKER");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+
+    public void testShootWHISPER() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("WHISPER");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("WHISPER");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+
+    public void testShootHELLION() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("HELLION");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("HELLION");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
 
     }
 
-//
+    @Test
+
+    public void testShootFLAMETHROWER() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("FLAMETHROWER");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("FLAMETHROWER");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+
+    public void testShootZX_2() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("ZX-2");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("ZX-2");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+    @Test
+
+    public void testShootGRENADE_LAUNCHER() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("GRENADE LAUNCHER");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("GRENADE LAUNCHER");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+
+    }
+
+
+
+    @Test
+
+    public void testShootSHOTGUN() {
+        target2.setCurrentCell(player.getCurrentCell());
+        WeaponCard weaponCard = new WeaponCard();
+        weaponCard.setBasicDamageVision(1);
+        weaponCard.setCardName("SHOTGUN");
+        System.out.println(weaponCard.getBasicDamageVision());
+        player.getWeaponsOwned().put(weaponCard, true);
+        player.useWeapon("SHOTGUN");
+        ActionShoot shoot = new ActionShoot(player);
+        System.out.println(player.getWeaponInUse().getCardName());
+        System.out.println(shoot.getTargetNameBasic());
+
+        System.out.println("shooter cell" + player.getCurrentCell().getCellID());
+        System.out.println("target cell" + target.getCurrentCell().getCellID());
+        System.out.println("target2 cell" + target2.getCurrentCell().getCellID());
+
+        try{
+            shoot.checkIfInputValid("mo");
+            System.out.println(shoot.getTargetAttacked().size());
+            System.out.println("xin:" + target2.getKillShootTrack().getDamageColorOnTrack());
+            System.out.println("mo" + target.getKillShootTrack().getDamageColorOnTrack());
+        }
+        catch (InvalidNameException e){
+            System.out.println(e);
+        }
+        try
+        {
+            shoot.grenadeMove("0");
+        }
+        catch (InvalidRunException e){
+            System.out.println(e);
+        }
+
+    }
+
+
+
+
+
+
 //@Test
 //public void shootTest(){
 //        setInfo();

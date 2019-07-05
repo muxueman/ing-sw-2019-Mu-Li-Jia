@@ -4,14 +4,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 public class TestPlayBoard {
 
-    Map testmapa;
-    Board testBoard;
-    Player testShooter;
-    Player testPlayer;
-    Player testPlayer2;
-    TurnHandler turnHandler;
+    private Map testmapa;
+    private Board testBoard;
+    private Player testShooter;
+    private Player testPlayer;
+    private Player testPlayer2;
+    private TurnHandler turnHandler;
     @Before
     public void setTestInfo() {
         testmapa = new MapB();
@@ -23,6 +25,7 @@ public class TestPlayBoard {
         testBoard.addPlayers(testShooter);
         testBoard.addPlayers(testPlayer);
         testBoard.addPlayers(testPlayer2);
+        testBoard.setKillTurn(3);
         turnHandler = new TurnHandler(testBoard);
         testShooter.setPlayerColor(Color.RED);
         testPlayer2.setPlayerColor(Color.YELLOW);
@@ -33,9 +36,8 @@ public class TestPlayBoard {
     @Test
     public void addPlayerTest(){
 
-        //testBoard.turnNextPlayer();
-        //testBoard.turnNextPlayer();
-        testBoard.changefirenzyMode();
+        assertTrue(!testBoard.checkIfAnyPlayerDie());
+        assertTrue(!testBoard.triggerFirenzy());
         System.out.println(testBoard.getCurrentPlayer());
         //testBoard.setCurrentPlayer(testBoard.nextPlayer(testBoard.getCurrentPlayer()));
         System.out.println(testBoard.getCurrentPlayer());
@@ -75,7 +77,7 @@ public class TestPlayBoard {
         System.out.println(testBoard.triggerFirenzy());
         testBoard.setKillTurn(5);
         System.out.println(testBoard.triggerFirenzy());
-        testBoard.changefirenzyMode();
+        assertTrue(testBoard.triggerFirenzy());
     }
 
     @Test
@@ -101,19 +103,16 @@ public class TestPlayBoard {
         System.out.println("someone died? " + testBoard.checkIfAnyPlayerDie());
         testBoard.checkIfAnyPlayerDie(testShooter);
         testBoard.findPlayerByColor(Color.RED);
-        testBoard.addScoreFromKST(testPlayer);
-        testBoard.addScoreFromPB();
         testBoard.setCurrentPlayer(testShooter);
-        testBoard.changefirenzyMode();
         testBoard.setCurrentPlayer(testPlayer);
-        testBoard.changefirenzyMode();
+        assertTrue(testBoard.triggerFirenzy());
         testBoard.setCurrentPlayer(testPlayer2);
-        testBoard.changefirenzyMode();
+        assertTrue(testBoard.triggerFirenzy());
         testBoard.getNumDamageOnSkullBoard();
         testBoard.getColorDamageOnSkullBoard();
 //        testBoard.getWeaponCardsOnBoard();
 //        System.out.println(testBoard.getCurrentPlayer().getPlayerColor().toString());
-        System.out.println(testBoard.getAllPlayers().get(testBoard.getFirstPlayer()).getPlayerColor().toString());
+        System.out.println(testBoard.getAllPlayers().get(0).getPlayerColor().toString());
         System.out.println(testPlayer.getActionMode());
         System.out.println(testPlayer2.getActionMode());
         System.out.println(testShooter.getActionMode());
