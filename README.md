@@ -8,4 +8,4 @@ see->regola for game regular, lab and application requirement
 
 see->deliveries Sonarqube test and UML
 
- ![image](https://github.com/muxueman/ing-sw-2019-Mu-Li-Jia/blob/master/regola/requsiti.png)
+ ![image](https://github.com/muxueman/ing-sw-2019-Mu-Li-Jia/blob/master/regola/requisiti.png)
