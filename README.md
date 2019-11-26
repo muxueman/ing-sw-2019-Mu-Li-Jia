@@ -9,3 +9,5 @@ see->regola for game regular, lab and implementation requirements
 see->deliveries/uml for Sonarqube test, UML and design pattern
 
  ![image](https://github.com/muxueman/ing-sw-2019-Mu-Li-Jia/blob/master/regola/requisiti.png)
+
+we finished simple regola, Socket, RMI, GUI, CLI, multiple-agent games using MVC model, several design patterns.
