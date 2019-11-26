@@ -1,0 +1,56 @@
+项目要求：
+
+英文书写：The names of classes, interfaces, variables, and in general all the identifiers in the code  The comments in the code and the technical documentation (JavaDoc) 
+简单模式 Only the basic mode of all weapons is considered; the frenzy and the adrenal actions are not present. 
+完整模式 All weapon modes are considered; the frenzy and the adrenal actions are present.
+都不包括domination, turrets and the addition of a terminator. 
+
+Each player is identified by a nickname that is set on the client side and must be unique in each.
+
+The project consists of the implementation of a distributed system composed of a single server capable of managing one game at a time and multiple clients (one per player) that can participate in only one game at a time. 
+
+It requires the use of the MVC (Model-View-Controller) pattern to design the entire system.
+
+技术要求：
+Server: ~using JavaSE And  be instantiated only once in order to manage a single game(except multiple games-FA). 
+~In case client-server communication is implemented both via socket and via RMI, it must be able to support games where players use tecnologie diverse.（不同的设备吗？）
+Client：~implemented in JavaSE and be instantiable more than once (one per player)
+~The graphic interface must be implemented using Swing or JavaFX
+~If Client-server communication is implemented both via Socket and via RMI, at startup it must allow the player to select the technology to be used. 
+~If Both a textual interface (CLI) and a graphic interface (GUI) are implemented at startup, it must allow the player to select the type of interface to use.
+
+游戏初始化：
+
+It is assumed that every player who wants to play a game knows the IP address or URL of the server.
+如果启动时没有游戏，则创建游戏；
+如果开始时有游戏，则自动加入游戏；
+当三人连接游戏时，出现一个N秒的计时器loaded from a configuration file on the server side or specified via command line parameters
+N秒计时结束前，游戏满足五人则开始
+N秒计时结束后，>=3开始，<3重新计时
+
+
+游戏中：
+【如果有玩家突然离开leave或者断线connection fail】
+每个玩家都有提前规定好的时间限制来操作每一步，如果出现上述情况，
+	1. Each player has a predefined time to execute the moves (loaded from a configuration file or indicated as a parameter on the command line).  The server waits for the above period, after which it suspends the player, i.e. the player does not make moves but is still considered in the points count.
+	2. All players are informed when a player leaves the game（如上述情况）
+	3. The game continues, skipping the suspended player's spins.
+	4.  The player can reconnect and continue the game. If at any time less than 3 players remain in a current game, the player with the highest score at that time is the winner.
+
+ Advanced Features评分标准FA
+	1. 同时进行多个游戏Multiple games：创建服务器以便它可以同时处理多个游戏，在第一个游戏创建过程之后，将访问服务器的玩家将在等候室中等待创建第二个游戏等等。
+	2. 统治模式或炮塔Domination mode or turrets:：包括实施两种模式中的一种，即使实现两个也认为是一种
+	3. 持久性：游戏的状态必须保存在磁盘上，这样即使服务器停止运行，游戏也可以恢复。The status of a game must be saved on disk, so that the game can resume even after the server has stopped running. To resume a game, players must reconnect to the server using the same nick names once it is active again. It is assumed that the server does not interrupt its execution while it is being saved to disk and that the disk is a totally reliable memory. 
+	4. 终结者：implementing the possibility of adding a "terminator"
+
+
+评分标准
+1. The quality of the design, with particular reference to an appropriate use of interfaces, inheritance classi, composition between classes, use of design patterns (static , communication and architecture) and division of responsibilities.
+2. Implementation stability and compliance with specifications. 
+3. The readability of the written code, with particular reference to the names of variables / methods / classes / packages, the inclusion of comments in English and JavaDoc documentation in English, the lack of repeated code and excessive length methods. 
+4. The effectiveness and coverage of test cases, the name and comments of each test must clearly specify the features tested and the components involved. 
+5. The use of tools (IntelliJ IDEA, Git, Maven, ...). 
+6. Autonomy, commitment and communication (with managers and within the group) during all phases of the project.
+
+
+
